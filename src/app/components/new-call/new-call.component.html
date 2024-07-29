@@ -1,0 +1,37 @@
+<div newCall>
+    <div recip>
+        <p>אל:</p>
+        <div recipient *ngFor="let r of listOfRecipientForMessage"><p name>{{nameWorker(r.RFM_worker_code)}}</p><p x (click)="remove(r.RFM_worker_code)">x</p></div>
+        <div select>
+            <input type="text" (input)="onInputChangeWorkerToSend($event)" [value]="searchWorkerToSend">
+            <div ListToSend *ngIf="displayListWorkers">
+                <label  *ngFor="let w of listOfWorkersToSend" (click)="selectWorker(w.Wo_code)">{{w.Wo_name+"
+                    "+w.Wo_Fname}}</label>
+            </div>
+        </div>
+        <br>
+        <button b0 *ngIf="codeWorkerSender!=1" [ngClass]="{'b0':b0}" (click)="b0=!b0">תפארת דוד</button>
+        <button b1 *ngIf="gender(codeWorkerSender)==1" [ngClass]="{'b1':b1}" (click)="b1=!b1;b2=false;b3=false">קבוצת בנים</button>
+        <button b2 *ngIf="gender(codeWorkerSender)==1" [ngClass]="{'b2':b2}" (click)="b2=!b2;b1=false">קבוצת פעילים</button>
+        <button b3 *ngIf="gender(codeWorkerSender)==1" [ngClass]="{'b3':b3}" (click)="b3=!b3;b1=false">קבוצת חונכים</button>
+        <button b4 *ngIf="gender(codeWorkerSender)==2 || codeWorkerSender==1" [ngClass]="{'b4':b4}" (click)="b4=!b4;b5=false;b6=false;">קבוצת בנות</button>
+        <button b5 *ngIf="gender(codeWorkerSender)==2 || codeWorkerSender==1" [ngClass]="{'b5':b5}" (click)="b5=!b5;b4=false">קבוצת פעילות</button>
+        <button b6 *ngIf="gender(codeWorkerSender)==2 || codeWorkerSender==1" [ngClass]="{'b6':b6}" (click)="b6=!b6;b4=false">קבוצת חונכות</button>
+    </div>
+    <div topic>
+        <input type="text" placeholder="נושא" (input)="onInputChangeTopic($event)" max="2000" value="{{Ca_topic}}">
+    </div>
+
+
+    <div contect>
+        <textarea (input)="onInputChangeContect($event)" max="4000" value="{{MFC_content}}"></textarea>
+        <app-file-upload></app-file-upload>
+
+    </div>
+    <div bottom>
+        <button send (click)="add()">שלח</button>
+        <div>{{sec}}</div>
+    </div>
+
+</div>
+<app-file-upload></app-file-upload>

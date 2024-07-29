@@ -1,0 +1,80 @@
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(255, 255, 0);
+$color-red: rgb(255, 35, 35);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+$color-turqis-dark: rgb(10, 70, 56);
+
+//גדלי הכתב
+h1,
+h2 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.5vw;
+    text-align: center;
+    color: rgb(1, 180, 150);
+    width: 80%;
+    margin: 20px auto;
+}
+
+[all] {
+    margin: auto;
+    text-align: center;
+
+    //סלקטיםם
+    select {
+        margin: auto;
+
+        height: 40px;
+        display: block;
+        text-align: right;
+        outline: none;
+        color: rgb(0, 0, 0);
+        border: 2px solid $color-turqis;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 176px;
+        font-family: Assistant-Regular;
+        background-color: white;
+
+        option {
+            background-color: white;
+            font-family: Assistant-Regular;
+            font-size: 1.1em;
+            color: black;
+            font-size: 18px;
+
+        }
+    }
+
+    //כפתור בסיסי
+
+    button {
+        cursor: pointer;
+        background-color: white;
+        border: 2px solid $color-turqis;
+        color: $color-turqis;
+        width: 200px;
+        height: 40px;
+        font-family: Assistant-Bold;
+        font-size: 1em;
+        display: block;
+        margin: auto;
+        margin-top: 5vh;
+    }
+
+    button :active {
+        position: relative;
+        top: 2px;
+        background-color: $color-turqis;
+        color: white;
+    }
+
+}

@@ -1,0 +1,119 @@
+<h1 titleA>פעילים</h1>
+<div ppp>
+
+    <p> מגדר: </p>
+    <p class="bold">{{nameFilterG(genderF)}}</p>
+    <p> סוג עובד: </p>
+    <p class="bold">{{nameFilterTW(typeWF,genderF)}}</p>
+    <p> מיון לפי:</p>
+    <p class="bold"> {{nameOrder()}}</p>
+    <br>
+
+</div>
+<div allP nonePrint>
+    <div p1>
+        <div class="find">
+            <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
+        </div>
+    </div>
+    <div p2>
+        <div iconnOtef (click)="print()">
+            <button iconn print title="הדפס"></button>
+        </div>
+        <div iconnOtef (click)="sAddWorker=true">
+            <button iconn plus title="הוסף עובד"></button>
+        </div>
+    </div>
+
+</div>
+<div allP2 nonePrint>
+
+    <div orders>
+        <div lible>מיין לפי</div>
+        <div pos>
+            <select [ngClass]="{'slectSelected':true}" (change)="onOrderSelected($event)">
+                <option selected>מגדר </option>
+                <option>סוג עובד </option>
+            </select>
+
+        </div>
+    </div>
+    <div filters>
+        <div lible>סנן לפי</div>
+        <div f2>
+            <div pos1>
+                <select [ngClass]="{'slectSelected':genderF!=0}" (change)="onGenderSelected($event)">
+                    <option selected [value]="0">הכל </option>
+                    <option [value]="1">בנים </option>
+                    <option [value]="2">בנות </option>
+                </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':typeWF!=0}" (change)="onActivityStatusSelected($event)">
+                    <option selected [value]="0">הכל </option>
+                    <option [value]="1">פעילים </option>
+                    <option [value]="2">חונכים </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>שם</th>
+            <th>ת.ז</th>
+            <th>תפקיד</th>
+            <th>פלאפון</th>
+            <th>אימייל</th>
+            <th>סיסמא</th>
+            <th nonePrint> </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of listOfWorkers">
+            <td>
+                <div class="iconBig" [ngClass]="{'iconColorBoy':i.Wo_gender==1,'iconColorGirl':i.Wo_gender==2,}">
+                    <div class="icon"></div>
+                </div>
+            </td>
+            <td class="bold">{{i.Wo_name+" "+i.Wo_Fname}}</td>
+            <td>{{i.Wo_ID}}</td>
+
+            <td>
+                <div [ngClass]="{'circle':true,'pail':i.Wo_type_worker==1,'chonech':i.Wo_type_worker==2}"></div>
+                {{ typeW(i.Wo_type_worker)}}
+            </td>
+            <td>{{i.Wo_cell_phone}}</td>
+            <td>{{i.Wo_email}}</td>
+            <td>{{i.Wo_password}}</td>
+            <td nonePrint>
+                <button edit title="ערוך" (click)="edit(i);">ערוך</button>
+                <button iconn2 request title="הוסף פניה" class="button"></button>
+                <button iconn2 delete title="מחק" class="button"
+                    (click)="delete(i.Wo_code,i.Wo_name+' '+i.Wo_Fname)"></button>
+                <button iconn2 unlock *ngIf="!ifLocking(i.Wo_password)" title="חסום פעיל" class="button"
+                    (click)="lock(i)"></button>
+                <button iconn2 lock *ngIf="ifLocking(i.Wo_password)" title="שחרר פעיל" class="button"
+                    (click)="unlock(i)"></button>
+                <button iconn2 students title="הצג חניכים" class="button"></button>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+<div amountWorker>סה"כ: {{amount}}</div>
+
+
+
+<app-add-update-worker [popupDisplayIn]="sAddWorker" [amountWorkers]="amountAll" [status]="'add'"
+    (popupDisplayOut)="closeP($event)"></app-add-update-worker>
+
+<app-add-update-worker [popupDisplayIn]="sUpdateWorker" [amountWorkers]="amountAll" [status]="'update'"
+    [workerUpdate]="updateWorker" (popupDisplayOut)="closeP($event)"></app-add-update-worker>

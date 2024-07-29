@@ -1,0 +1,71 @@
+<h1>פניות צוות</h1>
+
+<div top>
+  <select (change)="onSelectedMail($event)">
+    <option selected value="0">דואר נכנס </option>
+    <option value="1">דואר יוצא </option>
+  </select>
+  <div class="find">
+    <input type="search" role="combobox" placeholder="חפש">
+    <!--   <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)"> -->
+  </div>
+</div>
+
+
+<div mail>
+  <div windows1>
+    <div *ngIf="!displayOpen">
+      <div titlee>
+        <!--   <input type="checkbox"> -->
+        <div refresh (click)="generalCalls()"></div>
+        <div delete></div>
+        <div unread></div>
+      </div>
+      <div allCall>
+        <app-call *ngFor="let c of listOfCalls" [call]="c" [codeWorker]="codeWorker"
+          (codeCall)="openCall($event)"></app-call>
+      </div>
+    </div>
+
+    <div callOpen *ngIf="displayOpen">
+      <div titlee>
+        <div exit (click)="displayOpen=!displayOpen;"></div>
+        <div delete></div>
+        <div unread></div>
+      </div>
+      <p topic>{{call.Ca_topic}}</p>
+      <app-message *ngFor="let m of listOfMessages" [message]="m"></app-message>
+    </div>
+  </div>
+  <div windows2>
+    <app-new-call [codeWorkerSender]="codeWorker"></app-new-call>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <link data-minify="1" rel="stylesheet" href="https://rooks.co.il/wp-content/cache/min/1/font-awesome/4.5.0/css/font-awesome.min.css?ver=1702894492">
+
+/* WhatsApp icon */
+      <a
+        href="https://wa.me/0584458206"
+        class="chat"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="fa fa-whatsapp whatsapp-icon"></i>
+      </a> -->

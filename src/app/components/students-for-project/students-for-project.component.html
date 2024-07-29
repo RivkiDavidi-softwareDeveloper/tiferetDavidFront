@@ -1,0 +1,13 @@
+<div background>
+    <div popup>
+        <button close (click)="close();">x</button>
+
+        <p>חניכים לפרויקט:</p>
+         <p name> {{project.Pr_name}}</p>
+         <div tagList>
+            <li tagListItem *ngFor="let s of listStudentsForProjects">{{nameStudent(s.SFP_code_student)}}</li>
+
+         </div>
+        
+    </div>
+</div>

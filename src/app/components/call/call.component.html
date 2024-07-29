@@ -1,0 +1,26 @@
+<div callAll
+    [ngClass]="{'done':listOfMessages[listOfMessages.length-1].MFC_done==0,'noReading':listOfMessages[listOfMessages.length-1].MFC_done==1}">
+    <input type="checkbox">
+    <div call (click)="openCall(call.Ca_code)">
+        <label *ngIf="!listOfMessages[listOfMessages.length-2]" userName>
+            {{nameWorker(listOfMessages[listOfMessages.length-1].MFC_sender_worker_code,1)}}
+
+        </label>
+
+        <label userName *ngIf="listOfMessages[listOfMessages.length-2]">
+            {{nameWorker(listOfMessages[listOfMessages.length-1].MFC_sender_worker_code,2)}}
+            <label *ngIf="listOfMessages[listOfMessages.length-2]"> ,
+                {{nameWorker(listOfMessages[listOfMessages.length-2].MFC_sender_worker_code,2)}}</label> <label
+                numOfMessages>{{listOfMessages.length}}</label></label>
+
+        <label contectAndTopic>
+            <p topic>{{call.Ca_topic}}</p>
+            -
+            <p contect>{{listOfMessages[listOfMessages.length-1].MFC_content}}</p>
+        </label>
+        <p date>
+
+            {{displayDate(listOfMessages[listOfMessages.length-1].MFC_date,listOfMessages[listOfMessages.length-1].MFC_time) }}
+        </p>
+    </div>
+</div>

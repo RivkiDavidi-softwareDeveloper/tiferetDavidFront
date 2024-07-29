@@ -1,0 +1,71 @@
+<div class="top" [ngClass]="{'topBanot':worker.Wo_gender==2}" nonePrint>
+    <div class="tab">
+<!--         <div [ngClass]="{'homeOtef':true}">
+            <button [ngClass]="{'home':true}"
+                (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+                <div class="inHome"></div>
+            </button>
+        </div> -->
+        <button homeButton (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+        </button>
+        <button [ngClass]="{'button1':true,'button2':active}"
+            (click)="active=true;students=false;task=false;projects=false;pz=false;">דיווח על פעילות</button>
+        <button [ngClass]="{'button1':true,'button2':students}"
+            (click)="students=true;task=false;projects=false;pz=false;active=false">אזור חניכים</button>
+        <button [ngClass]="{'button1':true,'button2':task}"
+            (click)="students=false;task=true;projects=false;pz=false;active=false">משימות ותזכורות
+            <label>{{amountTasksND}}</label></button>
+
+
+        <button [ngClass]="{'button1':true,'button2':pz}"
+            (click)="students=false;task=false;projects=false;pz=true;active=false">פניות צוות
+            <label>{{amountMessagesND}}</label></button>
+
+        <button [ngClass]="{'button1':true,'button2':projects}"
+            (click)="students=false;task=false;projects=true;pz=false;active=false">שיוך לפרויקטים</button>
+
+    </div>
+    <div class="tab2">
+        <div [ngClass]="{'homeOtef':true}">
+            <button [ngClass]="{'home':true}"
+                (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+                <div class="inHome"></div>
+            </button>
+        </div>
+        <button homeButton (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+        </button>
+        <select (change)="onListSelected($event)">
+            <option selected [value]="1" [selected]="active">דיווח על פעילות</option>
+            <option [value]="2" [selected]="students">אזור חניכים</option>
+            <option [value]="3" [selected]="task">משימות ותזכורות</option>
+            <option [value]="5" [selected]="pz">פניות צוות</option>
+            <option [value]="4" [selected]="projects">שיוך לפרויקטים</option>
+
+
+        </select>
+    </div>
+
+    <div class="ologo">
+        <div [ngClass]="{'logo':true,'logoBanot':worker.Wo_gender==2,'logoBanim':worker.Wo_gender==1}"></div>
+    </div>
+</div>
+
+<div windos>
+    <!--     <label class="label1">{{worker?.Wo_name+" "+worker?.Wo_Fname}}</label>
+ -->
+    <header>בס"ד</header>
+
+    <app-activity-reporting *ngIf="active" [worker]="worker" [minutes]="minutes" [kilomet]="kilomet" [exit]="exit" [target]="target" (editStudent)="updateStudent($event)">
+    </app-activity-reporting>
+    <app-display-students *ngIf="students" [codeWorkerSelected]="worker.Wo_code" [sUpdateStudent]="displayUpdateStudent"
+        [studentUpdate]="studentUpdate" [imageBlobURL]="imageBlobURL"
+       
+        (popupDisplayOut)="closePAdd($event)"></app-display-students>
+    <app-tasks *ngIf="task" [codeWorker]="worker.Wo_code" (amountTask)="updateAmountTask()"></app-tasks>
+    <app-worker-inquiries *ngIf="pz" [codeWorker]="worker.Wo_code"></app-worker-inquiries>
+    <app-contact-to-project *ngIf="projects" [worker]="worker"></app-contact-to-project>
+
+
+
+
+</div>

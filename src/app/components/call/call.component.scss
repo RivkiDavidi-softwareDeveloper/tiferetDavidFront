@@ -1,0 +1,94 @@
+.done {
+    background-color: rgb(238, 255, 250);
+
+}
+
+.noReading {
+    background-color: rgb(217, 246, 237);
+
+}
+
+[callAll] {
+  //  width: 80%;
+    //  background-color: rgb(218, 255, 247);
+    height: 40px;
+    border-bottom: 5px solid white;
+    margin: auto;
+    display: flex;
+
+    input {
+        margin-top: 12.5px;
+        margin-right: 10px;
+        width: 15px;
+        height: 15px;
+        display: inline-block
+    }
+
+    [call] {
+        width: 95%;
+        margin: auto;
+        display: flex;
+        overflow: hidden;
+        white-space: nowrap;
+
+        /*     overflow: hidden;
+    white-space: nowrap; */
+        [userName] {
+            margin: auto;
+            font-family: Assistant-Bold;
+            font-size: medium;
+            width: 10%;
+            display: inline-block;
+            padding: 0px 8px 0px 0px;
+        }
+
+        [numOfMessages] {
+            color: gray;
+            font-size: smaller;
+            display: inline-block;
+            font-family: Assistant-Light;
+
+        }
+
+        [contectAndTopic] {
+            margin: auto;
+
+            display: inline-block;
+            width: 75%;
+            font-size: medium;
+            margin: auto;
+            overflow: hidden;
+            white-space: nowrap;
+
+            [topic] {
+                margin: auto;
+                padding: 0px 35px 0px 0px;
+                display: inline-block;
+                font-family: Assistant-Bold;
+
+            }
+
+            [contect] {
+                margin: auto;
+
+                color: rgb(82, 82, 82);
+                display: inline-block;
+
+                /*             overflow: hidden;
+            white-space: nowrap; */
+            }
+        }
+
+        [date] {
+            margin: auto 0px auto 8px;
+            display: inline-block;
+            text-align: left;
+            font-family: Assistant-Bold;
+            width: 15%;
+            color: rgb(89, 89, 89);
+            color: gray;
+            font-size: smaller;
+
+        }
+    }
+}

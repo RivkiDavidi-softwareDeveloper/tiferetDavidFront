@@ -1,0 +1,10 @@
+<h1>שיוך לפרויקטים</h1>
+<div all>
+    <label>בחר פרויקט:</label>
+    <select (change)="selectProject($event)">
+        <option selected hidden [value]="0">בחר</option>
+
+        <option *ngFor="let p of listProject" [value]="p.Pr_code">{{p.Pr_name}}</option>
+    </select>
+    <button (click)="addAllStudentForProject()">שייך את כל החניכים שלי</button>
+</div>

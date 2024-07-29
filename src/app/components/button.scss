@@ -1,0 +1,30 @@
+
+$color-turqis: rgb(1, 180, 150);
+button {
+	box-shadow: 0px 0px 0px 0px #bee2f9;
+	background-color:$color-turqis;
+	border:0px solid #071b21;
+	cursor:pointer;
+	color:rgb(0, 0, 0);
+	font-size:large;
+	font-weight:bold;
+	//padding:16px 50px;
+	padding-bottom: 4px;
+	text-align: center;
+	width:130px;
+	height:41px;
+	text-decoration:none;
+	//text-shadow:0px 1px 0px #155e59;
+	display: block;
+	margin:10px auto 10px auto;
+}
+button:hover {
+	background:linear-gradient(to bottom, #18c4b9 5%, #4fe8cc 100%);
+	background-color:#18c4b9;
+}
+button:active {
+	position:relative;
+	top: 1px;
+
+}
+

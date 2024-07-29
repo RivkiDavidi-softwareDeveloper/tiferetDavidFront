@@ -1,0 +1,11 @@
+<div background>
+    <div popup>
+        <button close (click)="close();">x</button>
+
+        <p>הי, שים לב! יש לך חניכים שלא טופלו מעל זמן התדירות המוגדר</p>
+        <div bigbox>
+            <app-student *ngFor="let i of listStudent" [student]="i" [select]="true"></app-student>
+
+        </div>
+    </div>
+</div>

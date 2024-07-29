@@ -1,0 +1,27 @@
+
+  <div class="file-upload-container">
+    <label for="file-upload" class="custom-file-upload">
+      <input id="file-upload" type="file" (change)="onFileSelected($event)" multiple>
+      בחר קבצים
+    </label>
+    <button (click)="onUpload()" [disabled]="!selectedFiles">העלה קבצים</button>
+  
+    <ul *ngIf="selectedFiles" class="file-list">
+      <li *ngFor="let file of  f(selectedFiles)">
+        <i class="file-icon-{{ getFileExtension(file.name) }}"></i>
+
+        {{ file.name }} ({{ formatFileSize(file.size) }})
+      </li>
+      <!-- 
+      <li *ngFor="let file of f(selectedFiles)">
+        <span [ngClass]="getFileIcon(file)">
+          {{ getFileIcon(file) }}
+        </span>
+        {{ file.name }} ({{ formatFileSize(file.size) }})
+      </li> -->
+
+    </ul>
+  </div>
+
+
+

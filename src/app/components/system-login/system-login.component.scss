@@ -1,0 +1,272 @@
+$color-turqis: rgb(31, 126, 104);
+$color-turqis-dark: rgb(10, 70, 56);
+$color-white-dark: rgb(242, 244, 244);
+@keyframes backgroundAnimation {
+    0% {
+      background-color:  rgb(255, 255, 255);
+  
+    }
+    50% {
+      background-color: rgb(255, 255, 255);
+  
+    }
+    100% {
+      background-color:rgb(255, 255, 255);
+    }
+  }
+  :host {
+    display: block;
+    height: 100%;
+    width: 100%;
+    animation: backgroundAnimation 10s infinite alternate;
+  }
+button {
+    font-family: Assistant-Light;
+}
+
+h1,
+h2 {
+    font-family: Assistant-Bold;
+}
+.top {
+    background-color: $color-turqis;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px #4c4c4c;
+
+}
+.ologo {
+    width: 20%;
+    display: flexbox;
+    direction: ltr;
+}
+.logo {
+    height: 10vh;
+    background-image: url('./logoTbig.png');
+    background-size: contain;
+    display: block;
+    text-align: left;
+    background-repeat: no-repeat;
+}
+.tab {
+    direction: rtl;
+    display: flex;
+    flex-wrap: wrap;
+    height: 35%;
+    width: 80%;
+    margin: 1.2vh 30px 1.2vh  0px;
+}
+
+
+.tab2 {
+    direction: rtl;
+    display: none;
+    flex-wrap: wrap;
+    width: 60%;
+
+    //סלקטיםם
+    select {
+        font-size: 25px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        height: 40px;
+        display: block;
+        text-align: right;
+        width: 200px;
+        font-family: Assistant-Regular;
+        //padding: 10px;
+        // margin-bottom: 20px;
+        background-color: $color-turqis;
+        color: white;
+        margin: 10px;
+        display: inline-block;
+
+        option {
+            background-color: white;
+            font-size: 20px;
+            color: rgb(0, 0, 0);
+        }
+
+    }
+}
+[list]{
+    width: 30px;
+    height:30px;
+    background-image: url('../icons/list.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 0px solid rgb(255, 255, 255,0.0);
+    background-color: rgb(242, 244, 244,0.0);
+    filter: invert(100%);
+
+}
+[windos] {
+    margin: 10vh 0px 0px 0px;
+    display: block;
+    text-align: right;
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+.button1 {
+    margin:5px;
+    background-color: $color-turqis;
+    flex: 1;
+    border: 0px;
+    cursor: pointer;
+    color: $color-white-dark;
+    font-size: 1.4vw;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    transition: border-top 1s;
+    font-family: Assistant-Bold;
+    border-radius: 50px;
+    border: 2px solid $color-turqis-dark;
+    line-height: normal;
+
+}
+
+.button2 {
+    background-color: $color-white-dark;
+    color: $color-turqis-dark;
+}
+
+button:hover {
+    background-color: $color-white-dark;
+    color: $color-turqis-dark;
+}
+.homeOtef {
+    margin: 5px;
+    flex: 0.4;
+    font-size: x-large;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    transition: border-top 1s;
+    font-family: Assistant-Bold;
+}
+.home {
+    width: 46px;
+    height: 100%;
+    border-radius: 50px;
+    border: 2px solid $color-turqis-dark;
+    font-weight: bold;
+    margin: 0px;
+    background-color: rgb(242, 244, 244, 0.0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.inHome{
+    background-color: rgb(242, 244, 244, 0.0);
+    background-image: url('../icons/exit2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(100%);
+    width: 40px;
+    height: 40px;
+}
+
+
+@media only screen and (max-width: 960px) {
+
+    .top {
+        height: 60px;
+
+        .tab {
+            display: none;
+        }
+        .tab2 {
+            display: contents;
+            width: 60%;
+        }
+    }
+
+    .logo {
+
+        width: 190px;
+        height: 40px;
+        //margin-right: 15%;
+        background-image: url('./‏‏logoTSmall.png');
+        margin-top: 10px;
+    }
+
+    .ologo {
+        margin-left: 7px;
+     width: 40%;
+    }
+
+    [windos] {
+        margin: 70px 20px 0px 0px;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    .tab {
+        display: none;
+    }
+
+
+
+    .ologo {
+        margin-left: 2px;
+      width: 40%;
+    }
+
+    .logo {
+        width: 140px;
+        height: 30px;
+        margin-right: 10%;
+        background-image: url('./‏‏logoTSmall.png');
+        margin-top: 10px;
+
+    }
+
+    .top {
+        height: 50px;
+
+    }
+    [windos] {
+        margin: 70px 20px 0px 0px;
+    }
+    select{
+        margin: 5px;
+    }
+}
+header{
+    display: none;
+}
+@media print {
+    [nonePrint]{
+      display: none;
+    }
+    [windos]{
+        margin: 0;
+        overflow: visible;
+    }
+
+        header {
+            height: 2cm;
+            display: block;
+            text-align: right;
+            background-image: url('./logoTbig.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: left;
+          }
+        
+          footer {
+            text-align: center;
+          }
+  
+    
+  }

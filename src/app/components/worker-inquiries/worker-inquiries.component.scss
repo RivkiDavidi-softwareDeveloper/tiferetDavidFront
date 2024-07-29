@@ -1,0 +1,282 @@
+h1,
+h2 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.5vw;
+    text-align: center;
+    color: rgb(1, 180, 150);
+    width: 80%;
+    margin: 20px auto;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+//////////////////////הדיב של החפש
+[p1] {
+  display: inline-block;
+  width: 50%;
+}
+
+[top] {
+  margin: 5px 5%;
+  height: 45px;
+
+  select {
+    display: inline-block;    width: 250px;
+    height: 30px;
+    font-family: Assistant-Regular;
+    font-size: 20px;
+    option{
+      font-family: Assistant-Light;
+
+    }
+  }
+
+  //חיפוש
+  .find {
+    display: inline-block;
+
+    color: gray;
+    border: 1px solid black;
+    width: 250px;
+    height: 28px;
+    padding: 2px 10px;
+    border-radius: 50px;
+    margin-right: 10px;
+  }
+
+  .find>input {
+    border: none;
+    outline: none;
+    font-family: Assistant-Light;
+    font-size: 20px;
+    width: 240px;
+    height: 22px;
+    margin: auto;
+  }
+}
+
+[mail] {
+  display: flex;
+  flex-direction: row;
+  height: 67vh;
+  overflow: hidden;
+
+  [windows1] {
+    text-align: left;
+    width: 45%;
+    display: inline-block;
+    height: 67vh;
+    margin: 0px 5% 0px 0px;
+    border: 4px;
+    overflow-y: scroll;
+    scroll-behavior: auto;
+    [titlee] {
+      text-align: right;
+      background-color: rgb(238, 255, 250);
+      // width: 80%;
+      //  margin: auto;
+      height: 30px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      display: block;
+      border-bottom: 4px solid white;
+
+      input {
+        //  margin: 5px;
+        width: 15px;
+        height: 15px;
+        border: 2px solid black;
+        display: inline-block;
+
+      }
+
+      [refresh],
+      [delete],
+      [unread] {
+        margin: 5px;
+        height: 20px;
+        width: 20px;
+        margin-left: 18px;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        background-size: 15px;
+      }
+
+      [refresh] {
+        background-image: url('../icons/refresh.png');
+        // background-size: px;
+      }
+
+      [delete] {
+        background-image: url('../icons/deleteMail.png');
+        background-size: 20px;
+      }
+
+      [unread] {
+        background-image: url('../icons/mail.png');
+        background-size: 20px;
+      }
+    }
+
+    [allCall] {
+      text-align: right;
+      height: 95%;
+     // height: 400px;
+    //  overflow: scroll;
+      display: block;
+      overflow-y: scroll;
+      scroll-behavior: auto;
+    }
+
+    [callOpen] {
+      text-align: right;
+
+      // margin: auto;
+      [titlee] {
+        background-color: rgb(237, 237, 237);
+        width: 100%;
+        margin: auto;
+        height: 40px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        display: block;
+
+
+
+        [exit],
+        [delete],
+        [unread] {
+          margin: 5px;
+          height: 30px;
+          width: 30px;
+          margin-left: 18px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          background-size: 25px;
+        }
+
+        [exit] {
+          background-image: url('../icons/back.png');
+          background-size: 26px;
+
+        }
+
+        [delete] {
+          background-image: url('../icons/deleteMail.png');
+        }
+
+        [unread] {
+          background-image: url('../icons/mail.png');
+          background-size: 27px;
+
+        }
+
+      }
+
+      [topic] {
+        font-family: Assistant-Bold;
+        font-size: 20px;
+        padding-right: 40px;
+        padding-top: 10px;
+      }
+    }
+  }
+
+  [windows2] {
+    width: 45%;
+    display: inline-block;
+    margin: 0px 0px 0px 5%;
+    text-align: right;
+
+
+  }
+}
+
+/* עיצוב כללי של ה- scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  /* רוחב ה- scrollbar */
+}
+
+/* עיצוב חלק ספציפי של ה- scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(210, 210, 210);
+  /* צבע המשולש של ה- scrollbar */
+  border-radius: 0px;
+  /* רדיוס הפינות של ה- scrollbar */
+}
+
+/* עיצוב על פי הגלילה של ה- scrollbar */
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+  /* צבע רקע של ה- scrollbar */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.chat {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #FFFFFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+}
+
+.whatsapp-icon {
+  margin-top: 16px;
+}
+
+@media screen and (max-width: 767px) {
+  .whatsapp-icon {
+      margin-top: 10px;
+  }
+
+  .chat {
+      width: 40px;
+      height: 40px;
+      bottom: 20px;
+      right: 10px;
+      font-size: 22px;
+  }
+} */

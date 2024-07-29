@@ -1,0 +1,810 @@
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(255, 255, 0);
+$color-red: rgb(255, 35, 35);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+$color-turqis-dark: rgb(10, 70, 56);
+
+//גדלי הכתב
+h1,
+h2 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.5vw;
+    text-align: center;
+    color: rgb(1, 180, 150);
+    width: 80%;
+    margin: 20px auto;
+}
+
+h2 {
+    font-size: 1.35em;
+    padding: 0px 40px 0px 0px;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    text-align: center;
+    margin: auto;
+    width: 250px;
+
+}
+
+label {
+    margin: 1px 4px;
+}
+
+[labelStudentSelected] {
+    color: $color-turqis;
+
+    font-size: 1.1em;
+    font-family: Assistant-Bold;
+
+}
+
+//איקונים של התויות
+[chooseStudent] {
+    background-image: url('../icons/student3.png');
+    background-position: 72%;
+
+}
+
+[date] {
+    background-image: url('../icons/date.png');
+    background-position: 76%;
+
+}
+
+[time] {
+    background-image: url('../icons/time.png');
+    background-position: 75%;
+
+}
+
+[nesu] {
+    background-image: url('../icons/nesu.png');
+    background-position: 75%;
+
+}
+
+[topic] {
+    background-image: url('../icons/Topic.png');
+    background-position: 75%;
+}
+
+[describe] {
+    background-image: url('../icons/describe.png');
+    background-position: 86%;
+
+}
+
+[uploadFiles] {
+    background-image: url('../icons/cloud-upload3.png');
+    background-position: 76%;
+}
+
+[history] {
+    background-image: url('../icons/list2.png');
+    background-position: 82%;
+}
+
+//כפתור בסיסי
+button {
+    cursor: pointer;
+    background-color: white;
+    border: 2px solid $color-turqis;
+    color: $color-turqis;
+    width: 200px;
+    height: 40px;
+    font-family: Assistant-Bold;
+    font-size: 1em;
+    margin: 0px;
+}
+
+button:hover {
+    /*     background-color: $color-turqis;
+    color: rgb(255, 255, 255); */
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+    /*     background-color: $color-turqis;
+    color: rgb(255, 255, 255); */
+}
+
+button:disabled,
+button:disabled:hover {
+    color: #bbbbbb;
+    border: 2px solid #bbbbbb;
+    cursor: not-allowed;
+    background-color: white;
+}
+
+[buttonAddActivity] {
+    width: 420px;
+
+}
+
+[buttonOrange] {
+    border: 2px solid rgb(255, 127, 39);
+    color: rgb(255, 127, 39);
+    /*     width: 22vw; */
+    margin: 10px 10px 0px 10px;
+
+
+}
+
+[buttonOrange]:hover {
+    background-color: rgb(255, 127, 39);
+    color: rgb(255, 255, 255);
+}
+
+[buttonOrange]:active,
+[buttonOrange]:focus {
+    background-color: rgb(255, 127, 39);
+    color: rgb(255, 255, 255);
+    position: relative;
+    top: 2px;
+}
+
+[buttonTurqis] {
+    margin: 10px 10px 0px 10px;
+}
+
+[buttonTurqis]:hover {
+    background-color: $color-turqis;
+    color: rgb(255, 255, 255);
+}
+
+[buttonTurqis]:active {
+    position: relative;
+    top: 2px;
+    background-color: $color-turqis;
+    color: rgb(255, 255, 255);
+}
+
+//כל הדף הפנימי
+.all {
+    /*     display: block;
+    text-align: right; */
+    width: 100%;
+    margin: auto;
+
+    text-align: center;
+}
+
+//כפתור פעילות קבוצתית
+.displayGroupActivities,
+.displayDayChoose,
+.displayMinutesHours,
+.displayNesuChoose {
+    background-color: $color-turqis;
+    color: rgb(255, 255, 255);
+
+}
+
+//מכיל בתוכו את כל התמונות של החניכים
+.bigbox {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2px auto 15px auto;
+    max-height: 184px;
+    //justify-content: space-around; //רווחים בצדדים
+    //  justify-content: space-between;//הצמדה  לצדדים
+    overflow: scroll;
+    overflow-y: auto;
+    /* הפעלת סקרול רק לאורך */
+    overflow-x: hidden;
+    /* נעילת סקרול לרוחב */
+    border: 1px solid #ccc;
+    max-width: 75vw;
+}
+
+.boxChoose {
+    width: 124px;
+    height: 184px;
+    margin: auto;
+    margin-top: 2px;
+    border: 1px solid #ccc;
+
+}
+
+//פילטרים לסינון תצוגת החניכים
+[filters] {
+    display: contents;
+    flex-wrap: wrap;
+    padding-bottom: 5px;
+}
+
+//כפתורי סינונים
+.buttonFilter {
+    display: inline-block;
+    margin-left: 14px;
+    width: 120px;
+    margin-top: 10px;
+}
+
+[allList] {
+    background-color: white;
+    border: 2px solid orange;
+    ;
+    color: orange;
+}
+
+.displayallList {
+    background-color: orange;
+    color: white;
+}
+
+[studentActive] {
+    background-color: white;
+    border: 2px solid rgb(2, 165, 2);
+    ;
+    color: rgb(2, 165, 2);
+}
+
+.displaystudentActive {
+    background-color: rgb(2, 165, 2);
+    color: white;
+}
+
+[studentFinish] {
+    background-color: white;
+    border: 2px solid rgb(0, 102, 255);
+    color: rgb(0, 102, 255)
+}
+
+.displaystudentFinish {
+    background-color: rgb(0, 102, 255);
+    color: white;
+}
+
+[studentSuspended] {
+    background-color: white;
+    border: 2px solid orangered;
+    color: orangered;
+}
+
+.displaystudentSuspended {
+    background-color: orangered;
+    color: white;
+}
+
+//סלקטיםם
+select {
+    height: 40px;
+    display: inline-block;
+    text-align: right;
+    outline: none;
+    color: rgb(0, 0, 0);
+    border: 2px solid $color-turqis;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 176px;
+    font-family: Assistant-Regular;
+    background-color: white;
+
+    option {
+        background-color: white;
+        font-family: Assistant-Regular;
+        font-size: 1.1em;
+        color: black;
+        font-size: 18px;
+
+    }
+}
+
+
+
+//ינפוט להכנסת תאור על הפעילות
+textarea {
+    width: 75%;
+    height: 120px;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block;
+    text-align: right;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    margin: auto;
+}
+
+//העלאת קבצים לפעילות
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .custom-file-upload {
+        cursor: pointer;
+        background-color: white;
+        border: 2px solid $color-turqis;
+        color: $color-turqis;
+        width: 120px;
+        height: 40px;
+        line-height: 40px;
+        font-family: Assistant-Bold;
+        font-size: 1em;
+        margin: 0px;
+    }
+
+    .custom-file-upload:hover,
+    .custom-file-upload:active,
+    .custom-file-upload :focus {
+        background-color: $color-turqis;
+        color: white;
+    }
+
+    .custom-file-upload input[type="file"] {
+        display: none;
+    }
+
+    .file-list {
+        padding: 0;
+
+        [file] {
+            background-color: rgb(255, 255, 255);
+            padding: 2.5px;
+            border: rgb(0, 0, 0) solid 1px;
+            width: 80px;
+            height: 42px;
+            // border-radius: 5px;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 16px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-position: center 8px;
+            background-size: 30px;
+            padding-top: 38px;
+            margin: 5px;
+
+            p {
+                font-size: smaller;
+                text-align: center;
+                height: 40px;
+                width: 78px;
+                overflow: hidden;
+            }
+        }
+
+        .excel-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ excel.svg.png');
+        }
+
+        .word-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ text2.svg.png');
+        }
+
+        .pdf-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ pdf.svg.png');
+        }
+
+        .image-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ picture.svg.png');
+        }
+
+        .music-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ music.svg.png');
+        }
+
+        .video-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ video.svg.png');
+        }
+
+        .default-file-icon-class {
+            background-image: url('../icons/iconsFiles/icomoon\ file\ empty.svg.png');
+        }
+
+    }
+
+
+}
+
+//קופסתא של כל תויות
+[boxxx] {
+    // padding: 0px 30px 0px 0px;
+}
+
+//ינפוטים
+input {
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    text-align: right;
+    height: 20px;
+    width: 150px;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    //  margin-bottom: 20px;
+
+}
+
+//קוביות של השעות והדקות
+.minutesHours {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+
+}
+
+//כפתורי מהות פעילות
+.buttonTopic {
+    height: 80px;
+    width: 80px;
+    margin: 5px;
+    font-size: 0.71em;
+    padding: 1.5px;
+    padding-top: 52px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-size: 32px;
+}
+
+.phone {
+    background-image: url('../icons/colors/phone00.png');
+    border: 2px solid rgb(236, 28, 36);
+    color: rgb(236, 28, 36);
+}
+
+.phoneB {
+    background-image: url('../icons/iconActivity/phone.png');
+    border: 2px solid rgb(236, 28, 36);
+    background-color: rgb(236, 28, 36);
+    color: white;
+
+}
+
+.meeting {
+    background-image: url('../icons/colors/meeting00.png');
+    border: 2px solid rgb(184, 61, 186);
+    color: rgb(184, 61, 186);
+}
+
+.meetingB {
+    background-image: url('../icons/iconActivity/meeting.png');
+    border: 2px solid rgb(184, 61, 186);
+    background-color: rgb(184, 61, 186);
+    color: white;
+
+}
+
+.car {
+    background-image: url('../icons/colors/car00.png');
+    border: 2px solid rgb(90, 217, 209);
+    color: rgb(90, 217, 209);
+    ;
+}
+
+.carB {
+    background-image: url('../icons/iconActivity/car.png');
+    border: 2px solid rgb(90, 217, 209);
+    background-color: rgb(90, 217, 209);
+    color: white;
+
+}
+
+.gift {
+    background-image: url('../icons/colors/gift00.png');
+    border: 2px solid rgb(240, 55, 110);
+    color: rgb(240, 55, 110);
+}
+
+.giftB {
+    background-image: url('../icons/iconActivity/gift.png');
+    border: 2px solid rgb(240, 55, 110);
+    background-color: rgb(240, 55, 110);
+    color: white;
+}
+
+.tree {
+    background-image: url('../icons/colors/tree00.png');
+    border: 2px solid rgb(14, 209, 69);
+    color: rgb(14, 209, 69);
+}
+
+.treeB {
+    background-image: url('../icons/iconActivity/tree.png');
+    border: 2px solid rgb(14, 209, 69);
+    background-color: rgb(14, 209, 69);
+    color: white;
+}
+
+.school {
+    background-image: url('../icons/colors/school00.png');
+    border: 2px solid rgb(63, 72, 204);
+    color: rgb(63, 72, 204);
+}
+
+.schoolB {
+    background-image: url('../icons/iconActivity/school.png');
+    border: 2px solid rgb(63, 72, 204);
+    background-color: rgb(63, 72, 204);
+    color: white;
+}
+
+.book {
+    background-image: url('../icons/colors/book00.png');
+    border: 2px solid rgb(168, 92, 52);
+    color: rgb(168, 92, 52);
+}
+
+.bookB {
+    background-image: url('../icons/iconActivity/book.png');
+    border: 2px solid rgb(168, 92, 52);
+    background-color: rgb(168, 92, 52);
+    color: white;
+}
+
+.group {
+    background-image: url('../icons/colors/group00.png');
+    border: 2px solid rgb(255, 127, 39);
+    color: rgb(255, 127, 39);
+}
+
+.groupB {
+    background-image: url('../icons/iconActivity/group.png');
+    border: 2px solid rgb(255, 127, 39);
+    background-color: rgb(255, 127, 39);
+    color: white;
+}
+
+//פרטים של סוג פעילות
+[details] {
+    border: 0.5px solid gray;
+    border: 1px solid $color-turqis-dark;
+    display: none;
+    position: relative;
+    margin: 30px auto;
+    padding: 20px;
+    flex-wrap: wrap;
+    width: 75vw;
+    max-width: 75vw;
+    [contectAll] {
+        display: flex;
+        flex-wrap: wrap;
+        div {
+            display: inline-block;
+    margin-left: 15px;
+            label {
+                display: block;
+                margin: 0px;
+                text-align: right;
+                margin-bottom: 5px;
+                font-family: Assistant-SemiBold;
+            }
+    
+            //ינפוטים
+            input {
+                font-size: 20px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                height: 19px;
+                display: block;
+                text-align: right;
+                width: 180px;
+                font-family: Assistant-Regular;
+                padding: 10px;
+                margin: 0px;
+                margin-bottom: 20px;
+    
+            }
+    
+            select {
+                width: 200px;
+                margin: 0px;
+                margin-right: 0px;
+                margin-bottom: 20px;
+            }
+    
+            [shach] {
+                display: inline-block;
+    
+            }
+        }
+    }
+
+
+}
+
+.detailsDisplay {
+    display: flex;
+
+}
+
+[titleOfDetails] {
+    color: $color-turqis-dark;
+    font-weight: bold;
+    font-size: 15px;
+    font-size: medium;
+    position: absolute;
+    top: -10px;
+    z-index: 4;
+    background-color: rgb(255, 255, 255);
+    margin-right: 5px;
+    padding-right: 2px;
+    padding-left: 2px;
+    height: 20px;
+}
+
+//ינפוט של כסף
+[money] {
+    width: 50px;
+
+}
+
+//שגיאה
+[eror] {
+    color: $color-red;
+    font-weight: normal;
+    padding: 0px;
+}
+
+table {
+    font-size: 2.1vh;
+    width: 95vw;
+    margin: auto 2.5vw;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-family: Assistant-Regular;
+
+    th,
+    td {
+        padding: 4px;
+        text-align: right;
+        border-bottom: 1px solid rgb(207, 207, 207);
+        background-color: rgb(255, 255, 255);
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: rgb(229, 235, 235);
+    }
+
+    tr {
+        height: 20px;
+    }
+
+    thead {
+        height: 0.3cm;
+        font-family: Assistant-Bold;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 60vw;
+    }
+
+    [dateTable] {
+        color: rgb(13, 179, 13);
+        font-family: Assistant-Bold;
+
+    }
+
+    [details] {
+        p {
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+}
+
+[imageCategory] {
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    background-position: bottom;
+    margin: auto 0px auto 8px;
+}
+
+label {
+    &[id="2"] {
+        background-image: url('../icons/colors/phone00.png');
+    }
+
+    &[id="3"] {
+        background-image: url('../icons/colors/meeting00.png');
+    }
+
+    &[id="4"] {
+        background-image: url('../icons/colors/car00.png');
+    }
+
+    &[id="5"] {
+        background-image: url('../icons/colors/gift00.png');
+    }
+
+    &[id="6"] {
+        background-image: url('../icons/colors/tree00.png');
+    }
+
+    &[id="7"] {
+        background-image: url('../icons/colors/school00.png');
+    }
+
+    &[id="1"] {
+        background-image: url('../icons/colors/book00.png');
+    }
+
+    &[id="8"] {
+        background-image: url('../icons/colors/group00.png');
+    }
+}
+
+//ינפוט וכפתור הוספת תלמיד חד פענמי
+[nameStudent] {
+    margin-left: 15px;
+}
+
+[buttomAddStudent] {
+    width: 110px;
+    margin-right: 5px;
+}
+
+[buttomAddStudent]:active {
+    background-color: $color-turqis;
+    color: rgb(255, 255, 255);
+}
+
+
+
+@media only screen and (max-width: 960px) {
+    .bigbox {
+        max-height: 552px;
+
+    }
+
+    .all {
+        width: 100%;
+    }
+
+    [titleA] {
+        display: none;
+    }
+
+    [filters] {
+        display: block
+    }
+
+    textarea {
+        width: 88%;
+        height: 120px;
+        margin: auto;
+
+    }
+
+    /*     [details] {
+        width: 88%;
+    } */
+
+    select,
+    input {
+        margin-top: 10px;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    [buttonAddActivity] {
+        width: 200px;
+
+    }
+
+    /*     .bigbox {
+        max-height: 552px;
+
+    } */
+}

@@ -1,0 +1,95 @@
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+
+[deshbord] {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    height: 89vh;
+    overflow-y: scroll;
+    [boys] {
+        width: 50vw;
+        border-left: 3px gray solid;
+    }
+
+    [girls] {
+        width: 50vw;
+    }
+}
+
+[titlee] {
+    font-size: 2.5vw;
+    font-family: Assistant-Bold;
+    margin-bottom: 1.5vh;
+    margin: 20px auto;
+
+}
+[t1]{
+    color: $color-blue-light;
+}
+[t2]{
+    color: $color-pink;
+}
+[contect] {
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+    [box] {
+        width: 20vw;
+        height: 23vh;
+        margin: 2vh 1.5vw;
+        display: inline-block;
+        box-shadow: 4px 4px 10px rgba(75, 75, 75, 0.6);
+
+
+        [num] {
+            padding-top: 20%;
+            font-size: 4.9vw;
+            font-family: Assistant-Bold;
+            display: block;
+
+        }
+
+        [teur] {
+            font-size: 1.6vw;
+            padding-top: 7%;
+            font-family: DanaYad-Bold;
+            font-weight: bolder;
+
+        }
+    }
+
+    [b1] {
+        background-color: rgb(13, 208, 226);
+    }
+
+    [b2] {
+        background-color: rgb(19, 219, 199);
+    }
+
+    [b3] {
+        background-color: rgb(98, 132, 255);
+    }
+
+    [b4] {
+        background-color: rgb(69, 140, 247);
+    }
+
+
+
+    [b5] {
+        background-color: rgb(255, 96, 159);
+    }
+
+    [b6] {
+        background-color: rgb(255, 85, 85);
+    }
+
+    [b7] {
+        background-color: rgb(255, 0, 136);
+    }
+
+    [b8] {
+        background-color: rgb(243, 82, 125);
+    }
+}

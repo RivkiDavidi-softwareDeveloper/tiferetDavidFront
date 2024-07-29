@@ -1,0 +1,50 @@
+::ng-deep .mat-dialog-container {
+  border-radius: 8px;
+  padding: 20px;
+}
+
+[all] {
+  font-size: small;
+  font-family: Assistant-Regular;
+  text-align: center;
+
+  [mat-dialog-title] {
+    font-size: 1.7em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: Assistant-Bold;
+
+    color: rgb(1, 180, 150);
+  }
+
+  [mat-dialog-content] {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #555; // צבע טקסט
+  }
+
+  [mat-dialog-actions] {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      display: inline;
+      width: 50px;
+      height: 25px;
+      line-height: 25px;
+      margin:2px auto 10px auto;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: Assistant-Regular;
+
+    }
+    [button-yes] {
+      background-color: #0263f6;
+    }
+    [button-no] {
+      background-color: #f44336;
+    }
+
+  }
+}

@@ -1,0 +1,573 @@
+<div class="background" *ngIf="popupDisplayIn">
+    <div class="popup">
+        <button class="close" (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
+        <h2 *ngIf="status === 'add'">הוספת חניך</h2>
+        <h2 *ngIf="status === 'update'">עדכון חניך</h2>
+
+        <div allChose>
+            <div chose>
+                <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}"
+                    (click)="cb1=true;cb2=false;generalWorkers();">בן</button>
+                <button choseButton *ngIf="status === 'add'" cb2 [ngClass]="{cb2:cb2}"
+                    (click)="cb2=true;cb1=false;generalWorkers();">בת</button>
+
+                <button choseButton *ngIf="status === 'update'" cb1 [ngClass]="{cb1:studentUpdate.St_gender==1}"
+                    (click)="cb1=true;cb2=false;studentUpdate.St_gender=1;generalWorkers();">בן</button>
+                <button choseButton *ngIf="status === 'update'" cb2 [ngClass]="{cb2:studentUpdate.St_gender==2}"
+                    (click)="cb2=true;cb1=false;studentUpdate.St_gender=2;generalWorkers();">בת</button>
+
+
+            </div>
+            <div chose2>
+                <button choseButton *ngIf="status === 'add'" cb3 [ngClass]="{cb3:cb3}"
+                    (click)="cb3=true;cb4=false;cb5=false">פעיל</button>
+                <button choseButton *ngIf="status === 'add'" cb4 [ngClass]="{cb4:cb4}"
+                    (click)="cb4=true;cb3=false;cb5=false">מושהה</button>
+                <button choseButton *ngIf="status === 'add'" cb5 [ngClass]="{cb5:cb5}"
+                    (click)="cb5=true;cb3=false;cb4=false">הסתיים</button>
+
+                <button choseButton *ngIf="status === 'update'" cb3
+                    [ngClass]="{cb3:studentUpdate.St_activity_status==1}"
+                    (click)="cb3=true;cb4=false;cb5=false;studentUpdate.St_activity_status=1;">פעיל</button>
+                <button choseButton *ngIf="status === 'update'" cb4
+                    [ngClass]="{cb4:studentUpdate.St_activity_status==2}"
+                    (click)="cb4=true;cb3=false;cb5=false;studentUpdate.St_activity_status=2;">מושהה</button>
+                <button choseButton *ngIf="status === 'update'" cb5
+                    [ngClass]="{cb5:studentUpdate.St_activity_status==3}"
+                    (click)="cb5=true;cb3=false;cb4=false;studentUpdate.St_activity_status=3;">הסתיים</button>
+            </div>
+        </div>
+        <div buttonImage *ngIf="status === 'add'">
+            <div textII> בחר תמונה</div>
+            <input type="file" inputImage *ngIf="status === 'add'" (input)="onFileSelected($event)">
+        </div>
+        <div otefImage *ngIf="status === 'add'">
+            <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
+        </div>
+        <div buttonImage *ngIf="status === 'update'">
+            <div textII> בחר תמונה</div>
+            <input type="file" inputImage *ngIf="status === 'update'" (input)="onFileSelected($event)">
+        </div>
+        <div otefImage *ngIf="status === 'update'">
+            <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
+            <!--             <img [src]="selectedImage" *ngIf="!(imageBlobURL==='') || selectedImage" [src]="getImage()" alt="Selected Image">
+ -->
+
+        </div>
+        <br>
+        <h3 title1>פרטים אישיים</h3>
+        <div contectAll>
+            <div ca>
+                <label>שם פרטי</label>
+                <input type="text" *ngIf="status === 'add'"
+                    [ngClass]="{'borderInputGreen':St_name.length>0 && !validNane,'borderInputRed':validNane}"
+                    (input)="onInputChangeN($event)">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_name}}"
+                    [ngClass]="{'borderInputGreen':St_name.length>0 && !validNane,'borderInputRed':validNane}"
+                    (input)="onInputChangeN($event)">
+                <label eror *ngIf="validNane">מוגבל ל-20 תוים</label>
+            </div>
+            <div ca>
+                <label>שם משפחה</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNF($event)"
+                    [ngClass]="{'borderInputGreen':St_Fname.length>0 && !validNameF,'borderInputRed':validNameF}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_Fname}}"
+                    (input)="onInputChangeNF($event)"
+                    [ngClass]="{'borderInputGreen':St_Fname.length>0 && !validNameF,'borderInputRed':validNameF}">
+                <label eror *ngIf="validNameF">מוגבל ל-20 תוים</label>
+            </div>
+            <div ca>
+                <label>ת.ז</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeID($event)"
+                    [ngClass]="{'borderInputGreen':St_ID.length>0 && !validId,'borderInputRed':validId}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_ID}}"
+                    (input)="onInputChangeID($event)"
+                    [ngClass]="{'borderInputGreen':St_ID.length>0 && !validId,'borderInputRed':validId}">
+                <label eror *ngIf="validId">הכנס ת.ז תקינה</label>
+            </div>
+            <div ca>
+                <label>תאריך לידה</label>
+                <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
+                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
+                <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(studentUpdate.St_birthday)"
+                    (input)="onInputChangeBirthday($event)"
+                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
+                <label eror *ngIf="validBirthday">הכנס תאריך תקין</label>
+            </div>
+        </div>
+        <h3 title2>כתובת</h3>
+        <div contectAll>
+            <div ca>
+                <label>עיר</label>
+
+                <select *ngIf="status === 'add'" (change)="onCitySelected($event)"
+                    [ngClass]="{'borderInputGreen':St_city_code!=-1&&St_city_code!=-2 ,'borderInputRed':false}">
+                    <option selected hidden>בחר</option>
+                    <option *ngFor="let c of lisOfCities" [selected]="St_city_code==c.Ci_code" [value]="c.Ci_code">{{
+                        c.Ci_name }}</option>
+                    <option [value]="-2">הוסף עיר </option>
+
+                </select>
+
+                <select *ngIf="status === 'update'" (change)="onCitySelected($event)"
+                    [ngClass]="{'borderInputGreen':St_city_code!=-1&&St_city_code!=-2 ,'borderInputRed':false}">
+                    <option hidden>בחר</option>
+                    <option *ngFor="let c of lisOfCities" [value]="c.Ci_code"
+                        [selected]="St_city_code==c.Ci_code||c.Ci_code==studentUpdate.St_city_code">{{ c.Ci_name }}
+                    </option>
+                    <option [value]="-2">הוסף עיר </option>
+
+                </select>
+            </div>
+            <div ca addCity *ngIf="addCityStatus">
+
+                <input type="text" placeholder="שם עיר" (input)="onInputCityName($event)">
+                <label eror *ngIf="validCityName">טקסט ארוך מידי</label>
+
+                <button (click)="addCity()">הוסף עיר</button>
+            </div>
+            <div ca>
+                <label>רחוב ומס' בית</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeAddress($event)"
+                    [ngClass]="{'borderInputGreen':St_address.length>0 && !validAddress,'borderInputRed':validAddress}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_address}}"
+                    (input)="onInputChangeAddress($event)"
+                    [ngClass]="{'borderInputGreen':St_address.length>0 && !validAddress,'borderInputRed':validAddress}">
+                <label eror *ngIf="validAddress">טקסט ארוך מידי</label>
+            </div>
+        </div>
+        <h3 title3>פרטי יצירת קשר</h3>
+        <div contectAll>
+            <div ca>
+                <label>פלאפון פרטי</label>
+                <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneStudent($event)"
+                    [ngClass]="{'borderInputGreen':St_cell_phone.length>0 && !validCellPhoneStudent,'borderInputRed':validCellPhoneStudent}">
+                <input type="tel" *ngIf="status === 'update'" value="{{studentUpdate.St_cell_phone}}"
+                    (input)="onInputChangeCellPhoneStudent($event)"
+                    [ngClass]="{'borderInputGreen':St_cell_phone.length>0 && !validCellPhoneStudent,'borderInputRed':validCellPhoneStudent}">
+                <label eror *ngIf="validCellPhoneStudent">הכנס מס' תקין</label>
+            </div>
+            <div ca>
+                <label>טלפון בית</label>
+                <input type="tel" *ngIf="status === 'add'" (input)="onInputChangePhoneHome($event)"
+                    [ngClass]="{'borderInputGreen':St_phone.length>0 && !validPhoneHome,'borderInputRed':validPhoneHome}">
+                <input type="tel" *ngIf="status === 'update'" value="{{studentUpdate.St_phone}}"
+                    (input)="onInputChangePhoneHome($event)"
+                    [ngClass]="{'borderInputGreen':St_phone.length>0 && !validPhoneHome,'borderInputRed':validPhoneHome}">
+                <label eror *ngIf="validPhoneHome">הכנס מס' תקין</label>
+
+            </div>
+            <div ca>
+                <label>אימייל</label>
+                <input type="email" *ngIf="status === 'add'" (input)="onInputChangeEmail($event)"
+                    [ngClass]="{'borderInputGreen':St_email.length>0 && !validEmail,'borderInputRed':validEmail}">
+                <input type="email" *ngIf="status === 'update'" value="{{studentUpdate.St_email}}"
+                    (input)="onInputChangeEmail($event)"
+                    [ngClass]="{'borderInputGreen':St_email.length>0 && !validEmail,'borderInputRed':validEmail}">
+                <label eror *ngIf="validEmail">הכנס מייל תקין</label>
+
+            </div>
+        </div>
+        <h3 title4>פרטי משפחה</h3>
+        <div ca>
+            <label>מצב סוציואקנומי</label>
+            <label numSocio *ngIf="status === 'add'">{{St_socioeconomic_status}}</label>
+            <input type="range" min="1" max="10" *ngIf="status === 'add'" (input)="onInputChangeStatusSocio($event)">
+            <label numSocio *ngIf="status === 'update'">{{ studentUpdate.St_socioeconomic_status }}</label>
+            <input type="range" min="1" max="10" *ngIf="status === 'update'"
+                value="{{studentUpdate.St_socioeconomic_status}}" (input)="onInputChangeStatusSocio($event)">
+
+            <label eror *ngIf="validStatusSocio">הכנס מס' תקין</label>
+        </div>
+        <div contectAll>
+
+            <div ca>
+                <label>קהילה</label>
+                <select *ngIf="status === 'add'" (change)="onCommunitySelected($event)"
+                    [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
+                    <option selected hidden>בחר</option>
+                    <option *ngFor="let c of listOfCommunities;" [value]="c.Com_code">{{ c.Com_name }}</option>
+                </select>
+                <select *ngIf="status === 'update'" (change)="onCommunitySelected($event)"
+                    [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
+                    <option hidden>בחר</option>
+                    <option *ngFor="let c of listOfCommunities;"
+                        [selected]="selectedCommunity(studentUpdate.St_code_synagogue,c.Com_code)" [value]="c.Com_code">
+                        {{ c.Com_name }}</option>
+                </select>
+            </div>
+            <div ca>
+                <label>בית כנסת (יש לבחור קודם קהילה)</label>
+                <select [disabled]="codeCommonity==-1" *ngIf="status === 'add'" (change)="onSynagogueSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
+                    <option selected hidden>בחר</option>
+                    <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code">{{ s.Sy_name }}</option>
+                </select>
+                <select [disabled]="codeCommonity==-1" *ngIf="status === 'update'"
+                    (change)="onSynagogueSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
+                    <option hidden>בחר</option>
+                    <option *ngFor="let s of listOfsynagogueis" [selected]="s.Sy_code==studentUpdate.St_code_synagogue"
+                        [value]="s.Sy_code">{{ s.Sy_name }}</option>
+                </select>
+            </div>
+        </div>
+
+        <h4 parent>אבא:</h4>
+        <div contectAll>
+            <div ca>
+                <label>שם </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_name_F.length>0 && !validNameFather,'borderInputRed':validNameFather}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_name}}"
+                    (input)="onInputChangeNameFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_name_F.length>0 && !validNameFather,'borderInputRed':validNameFather}">
+
+                <label eror *ngIf="validNameFather">טקסט ארוך מהנדרש</label>
+
+            </div>
+            <div ca>
+                <label>ת.ז </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeIDFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_ID_F.length>0 && !validIDFather,'borderInputRed':validIDFather}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_ID}}"
+                    (input)="onInputChangeIDFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_ID_F.length>0 && !validIDFather,'borderInputRed':validIDFather}">
+
+                <label eror *ngIf="validIDFather">הכנס ת.ז תקינה</label>
+
+            </div>
+            <div ca>
+                <label>עיסוק </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_work}}"
+                    (input)="onInputChangeWorkFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
+
+                <label eror *ngIf="validWorkFather">טקסט ארוך מהנדרש</label>
+
+            </div>
+            <div ca>
+                <label>פלאפון </label>
+                <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_cell_phone_F.length>0 && !validCellPhoneFather,'borderInputRed':validCellPhoneFather}">
+                <input type="tel" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_cell_phone}}"
+                    (input)="onInputChangeCellPhoneFather($event)"
+                    [ngClass]="{'borderInputGreen':Pa_cell_phone_F.length>0 && !validCellPhoneFather,'borderInputRed':validCellPhoneFather}">
+                <label eror *ngIf="validCellPhoneFather">הכנס מס' תקין</label>
+
+            </div>
+        </div>
+        <h4 parent>אמא:</h4>
+        <div contectAll>
+            <div ca>
+                <label>שם </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_name_M.length>0 && !validNameMother,'borderInputRed':validNameMother}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_name}}"
+                    (input)="onInputChangeNameMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_name_M.length>0 && !validNameMother,'borderInputRed':validNameMother}">
+
+                <label eror *ngIf="validNameMother">טקסט ארוך מהנדרש</label>
+
+            </div>
+            <div ca>
+                <label>ת.ז </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeIDMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_ID_M.length>0 && !validIDMother,'borderInputRed':validIDMother}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_ID}}"
+                    (input)="onInputChangeIDMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_ID_M.length>0 && !validIDMother,'borderInputRed':validIDMother}">
+
+                <label eror *ngIf="validIDMother">הכנס ת.ז תקינה</label>
+
+            </div>
+            <div ca>
+                <label>עיסוק </label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_work}}"
+                    (input)="onInputChangeWorkMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
+
+                <label eror *ngIf="validWorkMother">טקסט ארוך מהנדרש</label>
+
+            </div>
+            <div ca>
+                <label>פלאפון </label>
+                <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_cell_phone_M.length>0 && !validCellPhoneMother,'borderInputRed':validCellPhoneMother}">
+                <input type="email" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_cell_phone}}"
+                    (input)="onInputChangeCellPhoneMother($event)"
+                    [ngClass]="{'borderInputGreen':Pa_cell_phone_M.length>0 && !validCellPhoneMother,'borderInputRed':validCellPhoneMother}">
+
+                <label eror *ngIf="validCellPhoneMother">הכנס מס' תקין</label>
+
+            </div>
+
+
+        </div>
+        <h3 title5>לימודים</h3>
+        <div contectAll>
+            <div ca>
+                <label>מוסד לימודים נוכחי</label>
+                <select *ngIf="cb1 && status === 'add'" (change)="onSFS_current_schoolSelected($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option selected hidden>בחר </option>
+                    <option>ישיבה גדולה</option>
+                    <option>ישיבה קטנה</option>
+                    <option>תלמוד תורה</option>
+                </select>
+
+                <select *ngIf="cb2 && status === 'add'" (change)="onSFS_current_schoolSelected($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option>סמינר (יג יד)</option>
+                    <option>תיכון</option>
+                    <option>בית ספר יסודי</option>
+                </select>
+                <select *ngIf="cb1 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option hidden>בחר </option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='ישיבה גדולה'">ישיבה גדולה </option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='ישיבה קטנה'">ישיבה קטנה </option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='תלמוד תורה'">תלמוד תורה </option>
+                </select>
+
+                <select *ngIf="cb2 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option hidden> בחר</option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='סמינר (יג יד)'">סמינר (יג יד)</option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='תיכון'">תיכון</option>
+                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='בית ספר יסודי'">בית ספר יסודי</option>
+                </select>
+
+            </div>
+            <div ca>
+                <label>שם המוסד</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentSchoolName($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school_ame.length>0 && !validCurrentSchoolName,'borderInputRed':validCurrentSchoolName}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_current_school_ame}}"
+                    (input)="onInputChangeCurrentSchoolName($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school_ame.length>0 && !validCurrentSchoolName,'borderInputRed':validCurrentSchoolName}">
+
+                <label eror *ngIf="validCurrentSchoolName">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label *ngIf="cb1">שיעור/כיתה בקליטה</label>
+                <label *ngIf="cb2">כיתה בקליטה</label>
+
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeReceptionClass($event)"
+                    [ngClass]="{'borderInputGreen':SFS_reception_class.length>0 && !validReceptionClass,'borderInputRed':validReceptionClass}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_reception_class}}"
+                    (input)="onInputChangeReceptionClass($event)"
+                    [ngClass]="{'borderInputGreen':SFS_reception_class.length>0 && !validReceptionClass,'borderInputRed':validReceptionClass}">
+
+                <label eror *ngIf="validReceptionClass">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label *ngIf="cb1">שיעור/כיתה נוכחי</label>
+                <label *ngIf="cb2">כיתה נוכחי</label>
+
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentClass($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_class.length>0 && !validCurrentClass,'borderInputRed':validCurrentClass}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_current_class}}"
+                    (input)="onInputChangeCurrentClass($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_class.length>0 && !validCurrentClass,'borderInputRed':validCurrentClass}">
+
+                <label eror *ngIf="validCurrentClass">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label *ngIf="cb1">ישיבות קודמות</label>
+                <label *ngIf="cb2">תיכונים קודמים</label>
+
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangePreviousInstitutions($event)"
+                    [ngClass]="{'borderInputGreen':SFS_previous_institutions.length>0 && !validPreviousInstitutions,'borderInputRed':validPreviousInstitutions}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_previous_institutions}}"
+                    (input)="onInputChangePreviousInstitutions($event)"
+                    [ngClass]="{'borderInputGreen':SFS_previous_institutions.length>0 && !validPreviousInstitutions,'borderInputRed':validPreviousInstitutions}">
+
+                <label eror *ngIf="validPreviousInstitutions">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label *ngIf="cb1">תלמוד תורה קודם</label>
+                <label *ngIf="cb2">בית ספר קודם</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangePreviousSchool($event)"
+                    [ngClass]="{'borderInputGreen':SFS_previous_school.length>0 && !validPreviousSchool,'borderInputRed':validPreviousSchool}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_previous_school}}"
+                    (input)="onInputChangePreviousSchool($event)"
+                    [ngClass]="{'borderInputGreen':SFS_previous_school.length>0 && !validPreviousSchool,'borderInputRed':validPreviousSchool}">
+
+                <label eror *ngIf="validPreviousSchool">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label>איש צוות מקושר</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeContact($event)"
+                    [ngClass]="{'borderInputGreen':St_contact.length>0 && !validContact,'borderInputRed':validContact}">
+                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_contact}}"
+                    (input)="onInputChangeContact($event)"
+                    [ngClass]="{'borderInputGreen':St_contact.length>0 && !validContact,'borderInputRed':validContact}">
+
+                <label eror *ngIf="validContact">טקסט ארוך מהנדרש</label>
+            </div>
+            <div ca>
+                <label>פל' איש צוות מקושר</label>
+                <input type="pel" *ngIf="status === 'add'" (input)="onInputChangeContactPhone($event)"
+                    [ngClass]="{'borderInputGreen':St_contact_phone.length>0 && !validContactPhone,'borderInputRed':validContactPhone}">
+                <input type="pel" *ngIf="status === 'update'" value="{{studentUpdate.St_contact_phone}}"
+                    (input)="onInputChangeContactPhone($event)"
+                    [ngClass]="{'borderInputGreen':St_contact_phone.length>0 && !validContactPhone,'borderInputRed':validContactPhone}">
+
+                <label eror *ngIf="validContactPhone">הכנס מס' תקין</label>
+            </div>
+        </div>
+        <h3 title6>תדירות הפעילות</h3>
+        <div contectAll>
+            <div ca>
+                <label>סוג</label>
+
+                <select *ngIf="status === 'add'" (change)="onCodeFrequencySelected($event)"
+                    [ngClass]="{'borderInputGreen':St_code_frequency!=-1 ,'borderInputRed':false}">
+                    <option hidden selected>בחר </option>
+                    <option [value]="1">בימים</option>
+                    <option [value]="2">בשבועות </option>
+                    <option [value]="3">בחודשים </option>
+                </select>
+                <select *ngIf="status === 'update'" (change)="onCodeFrequencySelected($event)"
+                    [ngClass]="{'borderInputGreen':St_code_frequency!=-1 ,'borderInputRed':false}">
+                    <option hidden>בחר </option>
+                    <option [value]="1" [selected]="studentUpdate.St_code_frequency==1">בימים</option>
+                    <option [value]="2" [selected]="studentUpdate.St_code_frequency==2">בשבועות </option>
+                    <option [value]="3" [selected]="studentUpdate.St_code_frequency==3">בחודשים </option>
+                </select>
+            </div>
+            <div ca>
+                <label>בחר כמות</label>
+                <input type="number" min="1" [min]="1" [max]="5" *ngIf="status === 'add'"
+                    (input)="onInputAmountFrequency($event)"
+                    [ngClass]="{'borderInputGreen':St_amount_frequency>0 ,'borderInputRed':false}">
+                <input type="number" min="1" [min]="1" [max]="5" *ngIf="status === 'update'"
+                    value="{{studentUpdate.St_amount_frequency}}" (input)="onInputAmountFrequency($event)"
+                    [ngClass]="{'borderInputGreen':St_amount_frequency>0 ,'borderInputRed':false}">
+            </div>
+        </div>
+        <h3 title7>עוד</h3>
+        <div contectAll>
+
+            <div ca>
+                <label>מצב סיכון</label>
+                <select *ngIf="status === 'add'" (change)="onRiskSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_risk_code!= -1 ,'borderInputRed':false}">
+                    <option selected hidden>בחר </option>
+                    <option>במסגרת</option>
+                    <option>סיכון מוגבר</option>
+                    <option>לא במסגרת</option>
+                </select>
+                <select *ngIf="status === 'update'" (change)="onRiskSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_risk_code != -1 ,'borderInputRed':false}">
+                    <option hidden>בחר </option>
+                    <option [selected]="studentUpdate.St_risk_code==1">במסגרת</option>
+                    <option [selected]="studentUpdate.St_risk_code==2">סיכון מוגבר</option>
+                    <option [selected]="studentUpdate.St_risk_code==3">לא במסגרת</option>
+                </select>
+
+            </div>
+            <div ca>
+                <label>קשיים</label>
+                <div boxDiff [ngClass]="{'borderInputGreen':listOfDiffSelected.length>0 ,'borderInputRed':false}">
+                    <label>
+                        <input type="checkbox" [value]="1" (change)="onSelestDifficulity($event)"
+                            [checked]="ifCheck(1)">
+                        קשיים לימודיים
+                    </label>
+
+                    <label>
+                        <input type="checkbox" [value]="2" (change)="onSelestDifficulity($event)"
+                            [checked]="ifCheck(2)">
+                        קשיים חברתיים
+                    </label>
+
+                    <label>
+                        <input type="checkbox" [value]="3" (change)="onSelestDifficulity($event)"
+                            [checked]="ifCheck(3)">
+                        קשיים רוחניים
+                    </label>
+                </div>
+                <label eror *ngIf="validId"></label>
+            </div>
+            <div ca>
+                <label>תיאור מצב קליטה</label>
+                <textarea *ngIf="status === 'add'" (input)="onInputChangeDescriptionReceptionStatus($event)"
+                    [ngClass]="{'borderInputGreen':St_description_reception_status.length>0 && !validDescriptionReceptionStatus,'borderInputRed':validDescriptionReceptionStatus}"></textarea>
+
+                <textarea *ngIf="status === 'update'" value="{{studentUpdate.St_description_reception_status}}"
+                    (input)="onInputChangeDescriptionReceptionStatus($event)"
+                    [ngClass]="{'borderInputGreen':St_description_reception_status.length>0 && !validDescriptionReceptionStatus,'borderInputRed':validDescriptionReceptionStatus}"></textarea>
+
+                <label eror *ngIf="validDescriptionReceptionStatus">טקסט ארוך מהנדרש (200)</label>
+            </div>
+            <div ca *ngIf="codeWorkerLogin==0">
+                <label *ngIf="cb1">פעיל ישיר</label>
+                <label *ngIf="cb2">פעילה ישירה</label>
+
+                <select *ngIf="status === 'add'" (change)="onWorkerSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_worker_code!=-1 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{ w.Wo_name+" "+w.Wo_Fname }}</option>
+                </select>
+
+                <select *ngIf="status === 'update'" (change)="onWorkerSelected($event)"
+                    [ngClass]="{'borderInputGreen':St_worker_code!=-1 ,'borderInputRed':false}">
+                    <option hidden> בחר</option>
+                    <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code"
+                        [selected]="studentUpdate.St_worker_code==w.Wo_code">{{ w.Wo_name+" "+w.Wo_Fname }}</option>
+                </select>
+
+            </div>
+            <div ca>
+                <label>הפניה התקבלה ע"י</label>
+                <select (change)="onSt_requesterSelected($event)" *ngIf="status === 'add'"
+                    [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
+                    <option hidden selected>בחר</option>
+                    <option>הורים</option>
+                    <option>צוות חינוכי</option>
+                    <option>אחר </option>
+                </select>
+                <select (change)="onSt_requesterSelected($event)" *ngIf="status === 'update'"
+                    [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
+                    <option hidden>בחר</option>
+                    <option [selected]="studentUpdate.St_requester=='הורים'">הורים</option>
+                    <option [selected]="Requester1()=='צוות חינוכי'">צוות חינוכי</option>
+                    <option [selected]="Requester1()=='אחר'">אחר </option>
+                </select>
+            </div>
+            <div ca *ngIf="detail">
+                <label>פירוט</label>
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeRequester($event)"
+                    [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
+                <input type="text" *ngIf="status === 'update'" value="{{Requester2()}}"
+                    (input)="onInputChangeRequester($event)" 
+                    [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
+
+                <label eror *ngIf="validRequester">טקסט ארוך מהנדרש</label>
+            </div>
+        </div>
+        <br>
+        <button *ngIf="status === 'add'" save (click)="add()">שמור</button>
+
+        <button *ngIf="status === 'update'" save (click)="update()">עדכן</button>
+
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+
+    </div>
+</div>
+
+
+<!-- 
+<select (change)="onCitySelected($event)">
+    <option *ngFor="let c of cities" [value]="c.Ci_code">{{ c.Ci_name }}</option>
+</select>
+<div city>{{ selectedNameCity }}</div>
+<div codeCity>{{ selectedcodeCity }}</div> -->

@@ -1,0 +1,220 @@
+<h1>דוחות פעילות</h1>
+<div ppp>
+    <p> דוח לחודש:</p>
+    <p class="bold"> {{nameMonth(monthF)}}</p>
+    <p> פעיל: </p>
+    <p class="bold">{{nameWorker(workerF)}}</p>
+    <p> חניך: </p>
+    <p class="bold">{{nameStudent(studentF)}}</p>
+    <p> קטגוריה: </p>
+    <p class="bold">{{nameCategory(categoryF)}}</p>
+    <p> מגדר:</p>
+    <p class="bold"> {{nameGender(genderF) }}</p>
+    <p> לפי:</p>
+    <p class="bold"> {{nameOrder(order) }}</p>
+
+    <br>
+</div>
+
+<div allP nonePrint>
+    <div p1>
+        <div class="find">
+            <input type="search" role="combobox" placeholder="חפש פעיל/חונך" (input)="onInputChangeSearch($event)">
+        </div>
+        <div class="find">
+            <input type="search" role="combobox" placeholder="חפש חניך">
+        </div>
+    </div>
+    <div p2>
+
+        <div iconnOtef (click)="print()">
+            <button print title="הדפס"></button>
+        </div>
+    </div>
+
+</div>
+<div nonePrint allP2>
+
+    <div orders>
+        <div lible>מיין לפי</div>
+        <div pos>
+            <select [ngClass]="{'slectSelected':true}" (change)="onOrderSelected($event)">
+                <option [value]="0">פעיל/חונך</option>
+                <option selected [value]="1">תאריך </option>
+                <option [value]="2">חניך </option>
+
+            </select>
+
+        </div>
+    </div>
+    <div filters>
+        <div lible>סנן לפי</div>
+        <div f2>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':genderF!=0}" (change)="onSelectedGenderF($event)">
+                    <option selected [value]="0">כל המגדרים </option>
+                    <option [value]="1">בנים </option>
+                    <option [value]="2">בנות </option>
+                </select>
+
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':workerF!=-1}" (change)="onSelectedWorkerF($event)">
+                    <option selected [value]="-1">כל הפעילים/חונכים </option>
+                    <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{w.Wo_name+" "+w.Wo_Fname}} </option>
+                </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':studentF!=-1}" (change)="onSelectedStudentF($event)">
+                    <option selected [value]="-1">כל החניכים/ות </option>
+                    <option *ngFor="let s of listOfStudent" [value]="s.St_code">{{s.St_name+" "+s.St_Fname}} </option>
+                </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':monthF!=0}" (change)="onSelectedMonthF($event)">
+                    <option selected [value]="0">כל החודשים </option>
+                    <option [value]="1">ינואר - 01</option>
+                    <option [value]="2">פברואר - 02</option>
+                    <option [value]="3">מרץ - 03</option>
+                    <option [value]="4">אפריל - 04</option>
+                    <option [value]="5">מאי - 05</option>
+                    <option [value]="6">יוני - 06</option>
+                    <option [value]="7">יולי - 07</option>
+                    <option [value]="8">אוגוסט - 08</option>
+                    <option [value]="9">ספטמבר - 09</option>
+                    <option [value]="10">אוקטובר - 10</option>
+                    <option [value]="11">נובמבר - 11</option>
+                    <option [value]="12">דצמבר - 12</option>
+                </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':categoryF!=0}" (change)="onSelectedCategoryF($event)">
+                    <option selected [value]="0">כל הקטגוריות </option>
+                    <option [value]="1">לימוד חברותא </option>
+                    <option [value]="2">שיחה טלפונית </option>
+                    <option [value]="3">פגישה אישית </option>
+                    <option [value]="4">נסיעה </option>
+                    <option [value]="5">רכישת מוצר </option>
+                    <option [value]="6">פעילות חוץ </option>
+                    <option [value]="7">שיבוץ בישיבה </option>
+                    <option [value]="8">פעילות קבוצתית </option>
+
+                </select>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div amounts>
+    <div amount amountRight topic>{{addCommasToNumber(amounts[0])}} פעילויות</div>
+    <div *ngIf="hours2(amounts[1])!=='0' && minutes2(amounts[1]) !=='0' " amount time>{{hours2(amounts[1])}} שעות
+        ו-{{minutes2(amounts[1])}} דקות </div>
+    <div *ngIf="hours2(amounts[1])==='0' && minutes2(amounts[1]) !=='0' " amount time>{{minutes2(amounts[1])}} דקות
+    </div>
+    <div *ngIf="hours2(amounts[1])!=='0' && minutes2(amounts[1]) ==='0' " amount time>{{hours2(amounts[1])}} שעות</div>
+    <div amount money>{{addCommasToNumber(amounts[2])}} ש"ח </div>
+    <div amount amountLeft kilometer>{{addCommasToNumber(amounts[3])}} קילומטרים </div>
+</div>
+<br>
+
+<table>
+    <thead>
+        <tr>
+            <th *ngIf="order==0 && workerF==-1">שם פעיל/חונך</th>
+            <th *ngIf="order==0">תאריך</th>
+            <th *ngIf=" order==0 && studentF==-1">שם חניך</th>
+
+            <th *ngIf="order==1" ה>תאריך</th>
+            <th *ngIf="order==1&&workerF==-1">שם פעיל/חונך</th>
+            <th *ngIf="order==1&&studentF==-1">שם חניך</th>
+
+            <th *ngIf="order==2&& studentF==-1">שם חניך</th>
+            <th *ngIf="order==2">תאריך</th>
+            <th *ngIf="order==2 &&workerF==-1">שם פעיל/חונך</th>
+
+            <th>מהות</th>
+            <th>נשוא</th>
+            <th>משך זמן</th>
+
+            <th>תאור</th>
+            <th>פרטים נוספים</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr *ngFor="let i of listOfAcitivities let y=index"
+            [ngClass]="{'trLine':(!compareWorkers(y,y+1) && order==0)||(compareDates(y,y+1) && order==1) || ( !compareStudents(y,y+1) && order==2)}">
+
+            <td *ngIf="order==0&&workerF==-1" worker>{{nameWorker2(y-1,y)}}</td>
+            <td *ngIf="order==0" date>{{getDayFromDate2(y-1,y) +" "+displayDate2(y-1,y)}}</td>
+
+            <td *ngIf="order==0&&studentF==-1"student> 
+                <label *ngFor="let s of  i.StudentForActivities">
+                    <div><label *ngIf="i.StudentForActivities.length>1">•</label> {{ nameStudent2(s.SFA_code_student,i.AFS_code,i,y-1,y)}}</div>
+                </label>
+            </td>
+
+            <td *ngIf="order==1" date>{{getDayFromDate2(y-1,y) +" "+displayDate2(y-1,y)}}</td>
+            <td *ngIf="order==1&&workerF==-1" worker>{{nameWorker2(y-1,y)}}</td>
+            <td *ngIf="order==1&&studentF==-1"student> 
+                <label *ngFor="let s of  i.StudentForActivities">
+                    <div><label *ngIf="i.StudentForActivities.length>1">•</label> {{ nameStudent2(s.SFA_code_student,i.AFS_code,i,y-1,y)}}</div>
+                </label>
+            </td>
+
+            <!--             <td *ngIf="order==2&&studentF==-1" student> <label *ngFor="let s of  namesStudent(i.AFS_code)">
+ -->
+            <td *ngIf="order==2&&studentF==-1" student> 
+                <label *ngFor="let s of  i.StudentForActivities">
+                    <div><label *ngIf="i.StudentForActivities.length>1">•</label> {{ nameStudent2(s.SFA_code_student,i.AFS_code,i,y-1,y)}}</div>
+                </label>
+            </td>
+            <td *ngIf="order==2" date>{{getDayFromDate2(y-1,y) +" "+displayDate2(y-1,y)}}</td>
+            <td *ngIf="order==2&&workerF==-1" worker>{{nameWorker2(y-1,y)}}</td>
+
+            <td>
+                <label *ngFor="let s of namesCategories(i.AFS_code)">
+                    <div>
+                        <label imageCategory [id]="s.CFA_code_type_activity"></label>
+                        {{nameCategory(s.CFA_code_type_activity)}}
+                    </div>
+                </label>
+            </td>
+            <td>{{i.AFS_with_who}}</td>
+            <td *ngIf="hours2(i.AFS_activity_time)!=='0' && minutes2(i.AFS_activity_time) !=='0' ">
+                {{hours2(i.AFS_activity_time)}} שעות ו-{{minutes2(i.AFS_activity_time) }} דקות</td>
+            <td *ngIf="hours2(i.AFS_activity_time)==='0' && minutes2(i.AFS_activity_time) !=='0' ">
+                {{minutes2(i.AFS_activity_time) }} דקות</td>
+            <td *ngIf="hours2(i.AFS_activity_time)!=='0' && minutes2(i.AFS_activity_time) ==='0' ">
+                {{hours2(i.AFS_activity_time)}} שעות </td>
+
+            <!--             hours(i.AFS_activity_time)}}:{{minutes(i.AFS_activity_time)
+ -->
+            <td>{{i.AFS_description}}</td>
+
+            <td details><label *ngIf="ifDisplay(i.AFS_code,5)">
+                    <p>פירוט:{{i.AFS_short_description}} </p>
+                    <p> מחיר:{{i.AFS_price}}</p>
+                </label>
+                <label *ngIf="ifDisplay(i.AFS_code,7)">
+                    <p>פירוט:{{i.AFS_short_description}} </p>
+                    <p>שם ישיבה: {{i.AFS_name_school}} </p>
+                </label>
+                <label *ngIf="ifDisplay(i.AFS_code,4)">
+                    <p>מוצא:{{i.AFS_exit}} </p>
+                    <p> יעד: {{i.AFS_target}} </p>
+                    <p> מס' ק"מ:{{i.AFS_kilometer}} </p>
+                </label>
+                <label *ngIf="ifDisplay(i.AFS_code,6)">
+                    <p>פירוט:{{i.AFS_short_description}} </p>
+                    <p> מחיר:{{i.AFS_price}} </p>
+                </label>
+            </td>
+
+
+        </tr>
+
+    </tbody>
+</table>

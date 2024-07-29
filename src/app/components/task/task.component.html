@@ -1,0 +1,25 @@
+<div class="background" *ngIf="popupDisplayIn">
+    <div class="popup">
+        <button class="close" (click)="close();">x</button>
+        <h2>הוספת משימה</h2>
+        <div contectAll>
+            <div ca>
+                <textarea (input)="onInputChangeDesc($event)" placeholder="הכנס משימה..."></textarea>
+                <label eror *ngIf="validDesc">מוגבל ל-4000 תוים</label>
+            </div>
+            <br>
+            <div ca>
+                <label>תאריך</label>
+                <input type="date" (input)="onInputChangeDate($event)">
+            </div>
+            <div ca>
+                <label>שעה</label>
+                <input type="time" (input)="onInputChangeTime($event)">
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <button save (click)="add()">הוסף</button>
+    </div>
+</div>

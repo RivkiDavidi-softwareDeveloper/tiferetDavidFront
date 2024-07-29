@@ -1,0 +1,476 @@
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(255, 247, 0);
+
+$color-red: rgb(255, 35, 35);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+$color-turqis-dark: rgb(10, 70, 56);
+
+//הרקע והפופפ
+.background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    height: 580px;
+    width: 700px;
+    margin: auto;
+    /*  display: flex;
+    flex-direction: column; */
+    overflow: scroll;
+    scroll-behavior: auto;
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    // border-radius: 5px;
+    position: relative;
+
+}
+
+//הגדרת גודלי כתב
+h1,
+h2,
+h3 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: $color-turqis;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: $color-turqis;
+}
+
+h3 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: $color-turqis;
+    /*     background-size: contain;
+    padding: 0px 40px 0px 0px;
+    background-repeat: no-repeat;
+    background-position: right; */
+}
+
+[title1] {
+    color: rgb(255, 119, 0);
+}
+[title2] {
+    color: rgb(226, 10, 10);
+}
+[title3] {
+    color: rgb(161, 80, 21);
+}
+[title4] {
+    color: rgb(187, 0, 255);
+}
+[title5] {
+    color: rgb(0, 166, 255);
+}
+[title6] {
+    color: rgb(0, 116, 179);
+}
+[title7] {
+    color: rgb(10, 142, 6);
+}
+//כפתור
+button {
+    font-family: Assistant-Bold;
+    background-color: $color-turqis;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: medium;
+    padding-bottom: 4px;
+    text-align: center;
+    width: 130px;
+    height: 41px;
+    text-decoration: none;
+
+}
+
+button:hover {
+    font-weight: bolder;
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+}
+
+//כפתור סגירה
+.close {
+    width: 30px;
+    height: 30px;
+    background-color: $color-turqis;
+    font-family: Assistant-Bold;
+    //box-shadow: rgba(0, 0, 0, 0.2);
+    // box-shadow: 2px 2px 23px 3px rgba(0, 0, 0, 0.2);
+    // margin: 0px 670px 0px 0px;
+    border: none;
+    border-radius: 0px;
+    position: absolute;
+    top: 15px;
+    z-index: 999;
+    left: 15px;
+}
+
+.close:active {
+    position: absolute;
+    top: 15px;
+
+    background-color: $color-turqis-light;
+
+}
+
+//בחירה
+[allChose] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+[chose] {
+    width: 130px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+[chose2] {
+    width: 195px;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+[choseButton] {
+    display: inline-block;
+    width: 65px;
+    height: 41px;
+    border: none;
+    background-color: rgb(190, 190, 190);
+    border-right: 1px solid white;
+}
+
+[cb1] {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.cb1 {
+    background-color: $color-blue-light;
+}
+
+[cb2] {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+
+}
+
+.cb2 {
+    background-color: $color-pink;
+}
+
+[cb3] {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+}
+
+.cb3 {
+    background-color: $color-yellow-dark;
+}
+
+[cb4] {
+    /* border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px; */
+}
+
+.cb4 {
+    background-color: $color-orange;
+}
+
+[cb5] {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.cb5 {
+    background-color: $color-red;
+}
+
+
+[numSocio] {
+    display: inline;
+
+}
+//תויות
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-family:Assistant-SemiBold;
+}
+
+//ינפוטים
+input {
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 23px;
+    display: block;
+    text-align: right;
+    width: 256px;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    margin-bottom: 20px;
+
+}
+
+.borderInputGreen {
+    border: 1.8px solid rgb(0, 212, 0);
+}
+
+.borderInputRed {
+    border: 1.8px solid red;
+}
+
+textarea {
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 80px;
+    display: block;
+    text-align: right;
+    width: 535px;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+//סלקטיםם
+select {
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 43px;
+    display: block;
+    text-align: right;
+    width: 276px;
+    font-family: Assistant-Regular;
+    //padding: 10px;
+    margin-bottom: 20px;
+}
+
+option {
+    background-color: white;
+    font-size: 17px;
+
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    outline: none;
+    cursor: pointer;
+}
+
+.custom-checkbox:checked {
+    background-color: #000;
+}
+
+//פרטי יצירת קשר
+[contectAll] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+[ca] {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+[addCity] {
+    width: 276px;
+    height: 102.3;
+    display: flex;
+    justify-content: center; // מרכז אופקית
+    align-items: center; // מרכז אנכית
+
+    input {
+        width: 150px;
+        display: inline-block;
+        margin: 0px;
+        margin-left: 5px;
+    }
+
+    button {
+        width: 70px;
+        display: inline-block;
+        margin: 0px;
+        font-size: medium;
+    }
+}
+
+//כפתור שמירה
+[save] {
+    display: block;
+    margin: 0px auto;
+}
+
+[eror] {
+    color: $color-red;
+    font-weight: normal;
+    padding: 0px;
+}
+
+//בחירת תמונה
+[buttonImage] {
+    font-family: Assistant-Regular;
+    background-color: $color-turqis;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    width: 154.5px;
+    height: 35px;
+    padding: 0px;
+    position: relative;
+    border-bottom: 1px solid white;
+
+}
+
+[buttonImage]:active {
+    top: 1px;
+}
+
+[textII] {
+    padding: 8px 37px;
+    position: absolute;
+    z-index: 1;
+
+}
+
+[inputImage] {
+    opacity: 0;
+    cursor: pointer;
+    width: 154px;
+    height: 35px;
+    padding: 0px;
+    position: absolute;
+    z-index: 2;
+
+}
+
+[otefImage] {
+    width: 150px;
+    height: 200px;
+    overflow: hidden;
+    border: 3px solid $color-turqis;
+
+    img {
+        height: 100%;
+        width: auto;
+        display: block;
+    }
+}
+
+[parent] {
+    display: block;
+    font-family: Assistant-Bold;
+
+}
+
+//רשימת הקשיים
+[boxDiff] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    //  font-size: 20px;
+    //  height: 23px;
+    display: block;
+    text-align: right;
+    width: 256px;
+    // font-family: Assistant-Regular;
+    padding: 10px;
+    margin-bottom: 20px;
+
+}
+
+/* עיצוב עבור קופסאות הסימון */
+input[type="checkbox"] {
+    /* הוספת גבול */
+    border: 2px solid #000;
+    /* צבע גבול */
+    border-radius: 4px;
+    /* רדיוס פינות */
+    /* צביעת רקע */
+    background-color: #fff;
+    /* צבע רקע */
+    /* הוספת מרווחים */
+    margin-right: 3px;
+    /* מרווח מימין */
+    padding: 5px;
+    /* מרווח פנים */
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 960px) {
+    .popup {
+        height: 100%;
+        width: 550px;
+        overflow: scroll;
+        scroll-behavior: auto;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    .popup {
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        scroll-behavior: auto;
+
+    }
+
+    input,
+    [boxDiff] {
+        width: 210px;
+    }
+
+    select {
+        width: 233px;
+
+    }
+
+    textarea {
+        width: 210px;
+        height: 160px;
+    }
+
+    [addCity] {
+        width: 210px;
+
+    }
+}

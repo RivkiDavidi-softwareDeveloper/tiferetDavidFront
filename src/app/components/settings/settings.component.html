@@ -1,0 +1,23 @@
+<h1>הגדרות מערכת</h1>
+<div all>
+
+    <button (click)="displayPopap=true">שנה סיסמת מערכת</button>
+    <div class="background" *ngIf="displayPopap">
+        <div class="popup">
+            <button class="close" (click)="close()">x</button>
+            <h2>שינוי כניסת מערכת</h2>
+            <div ca>
+                <label>שם  </label>
+                <input type="text" value="{{system.SL_name}}" (input)="onInputChangeName($event)">
+            </div>
+            <div ca>
+                <label>סיסמא</label>
+                <input type="text" value="{{system.SL_password}}" (input)="  onInputChangePS($event)">
+            </div>
+            <br>
+            <button (click)="update()">עדכן</button>
+        </div>
+    </div>
+
+
+</div>

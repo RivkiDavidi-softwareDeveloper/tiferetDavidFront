@@ -1,0 +1,144 @@
+$color-yellow: rgb(255, 255, 82);
+$color-red: rgb(229, 45, 45);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+
+//הרקע והפופפ
+[background] {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+
+    [popup] {
+        height: 480px;
+        width: 700px;
+        margin: auto;
+        overflow: scroll;
+        scroll-behavior: auto;
+        background-color: white;
+        padding: 20px 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: relative;
+
+        p {
+            color: red;
+            font-size: 1.5em;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 25px;
+
+        }
+
+        [bigbox] {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2px auto 15px auto;
+        }
+
+        [name] {
+            margin-bottom: 20px;
+            color: $color-turqis;
+            font-size: 4vh;
+            font-weight: bold;
+        }
+
+        //כפתור
+        button {
+            font-family: Assistant-Regular;
+            background-color: $color-turqis;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: large;
+            font-weight: bold;
+            padding-bottom: 4px;
+            text-align: center;
+            width: 130px;
+            height: 41px;
+            text-decoration: none;
+
+        }
+
+        button:hover {
+            font-weight: bolder;
+        }
+
+        button:active {
+            position: relative;
+            top: 2px;
+
+        }
+
+        //כפתור סגירה
+        [close] {
+            width: 30px;
+            height: 30px;
+            background-color: $color-turqis;
+            font-family: Assistant-Bold;
+            border: none;
+            border-radius: 0px;
+            position: absolute;
+            top: 15px;
+            z-index: 999;
+            left: 15px;
+        }
+
+        [close]:active {
+            position: absolute;
+            top: 15px;
+            background-color: $color-turqis-light;
+        }
+
+        [tagList] {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            /* Adjust the gap as needed */
+            padding: 10px;
+            /* Add padding as needed */
+        }
+
+        [tagListItem] {
+            list-style-type: none;
+            background-color: #f2f2f2;
+            /* Specify the background color */
+            padding: 5px;
+            border-radius: 5px;
+            /* Add border-radius for rounded corners */
+            text-align: center;
+            /* Center text within each item */
+        }
+
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    [background] {
+
+        [popup] {
+            height: 100vh;
+            width: 550px;
+            overflow: scroll;
+            scroll-behavior: auto;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    [popup] {
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        scroll-behavior: auto;
+    }
+}

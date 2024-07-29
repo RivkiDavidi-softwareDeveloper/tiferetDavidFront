@@ -1,0 +1,188 @@
+$color-yellow: rgb(255, 255, 82);
+$color-red: rgb(229, 45, 45);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+
+//הרקע והפופפ
+.background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+}
+
+.popup {
+    height: 400px;
+    width: 500px;
+    margin: auto;
+    overflow: scroll;
+    scroll-behavior: auto;
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    // border-radius: 5px;
+    position: relative;
+
+}
+
+//הגדרת גודלי כתב
+h1,
+h2,
+h3 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: $color-turqis;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: $color-turqis;
+}
+
+h3 {
+    margin: 5px;
+    margin-bottom: 20px;
+    color: $color-yellow;
+}
+
+//כפתור
+button {
+    font-family: Assistant-Regular;
+    background-color: $color-turqis;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    padding-bottom: 4px;
+    text-align: center;
+    width: 130px;
+    height: 41px;
+    text-decoration: none;
+
+}
+
+button:hover {
+    font-weight: bolder;
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+
+}
+
+//כפתור סגירה
+.close {
+    width: 30px;
+    height: 30px;
+    background-color: $color-turqis;
+    font-family: Assistant-Bold;
+    border: none;
+    border-radius: 0px;
+    position: absolute;
+    top: 15px;
+    z-index: 999;
+    left: 15px;
+}
+
+.close:active {
+    position: absolute;
+    top: 15px;
+    background-color: $color-turqis-light;
+}
+
+
+//תויות
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+//ינפוטים
+input {
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    height: 23px;
+    display: block;
+    text-align: right;
+    width: 200px;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    margin-bottom: 20px;
+
+}
+
+//פרטי יצירת קשר
+[contectAll] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+[ca] {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+//כפתור שמירה
+[save] {
+    display: block;
+    margin: 0px auto;
+}
+
+[eror] {
+    color: red;
+    font-weight: normal;
+    padding: 0px;
+}
+
+textarea {
+    width: 425px;
+    height: 120px;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: block;
+    text-align: right;
+    font-family: Assistant-Regular;
+    padding: 10px;
+    margin: auto;
+}
+
+@media only screen and (max-width: 960px) {
+    .popup {
+
+
+
+        height: 100%;
+        width: 550px;
+        overflow: scroll;
+        scroll-behavior: auto;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .popup {
+
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        scroll-behavior: auto;
+    }
+}

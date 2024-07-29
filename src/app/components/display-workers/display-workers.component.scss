@@ -1,0 +1,496 @@
+$color-yellow: rgb(255, 255, 82);
+$color-red: rgb(229, 45, 45);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+
+//$color-orange: orange;
+
+
+.bold {
+  font-family: Assistant-Bold;
+}
+
+h1 {
+  font-size: 2.5vw;
+  text-align: center;
+  color: rgb(1, 180, 150);
+  width: 80%;
+  margin: 20px auto;
+  font-family: Assistant-Bold;
+
+}
+
+button {
+  margin: 0px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  padding-bottom: 4px;
+  text-align: center;
+  width: 130px;
+  height: 41px;
+  text-decoration: none;
+  font-family: Assistant-Light;
+  border: 0px;
+}
+
+button:hover {
+  font-weight: bolder;
+}
+
+button:active {
+  position: relative;
+
+}
+
+[allP] {
+  font-size: 2.2vh;
+  display: flex;
+  width: 95vw;
+  height: 7vh;
+  margin: auto 2.5vw 1vh 2.5vw;
+
+  [p1] {
+    display: inline-block;
+    width: 50%;
+
+    //חיפוש
+    .find {
+      color: gray;
+      border: 1px solid black;
+      width: 250px;
+      height: 30px;
+      padding: 2px 10px;
+      border-radius: 50px;
+    }
+
+    .find>input {
+      border: none;
+      outline: none;
+      font-family: Assistant-Light;
+      width: 240px;
+      height: 26px;
+      margin: auto;
+      font-size: 2.3vh;
+
+    }
+  }
+
+  [p2] {
+    display: flex;
+    direction: ltr;
+    width: 50%;
+
+    [iconnOtef] {
+      height: 35px;
+      width: 35px;
+      background-color: rgb(229, 235, 235);
+      border-radius: 50px;
+      padding: 10px 10px 0px 0px;
+      box-shadow: 0 0 10px 0 rgba(230, 230, 230, 0.5);
+      display: inline-block;
+      margin-right: 7px;
+
+      [iconn] {
+        height: 25px;
+        width: 25px;
+        background-size: contain;
+        margin: 0px auto;
+        background-repeat: no-repeat;
+        background-color: rgb(0, 0, 0, 0.0);
+      }
+
+      [print] {
+        background-image: url('../icons/print.png');
+
+      }
+
+      [plus] {
+        background-image: url('../icons/userPlus.png');
+
+      }
+    }
+
+    [iconnOtef]:hover {
+      background-color: $color-yellow;
+
+    }
+  }
+}
+
+[allP2] {
+  font-size: 2.1vh;
+
+  display: flex;
+  width: 95vw;
+  height: 7vh;
+  margin: auto 2.5vw 1.5vh 2.5vw;
+
+  [orders],
+  [filters] {
+    height: 40px;
+    display: flex;
+    border: 0.5px solid gray;
+    position: relative;
+    // z-index: -1;
+
+    [lible] {
+      position: absolute;
+      top: -10px;
+      //  z-index: 0;
+      background-color: rgb(255, 255, 255);
+      margin-right: 5px;
+      padding-right: 2px;
+      padding-left: 2px;
+      height: 20px;
+    }
+  }
+
+  [orders] {
+    margin-left: 2.5vw;
+    direction: rtl;
+    width: 30vw;
+
+    [pos] {
+      margin: 5px auto;
+      position: relative;
+      display: inline-block;
+    }
+  }
+
+  [filters] {
+    margin: 0px 0px 0px 0px;
+    direction: rtl;
+    width: 62.5vw;
+
+    [f2] {
+      display: block;
+      margin: 3px auto;
+    }
+
+    [pos1],
+    [pos2] {
+      display: inline-block;
+      margin: 2px;
+      position: relative;
+    }
+  }
+
+  //סלקטיםם
+  select {
+    display: block;
+    text-align: right;
+    font-family: Assistant-Regular;
+    width: 10vw;
+    height: 30px;
+    z-index: 997;
+    outline: none;
+    background-color: rgb(255, 255, 183);
+    font-size: 2.3vh;
+
+  }
+
+  .slectSelected {
+    background-color: $color-yellow;
+
+  }
+
+  option {
+    background-color: white;
+  }
+}
+
+table {
+  font-size: 2.1vh;
+
+  width: 95vw;
+  margin: auto 2.5vw;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: Assistant-Regular;
+  // font-family:Arial, Helvetica, sans-serif;
+
+  th,
+  td {
+    padding: 4px;
+    text-align: right;
+    border-bottom: 1px solid rgb(207, 207, 207);
+    width: 3cm;
+    word-wrap: break-word;
+  }
+
+  th {
+    //    border-bottom: 5px solid rgb(255, 255, 255);
+    background-color: rgb(229, 235, 235);
+  }
+
+  tr:hover {
+    background-color: rgb(229, 235, 235);
+
+  }
+
+  th:nth-child(8),
+  td:nth-child(8) {
+    width: 5cm;
+    text-align: left;
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 0.8cm;
+  }
+
+  th:nth-child(6),
+  td:nth-child(6),
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 4cm;
+  }
+
+  th:nth-child(4),
+  td:nth-child(4),
+  th:nth-child(7),
+  td:nth-child(7) {
+    width: 2cm;
+  }
+
+  thead {
+    height: 0.3cm;
+    font-family: Assistant-Bold;
+  }
+
+  //תמונה של הקוביה של המגדר
+  .iconBig {
+    height: 16px;
+    width: 16px;
+    margin: 1px auto;
+    border-radius: 50px;
+  }
+
+  .icon {
+    background-image: url('../icons/nesu2.png');
+    filter: invert(100%);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    display: block;
+    border: 5px solid (242, 14, 244);
+  }
+
+  //בן
+  .iconColorBoy {
+    background-color: $color-blue-light;
+    border: 5px solid $color-blue-light;
+  }
+
+  //בת
+  .iconColorGirl {
+    background-color: $color-pink;
+    border: 5px solid $color-pink;
+
+  }
+
+  .circle {
+    width: 7px;
+    height: 7px;
+    border-radius: 50px;
+    margin: 0px auto 0px auto;
+    display: inline-block;
+  }
+
+  .chonech {
+    background-color: $color-orange;
+  }
+
+  .pail {
+    background-color: $color-green-light;
+  }
+
+  .chonechW {
+    color: $color-orange;
+  }
+
+  .pailW {
+    color: $color-green-light;
+  }
+
+  //הסמלים של העריכה , הוספת פניה, מחיקה ותלמידים בטבלה
+  [request] {
+
+    background-image: url('../icons/reqest2.png');
+  }
+
+  [delete] {
+    background-image: url('../icons/delete2.png');
+  }
+
+  [lock] {
+    background-image: url('../icons/lock.png');
+  }
+
+  [locked] {
+    background-image: url('../icons/lock.png');
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 18px;
+    display: block;
+    color: gray;
+
+  }
+
+  [unlock] {
+    background-image: url('../icons/unlock.png');
+  }
+
+  /*   [edit] {
+    background-image: url('../icons/edit2.png');
+  } */
+  [edit] {
+    background-image: url('../icons/edit2.png');
+    background-position: 95%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding-left: 8px;
+    text-align: left;
+    font-size: 2.1vh;
+    width: 60px;
+    height: 25px;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+
+  }
+
+  [edit]:hover {
+    font-family: Assistant-Bold;
+    padding-left: 6px;
+
+  }
+
+  [edit]:active {
+    font-family: Assistant-Bold;
+    padding-left: 6px;
+    top: 2px;
+  }
+
+  [students] {
+    background-image: url('../icons/students.png');
+  }
+
+  [iconn2] {
+    height: 17px;
+    width: 17px;
+    background-size: contain;
+    margin: 7px;
+    background-repeat: no-repeat;
+    background-color: rgb(0, 0, 0, 0.0);
+  }
+}
+
+[amountWorker] {
+  width: 90%;
+  margin: 15px auto;
+  font-family: Assistant-Bold;
+  font-weight: bold;
+
+}
+
+//הערות למצב הדפסה
+[ppp] {
+  width: 95vw;
+  margin: auto 2.5vw;
+  font-size: 1.8vw;
+  display: none;
+  font-family: Assistant-Regular;
+  text-align: center;
+
+  .bold {
+    font-family: Assistant-Bold;
+    margin: 0cm 0cm;
+  }
+
+  p {
+    display: inline-block;
+    margin: 0cm 0.5cm 0cm 0.1cm;
+    font-size: medium;
+  }
+}
+
+@media print {
+  [nonePrint] {
+    display: none;
+  }
+
+  h1 {
+    font-size: 4vw;
+    color: rgb(0, 235, 196);
+    margin: 0cm auto 0.3cm auto;
+  }
+
+  [imageCategory] {
+    width: 9px;
+    height: 9px;
+    margin: auto 0px auto 3px;
+  }
+
+  table {
+    font-size: 1.6vw;
+    border: 1.5px solid rgb(207, 207, 207);
+
+    .iconBig {
+      height: 10px;
+      width: 10px;
+    }
+
+    .icon {
+      height: 10px;
+      width: 10px;
+    }
+
+    th,
+    td {
+      width: 2.5cm;
+    }
+
+    th:nth-child(6),
+    td:nth-child(6),
+    th:nth-child(2),
+    td:nth-child(2) {
+      width: 3cm;
+    }
+  }
+
+  [ppp] {
+    display: block;
+  }
+
+}
+
+
+
+@media only screen and (max-width: 960px) {
+  [p33] {
+    display: none;
+  }
+
+  [titleA] {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 767px) {
+  table {
+    width: 20cm;
+    overflow: scroll;
+    overflow-x: auto;
+    /* מאפשר גלילה אופקית */
+    white-space: nowrap;
+    /* מונע שבירת שורות בתוך התאים */
+  }
+}

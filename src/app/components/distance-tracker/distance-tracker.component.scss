@@ -1,0 +1,54 @@
+$color-yellow: rgb(255, 255, 82);
+
+[timer] {
+    font-size: 27px;
+    background-image: url('../icons/noun-kilometer.png');
+    background-position: 70%;
+    background-size: 2.4vh;
+    background-repeat: no-repeat;
+    text-align: right;
+    padding-right: 35%;
+margin-bottom: 3px;
+    label {
+        font-size: 12px;
+        font-family: Assistant-Regular;
+    }
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    display: inline;
+    font-family: Assistant-Bold;
+    border-radius: 50px;
+    border: 1px solid black;
+    height: 27px;
+    width: 70px;
+    margin: 5px;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+[bStart] {
+    background-color: rgb(106, 255, 47);
+}
+
+[bStop] {
+    background-color: red;
+}
+
+[bSave] {
+    background-color: $color-yellow;
+}
+
+button:disabled,
+button:disabled:hover {
+    color: #aaaaaa;
+    border: 1px solid #aaaaaa;
+    cursor: not-allowed;
+    background-color: white;
+}

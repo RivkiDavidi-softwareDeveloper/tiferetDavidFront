@@ -1,0 +1,388 @@
+h1,
+h2 {
+  font-family: Assistant-Bold;
+}
+
+h1 {
+  font-size: 2.5vw;
+  text-align: center;
+  color: rgb(1, 180, 150);
+  width: 80%;
+  margin: 20px auto;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h1 {
+  font-family: Assistant-Bold;
+  font-size: 2.5vw;
+  text-align: center;
+  color: rgb(1, 180, 150);
+  width: 80%;
+  margin: 20px auto;
+}
+
+$color-yellow: rgb(255, 255, 82);
+$color-red: rgb(229, 45, 45);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+
+button {
+  margin: 0px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  font-size: large;
+  padding-bottom: 4px;
+  text-align: center;
+  width: 130px;
+  height: 41px;
+  text-decoration: none;
+  font-family: Assistant-Light;
+  border: 0px;
+}
+
+button:hover {
+  font-weight: bolder;
+}
+
+button:active {
+  font-family: Assistant-Bold;
+  top: 2px;
+}
+
+[amounts] {
+  font-size: 2.5vh;
+  width: 95vw;
+  height: 7vh;
+  margin: auto 2.5vw 0.2vh 2.5vw;
+  font-family: Assistant-Bold;
+  text-align: center;
+
+  [amount] {
+    height: 50px;
+    margin: 0px 2%;
+    width: 22%;
+    line-height: 50px;
+    display: inline-block;
+    background-color: rgb(133, 255, 243);
+    box-shadow: 2px 2px 7px rgba(124, 124, 124, 0.6);
+
+  }
+
+  [amountLeft] {
+    margin: 0px 2% 0px 0px;
+  }
+
+  [amountRight] {
+    margin: 0px 0px 0px 2%;
+
+  }
+}
+
+
+.lineNan {
+  display: none;
+  height: 50px;
+}
+
+.line {
+  border-bottom: 30px solid white;
+}
+
+.bold {
+  font-family: Assistant-Bold;
+}
+
+[otef] {
+  text-align: left;
+  margin: auto 2.5vw;
+  width: 95vw;
+  height: 45px;
+
+  [icon] {
+    background-size: 25px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgb(229, 235, 235);
+    border-radius: 50px;
+    box-shadow: 0 0 10px 0 rgba(230, 230, 230, 0.5);
+    //  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+    display: inline;
+    height: 45px;
+    width: 45px;
+    margin: 0px;
+  }
+
+  [icon]:hover {
+    background-color: $color-yellow;
+    font-family: Assistant-Bold;
+
+  }
+
+  [icon]:active {
+    font-family: Assistant-Bold;
+    top: 2px;
+  }
+
+  [print] {
+    background-image: url('../icons/print.png');
+
+  }
+
+  [newTask] {
+    width: 170px;
+    background-image: url('../icons/plus.png');
+    background-position: 93%;
+    line-height: 42px;
+    margin-left: 7px;
+    font-size: large;
+    font-family: Assistant-Bold;
+
+  }
+}
+
+
+
+table {
+  font-size: 2.1vh;
+  width: 95vw;
+  margin: auto 2.5vw;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: Assistant-Regular;
+
+  th,
+  td {
+    padding: 5px;
+    text-align: right;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    word-wrap: break-word;
+
+    button {
+      font-size: 2.1vh;
+      width: 130px;
+      height: 30px;
+      background-color: white;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+
+    }
+
+    button:hover {
+      font-family: Assistant-Bold;
+      padding-left: 6px;
+
+    }
+
+    button:active {
+      font-family: Assistant-Bold;
+      padding-left: 6px;
+      top: 2px;
+    }
+
+    [vx] {
+      width: 25px;
+      height: 25px;
+      font-size: large;
+      font-family: Assistant-Bold;
+      line-height: 20px;
+      color: white;
+
+    }
+
+    [clockLeter] {
+      background-image: url('../icons/taimer.png');
+      background-position: 95%;
+      width: 150px;
+      background-size: 20px;
+      background-repeat: no-repeat;
+      padding-left: 8px;
+      text-align: left;
+    }
+
+    .v {
+      background-color: rgb(9, 255, 0);
+    }
+
+    .x {
+      background-color: red;
+    }
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 30px;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 35vw;
+  }
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 20vw;
+  }
+  th {
+    background-color: rgb(229, 235, 235);
+  }
+
+  .yellow {
+    background-color: rgb(255, 255, 211)
+  }
+
+  .red {
+    background-color: rgb(255, 152, 152);
+  }
+
+  .green {
+    background-color: rgb(203, 255, 191);
+
+  }
+
+  thead {
+    height: 0.3cm;
+    font-family: Assistant-Bold;
+  }
+
+
+  [details] {
+    p {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+}
+
+.trLine {
+  border-bottom: 20px solid rgb(229, 235, 235);
+}
+
+
+tbody {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+//הערות למצב הדפסה
+[ppp] {
+  width: 95vw;
+  margin: auto 2.5vw 1vh 2.5vw;
+  font-size: 1.8vw;
+  display: none;
+  font-family: Assistant-Regular;
+  text-align: center;
+
+  .bold {
+    font-family: Assistant-Bold;
+    margin: 0cm 0cm;
+  }
+
+  p {
+    display: inline-block;
+    margin: 0cm 0.5cm 0cm 0.1cm;
+    font-size: medium;
+  }
+}
+
+header {
+  display: none;
+}
+
+@media print {
+  [nonePrint] {
+    display: none;
+  }
+
+  [imageCategory] {
+    width: 11px;
+    height: 11px;
+    margin: auto 0px auto 3px;
+  }
+
+  h1 {
+    font-size: 4vh;
+    color: rgb(0, 235, 196);
+    margin: 0cm auto 0.3cm auto;
+  }
+
+  [amountWorker] {
+    font-size: small;
+  }
+
+  [ppp] {
+    display: block
+  }
+
+  table {
+    font-size: 1.7vh;
+    border: 1.5px solid rgb(207, 207, 207);
+
+    .iconBig {
+      height: 10px;
+      width: 10px;
+    }
+
+    .icon {
+      height: 10px;
+      width: 10px;
+    }
+
+    th,
+    td {
+      width: 2.5cm;
+    }
+
+  }
+
+}
+
+//עיצוב ההודעות
+
+.custom-snackbar {
+  background-color: $color-yellow; // צבע רקע
+  color: #333; // צבע טקסט
+  font-size: 16px; // גודל פונט
+  border-radius: 10px; // רדיוס הפינות
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+}
+
+.custom-snackbar .mat-snack-bar-container {
+  padding: 10px 20px; // רווחים פנימיים
+}
+
+@media only screen and (max-width: 960px) {
+  [DT] {
+    display: none;
+  }
+
+
+  .tabel {
+    width: 95%;
+  }
+
+  [titleA] {
+    display: none;
+  }
+
+
+}
+
+@media only screen and (max-width: 767px) {
+  [allP] {
+    display: block;
+    width: 95%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+}
+
+@media print {
+  [nonePrint] {
+    display: none;
+  }
+ }

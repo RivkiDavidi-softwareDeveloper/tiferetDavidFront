@@ -1,0 +1,316 @@
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(253, 253, 11);
+
+$color-red: rgb(229, 45, 45);
+/* $color-turqis: rgb(1, 180, 150);
+ */
+$color-turqis: rgb(31, 126, 104);
+$color-turqis-dark: rgb(10, 70, 56);
+$color-turqis-light: rgb(86, 191, 166);
+
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+$color-white-dark: rgb(242, 244, 244);
+
+
+
+
+//הגדרת גודלי כתב
+h1,
+h2,
+h3,
+h5 {
+    font-family: Assistant-Bold;
+}
+
+h1 {
+    font-size: 2.8em;
+    color: $color-turqis;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: $color-turqis;
+}
+
+h3 {
+    font-size: 3vh;
+    margin-bottom: 0.000001vh;
+    /*     color: $color-yellow-dark;
+ */
+}
+
+h5 {
+    font-size: 2vh;
+    margin-top: 0.001vh;
+
+}
+
+
+@keyframes backgroundAnimation {
+    0% {
+/*         background-color: rgb(86, 191, 166);
+ */        background-color: rgb(254, 254, 217);
+
+    }
+
+    50% {
+/*         background-color: rgb(31, 126, 104);
+ */        background-color: rgb(230, 255, 255);
+
+    }
+
+    100% {
+/*         background-color: rgb(13, 79, 63);
+ */        background-color: rgb(250, 255, 199);
+
+    }
+}
+
+:host {
+    display: block;
+    height: 100%;
+    width: 100%;
+    animation: backgroundAnimation 10s infinite alternate;
+}
+
+[all] {
+    //   background-color: $color-turqis;
+    height: 100vh;
+    width: 100vw;
+    padding-top: 10vh;
+
+    [top] {
+        height: 45vh;
+        width: 70vw;
+        margin: 0vh 15vw 10vh 15vw;
+
+        [logoBig] {
+            height: 30vh;
+            background-image: url('./logoTbig.png');
+            background-size: contain;
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        input {
+            text-align: right;
+            font-size: 2.5vh;
+              border-radius: 5px;
+            border: 0px solid #aaaaaa;
+            height: 12px;
+            width: 22vh;
+            margin: 0 auto 2vh auto;
+            font-family: Assistant-Regular;
+            padding: 10px;
+            display: block;
+            outline: none;
+            background-color: rgba(255, 255, 255);
+            color: rgb(15, 15, 15);
+            border: 0.5px solid  $color-turqis-dark;
+        }
+
+        button {
+            background-color: $color-turqis;
+            border: none;
+            cursor: pointer;
+            font-size: 2.5vh;
+            padding-bottom: 4px;
+            text-align: center;
+            text-decoration: none;
+            color: rgba(255, 255, 255);
+            font-size: large;
+            display: block;
+            transition: border-top 1s;
+            font-family: Assistant-Bold;
+            border-radius: 50px;
+            border: 2px solid $color-turqis-dark;
+            height: 40px;
+            width: 25vh;
+            margin: 2vh auto;
+        }
+
+        button:hover,
+        button:active {
+            background-color: rgb(176, 223, 219);
+            color: $color-turqis-dark;
+        }
+
+        [eror] {
+            color: $color-red;
+            font-weight: normal;
+            padding: 0px;
+            text-align: center;
+        }
+    }
+
+
+
+    [counter] {
+        width: 35vw;
+        height: 25vh;
+        margin: auto;
+        margin: 15vh 32.5vw 5vh 32.5vw;
+
+        [cTop] {
+            background-color: white;
+            box-shadow: 4px 4px 8px rgba(170, 170, 169, 0.6);
+            height: 10vh;
+            cursor: pointer;
+
+            button {
+                height: 10vh;
+                width: 17.5vw;
+                background-color: #f0f0f0;
+                color: $color-turqis-dark;
+                color: $color-turqis;
+                font-size: 18px;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                display: inline;
+                align-items: center;
+                justify-content: center;
+                font-family: Assistant-Bold;
+                background-image: url('../icons/noun-kilometer.png');
+                background-position: center 0.5vh;
+                background-size: 3.8vh;
+                background-repeat: no-repeat;
+                padding-top: 3.5vh;
+
+                label {
+                    display: block;
+                    color: black;
+                    font-size: 12px;
+                    margin-top: 0px;
+                    line-height: 1.2;
+                    font-family: Assistant-Regular;
+
+                }
+
+            }
+
+            [bRight] {
+                border-left: 1px solid $color-turqis ;
+                background-image: url('../icons/stopwatch.svg.png');
+
+            }
+
+            .buttonActive {
+                background-color: $color-yellow;
+
+            }
+
+        }
+
+        [cButtom] {
+            background-color: white;
+            box-shadow: 4px 4px 8px rgba(170, 170, 169, 0.6);
+            height: 15vh;
+            padding-top: 12px;
+
+            //טיימר
+            [timer] {
+                font-size: 27px;
+                background-image: url('../icons/stopwatch.svg.png');
+                background-position: 70%;
+                background-size: 2.6vh;
+                background-repeat: no-repeat;
+                text-align: right;
+                padding-right: 35%;
+            }
+
+            button {
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                color: rgb(0, 0, 0);
+                font-size: 14px;
+                display: inline;
+                font-family: Assistant-Bold;
+                border-radius: 50px;
+                border: 1px solid black;
+                height: 27px;
+                width: 70px;
+                margin: 5px;
+                margin-top: 8px;
+                padding: 0px;
+            }
+            [bStart] {
+                background-color: rgb(106, 255, 47);
+            }
+            [bStop] {
+                background-color: red;
+            }
+            [bSave] {
+                background-color: $color-yellow;
+            }
+            button:disabled,
+            button:disabled:hover {
+                color: #aaaaaa;
+                border: 1px solid #aaaaaa;
+                cursor: not-allowed;
+                background-color: white;
+            }
+
+
+        }
+    }
+
+}
+
+
+
+@media only screen and (max-width: 960px) {
+    [all] {
+
+        [counter] {
+            margin: 15vh 25vw 5vh 25vw;
+
+            width: 50vw;
+
+            [cTop] {
+                button {
+                    width: 25vw;
+                    font-size: 18px;
+
+                    label {
+                        font-size: 12px;
+
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    [all] {
+
+        [counter] {
+            margin: 15vh 12.5vw 5vh 12.5vw;
+
+            width: 75vw;
+
+            [cTop] {
+                button {
+                    width: 37.5vw;
+                    font-size: 18px;
+
+                    label {
+                        font-size: 12px;
+
+                    }
+                }
+            }
+
+        }
+    }
+
+}

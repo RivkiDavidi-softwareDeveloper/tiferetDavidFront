@@ -1,0 +1,233 @@
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(255, 247, 0);
+
+$color-red: rgb(255, 35, 35);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+$color-turqis-dark: rgb(10, 70, 56);
+
+//הרקע והפופפ
+.background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    height: 580px;
+    width: 700px;
+    margin: auto;
+    /*  display: flex;
+    flex-direction: column; */
+    overflow: scroll;
+    scroll-behavior: auto;
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    // border-radius: 5px;
+    position: relative;
+
+}
+
+//הגדרת גודלי כתב
+h1, 
+h2,
+h3 {
+    font-family: Assistant-Bold;
+    text-align: right;
+
+}
+
+h1 {
+    font-size: 2.8em;
+    color: $color-turqis;
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: $color-turqis;
+}
+
+h3 {
+    font-size: 1.3em;
+    margin-top: 10px;
+    margin-bottom: 2px;
+
+    color: $color-turqis;
+    /*     background-size: contain;
+    padding: 0px 40px 0px 0px;
+    background-repeat: no-repeat;
+    background-position: right; */
+}
+
+[title1] {
+    color: rgb(255, 119, 0);
+}
+[title2] {
+    color: rgb(226, 10, 10);
+}
+[title3] {
+    color: rgb(161, 80, 21);
+}
+[title4] {
+    color: rgb(187, 0, 255);
+}
+[title5] {
+    color: rgb(0, 166, 255);
+}
+[title6] {
+    color: rgb(0, 116, 179);
+}
+[title7] {
+    color: rgb(10, 142, 6);
+}
+
+//כפתור
+button {
+    font-family: Assistant-Regular;
+    background-color: $color-turqis;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: large;
+    font-weight: bold;
+    padding-bottom: 4px;
+    text-align: center;
+    width: 130px;
+    height: 41px;
+    text-decoration: none;
+
+}
+
+button:hover {
+    font-weight: bolder;
+}
+
+button:active {
+    position: relative;
+    top: 2px;
+
+}
+
+//כפתור סגירה
+.close {
+    width: 30px;
+    height: 30px;
+    background-color: $color-turqis;
+    font-family: Assistant-Bold;
+    //box-shadow: rgba(0, 0, 0, 0.2);
+    // box-shadow: 2px 2px 23px 3px rgba(0, 0, 0, 0.2);
+    // margin: 0px 670px 0px 0px;
+    border: none;
+    border-radius: 0px;
+    position: absolute;
+    top: 15px;
+    z-index: 999;
+    left: 15px;
+}
+
+.close:active {
+    position: absolute;
+    top: 15px;
+
+    background-color: $color-turqis-light;
+
+}
+
+//תויות
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: Assistant-Regular;
+    text-align: right;
+}
+
+[l2] {
+    display: inline-block;
+    color: rgb(78, 78, 78);
+    margin: 0px;
+    margin-right: 4px;
+    font-family: Assistant-Light;
+
+}
+
+//פרטי יצירת קשר
+[contectAll] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+[ca] {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+//כפתור שמירה
+[save] {
+    display: block;
+    margin: 0px auto;
+}
+
+//בחירת תמונה
+
+
+
+[otefImage] {
+    width: 150px;
+    height: 200px;
+    overflow: hidden;
+    border: 3px solid $color-turqis;
+    position: absolute;
+    top: 50px;
+    z-index: 998;
+    left: 70px;
+
+    img {
+        height: 100%;
+        width: auto;
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .popup {
+        height: 100%;
+        width: 550px;
+        overflow: scroll;
+        scroll-behavior: auto;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .popup {
+        height: 100%;
+        width: 100%;
+        overflow: scroll;
+        scroll-behavior: auto;
+
+    }
+
+    input {
+        width: 210px;
+    }
+    [otefImage] {
+        display: block;
+        position: relative;
+        top: 0px;
+        z-index: 0;
+        left: 0px;
+
+    }
+}

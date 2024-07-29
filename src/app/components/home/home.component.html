@@ -1,0 +1,80 @@
+<div *ngIf="buttonShow" all>
+    <div top>
+        <div logoBig> </div>
+        <br>
+        <input type="text" placeholder="שם משתמש" (input)="onInputChangeName($event)" t>
+        <input type="password" placeholder="סיסמא" (input)="onInputChangePassword($event)">
+        <button (click)="Login()">כניסה</button>
+
+    </div>
+    <div counter>
+        <div cTop>
+            <button (click)="counter1Show=!counter1Show;counter2Show=false" [ngClass]="{'buttonActive':counter1Show}"
+                bRight>מונה זמן
+                <label>זמן + תאריך</label>
+            </button>
+            <button (click)="counter2Show=!counter2Show;counter1Show=false"
+                [ngClass]="{'buttonActive':counter2Show}">מונה דרך <label>זמן + תאריך +
+                    ק"מ</label></button>
+        </div>
+        <div cButtom *ngIf="counter1Show">
+            <br>
+            <p timer>{{ stringTimer(hours) }}:{{ stringTimer(minutes) }}:{{ stringTimer(seconds) }}</p>
+            <button bStart (click)="startTimer()" >התחל</button>
+            <button bStop (click)="stopTimer()" [disabled]="!timerInterval" *ngIf="timerRunning">עצור</button>
+            <button bStop (click)="stopTimer()" *ngIf="!timerRunning" [disabled]="!timerInterval">המשך</button>
+            <button bSave (click)="saveTimer(arrarySimple)" [disabled]="!timerInterval">שמור</button>
+
+        </div>
+        <div cButtom *ngIf="counter2Show">
+            <p timer>{{ stringTimer(hours) }}:{{ stringTimer(minutes) }}:{{ stringTimer(seconds) }}</p>
+            <app-distance-tracker (start)="startTimer()" (stop)="stopTimer()"
+                (save)="saveTimer($event)" [ifDisplayStopAndSaveTime]="timerInterval"></app-distance-tracker>
+        </div>
+    </div>
+
+
+    <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+
+
+</div>
+
+<app-system-login *ngIf="systemLoginShow" [system]="system" (popupDisplayOut)="closeP($event)"></app-system-login>
+<app-workers-login *ngIf="workersLoginShow" [worker]="worker" [minutes]="minutesToSend" [kilomet]="kilomet" [exit]="exit" [target]="target"
+    (popupDisplayOut)="closeP($event)"></app-workers-login>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--         <div counter c2>
+            <div cTop (click)="counter2Show=!counter2Show;counter1Show=false">
+
+                <h3>מונה מורכב</h3>
+                <h5>זמן + תאריך + דרך</h5>
+            </div> 
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3213.1578482068444!2d34.83777142457004!3d32.08498347396045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4a235bdb84f1%3A0x1789026fc4b534d5!2z16jXqSLXmSA4LCDXkdeg15kg15HXqNen!5e1!3m2!1siw!2sil!4v1710775508527!5m2!1siw!2sil" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p> קו רוחב: {{latitude}}</p>
+                <p> קו אורך: {{longitude}}</p>
+                <p>דיוק: {{accuracy}}</p>
+                <p>{{locationDescription}}</p>
+                <br>
+                <p> קו רוחב: {{latitude2}}</p>
+                <p> קו אורך: {{longitude2}}</p>
+                <p>דיוק: {{accuracy2}}</p>
+                <p>{{locationDescription2}}</p> 
+                <p>Distance: {{ distance }} km</p>
+                <p>Time: {{ time }} minutes</p>
+                <p>Start Location: {{ startLocation }}</p>
+                <p>End Location: {{ endLocation }}</p> 
+            <div></div>
+        </div> -->

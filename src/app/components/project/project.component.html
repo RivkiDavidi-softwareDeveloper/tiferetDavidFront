@@ -1,0 +1,11 @@
+<div project>
+    <p [ngClass]="{'nameB':project.Pr_gender==1,'nameG':project.Pr_gender==2}" name>{{project.Pr_name}}</p>
+    <p describe>{{project.Pr_description}}</p>
+
+    <p contect><label bold>תכנים:</label><label>{{project.Pr_content}}</label></p>
+    <p place><label bold>מקום:</label><label>{{project.Pr_Place}}</label></p>
+    <p date><label bold>תאריך:</label><label>{{project.Pr_date}}</label></p>
+    <button [ngClass]="{'buttonB':project.Pr_gender==1,'buttonG':project.Pr_gender==2}" (click)="displayPopap=true">חניכים משויכים</button>
+
+</div>
+<app-students-for-project *ngIf="displayPopap" [project]="project" (popupDisplayOut)="closeP($event)"></app-students-for-project>

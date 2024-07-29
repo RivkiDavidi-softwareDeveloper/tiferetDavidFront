@@ -1,0 +1,8 @@
+<div box *ngIf="student" [ngClass]="{'boldBorder':ifSelected(student.St_code)}" (click)="select=!select;selectStudent()">
+    <div redPoint [ngClass]="{'redPoint':ifRedPoit()}" title="לא נרשמה פעילות מעל לזמן התדירות המוגדר"></div>
+    <div otefImg>
+        <img *ngIf="!(imageBlobURL==='')" [src]="imageBlobURL" alt="Image">
+    </div>
+    <label >פ.אחרונה: {{displayDate(lastDate)}}  </label>
+    <div name>{{student.St_name+" "+student.St_Fname}}</div>
+</div>
