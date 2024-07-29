@@ -307,8 +307,7 @@
     </div>
     <br>
     <br>
-    <!--     <div>{{totalSize/1024/1024}}</div>
- --> <br>
+<br>
     <button buttonTurqis buttonAddActivity [disabled]="!ifNotEmpty() || !validation()" (click)="addActivity()">שלח
         פעילות</button>
     <br>
@@ -316,6 +315,8 @@
     <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0">שיתוף פעיל נוסף</button>
     <button buttonOrange *ngIf="listSelectedStudents.length==1" (click)="updateStudent()">עדכון פרטים וסטטוס
         החניך</button>
+        <button buttonOrange [disabled]="true"  (click)="addTask()">הוספת משימת המשך</button>
+
     <br>
     <br>
     <br>

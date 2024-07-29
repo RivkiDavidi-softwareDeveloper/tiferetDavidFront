@@ -27,6 +27,9 @@ import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.comp
 })
 
 export class ActivityReportingComponent implements OnInit {
+addTask() {
+throw new Error('Method not implemented.');
+}
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
 
