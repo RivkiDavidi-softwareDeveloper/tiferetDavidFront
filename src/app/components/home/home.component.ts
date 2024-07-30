@@ -137,8 +137,8 @@ export class HomeComponent implements OnInit {
     this.timerRunning = !this.timerRunning;
   }
   saveTimer(traveld: Array<string>) {
-    this.minutesToSend = this.minutesPrivate
-    this.snackBar.open('המונה נשמר בהצלחה!', '', { duration: 2000 });
+    this.minutesToSend = this.minutesPrivate 
+    this.snackBar.open('המונה נשמר בהצלחה!', '', { duration: 2000,panelClass: ['custom-snackbar'] });
     this.seconds = 0;
     this.minutes = 0;
     this.hours = 0;

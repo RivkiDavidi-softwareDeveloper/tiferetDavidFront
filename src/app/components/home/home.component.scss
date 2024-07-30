@@ -13,6 +13,18 @@ $color-blue-light: rgb(0, 200, 255);
 $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
 $color-white-dark: rgb(242, 244, 244);
+.custom-snackbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 270px;
+    box-sizing: border-box;
+}
+
+.custom-snackbar .mat-simple-snackbar {
+    text-align: center;
+    width: 100%;
+}
 
 
 

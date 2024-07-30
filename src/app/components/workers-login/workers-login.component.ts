@@ -45,12 +45,26 @@ export class WorkersLoginComponent implements OnInit {
   @Input() exit = "";
   @Input() target = "";
 
-  constructor(private api: ApiService, private cdRef: ChangeDetectorRef) { }
+  audio: HTMLAudioElement;
+
+  constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
+        // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
+        this.audio = new Audio();
+        const audioName = 'glocken.mp3';
+                this.audio.src = `assets/${audioName}`;;
+        this.audio.load();
+   }
   ngOnInit(): void {
     this.startInactivityTimer();
     this.amoumtMessagesNotDone();
     this.amoumtTasksNotDone();
 
+  }
+  checkCondition(): void {
+    // אם התנאי מתקיים, נגן את הצליל
+    if (this.amountTasksND>0 ) {
+      this.audio.play();
+    }
   }
   onListSelected(event: Event) {
     this.active = false;
@@ -108,6 +122,8 @@ export class WorkersLoginComponent implements OnInit {
     this.api.GetAmoumtTasksNotDoneForWorker(this.worker.Wo_code).subscribe(Date => {
       this.amountTasksND = Number(Date);
       this.cdRef.detectChanges();
+      this.checkCondition()
+
     });
   }
   updateAmountTask() {
