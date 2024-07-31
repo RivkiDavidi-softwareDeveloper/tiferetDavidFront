@@ -19,6 +19,8 @@ export class TaskComponent {
   Ta_time = ""
   validDesc = false;
   popupDisplayIn = true;
+  @Input() status = "add"
+  @Input() taskUpdate: Taskk | undefined
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   //תאור
   onInputChangeDesc(event: Event) {
@@ -69,13 +71,34 @@ export class TaskComponent {
           this.popupDisplayOut.emit(false);
         },
         (error) => {
-          this.snackBar.open('הוספת המשימה נכשלה', 'סגור', { duration: 2000 });
+          this.snackBar.open('הוספת המשימה נכשלה', '', { duration: 3000 });
         });
 
     }
     else {
-      this.snackBar.open('חסר פרטים', 'סגור', { duration: 2000 });
+      this.snackBar.open('חסר פרטים', '', { duration: 3000 });
     }
+  }
+  //עדכון זמן משימה
+  update() {
+    if (this.taskUpdate) {
+      if (this.Ta_date.length > 0) {
+        this.taskUpdate.Ta_date = this.Ta_date
+      }
+      if(this.Ta_time.length>0){
+        this.taskUpdate.Ta_time=this.Ta_time;
+      }
+      this.api.UpdateTask(this.taskUpdate).subscribe(
+        (response) => {
+          this.snackBar.open('עודכן בהצלחה', '', { duration: 3000 });
+          this.empty()
+          this.popupDisplayOut.emit(false);
+        },
+        (error) => {
+          this.snackBar.open('העדכון נכשל', '', { duration: 3000 });
+        });
+    }
+
   }
   empty() {
     this.Ta_description = ""

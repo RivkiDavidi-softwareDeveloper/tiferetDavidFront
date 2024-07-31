@@ -369,7 +369,11 @@ export class ApiService {
     const url: string = this.urlBasis + "/tasks/AddTask";
     return this.httpp.post<any>(url, task);
   }
-
+//מחיקת משימה
+public deleteTask(task:Taskk):Observable<any>{
+  const url: string = this.urlBasis + "/tasks/DeleteTask";
+  return this.httpp.post<any>(url, task);
+}
 
 
   //הצגת כל הקהילות

@@ -6,14 +6,16 @@
 
 </div>
 <br>
+
 <table>
     <thead>
         <tr>
             <th></th>
 
             <th>המשימה</th>
-            <th>תאריך</th>
-            <th>זמן</th>
+            <th displayBig>תאריך</th>
+            <th displayBig>שעה</th>
+            <th displaySmall>תאריך ושעה</th>
             <th nonePrint></th>
 
         </tr>
@@ -26,12 +28,19 @@
                     (click)="done(t)">{{idDone(t.Ta_done)}}</button></td>
 
             <td class="bold">{{t.Ta_description}}</td>
-            <td>{{getDayFromDate(t.Ta_date)}} {{displayDate(t.Ta_date)}}</td>
-            <td>{{t.Ta_time}}</td>
-            <td nonePrint><button *ngIf="t.Ta_done==0" clockLeter>הזכר לי מאוחר יותר</button></td>
+            <td displayBig>{{getDayFromDate(t.Ta_date)}} {{displayDate(t.Ta_date)}}</td>
+            <td displayBig>{{t.Ta_time}}</td>
+            <td displaySmall>
+                <p>{{getDayFromDate(t.Ta_date)}} {{displayDate(t.Ta_date)}}</p>
+                <p> שעה: {{t.Ta_time}}</p>
+            </td>
+            <td nonePrint><button *ngIf="t.Ta_done==0" clockLeter (click)="updateTask(t)">הזכר לי מאוחר יותר</button>
+            </td>
         </tr>
 
     </tbody>
 </table>
 <!-- <button>הצג עוד</button>
  --><app-task *ngIf="displayAddTask" [workerCode]="codeWorker" (popupDisplayOut)="closePAdd(false)"></app-task>
+<app-task *ngIf="displayUpdateTask" [workerCode]="codeWorker" [status]="'update'" [taskUpdate]="taskUpdate"
+    (popupDisplayOut)="closePAdd(false)"></app-task>

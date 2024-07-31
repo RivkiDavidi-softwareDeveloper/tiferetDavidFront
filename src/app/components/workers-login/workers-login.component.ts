@@ -34,7 +34,7 @@ export class WorkersLoginComponent implements OnInit {
   displayUpdateStudent = false
   parent1: Parentt = new Parentt(1, "", "", "", "")
   parent2: Parentt = new Parentt(1, "", "", "", "")
-  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined,undefined,[],undefined,[])
+  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, [])
   imageBlobURL: string = ""
 
 
@@ -46,14 +46,16 @@ export class WorkersLoginComponent implements OnInit {
   @Input() target = "";
 
   audio: HTMLAudioElement;
+  degelAudioTask = false;
+  degelAudioMessege = false;
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
-        // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
-        this.audio = new Audio();
-        const audioName = 'glocken.mp3';
-                this.audio.src = `assets/${audioName}`;;
-        this.audio.load();
-   }
+    // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
+    this.audio = new Audio();
+    const audioName = 'glocken.mp3';
+    this.audio.src = `assets/${audioName}`;;
+    this.audio.load();
+  }
   ngOnInit(): void {
     this.startInactivityTimer();
     this.amoumtMessagesNotDone();
@@ -62,7 +64,7 @@ export class WorkersLoginComponent implements OnInit {
   }
   checkCondition(): void {
     // אם התנאי מתקיים, נגן את הצליל
-    if (this.amountTasksND>0 ) {
+    if (this.amountTasksND > 0) {
       this.audio.play();
     }
   }
@@ -115,6 +117,10 @@ export class WorkersLoginComponent implements OnInit {
     this.api.GetAmoumtMessagesNotDoneForWorker(this.worker.Wo_code).subscribe(Date => {
       this.amountMessagesND = Number(Date);
       this.cdRef.detectChanges();
+      if (!this.degelAudioMessege) {
+        this.checkCondition()
+        this.degelAudioMessege = true
+      }
     });
   }
   //כמות משימות שלא התבצעו
@@ -122,8 +128,10 @@ export class WorkersLoginComponent implements OnInit {
     this.api.GetAmoumtTasksNotDoneForWorker(this.worker.Wo_code).subscribe(Date => {
       this.amountTasksND = Number(Date);
       this.cdRef.detectChanges();
-      this.checkCondition()
-
+      if (!this.degelAudioTask) {
+        this.checkCondition()
+        this.degelAudioTask = true
+      }
     });
   }
   updateAmountTask() {
@@ -134,7 +142,7 @@ export class WorkersLoginComponent implements OnInit {
   async updateStudent(student: Student) {
     await new Promise<void>((resolve, reject) => {
       this.studentUpdate = student
-           //תמונה
+      //תמונה
       const imageName = this.studentUpdate.St_image
       if (imageName) {
         this.api.getImageStudent(imageName)

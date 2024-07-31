@@ -1,8 +1,10 @@
 <div class="background" *ngIf="popupDisplayIn">
     <div class="popup">
         <button class="close" (click)="close();">x</button>
-        <h2>הוספת משימה</h2>
-        <div contectAll>
+        <h2 *ngIf="status=='add'">הוספת משימה</h2>
+        <h2  *ngIf="status=='update'">עדכון זמן משימה</h2>
+
+        <div contectAll *ngIf="status=='add'">
             <div ca>
                 <textarea (input)="onInputChangeDesc($event)" placeholder="הכנס משימה..."></textarea>
                 <label eror *ngIf="validDesc">מוגבל ל-4000 תוים</label>
@@ -17,9 +19,26 @@
                 <input type="time" (input)="onInputChangeTime($event)">
             </div>
         </div>
+        <div contectAll *ngIf="status=='update'">
+            <div ca>
+                <textarea [disabled]="true" [value]="taskUpdate?.Ta_description" (input)="onInputChangeDesc($event)" placeholder="הכנס משימה..."></textarea>
+                <label eror *ngIf="validDesc">מוגבל ל-4000 תוים</label>
+            </div>
+            <br>
+            <div ca>
+                <label>תאריך</label>
+                <input type="date" [value]="taskUpdate?.Ta_date" (input)="onInputChangeDate($event)">
+            </div>
+            <div ca>
+                <label>שעה</label>
+                <input type="time" [value]="taskUpdate?.Ta_time" (input)="onInputChangeTime($event)">
+            </div>
+        </div>
         <br>
         <br>
 
-        <button save (click)="add()">הוסף</button>
+        <button save *ngIf="status=='add'" (click)="add()">הוסף</button>
+        <button save *ngIf="status=='update'" (click)="update()">עדכן</button>
+
     </div>
 </div>
