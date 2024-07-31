@@ -18,7 +18,9 @@ export class TasksComponent {
 
   listTaskss: Array<Taskk> = []
   @Input() codeWorker = 0
-  displayAddTask = false
+displayAddTask = false
+/*  @Input()  displayAddTask = false
+ */
   taskUpdate: Taskk | undefined
   displayUpdateTask = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }

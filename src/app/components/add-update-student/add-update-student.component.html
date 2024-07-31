@@ -186,30 +186,49 @@
                 <select *ngIf="status === 'add'" (change)="onCommunitySelected($event)"
                     [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
-                    <option *ngFor="let c of listOfCommunities;" [value]="c.Com_code">{{ c.Com_name }}</option>
+                    <option *ngFor="let c of listOfCommunities;" [value]="c.Com_code" [selected]="codeCommonity==c.Com_code">{{ c.Com_name }}</option>
+                    <option [value]="-2">הוסף קהילה </option>
+
                 </select>
                 <select *ngIf="status === 'update'" (change)="onCommunitySelected($event)"
                     [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
                     <option hidden>בחר</option>
                     <option *ngFor="let c of listOfCommunities;"
-                        [selected]="selectedCommunity(studentUpdate.St_code_synagogue,c.Com_code)" [value]="c.Com_code">
+                        [selected]="selectedCommunity(studentUpdate.St_code_synagogue,c.Com_code) || codeCommonity==c.Com_code" [value]="c.Com_code">
                         {{ c.Com_name }}</option>
+                        <option [value]="-2">הוסף קהילה </option>
+
                 </select>
+
+            </div>
+            <div ca addCity *ngIf="addCommunityStatus">
+                <input type="text" placeholder="שם קהילה" (input)="onInputCommunityName($event)">
+                <label eror *ngIf="validCommunityName">טקסט ארוך מידי</label>
+                <button (click)="addCommunity()">הוסף קהילה</button>
             </div>
             <div ca>
                 <label>בית כנסת (יש לבחור קודם קהילה)</label>
                 <select [disabled]="codeCommonity==-1" *ngIf="status === 'add'" (change)="onSynagogueSelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
-                    <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code">{{ s.Sy_name }}</option>
+                    <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code" [selected]="St_code_synagogue==s.Sy_code">{{ s.Sy_name }}</option>
+                    <option [value]="-2">הוסף בית כנסת </option>
+
                 </select>
                 <select [disabled]="codeCommonity==-1" *ngIf="status === 'update'"
                     (change)="onSynagogueSelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
                     <option hidden>בחר</option>
-                    <option *ngFor="let s of listOfsynagogueis" [selected]="s.Sy_code==studentUpdate.St_code_synagogue"
+                    <option *ngFor="let s of listOfsynagogueis" [selected]="s.Sy_code==studentUpdate.St_code_synagogue || St_code_synagogue==s.Sy_code"
                         [value]="s.Sy_code">{{ s.Sy_name }}</option>
+                        <option [value]="-2">הוסף בית כנסת </option>
+
                 </select>
+            </div>
+            <div ca addCity *ngIf="addSynagugaStatus">
+                <input type="text" placeholder="שם בית כנסת" (input)="onInputSynagogueName($event)">
+                <label eror *ngIf="validSynagugaName">טקסט ארוך מידי</label>
+                <button (click)="addSynagogue()">הוסף בית כנסת</button>
             </div>
         </div>
 

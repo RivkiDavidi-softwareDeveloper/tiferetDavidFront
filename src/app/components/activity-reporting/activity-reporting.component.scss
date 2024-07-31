@@ -571,12 +571,15 @@ input {
     flex-wrap: wrap;
     width: 75vw;
     max-width: 75vw;
+
     [contectAll] {
         display: flex;
         flex-wrap: wrap;
+
         div {
             display: inline-block;
-    margin-left: 15px;
+            margin-left: 15px;
+
             label {
                 display: block;
                 margin: 0px;
@@ -584,7 +587,7 @@ input {
                 margin-bottom: 5px;
                 font-family: Assistant-SemiBold;
             }
-    
+
             //ינפוטים
             input {
                 font-size: 20px;
@@ -598,19 +601,25 @@ input {
                 padding: 10px;
                 margin: 0px;
                 margin-bottom: 20px;
-    
+
             }
-    
+
             select {
                 width: 200px;
                 margin: 0px;
                 margin-right: 0px;
                 margin-bottom: 20px;
             }
-    
+
+            //ינפוט של כסף
+            [money] {
+             display: inline-block;
+            }
+
             [shach] {
+                margin-right: 5px;
                 display: inline-block;
-    
+
             }
         }
     }
@@ -638,11 +647,7 @@ input {
     height: 20px;
 }
 
-//ינפוט של כסף
-[money] {
-    width: 50px;
 
-}
 
 //שגיאה
 [eror] {

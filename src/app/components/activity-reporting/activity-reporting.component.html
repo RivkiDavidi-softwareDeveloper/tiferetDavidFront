@@ -286,7 +286,7 @@
     <h2 describe>תיאור פעילות בקצרה</h2>
     <br>
     <div boxxx>
-        <label *ngIf="!displayLearningDetails">מינימום 10 תוים</label>
+        <label *ngIf="!displayLearningDetails && AFS_description.length<10">מינימום 10 תוים</label>
         <textarea (input)="onInputChangeDescription($event)" [value]="AFS_description"></textarea>
         <label *ngIf="validAFS_description" eror>מוגבל ל-350 תוים</label>
     </div>
@@ -315,7 +315,7 @@
     <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0">שיתוף פעיל נוסף</button>
     <button buttonOrange *ngIf="listSelectedStudents.length==1" (click)="updateStudent()">עדכון פרטים וסטטוס
         החניך</button>
-        <button buttonOrange [disabled]="true"  (click)="addTask()">הוספת משימת המשך</button>
+        <button buttonOrange   (click)="addTask()">הוספת משימת המשך</button>
 
     <br>
     <br>
@@ -358,3 +358,4 @@
 </div>
 <app-past-frequency [listStudent]="listOfStudents2" *ngIf="displayPopap" [codeWorker]="worker.Wo_code"
     (popupDisplayOut)="closeP($event)"></app-past-frequency>
+    <app-task *ngIf="displayAddTask" [workerCode]="worker.Wo_code" (popupDisplayOut)="closePAdd(false)"></app-task>

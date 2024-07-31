@@ -17,26 +17,26 @@ import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
 import { FileUploadComponent } from "../file-upload/file-upload.component";
 import { AddActivityRequest } from '../../models/AddActivityRequest.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
+import { TaskComponent } from "../task/task.component";
 
 @Component({
     selector: 'app-activity-reporting',
     standalone: true,
     templateUrl: './activity-reporting.component.html',
     styleUrls: ['./activity-reporting.component.scss'],
-    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent]
+    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent]
 })
 
 export class ActivityReportingComponent implements OnInit {
-addTask() {
-throw new Error('Method not implemented.');
-}
+
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
 
     //היסטוריית פעילות
     listOfAcitivities: Array<Activity> = [];
     listOfCategoriesForActivity: Array<CategoriesForActivity> = [];
-
+    //הוספת משימה
+    displayAddTask = false
 
     //תת קטגוריות
     listSubCategoryGift: Array<SubcategoryForTypeActivity> = []
@@ -63,7 +63,7 @@ throw new Error('Method not implemented.');
 
     statusF = 1;
     //החניך שנבחר
-    addStudent: Student = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined,[],undefined,[]);
+    addStudent: Student = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
 
     listSelectedStudents: Array<StudentForActivity> = [];
     listTypesForActivity: Array<CategoriesForActivity> = [];
@@ -71,9 +71,9 @@ throw new Error('Method not implemented.');
     //תאריך וטטימר
     @Input() selectedDate: Date = new Date(); // התאריך הנוכחי כברירת מחדל
     @Input() minutes = 0;
-    @Input() kilomet=0
-    @Input() exit=""
-    @Input() target=""
+    @Input() kilomet = 0
+    @Input() exit = ""
+    @Input() target = ""
     minutesCC = 0;
 
     time: Date = new Date();
@@ -159,6 +159,14 @@ throw new Error('Method not implemented.');
         this.time.setHours(0);
         this.time.setMinutes(0);
         this.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
+
+    }
+    //הוספת משימת המשך
+    addTask() {
+        this.displayAddTask = true
+    }
+    closePAdd(display:boolean) {
+        this.displayAddTask = display
 
     }
     async ngOnInit(): Promise<void> {
@@ -541,8 +549,8 @@ throw new Error('Method not implemented.');
             this.time.setHours(hours);
             this.time.setMinutes(minutes);
             this.AFS_activity_time = this.minutes;
-            this.displayM10=false;this.displayM20=false;this.displayM30=false;this.displayM40=false;this.displayM50=false;
-            this.displayH1=false;this.displayH2=false;this.displayH3=false;this.displayH4=false;
+            this.displayM10 = false; this.displayM20 = false; this.displayM30 = false; this.displayM40 = false; this.displayM50 = false;
+            this.displayH1 = false; this.displayH2 = false; this.displayH3 = false; this.displayH4 = false;
         }
         //מונה דרך
         if (codeTimer == 2) {
@@ -609,7 +617,7 @@ throw new Error('Method not implemented.');
     //בחירת זמן שעות
     hoursSelected(h: number) {
         this.time.setHours(h);
-        this.minutesCC= this.time.getHours() * 60 + this.time.getMinutes();
+        this.minutesCC = this.time.getHours() * 60 + this.time.getMinutes();
         this.AFS_activity_time = this.minutesCC;
     }
     //לחיצה על הינפוט של השעות
@@ -821,7 +829,7 @@ throw new Error('Method not implemented.');
         }
         if (this.selectedFiles) {
             // הגודל המקסימלי במגה-בייטים
-            const maxTotalSizeMB = 195;
+            const maxTotalSizeMB = 29;
             // הגודל המקסימלי בבייטים
             const maxTotalSizeBytes = maxTotalSizeMB * 1024 * 1024;
             this.totalSize = 0;
@@ -835,28 +843,7 @@ throw new Error('Method not implemented.');
         }
     }
 
-    /*    addFilesForActivity(codeActivity: number) {
-           console.log("הגדתי להוספת קבצים")
-           if (this.selectedFiles) {
-               console.log("הגדתי להוספת קבצים")
-   
-               const formData = new FormData();
-               for (let i = 0; i < this.selectedFiles.length; i++) {
-                   formData.append('files', this.selectedFiles[i], this.selectedFiles[i].name);
-               }
-               this.api.FilesUpload("activities", codeActivity, formData)
-                   .subscribe(response => {
-                       console.log('Files uploaded successfully', response);
-                       return true;
-   
-                   }, error => {
-                       console.error('Error uploading files', error);
-                       return false;
-   
-                   });
-           }
-           return true;
-       } */
+
     formatFileSize(size: number): string {
         if (size === 0) return '0 Bytes';
         const k = 1024;
@@ -968,7 +955,7 @@ throw new Error('Method not implemented.');
                             this.sec5 = response
                             this.generalStudents(2);
                             this.selectStudentBoxAdd(this.addStudent.St_code)
-                            this.addStudent = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,undefined,undefined,[],undefined,[]);
+                            this.addStudent = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
 
                         },
                         (error) => {

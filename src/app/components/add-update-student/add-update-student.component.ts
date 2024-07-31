@@ -49,8 +49,8 @@ export class AddUpdateStudentComponent implements OnInit {
   cb4: boolean = false;
   cb5: boolean = false;
   detail: boolean = false;
-//אנימציה
-loading=false
+  //אנימציה
+  loading = false
   //תכונות להוספה
   St_code: number = 1
   St_ID: string = ""
@@ -101,6 +101,12 @@ loading=false
   //שם עיר להוספה
   addCityStatus = false
   cityName = ""
+  //שם קהילה להוספה
+  addCommunityStatus = false
+  communityName = ""
+  //שם בית כנסת להוספה
+  addSynagugaStatus = false
+  synagogueName = ""
   ///דגלים לבדיקות תקינות
   validNane: boolean = false;
   validNameF: boolean = false;
@@ -129,6 +135,9 @@ loading=false
   validDescriptionReceptionStatus: boolean = false
   validRequester = false
   validCityName = false
+  validSynagugaName = false
+  validCommunityName = false
+
   sec: any = "sec"
   secUpload = "nonnnn"
 
@@ -329,16 +338,83 @@ loading=false
   }
   //קהילה
   onCommunitySelected(event: Event) {
+    this.St_code_synagogue = -1
+
     const Code = Number((event.target as HTMLInputElement).value);
-    this.codeCommonity = Code;
-    this.generalSynagogueis();
+    if (Code == (-2)) {
+      this.addCommunityStatus = true
+    }
+    else {
+      this.codeCommonity = Code;
+      this.generalSynagogueis();
+    }
+
+  }
+  onInputCommunityName(event: Event) {
+    var str = (event.target as HTMLInputElement).value;
+    if (str.length <= 20) {
+      this.communityName = str
+      this.validCommunityName = false
+    }
+    else {
+      this.validCommunityName = true
+    }
+  }
+  //הוספת קהילה
+  addCommunity() {
+    if (!this.validCommunityName) {
+      var communityAdd: Community = new Community(1, this.communityName)
+      this.api.AddCommunity(communityAdd).subscribe(
+        (response) => {
+          this.snackBar.open('הקהילה נוספה בהצלחה', '', { duration: 2000 });
+          this.generalCommunities();
+          this.addCommunityStatus = false;
+          this.codeCommonity = response;
+          this.generalSynagogueis();
+        },
+        (error) => {
+          this.snackBar.open('הוספת הקהילה נכשלה נסה שוב.', '', { duration: 2000 });
+        });
+
+    }
   }
   //בית כנסת
   onSynagogueSelected(event: Event) {
     const code = Number((event.target as HTMLInputElement).value);
-    this.St_code_synagogue = code
+    if (code == (-2)) {
+      this.addSynagugaStatus = true
+    }
+    else {
+      this.St_code_synagogue = code
+    }
   }
+  onInputSynagogueName(event: Event) {
+    var str = (event.target as HTMLInputElement).value;
+    if (str.length <= 20) {
+      this.synagogueName = str
+      this.validSynagugaName = false
+    }
+    else {
+      this.validSynagugaName = true
+    }
+  }
+  //הוספת בית כנסת
+  addSynagogue() {
+    if (!this.validSynagugaName) {
+      var synagogueAdd: Synagogue = new Synagogue(1, this.synagogueName, this.codeCommonity)
+      this.api.AddSynagogue(synagogueAdd).subscribe(
+        (response) => {
+          this.snackBar.open('הבית כנסת נוסף בהצלחה', '', { duration: 2000 });
+          this.generalSynagogueis();
+          this.addSynagugaStatus = false;
+         this.St_code_synagogue = response
+        },
+        (error) => {
+          this.snackBar.open('הוספת הבית כנסת נכשלה נסה שוב.', '', { duration: 2000 });
+        });
 
+    }
+  }
   //פל חניך
   onInputChangeCellPhoneStudent(event: Event) {
     const pel: string = (event.target as HTMLInputElement).value
@@ -655,7 +731,7 @@ loading=false
   }
   //הוספה
   public async add(): Promise<void> {
-    this.loading=true
+    this.loading = true
     if (this.validation()) {
       if (this.cb1) {
         this.St_gender = 1;
@@ -723,13 +799,13 @@ loading=false
               );
             }
             resolve();
-            this.loading=false
+            this.loading = false
 
           },
           (error) => {
             this.sec = error
             resolve();
-            this.loading=false
+            this.loading = false
 
           });
       });
@@ -738,14 +814,14 @@ loading=false
     }
     else {
       this.snackBar.open('!הפרטים שגויים', 'x', { duration: 3000 });
-      this.loading=false
+      this.loading = false
 
     }
 
   }
   //עדכון
   public async update(): Promise<void> {
-    this.loading=true
+    this.loading = true
 
     if (this.validation()) {
       //ת.ז 
@@ -914,7 +990,7 @@ loading=false
           );
 
         });
-        this.loading=false
+        this.loading = false
 
       }
       this.empty()
@@ -922,7 +998,7 @@ loading=false
     }
     else {
       this.snackBar.open('!הפרטים שגויים', 'x', { duration: 3000 });
-      this.loading=false
+      this.loading = false
 
     }
 
