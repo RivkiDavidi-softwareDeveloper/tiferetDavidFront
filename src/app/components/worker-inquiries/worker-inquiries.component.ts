@@ -16,9 +16,9 @@ import { NewCallComponent } from "../new-call/new-call.component";
 })
 export class WorkerInquiriesComponent {
     listOfCalls: Array<Calll> = []
-    listOfMessages: Array<MessageForCall> = []
+    listOfMessages: Array<MessageForCall>  | undefined= []
 
-    call: Calll = new Calll(1, "")
+    call: Calll = new Calll(1, "",[])
     @Input() codeWorker: number = 1
     displayOpen = false
     mailEnterOrSend:number=0
@@ -36,20 +36,22 @@ export class WorkerInquiriesComponent {
             this.cdRef.detectChanges();
         });
     }
-    //הודעות
+/*     //הודעות
     generalMessage() {
         this.api.getMessagesForCalls(this.call.Ca_code).subscribe(Date => {
             this.listOfMessages = [];
             this.listOfMessages.push(...Date);
             this.cdRef.detectChanges();
         });
-    }
+    } */
 
     
     async openCall(codeCall: number) {
         this.displayOpen = true;
-        
-        // מחכה להורדת ההודעות מהשרת
+        var calllll=this.listOfCalls.find(c=>c.Ca_code==codeCall)
+        this.listOfMessages = [];
+        this.listOfMessages=calllll?.MessageForCalls;
+/*         // מחכה להורדת ההודעות מהשרת
         await new Promise<void>((resolve, reject) => {
             this.api.getMessagesForCalls(codeCall).subscribe(Date => {
                 this.listOfMessages = [];
@@ -57,11 +59,11 @@ export class WorkerInquiriesComponent {
                 this.cdRef.detectChanges();
                 resolve(); // מסמן שהפעולה הושלמה
             });
-        });
+        }); */
         // מחכה לעדכון ההודעה האחרונה
         await new Promise<void>((resolve, reject) => {
-            this.listOfMessages[this.listOfMessages.length - 1].MFC_done = 1;
-            this.api.UpdateMessageDone(this.listOfMessages[this.listOfMessages.length - 1]).subscribe(Date => {
+            this.call.MessageForCalls[this.call.MessageForCalls.length - 1].MFC_done = 1;
+            this.api.UpdateMessageDone(this.call.MessageForCalls[this.call.MessageForCalls.length - 1]).subscribe(Date => {
                 resolve(); // מסמן שהפעולה הושלמה
             });
         });

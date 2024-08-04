@@ -17,26 +17,26 @@ import { fail } from 'assert';
 export class CallComponent {
 
   //לקבל עצם מסוג שיחה
-  @Input() call: Calll = new Calll(1, "")
+  @Input() call: Calll = new Calll(1, "",[])
   @Input() codeWorker = 1
   @Output() codeCall: EventEmitter<number> = new EventEmitter()
-  listOfMessages: Array<MessageForCall> = []
-  listOfWorkers: Array<Worker> = []
+/*   listOfMessages: Array<MessageForCall> = []
+ */  listOfWorkers: Array<Worker> = []
   displayOpen = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
   }
   ngOnInit(): void {
-    this.generalMessage();
-    this.generalWorkers();
+/*     this.generalMessage();
+ */    this.generalWorkers();
   }
-  //הודעות
+/*   //הודעות
   generalMessage() {
     this.api.getMessagesForCalls(this.call.Ca_code).subscribe(Date => {
       this.listOfMessages = [];
       this.listOfMessages.push(...Date);
       this.cdRef.detectChanges();
     });
-  }
+  } */
   //עובדים
   generalWorkers() {
     this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {

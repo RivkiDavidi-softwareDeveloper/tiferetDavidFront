@@ -13,31 +13,19 @@ import { RecipientForMessage } from '../../models/recipientForMessage.class';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "", 1)
+  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "", 1,[])
   listOfWorkers: Array<Worker> = []
-  listOfRecipientsForMessage:Array<RecipientForMessage>=[]
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
   }
   ngOnInit(): void {
     this.generalWorkers();
-    this.generalRecipientsForMessage();
-
   }
   //עובדים
   generalWorkers() {
     this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
-      this.cdRef.detectChanges();
-    });
-  }
-  //נמענים
-  generalRecipientsForMessage(){
-    console.log(this.message.MFC_code+"קןודדד")
-    this.api.getRecipientsForMessage(this.message.MFC_code).subscribe(Date => {
-      this.listOfRecipientsForMessage = [];
-      this.listOfRecipientsForMessage.push(...Date);
       this.cdRef.detectChanges();
     });
   }

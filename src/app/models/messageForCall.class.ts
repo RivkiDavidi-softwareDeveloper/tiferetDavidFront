@@ -1,3 +1,5 @@
+import { RecipientForMessage } from "./recipientForMessage.class";
+
 export class MessageForCall {
     constructor(
       public MFC_code: number,
@@ -7,6 +9,7 @@ export class MessageForCall {
       public MFC_date: string,
       public MFC_time: string,
       public MFC_done: number,
+     public RecipientForMessages: Array<RecipientForMessage> 
     ){
     }
 }

@@ -1,7 +1,7 @@
 <div message>
     <div title>
         <p userName>{{nameWorker(message.MFC_sender_worker_code)}} </p>
-        <p recipi>|אל: <label *ngFor="let r of listOfRecipientsForMessage">{{" "+nameWorker(r.RFM_worker_code)+" "}},</label></p>
+        <p recipi>|אל: <label *ngFor="let r of message.RecipientForMessages">{{" "+nameWorker(r.RFM_worker_code)+" "}},</label></p>
 
         <p date>{{message.MFC_date}},{{message.MFC_time}}</p>
     </div>

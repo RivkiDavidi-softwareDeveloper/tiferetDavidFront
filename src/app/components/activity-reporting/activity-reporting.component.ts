@@ -63,7 +63,7 @@ export class ActivityReportingComponent implements OnInit {
 
     statusF = 1;
     //החניך שנבחר
-    addStudent: Student = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
+    addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
 
     listSelectedStudents: Array<StudentForActivity> = [];
     listTypesForActivity: Array<CategoriesForActivity> = [];
@@ -165,7 +165,7 @@ export class ActivityReportingComponent implements OnInit {
     addTask() {
         this.displayAddTask = true
     }
-    closePAdd(display:boolean) {
+    closePAdd(display: boolean) {
         this.displayAddTask = display
 
     }
@@ -938,39 +938,38 @@ export class ActivityReportingComponent implements OnInit {
 
 
     //הוספת חניך חד פעמי
-    addStudentF() {
+    async addStudentF() {
+        this.loading = true
+
         if (this.validation2()) {
 
             this.addStudent.St_worker_code = this.worker.Wo_code;
-            const studiesAdd: StudiesForStudent = new StudiesForStudent(1, 1, "", "", "", "", "", "")
-            //הוספת חניך
-            this.api.AddStudent(this.addStudent).subscribe(
-                (response) => {
-                    this.addStudent.St_code = response
-                    this.sec4 = response
-                    studiesAdd.SFS_student_code = this.addStudent.St_code
-                    //הוספת לימודים
-                    this.api.AddStudiesForStuden(studiesAdd).subscribe(
-                        (response) => {
-                            this.sec5 = response
-                            this.generalStudents(2);
-                            this.selectStudentBoxAdd(this.addStudent.St_code)
-                            this.addStudent = new Student(0, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
+             //הוספת חניך
+             await new Promise<void>((resolve, reject) => {
 
-                        },
-                        (error) => {
-                            this.sec5 = error.describe
-                        });
+                this.api.AddStudent(this.addStudent).subscribe(
+                    (response) => {
+                        this.addStudent.St_code = response
+                        this.loading = false
+                        this.generalStudents(2);
+                        this.selectStudentBoxAdd(this.addStudent.St_code)
+                        this.snackBar.open('!נוסף בהצלחה', '', { duration: 3000 });
+                        resolve();
 
-                },
-                (error) => {
-                    this.sec4 = error.describe
-                });
+                    },
+                    (error) => {
+                        this.loading = false
+                        resolve();
 
-            // this.empty()
+
+                    });
+            });
+            this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
+
+          
         }
         else {
-            //this.snackBar.open('!הפרטים שגויים', 'סגור', { duration: 5000 });
+            this.snackBar.open('!הפרטים שגויים', '', { duration: 3000 });
         }
 
     }

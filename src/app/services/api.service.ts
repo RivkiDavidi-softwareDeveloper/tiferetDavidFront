@@ -295,16 +295,6 @@ export class ApiService {
     const url: string = this.urlBasis + "/calls/GetCallls/" + codeWorker + "/" + mailEnterOrSend;
     return this.httpp.get(url) as Observable<Array<Calll>>
   }
-  //הצגת הודעות לשיחה
-  public getMessagesForCalls(codeCall: number): Observable<Array<MessageForCall>> {
-    const url: string = this.urlBasis + "/calls/GetMessageForCallsForCodeCall/" + codeCall;
-    return this.httpp.get(url) as Observable<Array<MessageForCall>>
-  }
-  //הצגת נמענים להודעה 
-  public getRecipientsForMessage(codeMessage: number): Observable<Array<RecipientForMessage>> {
-    const url: string = this.urlBasis + "/calls/GetRecipientsForMessage/" + codeMessage;
-    return this.httpp.get(url) as Observable<Array<RecipientForMessage>>
-  }
   //הוספת שיחה
   public AddCall(call: Calll): Observable<any> {
     const url: string = this.urlBasis + "/calls/AddCall";

@@ -180,51 +180,35 @@ export class NewCallComponent {
     this.listOfWorkersGroups.forEach(w => {
       listOfRecipientForMessage2.push(new RecipientForMessage(1, 1, w.Wo_code));
     })
+     //הוספת נמענים להודעה
+     console.log(listOfRecipientForMessage2.length + "רשימית הנמענים:")
+     //כפתורים של הקבוצות
+     listOfRecipientForMessage2.forEach(r => {
+       r.RFM_message_code = this.MFC_code
+     });
+        //רשומת הודעה
+        var toDayy: Date = new Date();
+        var year = toDayy.getFullYear();
+        var month = ('0' + (toDayy.getMonth() + 1)).slice(-2); // מוסיף 1 כי החודשים מתחילים מ-0
+        var day = ('0' + toDayy.getDate()).slice(-2);
+        this.MFC_date = year + '-' + month + '-' + day;
+        var hours = ('0' + toDayy.getHours()).slice(-2);
+        var minutes = ('0' + toDayy.getMinutes()).slice(-2);
+        this.MFC_time = hours + ':' + minutes;
+        const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.MFC_call_code, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, this.MFC_done,listOfRecipientForMessage2)
+
     //רשומת שיחה
     if (this.Ca_topic == "") {
       this.Ca_topic = "(ללא נושא)";
     }
-    const callAdd: Calll = new Calll(this.Ca_code, this.Ca_topic);
-    //רשומת הודעה
-    var toDayy: Date = new Date();
-    var year = toDayy.getFullYear();
-    var month = ('0' + (toDayy.getMonth() + 1)).slice(-2); // מוסיף 1 כי החודשים מתחילים מ-0
-    var day = ('0' + toDayy.getDate()).slice(-2);
-    this.MFC_date = year + '-' + month + '-' + day;
-    var hours = ('0' + toDayy.getHours()).slice(-2);
-    var minutes = ('0' + toDayy.getMinutes()).slice(-2);
-    this.MFC_time = hours + ':' + minutes;
+    const callAdd: Calll = new Calll(this.Ca_code, this.Ca_topic,[messageAdd]);
 
-    const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.MFC_call_code, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, this.MFC_done)
     //הוספת שיחה
     await this.api.AddCall(callAdd).subscribe(
 
       (response) => {
         this.Ca_code = response
         messageAdd.MFC_call_code = response;
-        //הוספת הודעה
-        this.api.AddMessage(messageAdd).subscribe(
-          (response) => {
-            this.MFC_code = response
-            //הוספת נמענים להודעה
-            console.log(listOfRecipientForMessage2.length + "רשימית הנמענים:")
-            //כפתורים של הקבוצות
-            listOfRecipientForMessage2.forEach(r => {
-              r.RFM_message_code = this.MFC_code
-            });
-            this.api.AddRecipientsForMessage(listOfRecipientForMessage2).subscribe(
-              (response) => {
-                this.sec = response
-
-              },
-              (error) => {
-                this.sec = error
-              }
-            );
-          },
-          (error) => {
-            this.sec = error
-          });
       },
       (error) => {
         this.sec = error
