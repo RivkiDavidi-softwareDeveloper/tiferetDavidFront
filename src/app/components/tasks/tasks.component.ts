@@ -5,6 +5,7 @@ import { ApiService } from '../../services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskComponent } from "../task/task.component";
 import { isToday, parseISO } from 'date-fns';
+import { Worker } from '../../models/worker.class';
 
 @Component({
   selector: 'app-tasks',
@@ -17,7 +18,7 @@ export class TasksComponent {
   @Output() amountTask: EventEmitter<boolean> = new EventEmitter()
 
   listTaskss: Array<Taskk> = []
-  @Input() codeWorker = 0
+  @Input() worker:Worker =new Worker(1,"",1,1,"","","","","")
 displayAddTask = false
 /*  @Input()  displayAddTask = false
  */
@@ -29,7 +30,7 @@ displayAddTask = false
 
   }
   generalTasks() {
-    this.api.GetAllTastForWorker(this.codeWorker).subscribe(Date => {
+    this.api.GetAllTastForWorker(this.worker.Wo_code).subscribe(Date => {
       this.listTaskss = [];
       this.listTaskss.push(...Date);
       this.cdRef.detectChanges();

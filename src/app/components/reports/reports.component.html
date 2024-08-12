@@ -19,10 +19,10 @@
 <div allP nonePrint>
     <div p1>
         <div class="find">
-            <input type="search" role="combobox" placeholder="חפש פעיל/חונך" (input)="onInputChangeSearch($event)">
+            <input type="search" role="combobox" placeholder="חפש פעיל/חונך" (input)="onInputChangeSearchWorker($event)">
         </div>
         <div class="find">
-            <input type="search" role="combobox" placeholder="חפש חניך">
+            <input type="search" role="combobox" placeholder="חפש חניך" (input)="onInputChangeSearchStudent($event)">
         </div>
     </div>
     <div p2>
@@ -70,23 +70,7 @@
                     <option *ngFor="let s of listOfStudent" [value]="s.St_code">{{s.St_name+" "+s.St_Fname}} </option>
                 </select>
             </div>
-            <div pos2>
-                <select [ngClass]="{'slectSelected':monthF!=0}" (change)="onSelectedMonthF($event)">
-                    <option selected [value]="0">כל החודשים </option>
-                    <option [value]="1">ינואר - 01</option>
-                    <option [value]="2">פברואר - 02</option>
-                    <option [value]="3">מרץ - 03</option>
-                    <option [value]="4">אפריל - 04</option>
-                    <option [value]="5">מאי - 05</option>
-                    <option [value]="6">יוני - 06</option>
-                    <option [value]="7">יולי - 07</option>
-                    <option [value]="8">אוגוסט - 08</option>
-                    <option [value]="9">ספטמבר - 09</option>
-                    <option [value]="10">אוקטובר - 10</option>
-                    <option [value]="11">נובמבר - 11</option>
-                    <option [value]="12">דצמבר - 12</option>
-                </select>
-            </div>
+
             <div pos2>
                 <select [ngClass]="{'slectSelected':categoryF!=0}" (change)="onSelectedCategoryF($event)">
                     <option selected [value]="0">כל הקטגוריות </option>
@@ -99,6 +83,29 @@
                     <option [value]="7">שיבוץ בישיבה </option>
                     <option [value]="8">פעילות קבוצתית </option>
 
+                </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':yearF!=0}" (change)="onSelectedYearF($event)">
+                    <option [value]="0">כל השנים</option>
+                    <option *ngFor="let year of years" [selected]="yearF==year" [value]="year"> שנת {{ year }}</option>
+                  </select>
+            </div>
+            <div pos2>
+                <select [ngClass]="{'slectSelected':monthF!=0}" (change)="onSelectedMonthF($event)">
+                    <option selected [value]="0">כל החודשים </option>
+                    <option [selected]="monthF==1"  [value]="1">ינואר - 01</option>
+                    <option [selected]="monthF==2"  [value]="2">פברואר - 02</option>
+                    <option [selected]="monthF==3"  [value]="3">מרץ - 03</option>
+                    <option [selected]="monthF==4"  [value]="4">אפריל - 04</option>
+                    <option [selected]="monthF==5"  [value]="5">מאי - 05</option>
+                    <option [selected]="monthF==6"  [value]="6">יוני - 06</option>
+                    <option [selected]="monthF==7" [value]="7">יולי - 07</option>
+                    <option [selected]="monthF==8" [value]="8">אוגוסט - 08</option>
+                    <option [selected]="monthF==9" [value]="9">ספטמבר - 09</option>
+                    <option [selected]="monthF==10" [value]="10">אוקטובר - 10</option>
+                    <option [selected]="monthF==11" [value]="11">נובמבר - 11</option>
+                    <option [selected]="monthF==12" [value]="12">דצמבר - 12</option>
                 </select>
             </div>
         </div>

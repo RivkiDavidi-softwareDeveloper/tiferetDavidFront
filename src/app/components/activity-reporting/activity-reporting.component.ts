@@ -262,7 +262,7 @@ export class ActivityReportingComponent implements OnInit {
     //רשימת הפעילויות
     generalActivities() {
         if (!this.displayGroupActivities) {
-            this.api.getActivities(1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, 0).subscribe(Date => {
+            this.api.getActivities(1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
                 this.listOfAcitivities = [];
                 this.listOfAcitivities.push(...Date);
                 this.cdRef.detectChanges();
@@ -942,10 +942,10 @@ export class ActivityReportingComponent implements OnInit {
         this.loading = true
 
         if (this.validation2()) {
-
+            this.addStudent.St_gender = this.worker.Wo_gender;
             this.addStudent.St_worker_code = this.worker.Wo_code;
-             //הוספת חניך
-             await new Promise<void>((resolve, reject) => {
+            //הוספת חניך
+            await new Promise<void>((resolve, reject) => {
 
                 this.api.AddStudent(this.addStudent).subscribe(
                     (response) => {
@@ -966,7 +966,7 @@ export class ActivityReportingComponent implements OnInit {
             });
             this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, []);
 
-          
+
         }
         else {
             this.snackBar.open('!הפרטים שגויים', '', { duration: 3000 });

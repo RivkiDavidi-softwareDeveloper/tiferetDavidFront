@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Taskk } from '../../models/task.class';
+import { Worker } from '../../models/worker.class';
 
 @Component({
   selector: 'app-task',
@@ -13,7 +14,8 @@ import { Taskk } from '../../models/task.class';
 })
 export class TaskComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
-  @Input() workerCode = 1
+  @Input() worker:Worker=new Worker(1,"",1,1,"","","","","")
+
   Ta_description = ""
   Ta_date = ""
   Ta_time = ""
@@ -62,7 +64,7 @@ export class TaskComponent {
   //הוספה
   add(): void {
     if (this.validation()) {
-      const taskAdd: Taskk = new Taskk(1, this.workerCode, this.Ta_description, this.Ta_date, this.Ta_time, 0)
+      const taskAdd: Taskk = new Taskk(1, this.worker.Wo_code, this.Ta_description, this.Ta_date, this.Ta_time, 0)
       console.log(taskAdd)
       this.api.AddTask(taskAdd).subscribe(
         (response) => {

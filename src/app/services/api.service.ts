@@ -52,15 +52,15 @@ export class ApiService {
     const url: string = this.urlBasis + "/workers/getLogin/" + name + "/" + password;
     return this.httpp.get(url) as Observable<Worker>;
   }
-/*   public getLoginWorker(name: string | undefined, password: string | undefined): Observable<Worker> {
-    const url: string = this.urlBasis + "/workers/getWorker/" + name + "/" + password;
-    return this.httpp.get(url) as Observable<Worker>;
-  } */
+  /*   public getLoginWorker(name: string | undefined, password: string | undefined): Observable<Worker> {
+      const url: string = this.urlBasis + "/workers/getWorker/" + name + "/" + password;
+      return this.httpp.get(url) as Observable<Worker>;
+    } */
 
-/*   public getLoginSystem(name: string | undefined, password: string | undefined): Observable<SystemLogin> {
-    const url: string = this.urlBasis + "/system/getSystem/" + name + "/" + password;
-    return this.httpp.get(url) as Observable<SystemLogin>;
-  } */
+  /*   public getLoginSystem(name: string | undefined, password: string | undefined): Observable<SystemLogin> {
+      const url: string = this.urlBasis + "/system/getSystem/" + name + "/" + password;
+      return this.httpp.get(url) as Observable<SystemLogin>;
+    } */
   //מחזיר רק את הרשומה של תפארת דוד
   public getLoginSystem2(): Observable<SystemLogin> {
     const url: string = this.urlBasis + "/system/getSystem";
@@ -219,25 +219,25 @@ export class ApiService {
 
 
   //הצגת פעילויות
-  public getActivities(order: number, genderF: number, workerF: number, studentF: number, monthF: number, categoryF: number): Observable<Array<Activity>> {
-    const url: string = this.urlBasis + "/activities/GetActivities/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + categoryF;
+  public getActivities(order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
+    const url: string = this.urlBasis + "/activities/GetActivities/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
     return this.httpp.get(url) as Observable<Array<Activity>>
   }
   //חיפוש פעילות
-  public FindActivities(nameWorker: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, categoryF: number): Observable<Array<Activity>> {
-    const url: string = this.urlBasis + "/activities/FindActivities/" + nameWorker + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + categoryF;
+  public FindActivities(nameWorker: string, nameStudent: string,order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
+    const url: string = this.urlBasis + "/activities/FindActivities/" + nameWorker + "/" +nameStudent+"/"+ order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
     return this.httpp.get(url) as Observable<Array<Activity>>
   }
   //כמויות פעילות
-  public AountsActivities(nameWorker: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, categoryF: number): Observable<Array<number>> {
-    const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + categoryF;
+  public AountsActivities(nameWorker: string,nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
+    const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" +nameStudent+"/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
     return this.httpp.get(url) as Observable<Array<number>>
   }
   //הוספת פעילות
-/*   public AddActivity(activity: Activity): Observable<any> {
-    const url: string = this.urlBasis + "/activities/Add";
-    return this.httpp.post<any>(url, activity);
-  } */
+  /*   public AddActivity(activity: Activity): Observable<any> {
+      const url: string = this.urlBasis + "/activities/Add";
+      return this.httpp.post<any>(url, activity);
+    } */
 
 
   addActivity(activity: Activity, files: FileList | undefined): Observable<any> {
@@ -269,7 +269,8 @@ export class ApiService {
 
   AddSubCategory(subCategory: SubcategoryForTypeActivity): Observable<any> {
     const url: string = this.urlBasis + "/activities/AddSubCategory";
-    return this.httpp.post<any>(url, subCategory);}
+    return this.httpp.post<any>(url, subCategory);
+  }
 
 
   //מקבלת קוד חניך ושולפת מתי היתה הפעילות האחרונה איתו
@@ -340,7 +341,7 @@ export class ApiService {
   }
 
   //הצגת כל המשימות לפי קוד פעיל
-  public GetAllTastForWorker(workerCode: number): Observable<Array<Taskk>> {
+  public GetAllTastForWorker(workerCode: number | undefined): Observable<Array<Taskk>> {
     const url: string = this.urlBasis + "/tasks/GetAllTastForWorker/" + workerCode;
     return this.httpp.get(url) as Observable<Array<Taskk>>
   }
@@ -359,11 +360,11 @@ export class ApiService {
     const url: string = this.urlBasis + "/tasks/AddTask";
     return this.httpp.post<any>(url, task);
   }
-//מחיקת משימה
-public deleteTask(task:Taskk):Observable<any>{
-  const url: string = this.urlBasis + "/tasks/DeleteTask";
-  return this.httpp.post<any>(url, task);
-}
+  //מחיקת משימה
+  public deleteTask(task: Taskk): Observable<any> {
+    const url: string = this.urlBasis + "/tasks/DeleteTask";
+    return this.httpp.post<any>(url, task);
+  }
 
 
   //הצגת כל הקהילות

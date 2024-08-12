@@ -29,22 +29,28 @@ export class ReportsComponent {
   workerF = -1
   studentF = -1
   monthF = 0
+  yearF = 0
   categoryF = 0
-  searchText: string = "null"
-  amounts: Array<number> = [0, 0, 0, 0]
+  searchTextWorker: string = "null"
+  searchTextStudent: string = "null"
 
+  amounts: Array<number> = [0, 0, 0, 0]
+  //סינון לפי שנים
+  years: number[] = [];
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit(): void {
+    this.years = this.generateYears(); // הגדרת השנים בעת יצירת הקומפוננטה
+    this.yearF = new Date().getFullYear()
+    this.monthF = new Date().getMonth()+1;
     this.generalActivities();
     this.generalWorkers();
     this.generalStudent();
-
-  /*   this.generalStudentsForActivity() */
     this.generalCategories();
+
   }
   //רשימת הפעילויות
   generalActivities() {
-    this.api.getActivities(this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.categoryF).subscribe(Date => {
+    this.api.getActivities(this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -58,29 +64,21 @@ export class ReportsComponent {
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
-      console.log(this.listOfWorkers.length+"פעילים")
+      console.log(this.listOfWorkers.length + "פעילים")
 
     });
 
   }
-  //רשימת חניכים לפעילות
-/*   generalStudentsForActivity() {
-    this.api.getStudentForActivity().subscribe(Date => {
-      this.listOfStudentsForActivity = [];
-      this.listOfStudentsForActivity.push(...Date);
-      this.cdRef.detectChanges();
-    });
-  } */
   //רשימת חניכים
   generalStudent() {
     this.api.getStudents(0, this.genderF, 0, this.workerF).subscribe(Date => {
       this.listOfStudent = [];
       this.listOfStudent.push(...Date);
       this.cdRef.detectChanges();
-      console.log(this.listOfStudent.length+"חניכים")
+      console.log(this.listOfStudent.length + "חניכים")
 
     });
-    console.log(this.listOfStudent.length+"חניכים")
+    console.log(this.listOfStudent.length + "חניכים")
 
   }
   // רשימת קטגוריות לפעילות
@@ -121,7 +119,7 @@ export class ReportsComponent {
 
   //שם תלמיד ללא כפילות
 
-  nameStudent2(codeStudent: number, codeActivity: number,activity:Activity, i: number, y: number) {
+  nameStudent2(codeStudent: number, codeActivity: number, activity: Activity, i: number, y: number) {
     var str2 = this.nameStudent(codeStudent);
     //לבדוק אם יש רשימה להחזיר את השם כמו שהוא
     if (activity.StudentForActivities.length > 1) {
@@ -177,12 +175,12 @@ export class ReportsComponent {
     }
     return name;
   }
-  ifDisplay(codeActivity:number,code:number){
-    var listOfCategories: Array<CategoriesForActivity> =this.namesCategories(codeActivity)
-    var d=false
+  ifDisplay(codeActivity: number, code: number) {
+    var listOfCategories: Array<CategoriesForActivity> = this.namesCategories(codeActivity)
+    var d = false
     listOfCategories.forEach(c => {
-      if(c.CFA_code_type_activity==code){
-        d= true;
+      if (c.CFA_code_type_activity == code) {
+        d = true;
       }
     });
     return d;
@@ -381,7 +379,7 @@ export class ReportsComponent {
     // הוסף את תוכן הכותרת העליונה והתחתונה
     const header = document.createElement('div');
     header.innerHTML = '<div style="text-align: left;"><img src="./logoTbig.png" style="width: 100px; height: 100px;" /></div>';
-    
+
     const footer = document.createElement('div');
     footer.innerHTML = '<div style="text-align: center;">כותרת תחתונה</div>';
 
@@ -390,30 +388,47 @@ export class ReportsComponent {
 
     // הוסף לוגו בצד שמאל של הכותרת
     header.innerHTML = '<div style="text-align: left;"><img src="./logoTbig.png" style="width: 100px; height: 100px;" /></div>';
-    
+
     window.print();
 
   }
   //כמות
   amountW() {
-    this.api.AountsActivities(this.searchText, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.categoryF)
+    this.api.AountsActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF)
       .subscribe(Date => {
         this.amounts = []
         this.amounts.push(...Date)
       })
 
   }
-  //חיפוש
-  onInputChangeSearch(event: Event) {
-    this.searchText = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchText, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.categoryF).subscribe(Date => {
+  //חיפוש עובד
+  onInputChangeSearchWorker(event: Event) {
+    this.searchTextWorker = (event.target as HTMLInputElement).value;
+    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
     });
 
-    if (this.searchText === "") {
-      this.searchText = "null"
+    if (this.searchTextWorker === "") {
+      this.searchTextWorker = "null"
+      this.generalActivities();
+    }
+    else {
+      this.amountW();
+    }
+  }
+  //חיפוש חניך
+  onInputChangeSearchStudent(event: Event) {
+    this.searchTextStudent = (event.target as HTMLInputElement).value;
+    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent,this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+      this.listOfAcitivities = [];
+      this.listOfAcitivities.push(...Date);
+      this.cdRef.detectChanges();
+    });
+
+    if (this.searchTextStudent === "") {
+      this.searchTextStudent = "null"
       this.generalActivities();
     }
     else {
@@ -424,12 +439,20 @@ export class ReportsComponent {
   addCommasToNumber(num: number): string {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  //סינון לפי שנים
+
+  generateYears(): number[] {
+    const currentYear = new Date().getFullYear();
+    const startYear = 2024;
+    const endYear = currentYear;
+    return Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+  }
 
 
 
-
-
-
+  onSelectedYearF(event: Event) {
+    this.yearF = Number((event.target as HTMLInputElement).value);
+  }
 
 
 

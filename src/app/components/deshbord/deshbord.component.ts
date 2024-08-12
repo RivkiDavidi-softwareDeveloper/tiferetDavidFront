@@ -79,7 +79,7 @@ interval(0.1)
   //פעילויות
   //קילומטרים+
   var day = new Date();
-  this.api.AountsActivities("null", 0, 1, -1, -1, Number(day.getMonth) + 1, 0).subscribe(Date => {
+  this.api.AountsActivities("null", "null",0, 1, -1, -1, Number(day.getMonth) + 1,0, 0).subscribe(Date => {
     this.amountBActivites = Date[0];
     this.amountBKilometers = Date[3]
   })
@@ -96,7 +96,7 @@ interval(0.1)
   })
   //פעילויות
   //קילומטרים
-  this.api.AountsActivities("null", 0, 2, -1, -1, Number(day.getMonth) + 1, 0).subscribe(Date => {
+  this.api.AountsActivities("null","null", 0, 2, -1, -1, Number(day.getMonth) + 1, 0,0).subscribe(Date => {
     this.amountGActivites = Date[0];
     this.amountGKilometers = Date[3]
   })

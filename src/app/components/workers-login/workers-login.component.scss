@@ -173,15 +173,7 @@ h2 {
             color: $color-white-dark-b;
             border: 2px solid $color-pink-dark;
             position: relative;
-            label{
-                height: 15px;
-                width: 15px;
-                background-color: $color-yellow;
-                position: absolute;
-                top:-7px;
-                left: 15px;
-                font-size: small;
-            }
+      
         }
 
         .button2:hover {

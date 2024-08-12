@@ -6,7 +6,9 @@
 
         <div contectAll *ngIf="status=='add'">
             <div ca>
-                <textarea (input)="onInputChangeDesc($event)" placeholder="הכנס משימה..."></textarea>
+                <textarea  *ngIf="worker?.Wo_gender==1" (input)="onInputChangeDesc($event)" placeholder="הכנס משימה..."></textarea>
+                <textarea  *ngIf="worker?.Wo_gender==2" (input)="onInputChangeDesc($event)" placeholder="הכניסי משימה..."></textarea>
+
                 <label eror *ngIf="validDesc">מוגבל ל-4000 תוים</label>
             </div>
             <br>

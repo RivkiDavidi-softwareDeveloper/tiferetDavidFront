@@ -1,6 +1,6 @@
 <div class="top" [ngClass]="{'topBanot':worker.Wo_gender==2}" nonePrint>
     <div class="tab">
-<!--         <div [ngClass]="{'homeOtef':true}">
+        <!--         <div [ngClass]="{'homeOtef':true}">
             <button [ngClass]="{'home':true}"
                 (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
                 <div class="inHome"></div>
@@ -10,20 +10,18 @@
         </button>
         <button [ngClass]="{'button1':true,'button2':active}"
             (click)="active=true;students=false;task=false;projects=false;pz=false;">דיווח על פעילות</button>
-        <button [ngClass]="{'button1':true,'button2':students}"
+        <button *ngIf="worker.Wo_gender==1" [ngClass]="{'button1':true,'button2':students}"
             (click)="students=true;task=false;projects=false;pz=false;active=false">אזור חניכים</button>
+        <button *ngIf="worker.Wo_gender==2" [ngClass]="{'button1':true,'button2':students}"
+            (click)="students=true;task=false;projects=false;pz=false;active=false">אזור חניכות</button>
         <button [ngClass]="{'button1':true,'button2':task}"
             (click)="students=false;task=true;projects=false;pz=false;active=false">משימות ותזכורות
             <label>{{amountTasksND}}</label></button>
-
-
         <button [ngClass]="{'button1':true,'button2':pz}"
             (click)="students=false;task=false;projects=false;pz=true;active=false">פניות צוות
             <label>{{amountMessagesND}}</label></button>
-
         <button [ngClass]="{'button1':true,'button2':projects}"
             (click)="students=false;task=false;projects=true;pz=false;active=false">שיוך לפרויקטים</button>
-
     </div>
     <div class="tab2">
         <div [ngClass]="{'homeOtef':true}">
@@ -55,13 +53,13 @@
  -->
     <header>בס"ד</header>
 
-    <app-activity-reporting *ngIf="active" [worker]="worker" [minutes]="minutes" [kilomet]="kilomet" [exit]="exit" [target]="target" (editStudent)="updateStudent($event)">
+    <app-activity-reporting *ngIf="active" [worker]="worker" [minutes]="minutes" [kilomet]="kilomet" [exit]="exit"
+        [target]="target" (editStudent)="updateStudent($event)">
     </app-activity-reporting>
     <app-display-students *ngIf="students" [codeWorkerSelected]="worker.Wo_code" [sUpdateStudent]="displayUpdateStudent"
         [studentUpdate]="studentUpdate" [imageBlobURL]="imageBlobURL"
-       
         (popupDisplayOut)="closePAdd($event)"></app-display-students>
-    <app-tasks *ngIf="task" [codeWorker]="worker.Wo_code" (amountTask)="updateAmountTask()"></app-tasks>
+    <app-tasks *ngIf="task" [worker]="worker" (amountTask)="updateAmountTask()"></app-tasks>
     <app-worker-inquiries *ngIf="pz" [codeWorker]="worker.Wo_code"></app-worker-inquiries>
     <app-contact-to-project *ngIf="projects" [worker]="worker"></app-contact-to-project>
 

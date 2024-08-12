@@ -39,6 +39,6 @@
     </tbody>
 </table>
 <!-- <button>הצג עוד</button>
- --><app-task *ngIf="displayAddTask" [workerCode]="codeWorker" (popupDisplayOut)="closePAdd(false)"></app-task>
-<app-task *ngIf="displayUpdateTask" [workerCode]="codeWorker" [status]="'update'" [taskUpdate]="taskUpdate"
+ --><app-task *ngIf="displayAddTask" [worker]="worker" (popupDisplayOut)="closePAdd(false)"></app-task>
+<app-task *ngIf="displayUpdateTask" [worker]="worker"  [status]="'update'" [taskUpdate]="taskUpdate"
     (popupDisplayOut)="closePAdd(false)"></app-task>
