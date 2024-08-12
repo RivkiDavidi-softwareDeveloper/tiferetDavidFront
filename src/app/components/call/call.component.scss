@@ -1,78 +1,57 @@
-.done {
-    background-color: rgb(238, 255, 250);
 
-}
-
-.noReading {
-    background-color: rgb(217, 246, 237);
-
-}
 
 [callAll] {
-  //  width: 80%;
-    //  background-color: rgb(218, 255, 247);
     height: 40px;
-    border-bottom: 5px solid white;
+    border-bottom: 2.5px solid white;
     margin: auto;
     display: flex;
+    width: 100%;
 
     input {
-        margin-top: 12.5px;
-        margin-right: 10px;
+        margin: 12.5px 10px 12.5px 10px;
         width: 15px;
         height: 15px;
         display: inline-block
     }
 
     [call] {
-        width: 95%;
-        margin: auto;
         display: flex;
         overflow: hidden;
         white-space: nowrap;
+        width: 85vw;
 
-        /*     overflow: hidden;
-    white-space: nowrap; */
+        font-size: 2.1vh;
         [userName] {
             margin: auto;
-            font-family: Assistant-Bold;
-            font-size: medium;
-            width: 10%;
+            width: 10vw;
             display: inline-block;
             padding: 0px 8px 0px 0px;
         }
-
         [numOfMessages] {
             color: gray;
-            font-size: smaller;
+            font-size: 2vh;
             display: inline-block;
-            font-family: Assistant-Light;
 
         }
 
         [contectAndTopic] {
-            margin: auto;
-
             display: inline-block;
-            width: 75%;
-            font-size: medium;
-            margin: auto;
+            width: 65vw;
             overflow: hidden;
             white-space: nowrap;
 
             [topic] {
-                margin: auto;
-                padding: 0px 35px 0px 0px;
                 display: inline-block;
                 font-family: Assistant-Bold;
-
+                line-height: 40px;
             }
 
             [contect] {
-                margin: auto;
+           //     margin: auto;
 
                 color: rgb(82, 82, 82);
                 display: inline-block;
+                line-height: 40px;
 
                 /*             overflow: hidden;
             white-space: nowrap; */
@@ -84,11 +63,53 @@
             display: inline-block;
             text-align: left;
             font-family: Assistant-Bold;
-            width: 15%;
+            width: 10vw;
             color: rgb(89, 89, 89);
             color: gray;
-            font-size: smaller;
+            font-size: 2vh;
 
         }
     }
+}
+.done {
+    background-color: rgb(217, 246, 237);
+
+    [call] {
+        [userName] {
+            font-family: Assistant-Regular;
+        }
+        [numOfMessages] {
+            font-family: Assistant-Light;
+        }
+        [contectAndTopic] {
+            [topic] {
+                font-family:Assistant-Regular;
+            }
+        }
+        [date] {
+            font-family:Assistant-Regular;
+        }
+    }
+}
+
+.noReading {
+    background-color: rgb(238, 255, 250);
+
+    [call] {
+        [userName] {
+            font-family: Assistant-Bold;
+        }
+        [numOfMessages] {
+            font-family: Assistant-Bold;
+        }
+        [contectAndTopic] {
+            [topic] {
+                font-family: Assistant-Bold;
+            }
+        }
+        [date] {
+            font-family: Assistant-Bold;
+        }
+    }
+
 }

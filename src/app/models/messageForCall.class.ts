@@ -1,4 +1,5 @@
 import { RecipientForMessage } from "./recipientForMessage.class";
+import { Worker } from "./worker.class";
 
 export class MessageForCall {
     constructor(
@@ -9,6 +10,7 @@ export class MessageForCall {
       public MFC_date: string,
       public MFC_time: string,
       public MFC_done: number,
+      public Worker :Worker | undefined,
      public RecipientForMessages: Array<RecipientForMessage> 
     ){
     }

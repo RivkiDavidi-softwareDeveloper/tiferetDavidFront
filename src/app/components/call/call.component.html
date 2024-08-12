@@ -1,7 +1,7 @@
 <div callAll
-    [ngClass]="{'done':call.MessageForCalls[call.MessageForCalls.length-1].MFC_done==0,'noReading':call.MessageForCalls[call.MessageForCalls.length-1].MFC_done==1}">
+    [ngClass]="{'done':call.MessageForCalls[call.MessageForCalls.length-1].MFC_done==1,'noReading':call.MessageForCalls[call.MessageForCalls.length-1].MFC_done==0}">
     <input type="checkbox">
-    <div call (click)="openCall(call.Ca_code)">
+    <div call (click)="openCall(call)">
         <label *ngIf="!call.MessageForCalls[call.MessageForCalls.length-2]" userName>
             {{nameWorker(call.MessageForCalls[call.MessageForCalls.length-1].MFC_sender_worker_code,1)}}
 
@@ -10,8 +10,8 @@
         <label userName *ngIf="call.MessageForCalls[call.MessageForCalls.length-2]">
             {{nameWorker(call.MessageForCalls[call.MessageForCalls.length-1].MFC_sender_worker_code,2)}}
             <label *ngIf="call.MessageForCalls[call.MessageForCalls.length-2]"> ,
-                {{nameWorker(call.MessageForCalls[call.MessageForCalls.length-2].MFC_sender_worker_code,2)}}</label> <label
-                numOfMessages>{{call.MessageForCalls.length}}</label></label>
+                {{nameWorker(call.MessageForCalls[call.MessageForCalls.length-2].MFC_sender_worker_code,2)}}</label>
+            <label numOfMessages>{{call.MessageForCalls.length}}</label></label>
 
         <label contectAndTopic>
             <p topic>{{call.Ca_topic}}</p>
@@ -20,7 +20,8 @@
         </label>
         <p date>
 
-            {{displayDate(call.MessageForCalls[call.MessageForCalls.length-1].MFC_date,call.MessageForCalls[call.MessageForCalls.length-1].MFC_time) }}
+            {{displayDate(call.MessageForCalls[call.MessageForCalls.length-1].MFC_date,call.MessageForCalls[call.MessageForCalls.length-1].MFC_time)
+            }}
         </p>
     </div>
 </div>

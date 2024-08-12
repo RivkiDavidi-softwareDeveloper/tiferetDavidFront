@@ -9,8 +9,10 @@
     <input type="search" role="combobox" placeholder="חפש">
     <!--   <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)"> -->
   </div>
-</div>
+  <button icon newCall (click)="displayAddCall=true">שיחה חדשה</button>
 
+</div>
+<br>
 
 <div mail>
   <div windows1>
@@ -23,7 +25,7 @@
       </div>
       <div allCall>
         <app-call *ngFor="let c of listOfCalls" [call]="c" [codeWorker]="codeWorker"
-          (codeCall)="openCall($event)"></app-call>
+          (callOpen)="openCall($event)"></app-call>
       </div>
     </div>
 
@@ -37,11 +39,9 @@
       <app-message *ngFor="let m of listOfMessages" [message]="m"></app-message>
     </div>
   </div>
-  <div windows2>
-    <app-new-call [codeWorkerSender]="codeWorker"></app-new-call>
 
-  </div>
 </div>
+<app-new-call *ngIf="displayAddCall" [codeWorkerSender]="codeWorker"></app-new-call>
 
 
 

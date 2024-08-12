@@ -1,59 +1,67 @@
 [message] {
     width: 100%;
     margin: auto;
-    [title]{
+
+    [title] {
         padding-right: 40px;
         margin-bottom: 2px;
         height: 20px;
         font-size: small;
 
-        [userName]{
+        [userName] {
             font-family: Assistant-Bold;
             //font-family: Assistant-ExtraBold;
             display: inline-block;
             margin-left: 15px
         }
-        [recipi]{
+
+        [recipi] {
             color: rgb(82, 82, 82);
             display: inline-block;
 
         }
-        [date]{
+
+        [date] {
             color: rgb(82, 82, 82);
             display: inline-block;
             text-align: left;
         }
 
     }
+
     [content] {
         display: flex;
         flex-direction: row;
+
         [user] {
             display: inline-block;
             width: 40px;
-            
+
             [circle] {
-                background-color: rgb(23, 241, 241);
+                background-color: rgb(2, 241, 214);
                 border-radius: 50%;
                 height: 30px;
                 width: 30px;
-                font-size:x-large;
+                font-size: x-large;
                 text-align: center;
                 font-family: Assistant-Regular;
                 color: white;
-
-
+                line-height: 30px;
             }
         }
-        [internalContent]{
+
+        [internalContent] {
             width: 100%;
             display: inline-block;
-         //   background-color: rgb(236, 236, 236);
+            //   background-color: rgb(236, 236, 236);
             background-color: rgb(246, 246, 246);
-
             border-radius: 5px;
             padding: 6px;
 
+            pre {
+                font-family: Assistant-Regular;
+
+            }
         }
 
     }

@@ -195,7 +195,7 @@ export class NewCallComponent {
         var hours = ('0' + toDayy.getHours()).slice(-2);
         var minutes = ('0' + toDayy.getMinutes()).slice(-2);
         this.MFC_time = hours + ':' + minutes;
-        const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.MFC_call_code, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, this.MFC_done,listOfRecipientForMessage2)
+        const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.MFC_call_code, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, this.MFC_done,undefined,listOfRecipientForMessage2)
 
     //רשומת שיחה
     if (this.Ca_topic == "") {

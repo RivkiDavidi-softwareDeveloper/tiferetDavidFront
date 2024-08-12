@@ -13,7 +13,7 @@ import { RecipientForMessage } from '../../models/recipientForMessage.class';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "", 1,[])
+  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "", 1,undefined,[])
   listOfWorkers: Array<Worker> = []
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
@@ -41,5 +41,15 @@ export class MessageComponent {
   }
   letter1(name: string) {
     return name.slice(0,1)
+  }
+  //הגרלת צבע פרופיל
+  getRandomColor(idWorker:string | undefined): string {
+    if(idWorker==="111111111")
+      return `rgb(${2}, ${241}, ${214})`;
+    const r = Number('1'+idWorker?.slice(2,4))
+    const g = Number('1'+idWorker?.slice(4,6))
+    const b = Number('1'+idWorker?.slice(6,8))
+
+    return `rgb(${r}, ${g}, ${b})`;
   }
 }

@@ -17,6 +17,20 @@ $color-turqis-dark: rgb(10, 70, 56);
     border-radius: 5px;
     height: 98%;
 
+    height: 50vh;
+    width: 50vw;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    text-align: right;
+    position: absolute;
+    top: -10px;
+    z-index: 4;
+    top: 40vh;
+    right: 30vw;
+    bottom: 0;
+    left: 5vw;   
     [recip] {
         border-bottom: 0.5px rgb(182, 182, 182) solid;
 
@@ -198,7 +212,7 @@ $color-turqis-dark: rgb(10, 70, 56);
         textarea {
             border: 0px;
             width:97%;
-            height: 250px;
+           height: auto;
             outline: none;
             font-size: medium;
             font-family: Assistant-Regular;

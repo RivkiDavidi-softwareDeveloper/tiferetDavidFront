@@ -40,7 +40,10 @@ h1,
 h2 {
     font-family: Assistant-Bold;
 }
+button:hover,button:active,button:focus{
+    border-radius: 50px;
 
+}
 .top {
     background-color: $color-turqis;
     height: 10vh;
