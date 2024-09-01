@@ -1,28 +1,27 @@
+import { Worker } from '../../models/worker.class';
+import { ApiService } from '../../services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { RecipientForMessage } from '../../models/recipientForMessage.class';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { Calll } from '../../models/call.class';
 import { MessageForCall } from '../../models/messageForCall.class';
-import { ApiService } from '../../services/api.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Worker } from '../../models/worker.class';
 import { waitForAsync } from '@angular/core/testing';
-import { RecipientForMessage } from '../../models/recipientForMessage.class';
 import { FileUploadComponent } from "../file-upload/file-upload.component";
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-
+import { response } from 'express';
 @Component({
-  selector: 'app-new-call',
+  selector: 'app-new-message',
   standalone: true,
-  templateUrl: './new-call.component.html',
-  styleUrl: './new-call.component.scss',
-  imports: [CommonModule, FileUploadComponent, DragDropModule]
+  imports: [CommonModule],
+  templateUrl: './new-message.component.html',
+  styleUrl: './new-message.component.scss'
 })
-export class NewCallComponent {
-  @Input() codeWorkerSender: number = 1
-  @Output() closeNewCall: EventEmitter<boolean> = new EventEmitter()
-
+export class NewMessageComponent {
+  @Input() worker: Worker | undefined
   listOfWorkers: Array<Worker> = []
   listOfWorkersToSend: Array<Worker> = []
   listOfWorkersGroups: Array<Worker> = []
@@ -31,13 +30,11 @@ export class NewCallComponent {
   searchWorkerToSend = ""
   displayListWorkers = false
   sec = ""
-  //שיחה
-  Ca_code = 1
-  Ca_topic = ""
+  @Input() codeCall: number = 1
   //הודעה
   MFC_code = 1
   MFC_call_code = 1
-  MFC_sender_worker_code = 1
+  MFC_sender_worker_code: number | undefined
   MFC_content = ""
   MFC_date = ""
   MFC_time = ""
@@ -51,40 +48,21 @@ export class NewCallComponent {
   b6 = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) {
   }
+  letter1(name: string | undefined) {
+    if (name)
+      return name.slice(0, 1)
+    return ""
+  }
+  //הגרלת צבע פרופיל
+  getRandomColor(idWorker: string | undefined): string {
+    if (idWorker === "111111111")
+      return `rgb(${2}, ${241}, ${214})`;
+    const r = Number('1' + idWorker?.slice(2, 4))
+    const g = Number('1' + idWorker?.slice(4, 6))
+    const b = Number('1' + idWorker?.slice(6, 8))
 
-  ngOnInit(): void {
-    this.generalWorkers()
-
+    return `rgb(${r}, ${g}, ${b})`;
   }
-  //סגירת הפופפ
-  public close(): void {
-    this.empty()
-    this.closeNewCall.emit(false)
-  }
-  //רשימה של עובדים
-  public generalWorkers() {
-    this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
-      this.listOfWorkers = []
-      this.listOfWorkers.push(...Date);
-      this.cdRef.detectChanges();
-    })
-  }
-
-  //נושא שיחה
-  onInputChangeTopic(event: Event) {
-    const str: string = (event.target as HTMLInputElement).value
-    if (str.length <= 2000) {
-      this.Ca_topic = str;
-    }
-  }
-  //תוכן
-  onInputChangeContect(event: Event) {
-    const str: string = (event.target as HTMLInputElement).value
-    if (str.length <= 4000) {
-      this.MFC_content = str;
-    }
-  }
-
   //רשימת נמענים
   async onInputChangeWorkerToSend(event: Event): Promise<void> {
     var str: string = (event.target as HTMLInputElement).value
@@ -127,16 +105,7 @@ export class NewCallComponent {
     });
     return name;
   }
-  //האם העובד הוא בת או בן
-  gender(codeWorker: number) {
-    var g = 1
-    this.listOfWorkers.forEach(w => {
-      if (w.Wo_code == codeWorker) {
-        g = w.Wo_gender
-      }
-    });
-    return g;
-  }
+
   //הסרת עובד מרשימת הנמענים
   remove(codeWorker: number) {
     this.listOfRecipientForMessage.forEach((r, index) => {
@@ -146,9 +115,16 @@ export class NewCallComponent {
     });
     this.cdRef.detectChanges();
   }
+  //תוכן
+  onInputChangeContect(event: Event) {
+    const str: string = (event.target as HTMLInputElement).value
+    if (str.length <= 4000) {
+      this.MFC_content = str;
+    }
+  }
   //הוספה
   public async add(): Promise<void> {
-    this.MFC_sender_worker_code = this.codeWorkerSender;
+    this.MFC_sender_worker_code = this.worker?.Wo_code;
     //רשומות הנמענים
 
     var listOfRecipientForMessage2: Array<RecipientForMessage> = []
@@ -209,30 +185,33 @@ export class NewCallComponent {
       var hours = ('0' + toDayy.getHours()).slice(-2);
       var minutes = ('0' + toDayy.getMinutes()).slice(-2);
       this.MFC_time = hours + ':' + minutes;
-      const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.MFC_call_code, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, undefined, listOfRecipientForMessage2)
-
-      //רשומת שיחה
-      if (this.Ca_topic == "") {
-        this.Ca_topic = "(ללא נושא)";
-      }
-      const callAdd: Calll = new Calll(this.Ca_code, this.Ca_topic, [messageAdd]);
-
-
-      //הוספת שיחה
-      await this.api.AddCall(callAdd).subscribe(
+      if(this.MFC_sender_worker_code){
+        const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.codeCall, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, undefined, listOfRecipientForMessage2)
+          //הוספת הודעה לשיחה
+      await this.api.AddMessage(messageAdd).subscribe(
         (response) => {
-          this.Ca_code = response
-          messageAdd.MFC_call_code = response;
+          this.snackBar.open('ההודעה נשלחה ', 'x', { duration: 3000 });
+          this.empty()
+          this.close()
         },
         (error) => {
+          this.snackBar.open('אירעה שגיאה ', 'x', { duration: 3000 });
+
           this.sec = error
         });
-      this.empty()
-      this.close()
+
+   
+
+      }
+      else{
+        this.snackBar.open('אירעה שגיאה ', 'x', { duration: 3000 });
+
+      }
+
+    
     }
   }
   empty() {
-    this.Ca_topic = ""
     this.MFC_content = ""
     this.listOfRecipientForMessage = []
     this.b0 = false;
@@ -244,49 +223,9 @@ export class NewCallComponent {
     this.b6 = false
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*   onInputChangeWorkerToSend(event: Event) {
-      const str: string = (event.target as HTMLInputElement).value;
-      this.searchWorkerToSend = str;
-      // החזרת פרומיס שמבצע את הפעולה generalWorkers
-      const generalWorkersPromise = new Promise<void>((resolve, reject) => {
-        this.generalWorkers();
-        resolve(); // כאשר הפעולה הושלמה, מקבלים את הפרומיס
-      });
-    
-      // המתנה להשלמת הפרומיס ורק אז המשך לפעולות נוספות
-      generalWorkersPromise.then(() => {
-        if (this.listOfWorkers.length > 0 && str.length > 0) {
-          this.displayListWorkers = true;
-        } else {
-          this.displayListWorkers = false;
-        }
-      });
-    }
-     */
-
+    //סגירת הפופפ
+    public close(): void {
+      this.empty()
+/*       this.closeNewCall.emit(false)
+ */    }
 }

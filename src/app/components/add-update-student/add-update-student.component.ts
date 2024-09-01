@@ -212,7 +212,6 @@ export class AddUpdateStudentComponent implements OnInit {
   public close(): void {
     this.empty()
     this.popupDisplayOut.emit(false)
-
   }
   //בדיקות תקינות
   isNumeric(input: string): boolean {

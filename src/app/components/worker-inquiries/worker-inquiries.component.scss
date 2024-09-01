@@ -248,6 +248,24 @@ h2 {
         padding-right: 40px;
         padding-top: 10px;
       }
+      [answer]{
+        border-radius: 50px;
+        border: solid 0.8px black;
+        height: 30px;
+        font-size: 16px;
+
+        padding-right: 20px;
+        margin-bottom: 10px;
+        width: 100px;
+        margin-right: 40px;
+        font-family: Assistant-Regular;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 86%;
+background-color: white;
+        background-size: 20px;
+        background-image: url('../icons/answer.png');
+      }
     }
   }
 
@@ -280,6 +298,12 @@ h2 {
 
 
 
+@media only screen and (max-width: 960px) {
+h1{
+  display: none;
+}
+
+}
 
 
 

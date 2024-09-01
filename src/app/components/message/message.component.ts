@@ -13,7 +13,7 @@ import { RecipientForMessage } from '../../models/recipientForMessage.class';
   styleUrl: './message.component.scss'
 })
 export class MessageComponent {
-  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "", 1,undefined,[])
+  @Input() message: MessageForCall = new MessageForCall(1, 1, 1, "", "", "",undefined,[])
   listOfWorkers: Array<Worker> = []
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {

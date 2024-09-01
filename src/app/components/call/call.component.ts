@@ -19,7 +19,7 @@ export class CallComponent {
   //לקבל עצם מסוג שיחה
   @Input() call: Calll =new Calll(1,"",[])
   @Input() codeWorker = 1
-  @Output() callOpen: EventEmitter<Calll> = new EventEmitter()
+  @Output() callOpen: EventEmitter<Array<MessageForCall>> = new EventEmitter()
   listOfWorkers: Array<Worker> = []
   displayOpen = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef) {
@@ -54,9 +54,7 @@ export class CallComponent {
   }
   //פתיחת תצוגת שיחה
   openCall(call:Calll): void {
-
-
-    this.callOpen.emit(call);
+    this.callOpen.emit(call.MessageForCalls);
   }
   /*   displayDate(date:string,time:string){
       const [year, month, day] = date.split('-');
@@ -102,7 +100,10 @@ export class CallComponent {
     }
   }
 
-
+//האם ההודעה כבר נקראה?
+ifReading(call:Calll){
+ return call.MessageForCalls[call.MessageForCalls.length-1].RecipientForMessages.find(r=>r.RFM_worker_code==this.codeWorker)?.RFM_done==1
+}
 
 
 

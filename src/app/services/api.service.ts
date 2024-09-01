@@ -312,9 +312,9 @@ export class ApiService {
     return this.httpp.post<any>(url, RecipientsForMessage);
   }
   //עדכון הודעה ל-נקראה /לא נקראה
-  public UpdateMessageDone(message: MessageForCall): Observable<any> {
-    const url: string = this.urlBasis + "/calls/UpdateMessageDone";
-    return this.httpp.put<any>(url, message);
+  public UpdateRecipientDone(recipient: RecipientForMessage | undefined): Observable<any> {
+    const url: string = this.urlBasis + "/calls/UpdateRecipientDone";
+    return this.httpp.put<any>(url, recipient);
   }
   //הצגת כמות ההודעות שלא נקראו
   public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number> {

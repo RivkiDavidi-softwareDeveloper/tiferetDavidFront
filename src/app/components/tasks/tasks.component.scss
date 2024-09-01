@@ -357,9 +357,11 @@ header {
 .custom-snackbar .mat-snack-bar-container {
   padding: 10px 20px; // רווחים פנימיים
 }
-[displaySmall]{
+
+[displaySmall] {
   display: none;
 }
+
 @media only screen and (max-width: 960px) {
   [DT] {
     display: none;
@@ -373,27 +375,29 @@ header {
   [titleA] {
     display: none;
   }
-
+  h1 {
+    display: none;
+  }
 
 }
 
 @media only screen and (max-width: 767px) {
-  h1{
-    display: none;
-  }
+
   [allP] {
     display: block;
     width: 95%;
     margin: auto;
     margin-bottom: 10px;
   }
-  [displaySmall]{
-    display:table-cell;
+
+  [displaySmall] {
+    display: table-cell;
   }
-  [displayBig]{
+
+  [displayBig] {
     display: none;
   }
-  
+
   table {
     width: 450px;
 
@@ -407,19 +411,19 @@ header {
     td {
       width: auto;
 
-    [clockLeter] {
-      background-image: url('../icons/taimer.png');
-      background-position: top center;
-      width: 70px;
-      height: 60px;
-      white-space: wrap;
-     // background-position: 95%;
-      background-size: 20px;
-      background-repeat: no-repeat;
-      padding-top: 13px;
-      text-align: center;
-      line-height: normal;
-    }
+      [clockLeter] {
+        background-image: url('../icons/taimer.png');
+        background-position: top center;
+        width: 70px;
+        height: 60px;
+        white-space: wrap;
+        // background-position: 95%;
+        background-size: 20px;
+        background-repeat: no-repeat;
+        padding-top: 13px;
+        text-align: center;
+        line-height: normal;
+      }
     }
 
     td:nth-child(2) {
@@ -431,19 +435,28 @@ header {
     td:nth-child(2) {
       width: auto;
     }
+
     th:nth-child(5),
     td:nth-child(5) {
-      width:110px;
+      width: 110px;
     }
+
     th:nth-child(6),
     td:nth-child(6) {
-      width:75px;
+      width: 75px;
     }
 
 
   }
+
   [otef] {
-    text-align: right; }
+    text-align: right;
+  }
+
+
+
+
+
 }
 
 @media print {

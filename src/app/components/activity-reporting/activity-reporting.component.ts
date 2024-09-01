@@ -149,6 +149,8 @@ export class ActivityReportingComponent implements OnInit {
     displayPopap = false;
     //סטטוס האנימציה
     loading = false;
+//צליל 
+    audio: HTMLAudioElement;
 
     //סגירת הפופפ
     closeP(display: boolean) {
@@ -159,8 +161,18 @@ export class ActivityReportingComponent implements OnInit {
         this.time.setHours(0);
         this.time.setMinutes(0);
         this.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
-
+    // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
+    this.audio = new Audio();
+    const audioName = 'glocken.mp3';
+    this.audio.src = `assets/${audioName}`;;
+    this.audio.load();
     }
+    checkCondition(): void {
+        // אם התנאי מתקיים, נגן את הצליל
+        if (this.displayPopap) {
+          this.audio.play();
+        }
+      }
     //הוספת משימת המשך
     addTask() {
         this.displayAddTask = true
@@ -324,11 +336,13 @@ export class ActivityReportingComponent implements OnInit {
                                 if (this.ifRedPoit(lastDate, s)) {
                                     this.listOfStudents2.push(s)
                                     this.displayPopap = true
+                                    this.checkCondition()
                                 }
                             }
                             else {
                                 this.listOfStudents2.push(s)
                                 this.displayPopap = true
+                                this.checkCondition()
                             }
                         })
                         resolve(); // מסמן שהפעולה הושלמה
@@ -339,8 +353,7 @@ export class ActivityReportingComponent implements OnInit {
             });
             if (this.listOfStudents2.length == 0) {
                 this.displayPopap = false
-
-            }
+                        }
         }
         else {
             var lastDate = ""

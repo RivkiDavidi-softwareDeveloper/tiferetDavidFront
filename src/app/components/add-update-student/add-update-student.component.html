@@ -1,6 +1,6 @@
 <div class="background" *ngIf="popupDisplayIn">
     <div class="popup">
-        <button class="close" (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
+        <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update'">עדכון חניך</h2>
 

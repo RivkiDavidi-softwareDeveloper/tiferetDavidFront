@@ -26,6 +26,7 @@ export class SystemLoginComponent implements OnInit {
   projects: boolean = false;
   requests: boolean = false;
   settings: boolean = false;
+  worker:Worker=new Worker(1,"",1,1,"","","","","")
   constructor(private api: ApiService) { }
 
   @Input() system: SystemLogin | undefined

@@ -17,8 +17,8 @@ $color-turqis-dark: rgb(10, 70, 56);
     border-radius: 5px;
     height: 98%;
 
-    height: 50vh;
-    width: 50vw;
+    height: 55vh;
+    width: 55vw;
     margin: auto;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -28,9 +28,31 @@ $color-turqis-dark: rgb(10, 70, 56);
     top: -10px;
     z-index: 4;
     top: 40vh;
-    right: 30vw;
+    right: 40vw;
     bottom: 0;
-    left: 5vw;   
+    left: 5vw; 
+    cursor: move;
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x:auto;
+
+    //כפתור סגירה
+[close] {
+    width: 25px;
+    height: 25px;
+    font-family: Assistant-Bold;
+    border: none;
+    border-radius: 0px;
+    position: absolute;
+    top: 10px;
+    z-index: 999;
+    left: 10px;
+}
+
+[close]:active {
+    position: absolute;
+    top: 12px;
+}  
     [recip] {
         border-bottom: 0.5px rgb(182, 182, 182) solid;
 
@@ -47,7 +69,7 @@ $color-turqis-dark: rgb(10, 70, 56);
 
             input {
                 height: 30px;
-                width: 198px;
+                width: 45vw;
                 outline: none;
                 font-size: medium;
                 border: 0px;
@@ -109,8 +131,8 @@ $color-turqis-dark: rgb(10, 70, 56);
             display: inline-block;
             border-radius: 50px;
             height: 25px;
-            width: 120px;
-            font-size: medium;
+            width: 110px;
+            font-size: small;
             border: 0px;
             font-family: Assistant-Light;
             margin: 5px;
@@ -202,7 +224,7 @@ $color-turqis-dark: rgb(10, 70, 56);
             border: 0px;
             outline: none;
             height: 90%;
-            width: 97%;
+            width: 52vw;
             margin: 0px 7px 0px 0px;
             font-size: medium;
         }
@@ -211,8 +233,8 @@ $color-turqis-dark: rgb(10, 70, 56);
     [contect] {
         textarea {
             border: 0px;
-            width:97%;
-           height: auto;
+            width:52vw;
+           height: 28vh;
             outline: none;
             font-size: medium;
             font-family: Assistant-Regular;
@@ -257,6 +279,7 @@ $color-turqis-dark: rgb(10, 70, 56);
             background-size: 22px;
             background-image: url('../icons/send.png');
             background-position: 17%;
+            padding-left:22px ;
         }
     }
 }

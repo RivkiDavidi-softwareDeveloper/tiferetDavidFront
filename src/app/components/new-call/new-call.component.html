@@ -1,4 +1,6 @@
-<div newCall>
+<div newCall cdkDrag>
+    <button close  (click)="close()">x</button>
+
     <div recip>
         <p>אל:</p>
         <div recipient *ngFor="let r of listOfRecipientForMessage"><p name>{{nameWorker(r.RFM_worker_code)}}</p><p x (click)="remove(r.RFM_worker_code)">x</p></div>

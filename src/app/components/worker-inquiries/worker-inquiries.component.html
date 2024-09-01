@@ -24,7 +24,7 @@
         <div unread></div>
       </div>
       <div allCall>
-        <app-call *ngFor="let c of listOfCalls" [call]="c" [codeWorker]="codeWorker"
+        <app-call *ngFor="let c of listOfCalls" [call]="c" [codeWorker]="worker.Wo_code"
           (callOpen)="openCall($event)"></app-call>
       </div>
     </div>
@@ -37,24 +37,13 @@
       </div>
       <p topic>{{call.Ca_topic}}</p>
       <app-message *ngFor="let m of listOfMessages" [message]="m"></app-message>
+      <button answer *ngIf="!displayNewMessage" (click)="displayNewMessage=true">תשובה</button>
+      <app-new-message *ngIf="displayNewMessage" [worker]="worker"></app-new-message>
     </div>
   </div>
 
 </div>
-<app-new-call *ngIf="displayAddCall" [codeWorkerSender]="codeWorker"></app-new-call>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<app-new-call *ngIf="displayAddCall" (closeNewCall)="displayAddCall=false" [codeWorkerSender]="worker.Wo_code"></app-new-call>
 
 
 
