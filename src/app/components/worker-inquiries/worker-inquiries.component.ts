@@ -20,9 +20,9 @@ import { Worker } from '../../models/worker.class';
 })
 export class WorkerInquiriesComponent {
     listOfCalls: Array<Calll> = []
-    listOfMessages: Array<MessageForCall> | undefined = []
+    listOfMessages: Array<MessageForCall> = []
 
-    call: Calll = new Calll(1, "", [])
+    call: Calll | undefined
     @Input() worker: Worker =new Worker(1,"",1,1,"","","","","")
 
     displayOpen = false
@@ -69,6 +69,7 @@ export class WorkerInquiriesComponent {
        
         this.listOfMessages = []
         this.listOfMessages.push(...listOfMessages)
+      this.call= this.listOfCalls.find(c=>c.Ca_code==this.listOfMessages[0].MFC_call_code) 
         this.displayOpen = true;
         this.generalCalls();
     }

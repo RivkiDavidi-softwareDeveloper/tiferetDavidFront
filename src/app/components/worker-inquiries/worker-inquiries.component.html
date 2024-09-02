@@ -35,10 +35,12 @@
         <div delete></div>
         <div unread></div>
       </div>
-      <p topic>{{call.Ca_topic}}</p>
+      <p topic>{{call?.Ca_topic}}</p>
       <app-message *ngFor="let m of listOfMessages" [message]="m"></app-message>
       <button answer *ngIf="!displayNewMessage" (click)="displayNewMessage=true">תשובה</button>
-      <app-new-message *ngIf="displayNewMessage" [worker]="worker"></app-new-message>
+      <button answer *ngIf="!displayNewMessage" (click)="displayNewMessage=true">תשובה לכולם</button>
+
+      <app-new-message *ngIf="displayNewMessage" [worker]="worker" [codeCall]="call?.Ca_code"></app-new-message>
     </div>
   </div>
 

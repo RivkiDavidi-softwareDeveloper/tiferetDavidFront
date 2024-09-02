@@ -24,7 +24,8 @@ import { Synagogue } from '../../models/synagogue.class';
 })
 export class DisplayStudentComponent implements OnInit {
 print() {
-throw new Error('Method not implemented.');
+  window.print();
+
 }
   @Input() selectedImage: string = "";
 

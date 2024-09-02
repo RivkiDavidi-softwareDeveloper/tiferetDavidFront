@@ -1,6 +1,6 @@
 <div class="background" *ngIf="popupDisplayIn">
     <div class="popup">
-        <button class="close" (click)="close();">x</button>
+        <button class="close" (click)="close();" nonePrint2>x</button>
         <h2>{{student.St_name+" "+student.St_Fname}}</h2>
         <div otefImage>
             <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
@@ -60,7 +60,79 @@
         <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
         <br>
 
-        <button (click)="print()" title="הדפס"></button>
+        <button (click)="print()" title="הדפס">הדפס</button>
 
     </div>
+</div>
+<div class="popup2" *ngIf="popupDisplayIn">
+    <h2>{{student.St_name+" "+student.St_Fname}}</h2>
+    <div towBox>
+        <div box>
+
+            <div otefImage>
+                <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
+            </div>
+
+            <label>ת.ז: <label l2>{{student.St_ID}}</label></label>
+            <label>מגדר: <label l2>{{typeGender(student.St_gender)}}</label> </label>
+            <label>גיל: <label l2>{{calculateAgeInYearsAndMonths(student.St_birthday)}}</label></label>
+            <label>תאריך לידה: <label l2>{{student.St_birthday}}</label></label>
+            <h3 title2>כתובת</h3>
+            <label>עיר: <label l2>{{city(student.St_city_code)}}</label></label>
+            <label>כתובת:<label l2> {{student.St_address}}</label></label>
+            <h3 title3>פרטי יצירת קשר</h3>
+            <label>פל' חניך:<label l2>{{student.St_cell_phone}}</label> </label>
+            <label>טלפון בית: <label l2>{{student.St_phone}}</label></label>
+            <label>אימייל: <label l2>{{student.St_email}}</label></label>
+            <h3 title4>משפחה</h3>
+            <label>שם האב: <label l2>{{student.Parent?.Pa_name}}</label></label>
+
+            <label>ת.ז: <label l2>{{student.Parent?.Pa_ID}}</label></label>
+            <label>עיסוק:<label l2>{{student.Parent?.Pa_work}}</label> </label>
+            <label>פל':<label l2>{{student.Parent?.Pa_cell_phone}}</label> </label>
+            <br>
+            <label>שם האם:<label l2>{{student.Parent1?.Pa_name}}</label> </label>
+            <label>ת.ז: <label l2>{{student.Parent1?.Pa_ID}}</label></label>
+            <label>עיסוק:<label l2>{{student.Parent1?.Pa_work}}</label> </label>
+            <label>פל':<label l2> {{student.Parent1?.Pa_cell_phone}}</label></label>
+
+            <br>
+            <label>השתייכות לקהילה: <label l2>{{CommunityName(student.St_code_synagogue)}}</label></label>
+            <label>בית כנסת: <label l2>{{SynagogueName(student.St_code_synagogue)}}</label></label>
+
+            <label>מצב סוציואקנומי משפחתי: <label l2>{{student.St_socioeconomic_status}}</label></label>
+        </div>
+        <div box>
+            <h3 title5>לימודים</h3>
+            <label>מוסד לימודים נוכחי:<label l2>{{student.StudiesForStudents[0].SFS_current_school}}</label>
+            </label>
+            <label>שם המוסד:<label l2> {{student.StudiesForStudents[0].SFS_current_school_ame}}</label></label>
+            <label>שיעור בקליטה:<label l2>{{student.StudiesForStudents[0].SFS_reception_class}}</label> </label>
+            <label>שיעור נוכחי: <label l2>{{student.StudiesForStudents[0].SFS_current_class}}</label></label>
+            <label>ישיבות קודמות:<label l2>{{student.StudiesForStudents[0].SFS_previous_institutions}}</label>
+            </label>
+            <label>תלמוד תורה בו למד: <label l2>{{student.StudiesForStudents[0].SFS_previous_school}}</label></label>
+            <label>איש צוות מקושר: <label l2>{{student.St_contact}}</label></label>
+            <label>פל' איש צוות מקושר:<label l2> {{student.St_contact_phone}}</label></label>
+
+
+            <h3 title6>תדירות הפעילות</h3>
+            <label>סוג התדירות: <label l2>{{Frequency(student.St_code_frequency)}}</label></label>
+            <label>כמות התדירות: <label l2>{{student.St_amount_frequency}}</label></label>
+            <h3 title7>עוד</h3>
+
+            <label>מצב פעילות: <label l2>{{typeSA(student.St_activity_status)}}</label></label>
+            <label>מצב סיכון: <label l2>{{typeRisk(student.St_risk_code)}}</label></label>
+            <label>קשיים:<label *ngFor="let d of student.DifficultyStudents"
+                    l2>{{TypeDiffi(d.DS_diffculty_code)+","}}</label></label>
+
+            <label>תאור מצב קליטה:<label l2>{{student.St_description_reception_status}}</label> </label>
+            <label>פעיל/חונך ישיר: <label l2>{{worker(student.St_worker_code)}}</label></label>
+            <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
+        </div>
+    </div>
+
+    <br>
+
+
 </div>

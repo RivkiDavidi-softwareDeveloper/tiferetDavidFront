@@ -39,8 +39,28 @@ $color-turqis-dark: rgb(10, 70, 56);
 
 }
 
+.popup2 {
+    display: none;
+    padding: 20px 30px;
+    top: 0;    position: fixed;
+background-color: white;
+    right: 0;
+width: 100vw;
+    z-index: 4;
+    [towBox]{
+        display: flex;
+        flex-direction: row;
+        [box]{
+            flex :1;
+            width: 50vw;
+            display: inline;
+        }
+    }
+  
+}
+
 //הגדרת גודלי כתב
-h1, 
+h1,
 h2,
 h3 {
     font-family: Assistant-Bold;
@@ -74,21 +94,27 @@ h3 {
 [title1] {
     color: rgb(255, 119, 0);
 }
+
 [title2] {
     color: rgb(226, 10, 10);
 }
+
 [title3] {
     color: rgb(161, 80, 21);
 }
+
 [title4] {
     color: rgb(187, 0, 255);
 }
+
 [title5] {
     color: rgb(0, 166, 255);
 }
+
 [title6] {
-    color: rgb(0, 116, 179);
+    color: rgb(179, 140, 0);
 }
+
 [title7] {
     color: rgb(10, 142, 6);
 }
@@ -222,6 +248,7 @@ label {
     input {
         width: 210px;
     }
+
     [otefImage] {
         display: block;
         position: relative;
@@ -229,5 +256,32 @@ label {
         z-index: 0;
         left: 0px;
 
+    }
+}
+
+@media print {
+    [nonePrint2] {
+        display: none;
+    }
+
+    .background {
+        display: none;
+
+    }
+
+    .popup2 {
+        display: block;
+        [otefImage] {
+            width: 150px;
+            height: 200px;
+            overflow: hidden;
+            border: 3px solid $color-turqis;
+            position: static;
+            top: 50px;
+            z-index: 1;
+            left: 70px;
+        
+
+        }
     }
 }

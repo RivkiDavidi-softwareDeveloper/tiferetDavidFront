@@ -30,7 +30,7 @@ export class NewMessageComponent {
   searchWorkerToSend = ""
   displayListWorkers = false
   sec = ""
-  @Input() codeCall: number = 1
+  @Input() codeCall: number |undefined
   //הודעה
   MFC_code = 1
   MFC_call_code = 1
@@ -48,6 +48,19 @@ export class NewMessageComponent {
   b6 = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) {
   }
+  
+  ngOnInit(): void {
+    this.generalWorkers()
+
+  }
+    //רשימה של עובדים
+    public generalWorkers() {
+      this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
+        this.listOfWorkers = []
+        this.listOfWorkers.push(...Date);
+        this.cdRef.detectChanges();
+      })
+    }
   letter1(name: string | undefined) {
     if (name)
       return name.slice(0, 1)
@@ -185,7 +198,7 @@ export class NewMessageComponent {
       var hours = ('0' + toDayy.getHours()).slice(-2);
       var minutes = ('0' + toDayy.getMinutes()).slice(-2);
       this.MFC_time = hours + ':' + minutes;
-      if(this.MFC_sender_worker_code){
+      if(this.MFC_sender_worker_code && this.codeCall){
         const messageAdd: MessageForCall = new MessageForCall(this.MFC_code, this.codeCall, this.MFC_sender_worker_code, this.MFC_content, this.MFC_date, this.MFC_time, undefined, listOfRecipientForMessage2)
           //הוספת הודעה לשיחה
       await this.api.AddMessage(messageAdd).subscribe(
@@ -204,7 +217,7 @@ export class NewMessageComponent {
 
       }
       else{
-        this.snackBar.open('אירעה שגיאה ', 'x', { duration: 3000 });
+        this.snackBar.open(' קוד השולח או קוד השיחה בעיייתיים ' +this.codeCall, 'x', { duration: 3000 });
 
       }
 
