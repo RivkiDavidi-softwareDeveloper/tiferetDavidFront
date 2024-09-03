@@ -1,9 +1,16 @@
 <h1>פרויקטים</h1>
-<button>הוסף פרויקט</button>
+<button newProject  (click)="displayAddProject=true">פרויקט חדש</button>
+<div find>
+    <input type="search" role="combobox" placeholder="חפש לפי שם פרויקט" (input)="onInputChangeSearch($event)">
+</div>
 <div allProjects>
     <app-project *ngFor="let p of listProject" [project]="p"></app-project>
 
 </div>
+<app-new-project [popupDisplayIn]="displayAddProject" [status]="'add'"
+    (popupDisplayOut)="closeP($event)"></app-new-project>
 
+<!-- <app-new-project [popupDisplayIn]="sUpdateWorker" [amountWorkers]="amountAll" [status]="'update'"
+    [workerUpdate]="updateWorker" (popupDisplayOut)="closeP($event)"></app-new-project> -->
 
 

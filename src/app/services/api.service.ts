@@ -224,13 +224,13 @@ export class ApiService {
     return this.httpp.get(url) as Observable<Array<Activity>>
   }
   //חיפוש פעילות
-  public FindActivities(nameWorker: string, nameStudent: string,order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
-    const url: string = this.urlBasis + "/activities/FindActivities/" + nameWorker + "/" +nameStudent+"/"+ order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
+  public FindActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
+    const url: string = this.urlBasis + "/activities/FindActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
     return this.httpp.get(url) as Observable<Array<Activity>>
   }
   //כמויות פעילות
-  public AountsActivities(nameWorker: string,nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
-    const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" +nameStudent+"/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
+  public AountsActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
+    const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
     return this.httpp.get(url) as Observable<Array<number>>
   }
   //הוספת פעילות
@@ -332,6 +332,16 @@ export class ApiService {
     return this.httpp.get(url) as Observable<Array<StudentForProject>>
   }
   //הוספת פרויקט
+
+  public AddProject(project: Project): Observable<any> {
+    const url: string = this.urlBasis + "/projects/AddProject";
+    return this.httpp.post<any>(url, project);
+  }
+  //עדכון פרויקט
+  public UpdateProject(project: Project): Observable<any> {
+    const url: string = this.urlBasis + "/projects/UpdateProject";
+    return this.httpp.put<any>(url, project);
+  }
   //הוספת חניכים לפרויקט
   //הוספת חניך לפקרויקט
   //הוספת חניכים לפרויקט לפי קוד פעיל
