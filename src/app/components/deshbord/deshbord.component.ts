@@ -28,7 +28,7 @@ export class DeshbordComponent {
 
    ngOnInit(): void {
 
-      this.general()
+ /*      this.general() */
 /* 
   //עובדים
   interval(0.1)

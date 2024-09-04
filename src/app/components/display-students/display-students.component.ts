@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { response } from 'express';
 import { error } from 'node:console';
+import { SignalrService } from '../../services/signalr.service';
 
 @Component({
   selector: 'app-display-students',
@@ -80,10 +81,13 @@ export class DisplayStudentsComponent implements OnInit {
   @Input() imageBlobURL: string = ""
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
 
-  constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog,private signal:SignalrService) { }
   ngOnInit(): void {
     this.generalStudents();
     this.generalWorkers();
+      this.signal.onStudentAdded((student) => {
+        this.listOfStudents.push(student); // הוסף את התלמיד החדש לרשימה
+      });
   }
 
   //רשימת חניכים
