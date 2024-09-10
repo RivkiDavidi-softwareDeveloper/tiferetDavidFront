@@ -1,6 +1,253 @@
 $color-pink: rgb(255, 0, 136);
-$color-blue-light: rgb(0, 200, 255);
+$color-blue-light: rgb(40, 226, 255);
+$color-yellow: rgb(255, 255, 82);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
 
+[filter] {
+    text-align: center;
+    margin: 2vh auto 1vh auto;
+
+    label {
+        font-size: 18px;
+        font-family: Assistant-Regular;
+
+    }
+
+    select {
+        height: 4.5vh;
+        display: inline-block;
+        text-align: right;
+        outline: none;
+        color: rgb(0, 0, 0);
+        font-size: 18px;
+        //   border-radius: 5px;
+        border: 2px solid rgb(92, 125, 129);
+        width: 20vw;
+        font-family: Assistant-Regular;
+        background-color: rgb(255, 255, 255);
+
+        option {
+            background-color: white;
+            font-family: Assistant-Regular;
+            font-size: 1.1em;
+            color: black;
+            font-size: 18px;
+
+        }
+    }
+}
+
+[amounts1] {
+    width: 90vw;
+    margin: auto;
+
+    [box] {
+        width: 20vw;
+        height: 7.7vh;
+        margin: 1.5vh 1vw;
+        display: inline-block;
+        box-shadow: 4px 4px 10px rgba(203, 203, 203, 0.6);
+        text-align: center;
+
+        [teur] {
+            font-size: 2.9vh;
+            font-family: Assistant-Regular;
+            height: 1.4vh;
+        }
+
+        [num] {
+            height: 6.3vh;
+            line-height: 6.3vh;
+
+            font-size: 3.9vh;
+            font-family: Assistant-Bold;
+            display: block;
+            background-color: rgb(214, 255, 235);
+        }
+    }
+
+    [b1] {
+        background-color: $color-green-light
+    }
+
+    [b2] {
+        background-color: $color-orange
+    }
+
+    [b3] {
+        background-color: rgb(0, 221, 173);
+    }
+
+    [b4] {
+        background-color: rgb(180, 88, 255);
+    }
+}
+
+[amounts2] {
+    width: 98vw;
+    margin: 2vh auto;
+
+    [title] {
+        padding-right: 12vw;
+
+        [box1] {
+            width: 16vw;
+            height: 8vh;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            margin: 1.5vh 0.5vw 0.3vh 0.5vw;
+            display: inline-block;
+            box-shadow: 4px 4px 10px rgba(184, 184, 184, 0.6);
+            text-align: center;
+            font-size: 2.2vh;
+            font-family: Assistant-Bold;
+            line-height: 12vh;
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 5vh;
+
+        }
+
+        [b1] {
+            background-color: rgb(255, 152, 152);
+            background-image: url('../icons/Topic.png');
+        }
+
+        [b2] {
+            background-color: rgb(255, 224, 152);
+            background-image: url('../icons/meeting2black.png');
+        }
+
+        [b3] {
+            background-color: rgb(241, 255, 152);
+            background-image: url('../icons/car3black.png');
+        }
+
+        [b4] {
+            background-color: rgb(174, 255, 152);
+            background-image: url('../icons/time.png');
+        }
+
+        [b5] {
+            background-color: rgb(152, 255, 219);
+            background-image: url('../icons/school6black.png');
+        }
+    }
+
+
+
+    [contect] {
+        display: inline-block;
+
+        div {
+
+            div {
+                background-color: rgb(195, 254, 233);
+                text-align: center;
+                margin: 0.2vh 0.5vw;
+                display: inline-block;
+                height: 5vh;
+                line-height: 5vh;
+                width: 16vw;
+                box-shadow: 4px 4px 10px rgba(222, 222, 222, 0.6);
+                font-size: 2.5vh;
+                font-family: Assistant-Bold;
+
+            }
+
+            [c1] {
+                background-color: rgb(255, 206, 206);
+            }
+
+            [c2] {
+                background-color: rgb(255, 235, 188);
+            }
+
+            [c3] {
+                background-color: rgb(246, 255, 188);
+            }
+
+            [c4] {
+                background-color: rgb(200, 255, 185);
+            }
+
+            [c5] {
+                background-color: rgb(198, 255, 235);
+            }
+
+            [titleSide] {
+                width: 11vw;
+                background-color: rgb(1, 180, 150); // צבע טורקיז כהה
+                color: white;
+                border-bottom-right-radius: 100px;
+                border-top-right-radius: 100px;
+            }
+
+            [titleTop2] {
+                width: 100%;
+                background-color: white;
+                color: rgb(10, 103, 87);
+                font-size: 3.2vh;
+                box-shadow: 4px 4px 0px rgba(222, 222, 222, 0);
+
+            }
+/* 
+            [titleSide2] {
+                width: 11vw;
+                background-color: rgb(217, 22, 35);
+                color: white;
+                font-size: 2vh;
+                height: 7vh;
+                line-height: 7vh;
+                border-bottom-right-radius: 100px;
+                border-top-right-radius: 100px;
+                white-space: normal; // מאפשר שבירת שורות
+                overflow-wrap: break-word; // תומך בשבירת מילים בגרסאות דפדפנים חדשות
+                margin: 0.2vh 0.5vw;
+
+            }
+
+            [t2] {
+                height: 7vh;
+                line-height: 7vh;
+                margin: 0.2vh 0.5vw;
+
+            } */
+        }
+    }
+
+}
+
+
+
+
+
+@media only screen and (max-width: 960px) {}
+
+@media only screen and (max-width: 767px) {
+    [amounts1] {
+        width: 95vw;
+
+        [box] {
+            width: 40vw;
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* 
+
+//////////
 [deshbord] {
     display: flex;
     flex-direction: row;
@@ -44,7 +291,7 @@ $color-blue-light: rgb(0, 200, 255);
 
         [num] {
             padding-top: 20%;
-            font-size: 4.9vw;
+            font-size: 4.9vh;
             font-family: Assistant-Bold;
             display: block;
 
@@ -92,4 +339,4 @@ $color-blue-light: rgb(0, 200, 255);
     [b8] {
         background-color: rgb(243, 82, 125);
     }
-}
+} */
