@@ -76,38 +76,147 @@
             <div c5>{{matAmounts[3][4]}}</div>
 
         </div>
-        <div>
-            <div titleSide> כולל </div>
 
-            <div c1>{{matAmounts[3][0]}}</div>
-            <div c2>{{matAmounts[3][1]}}</div>
-            <div c3>{{matAmounts[3][2]}}</div>
-            <div c4>{{matAmounts[3][3]}}</div>
-            <div c5>{{matAmounts[3][4]}}</div>
+        <div>
+            <div titleTop2>דירוג יחסי ל:</div>
 
         </div>
-<!--         <div>
-            <div  titleTop2>~~~דירוג יחסי~~~</div>
-
-        </div> -->
         <div>
-            <div titleSide>חודש </div>
-            <div c1 t2></div>
-            <div c2 t2></div>
-            <div c3 t2></div>
-            <div c4 t2></div>
-            <div c5 t2></div>
+            <div titleSide titleSide2 t21>חודש קודם </div>
+            <div t1>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[4][0] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[4][0])" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[4][0] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t2>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <!-- עיגול רקע (גבול אפור בהיר) -->
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <!-- עיגול קידמי (צבוע לפי ערך של ahuz) -->
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[4][1] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[4][1])" cx="18" cy="18"
+                            r="15.9155" />
+                        <!-- טקסט בתוך העיגול שמציג את האחוזים -->
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[4][1] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t3>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[4][2] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[4][2] )" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[4][2] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t4>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[4][3]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[4][3])" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[4][3] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t5>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[4][4] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[4][4])" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[4][4] }}%</text>
+                    </svg>
+                </div>
+            </div>
         </div>
         <div>
-            <div titleSide>חודש זה  </div>
-            <div c1 t2></div>
-            <div c2 t2></div>
-            <div c3 t2></div>
-            <div c4 t2></div>
-            <div c5 t2></div>
+            <div titleSide titleSide2>חודש זה בשנה שעברה</div>
+            <div t1>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <!-- עיגול רקע (גבול אפור בהיר) -->
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <!-- עיגול קידמי (צבוע לפי ערך של ahuz) -->
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[5][0] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][0])" cx="18" cy="18"
+                            r="15.9155" />
+                        <!-- טקסט בתוך העיגול שמציג את האחוזים -->
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[5][0] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t2>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[5][1] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][1])" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[5][1] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t3>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[5][2] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][2] )" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[5][2] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t4>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[5][3]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][3] )" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[5][3] }}%</text>
+                    </svg>
+                </div>
+            </div>
+            <div t5>
+                <div class="circle-container">
+                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
+                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
+                        <circle class="circle-progress" [attr.stroke]="matAmounts[5][4]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
+                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][4])" cx="18" cy="18"
+                            r="15.9155" />
+                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
+                            transform="rotate(90 18 18)">{{ matAmounts[5][4] }}%</text>
+                    </svg>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
 
 
 <!-- <div deshbord>
