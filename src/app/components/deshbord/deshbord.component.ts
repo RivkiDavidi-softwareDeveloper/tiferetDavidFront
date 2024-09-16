@@ -20,12 +20,10 @@ export class DeshbordComponent {
   //-2 כולל בנים
   //-3 כולל בנות
   //אחר - קוד פעיל
-  amountWorkers = 30
-  amountChonchim = 11
-  amountStudentPail = 82
-  amountStudentAll = 321
 
-  matAmounts: Array<Array<number>> = [[1, 2, 3, 4, 888], [5, 6, 7, 8, 888], [9, 10, 11, 12, 888], [13, 14, 15, 16, 88],[9, -10, 11, 12, 43], [13, 14, -15, 16, -88]]
+
+  matAmounts: Array<Array<number>> = [[0,0,0,0], [0,0,0,0,0], [0,0,0,0,0], [0,0,0,0,0],[0,0,0,0,0], [0,0,0,0,0],[0,0,0,0,0], [0,0,0,0,0]]
+  constructor(private api: ApiService, private cdRef: ChangeDetectorRef,) { }
 
 
   // חישוב stroke-dasharray לפי ערך של ahuz
@@ -34,6 +32,14 @@ export class DeshbordComponent {
     return `${percentage}, 100`;
   }
 
+generalDeshbord(){
+  this.api.DisplayDeshbord(this.codeFilter).subscribe(Date=>
+  {
+    this.matAmounts=[]
+    this.matAmounts.push(...Date);
+  }
+  )
+}
 
 
 //////ישן
@@ -47,13 +53,12 @@ amountGActivites = 0
 amountGKilometers = 0
 
 
-constructor(private api: ApiService, private cdRef: ChangeDetectorRef,) { }
 
 
 ngOnInit(): void {
-  this.getAllWorkers()
-    this.general()
-
+/*   this.getAllWorkers()
+    this.general() */
+this.generalDeshbord()
 
 }
 general() {
@@ -107,6 +112,7 @@ getAllWorkers() {
 selectFilter(event: Event) {
   var num: number = Number((event.target as HTMLInputElement).value)
   this.codeFilter = num
+  this.generalDeshbord()
 }
 //מוסיפה פסיקים
 addCommasToNumber(num: number): string {

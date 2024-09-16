@@ -410,6 +410,11 @@ export class ApiService {
     return this.httpp.post<any>(url, formData);
   }
 
+//הצגת נתונים לדשבורד
+  public DisplayDeshbord(codeFilter:number): Observable<Array<Array<number>>> {
+    const url: string = this.urlBasis + "/deshbord/GeneralDeshbord/"+codeFilter;
+    return this.httpp.get(url) as Observable<Array<Array<number>>> 
+  }
 }
 
 
