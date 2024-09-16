@@ -59,41 +59,64 @@
         <div>
             <div titleSide> שבועי </div>
 
-            <div c1>{{matAmounts[1][0]}}</div>
-            <div c2>{{matAmounts[1][1]}}</div>
-            <div c3>{{matAmounts[1][2]}}</div>
-            <div c4>{{matAmounts[1][3]}}</div>
-            <div c5>{{matAmounts[1][4]}}</div>
+            <div c1>{{addCommasToNumber(matAmounts[1][0])}}</div>
+            <div c2>{{addCommasToNumber(matAmounts[1][1])}}</div>
+            <div c3>{{addCommasToNumber(matAmounts[1][2])}}</div>
+            <div c4 *ngIf="matAmounts[1][3]==0"></div>         
+
+            <div c4 *ngIf="hours(matAmounts[1][3])!=='0' && minutes(matAmounts[1][3]) !=='0' ">{{hours(matAmounts[1][3])}} שעות
+                ו-{{minutes(matAmounts[1][3])}} דקות </div>
+            <div c4 *ngIf="hours(matAmounts[1][3])==='0' && minutes(matAmounts[1][3]) !=='0' ">{{minutes(matAmounts[1][3])}} דקות
+            </div>
+            <div c4 *ngIf="hours(matAmounts[1][3])!=='0' && minutes(matAmounts[1][3]) ==='0' ">{{hours(matAmounts[1][3])}} שעות</div>
+            <div c5>{{addCommasToNumber(matAmounts[1][4])}}</div>
 
         </div>
         <div>
             <div titleSide> חודשי </div>
 
-            <div c1>{{matAmounts[2][0]}}</div>
-            <div c2>{{matAmounts[2][1]}}</div>
-            <div c3>{{matAmounts[2][2]}}</div>
-            <div c4>{{matAmounts[2][3]}}</div>
-            <div c5>{{matAmounts[2][4]}}</div>
+            <div c1>{{addCommasToNumber(matAmounts[2][0])}}</div>
+            <div c2>{{addCommasToNumber(matAmounts[2][1])}}</div>
+            <div c3>{{addCommasToNumber(matAmounts[2][2])}}</div>
+            <div c4 *ngIf="matAmounts[2][3]==0"></div>         
+
+            <div c4 *ngIf="hours(matAmounts[2][3])!=='0' && minutes(matAmounts[2][3]) !=='0' ">{{hours(matAmounts[2][3])}} שעות
+                ו-{{minutes(matAmounts[2][3])}} דקות </div>
+            <div c4 *ngIf="hours(matAmounts[2][3])==='0' && minutes(matAmounts[2][3]) !=='0' ">{{minutes(matAmounts[2][3])}} דקות
+            </div>
+            <div c4 *ngIf="hours(matAmounts[2][3])!=='0' && minutes(matAmounts[2][3]) ==='0' ">{{hours(matAmounts[2][3])}} שעות</div>
+            <div c5>{{addCommasToNumber(matAmounts[2][4])}}</div>
 
         </div>
         <div>
             <div titleSide> שנתי </div>
 
-            <div c1>{{matAmounts[3][0]}}</div>
-            <div c2>{{matAmounts[3][1]}}</div>
-            <div c3>{{matAmounts[3][2]}}</div>
-            <div c4>{{matAmounts[3][3]}}</div>
-            <div c5>{{matAmounts[3][4]}}</div>
+            <div c1>{{addCommasToNumber(matAmounts[3][0])}}</div>
+            <div c2>{{addCommasToNumber(matAmounts[3][1])}}</div>
+            <div c3>{{addCommasToNumber(matAmounts[3][2])}}</div>
+            <div c4 *ngIf="matAmounts[3][3]==0"></div>         
+
+            <div c4 *ngIf="hours(matAmounts[3][3])!=='0' && minutes(matAmounts[3][3]) !=='0' ">{{hours(matAmounts[3][3])}} שעות
+                ו-{{minutes(matAmounts[3][3])}} דקות </div>
+            <div c4 *ngIf="hours(matAmounts[3][3])==='0' && minutes(matAmounts[3][3]) !=='0' ">{{minutes(matAmounts[3][3])}} דקות
+            </div>
+            <div c4 *ngIf="hours(matAmounts[3][3])!=='0' && minutes(matAmounts[3][3]) ==='0' ">{{hours(matAmounts[3][3])}} שעות</div>
+            <div c5>{{addCommasToNumber(matAmounts[3][4])}}</div>
 
         </div>
         <div>
             <div titleSide> כולל </div>
 
-            <div c1>{{matAmounts[4][0]}}</div>
-            <div c2>{{matAmounts[4][1]}}</div>
-            <div c3>{{matAmounts[4][2]}}</div>
-            <div c4>{{matAmounts[4][3]}}</div>
-            <div c5>{{matAmounts[4][4]}}</div>
+            <div c1>{{addCommasToNumber(matAmounts[4][0])}}</div>
+            <div c2>{{addCommasToNumber(matAmounts[4][1])}}</div>
+            <div c3>{{addCommasToNumber(matAmounts[4][2])}}</div>
+            <div c4 *ngIf="matAmounts[4][3]==0"></div>         
+            <div c4 *ngIf="hours(matAmounts[4][3])!=='0' && minutes(matAmounts[4][3]) !=='0' ">{{hours(matAmounts[4][3])}} שעות
+                ו-{{minutes(matAmounts[4][3])}} דקות </div>
+            <div c4 *ngIf="hours(matAmounts[4][3])==='0' && minutes(matAmounts[4][3]) !=='0' ">{{minutes(matAmounts[4][3])}} דקות
+            </div>
+            <div c4 *ngIf="hours(matAmounts[4][3])!=='0' && minutes(matAmounts[4][3]) ==='0' ">{{hours(matAmounts[4][3])}} שעות</div>
+            <div c5>{{addCommasToNumber(matAmounts[4][4])}}</div>
 
         </div>
 

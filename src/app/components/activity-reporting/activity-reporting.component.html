@@ -245,7 +245,7 @@
             <div contectAll>
                 <div>
                     <label>מוצא:</label>
-                    <input type="text" (input)="onInputChangeExit($event)" [value]="exit">
+                    <input type="text" (input)="onInputChangeExit($event)" [value]="AFS_exit">
                     <label *ngIf="validAFS_exit" eror>מוגבל ל-100 תוים</label>
                 </div>
 
@@ -254,12 +254,12 @@
                     <br> -->
                 <div>
                     <label>יעד:</label>
-                    <input type="text" (input)="onInputChangeTarget($event)" [value]="target">
+                    <input type="text" (input)="onInputChangeTarget($event)" [value]="AFS_target">
                     <label *ngIf="validAFS_target" eror>מוגבל ל-100 תוים</label>
                 </div>
                 <div>
                     <label>מס ק"מ:</label>
-                    <input type="number" (input)="onInputChangeKM($event)" [value]="kilomet">
+                    <input type="number" (input)="onInputChangeKM($event)" [value]="AFS_kilometer">
                 </div>
                 <div>
                     <label *ngIf="!displayGroupActivities && worker.Wo_gender==1">נסיעה משותפת? אם כן בחר חניך
