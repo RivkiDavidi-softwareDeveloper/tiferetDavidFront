@@ -15,7 +15,8 @@ import { Worker } from '../../models/worker.class';
 })
 export class DeshbordComponent {
   listWorkers: Array<Worker> = []
-  codeFilter = -1
+  @Input() codeFilter = -1
+  @Input() status="system"
   // -1 כולל
   //-2 כולל בנים
   //-3 כולל בנות

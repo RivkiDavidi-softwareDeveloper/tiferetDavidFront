@@ -4,6 +4,44 @@ $color-yellow: rgb(255, 255, 82);
 $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
 
+.highlight-box {
+    height: 9vh;
+    width: 37vw;
+    margin: 5vh 6vw 2vh 6vw ;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #ffffff, #ffd7d0);
+    color: rgb(151, 10, 10);
+    font-size: 2.5vh;
+    font-family: Assistant-Bold;
+    line-height: 9vh;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 146, 146, 0.7), 0 0 30px rgba(255, 242, 126, 0.7);
+    animation: glow 2s infinite alternate;
+    background-repeat: no-repeat;
+    background-position: 99%;
+    background-size: contain;
+    background-image: url('../../../assets/medalya2.png');
+
+  //  animation: glow 1.5s ease-in-out infinite;  /* זמן אנימציה חלק יותר */
+
+  }
+  
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 0px rgba(255, 0, 0, 0.7), 0 0 0px rgba(247, 54, 109, 0.7);
+    }
+    to {
+      box-shadow: 0 0 50px rgb(255, 233, 124), 0 0 60px rgb(254, 255, 170);
+      font-size: 2.8vh;
+
+    }
+  }
+
+  
+
 [filter] {
     text-align: center;
     margin: 2vh auto 1vh auto;

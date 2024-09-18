@@ -11,18 +11,20 @@ import { ContactToProjectComponent } from "../contact-to-project/contact-to-proj
 import { Parentt } from '../../models/parent.class';
 import { StudiesForStudent } from '../../models/studiesForStudent.class';
 import { DifficultyStudent } from '../../models/difficultyStudent.class';
+import { DeshbordComponent } from "../deshbord/deshbord.component";
 
 @Component({
   selector: 'app-workers-login',
   standalone: true,
   templateUrl: './workers-login.component.html',
   styleUrls: ['./workers-login.component.scss'],
-  imports: [CommonModule, ActivityReportingComponent, DisplayStudentsComponent, TasksComponent, WorkerInquiriesComponent, ContactToProjectComponent]
+  imports: [CommonModule, ActivityReportingComponent, DisplayStudentsComponent, TasksComponent, WorkerInquiriesComponent, ContactToProjectComponent, DeshbordComponent]
 })
 
 
 export class WorkersLoginComponent implements OnInit {
-  active: boolean = true;
+  deshbord=true
+  active: boolean = false;
   students: boolean = false;
   task: boolean = false;
   projects: boolean = false;
@@ -69,6 +71,7 @@ export class WorkersLoginComponent implements OnInit {
     }
   }
   onListSelected(event: Event) {
+    this.deshbord=false
     this.active = false;
     this.students = false;
     this.task = false;
@@ -76,12 +79,13 @@ export class WorkersLoginComponent implements OnInit {
     this.pz = false;
     const value = Number((event.target as HTMLInputElement).value);
     switch (value) {
-      case 1: this.active = true; break;
-      case 2: this.students = true; break;
-      case 3: this.task = true; break;
-      case 4: this.projects = true; break;
-      case 5: this.pz = true; break;
-      default: this.active = true;
+      case 1: this.deshbord=true;break;
+      case 2: this.active = true; break;
+      case 3: this.students = true; break;
+      case 4: this.task = true; break;
+      case 5:  this.pz = true; break;
+      case 6:this.projects = true; break;
+      default: this.deshbord = true;
 
     }
   }
