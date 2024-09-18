@@ -16,14 +16,14 @@ import { Worker } from '../../models/worker.class';
 export class DeshbordComponent {
   listWorkers: Array<Worker> = []
   @Input() codeFilter = -1
-  @Input() status="system"
+  @Input() status = "system"
   // -1 כולל
   //-2 כולל בנים
   //-3 כולל בנות
   //אחר - קוד פעיל
 
 
-  matAmounts: Array<Array<number>> = [[0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+  matAmounts: Array<Array<number>> = [[0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0]]
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef,) { }
 
 
@@ -41,12 +41,17 @@ export class DeshbordComponent {
     )
   }
   ngOnInit(): void {
-      this.getAllWorkers()
-    
+    this.getAllWorkers()
+
     this.generalDeshbord()
 
   }
-
+  nameWorker(codeWorker: number) {
+    const w = this.listWorkers.find(w => w.Wo_code == codeWorker)
+    if (w)
+      return w.Wo_name + " " + w.Wo_Fname
+    return ''
+  }
   //////ישן
 
 

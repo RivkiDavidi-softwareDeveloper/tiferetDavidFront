@@ -1,8 +1,10 @@
-<div class="highlight-box">
-    ברכות לפעיל יוסי מוזס - שיבוץ בהצלחה
-</div>
-<div class="highlight-box">
-    ברכות לפעיל אבי זינגר  - שיבוץ בהצלחה
+<div otefHI>
+    <div class="highlight-box" *ngIf="matAmounts[8][0]>0">
+        ברכות לפעיל {{nameWorker(matAmounts[8][0])}} - מקסימום זמן פעילות פר חניך השבוע
+    </div>
+    <div class="highlight-box" *ngIf="matAmounts[8][1]>0">
+        ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
+    </div>
 </div>
 <div filter *ngIf="status=='system'">
     <label>בחירת פעיל: </label>
@@ -18,11 +20,11 @@
 
 
 <div amounts1>
-    <div box b1  *ngIf="status=='system'">
+    <div box b1 *ngIf="status=='system'">
         <p teur>פעילים</p>
         <p num>{{matAmounts[0][0]}}</p>
     </div>
-    <div box b2  *ngIf="status=='system'">
+    <div box b2 *ngIf="status=='system'">
         <p teur>חונכים</p>
         <p num>{{matAmounts[0][1]}}</p>
     </div>
@@ -46,17 +48,7 @@
     </div>
 
     <div contect>
-        <div *ngIf="codeFilter!=-1&&codeFilter!=-2&&codeFilter!=-3">
-            <div titleSide3>
-                מיקומך השבוע
-            </div>
-            <div w1>{{matAmounts[7][0]}}</div>
-            <div w2>{{matAmounts[7][1]}}</div>
-            <div w3>{{matAmounts[7][2]}}</div>
-            <div w4>{{matAmounts[7][3]}}</div>
-            <div w5>{{matAmounts[7][4]}}</div>
-
-        </div>
+        
         <div>
             <div titleSide> שבועי </div>
 
@@ -137,6 +129,7 @@
             <div titleTop2>דירוג יחסי ל-⬇️</div>
 
         </div> -->
+
         <div>
             <div titleSide2 t21>דירוג יחסי לחודש קודם </div>
             <div t1>
@@ -279,7 +272,30 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="codeFilter!=-1&&codeFilter!=-2&&codeFilter!=-3">
+            <div titleSide3 *ngIf="status!='system'">
+                מיקומך השבוע
+            </div>
+            <div titleSide3 *ngIf="status=='system'">
+                מיקומו השבוע
+            </div>
+            <div w1 *ngIf="matAmounts[7][0]==0">---</div>
+            <div w1 *ngIf="matAmounts[7][0]>0" [ngClass]="{'one':matAmounts[7][0]==1,'tow':matAmounts[7][0]==2}">
+                {{matAmounts[7][0]}}</div>
+            <div w2 *ngIf="matAmounts[7][1]==0">---</div>
+            <div w2 *ngIf="matAmounts[7][1]>0" [ngClass]="{'one':matAmounts[7][1]==1,'tow':matAmounts[7][1]==2}">
+                {{matAmounts[7][1]}}</div>
+            <div w3 *ngIf="matAmounts[7][2]==0">---</div>
+            <div w3 *ngIf="matAmounts[7][2]>0" [ngClass]="{'one':matAmounts[7][2]==1,'tow':matAmounts[7][2]==2}">
+                {{matAmounts[7][2]}}</div>
+            <div w4 *ngIf="matAmounts[7][3]==0">---</div>
+            <div w4 *ngIf="matAmounts[7][3]>0" [ngClass]="{'one':matAmounts[7][3]==1,'tow':matAmounts[7][3]==2}">
+                {{matAmounts[7][3]}}</div>
+            <div w5 *ngIf="matAmounts[7][4]==0">---</div>
+            <div w5 *ngIf="matAmounts[7][4]>0" [ngClass]="{'one':matAmounts[7][4]==1,'tow':matAmounts[7][4]==2}">
+                {{matAmounts[7][4]}}</div>
 
+        </div>
     </div>
 </div>
 

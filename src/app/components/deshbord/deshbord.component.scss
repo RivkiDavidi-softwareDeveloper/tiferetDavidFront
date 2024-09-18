@@ -3,44 +3,53 @@ $color-blue-light: rgb(40, 226, 255);
 $color-yellow: rgb(255, 255, 82);
 $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
+[otefHI]{
+width: 95vw;
+    margin: auto;
+    display: flex;
+    .highlight-box {
+        flex: 1;
+    
+        height: 8vh;
+        width: 42vw;
+        margin: 5vh 1vw 2vh 1vw;
 
-.highlight-box {
-    height: 9vh;
-    width: 37vw;
-    margin: 5vh 6vw 2vh 6vw ;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(45deg, #ffffff, #ffd7d0);
-    color: rgb(151, 10, 10);
-    font-size: 2.5vh;
-    font-family: Assistant-Bold;
-    line-height: 9vh;
-    text-align: center;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 146, 146, 0.7), 0 0 30px rgba(255, 242, 126, 0.7);
-    animation: glow 2s infinite alternate;
-    background-repeat: no-repeat;
-    background-position: 99%;
-    background-size: contain;
-    background-image: url('../../../assets/medalya2.png');
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, #ffffff, #ffd7d0);
+        color: rgb(151, 10, 10);
+        font-size: 2.2vh;
+        font-family: Assistant-Bold;
+        line-height: 8vh;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(255, 146, 146, 0.7), 0 0 30px rgba(255, 242, 126, 0.7);
+        animation: glow 2s infinite alternate;
+        background-repeat: no-repeat;
+        background-position: 99%;
+        background-size: contain;
+        background-image: url('../../../assets/medalya2.png');
+    
+        //  animation: glow 1.5s ease-in-out infinite;  /* זמן אנימציה חלק יותר */
+    
+    }
+}
 
-  //  animation: glow 1.5s ease-in-out infinite;  /* זמן אנימציה חלק יותר */
 
-  }
-  
-  @keyframes glow {
+@keyframes glow {
     from {
-      box-shadow: 0 0 0px rgba(255, 0, 0, 0.7), 0 0 0px rgba(247, 54, 109, 0.7);
+        box-shadow: 0 0 0px rgba(255, 0, 0, 0.7), 0 0 0px rgba(247, 54, 109, 0.7);
     }
+
     to {
-      box-shadow: 0 0 50px rgb(255, 233, 124), 0 0 60px rgb(254, 255, 170);
-      font-size: 2.8vh;
+        box-shadow: 0 0 50px rgb(255, 233, 124), 0 0 60px rgb(254, 255, 170);
+        font-size: 2.45vh;
 
     }
-  }
+}
 
-  
+
 
 [filter] {
     text-align: center;
@@ -77,13 +86,14 @@ $color-orange: rgb(255, 140, 0);
 }
 
 [amounts1] {
-    width: 90vw;
+    width: 85vw;
     margin: auto;
-
+display: flex;
     [box] {
         width: 20vw;
-        height: 7vh;
-        margin: 1.4vh 1vw;
+        height: 6.7vh;
+        flex: 1;
+        margin: 1.4vh 1vw 0.8vh 1vw;
         display: inline-block;
         box-shadow: 4px 4px 10px rgba(203, 203, 203, 0.6);
         text-align: center;
@@ -95,10 +105,10 @@ $color-orange: rgb(255, 140, 0);
         }
 
         [num] {
-            height: 5.9vh;
-            line-height: 5.9vh;
+            height: 5.6vh;
+            line-height: 5.6vh;
 
-            font-size: 3.9vh;
+            font-size: 3.8vh;
             font-family: Assistant-Bold;
             display: block;
             background-color: rgb(214, 255, 235);
@@ -118,20 +128,20 @@ $color-orange: rgb(255, 140, 0);
     }
 
     [b4] {
-        background-color: rgb(180, 88, 255);
+        background-color: rgb(219, 40, 255);
     }
 }
 
 [amounts2] {
     width: 98vw;
-    margin: 2vh auto;
+    margin: 1.1vh auto 0vh auto;
 
     [title] {
         padding-right: 12vw;
 
         [box1] {
             width: 16vw;
-            height: 6.5vh;
+            height: 6.3vh;
             border-top-left-radius: 100px;
             border-top-right-radius: 100px;
             margin: 1.5vh 0.5vw 0.3vh 0.5vw;
@@ -143,7 +153,7 @@ $color-orange: rgb(255, 140, 0);
             line-height: 10vh;
             background-repeat: no-repeat;
             background-position: top center;
-            background-size: 3.8vh;
+            background-size: 3.6vh;
 
         }
 
@@ -181,12 +191,13 @@ $color-orange: rgb(255, 140, 0);
         div {
             display: flex;
             flex-direction: row;
-margin-bottom: 0.5vh;
+            margin-bottom: 0.5vh;
+
             div {
                 text-align: center;
                 margin: 0.2vh 0.5vw;
                 display: inline-block;
-                height: 4.5vh;
+                height: 4.4vh;
                 width: 16vw;
                 box-shadow: 4px 4px 10px rgba(222, 222, 222, 0.6);
                 font-size: 2.5vh;
@@ -196,27 +207,27 @@ margin-bottom: 0.5vh;
 
             [c1] {
                 background-color: rgb(255, 220, 220);
-                line-height: 4.5vh;
+                line-height: 4.4vh;
                 color: rgb(27, 102, 94);
 
             }
 
             [c2] {
-                line-height: 4.5vh;
+                line-height: 4.4vh;
                 background-color: rgb(255, 240, 205);
                 color: rgb(27, 102, 94);
 
             }
 
             [c3] {
-                line-height: 4.5vh;
+                line-height: 4.4vh;
                 background-color: rgb(248, 255, 203);
                 color: rgb(27, 102, 94);
 
             }
 
             [c4] {
-                line-height: 4.5vh;
+                line-height: 4.4vh;
                 background-color: rgb(210, 251, 198);
                 font-size: 2.3vh;
                 color: rgb(27, 102, 94);
@@ -225,7 +236,7 @@ margin-bottom: 0.5vh;
 
             [c5] {
                 background-color: rgb(217, 255, 242);
-                line-height: 4.5vh;
+                line-height: 4.4vh;
                 color: rgb(27, 102, 94);
 
             }
@@ -239,21 +250,8 @@ margin-bottom: 0.5vh;
                 color: white;
                 border-bottom-right-radius: 100px;
                 border-top-right-radius: 100px;
-                line-height: 4.5vh;
+                line-height: 4.4vh;
             }
-
-            [titleTop2] {
-                width: 100%;
-                background-color: white;
-                color: rgb(0, 166, 249);
-                font-size: 2.4vh;
-                padding-right: 1vw;
-                box-shadow: 4px 4px 0px rgba(222, 222, 222, 0);
-                line-height: 4.5vh;
-                text-align: right;
-
-            }
-
 
             [titleSide2] {
                 width: 11vw;
@@ -262,14 +260,14 @@ margin-bottom: 0.5vh;
                 background-color: rgb(12, 153, 130); // צבע טורקיז כהה
 
                 color: rgb(255, 255, 255);
-                  font-size: 2.2vh;
+                font-size: 2.2vh;
                 height: 8vh;
                 border-bottom-right-radius: 100px;
                 border-top-right-radius: 100px;
-                   white-space: normal; // מאפשר שבירת שורות
+                white-space: normal; // מאפשר שבירת שורות
                 //  overflow-wrap: break-word; // תומך בשבירת מילים בגרסאות דפדפנים חדשות
                 margin: 0.2vh 0.5vw;
-               line-height: 4vh;
+                line-height: 4vh;
                 font-family: Assistant-Regular;
             }
 
@@ -368,6 +366,7 @@ margin-bottom: 0.5vh;
                 background-image: url('../../../assets/medalya3.png');
 
             }
+
             [w1] {
                 background-color: rgb(255, 236, 236);
             }
@@ -396,9 +395,85 @@ margin-bottom: 0.5vh;
             [w5] {
                 height: 9vh;
                 margin: 0.2vh 0.5vw;
-font-size: 4.8vh;
-line-height: 9vh;
+                font-size: 4.8vh;
+                line-height: 9vh;
             }
+            .one{
+                font-weight: bold;
+                color: #ff0000; /* צבע צהוב למספר */
+                text-align: center;
+                text-shadow: 
+                  0 0 10px #ff6969, 
+                 0 0 20px #ff3333,   
+                  0 0 30px #ff0000,  
+                  0 0 40px #ff0000, 
+                  0 0 50px #ff0000, 
+                  0 0 60px #d50000,  
+                  0 0 70px #a10000;   
+                animation: neonGlow 1.5s ease-in-out infinite;
+                font-size: 5vh;
+            
+            }
+            @keyframes neonGlow {
+                0%, 100% {
+                    text-shadow: 
+                    0 0 10px #ff6969, 
+                   0 0 20px #ff3333,   
+                    0 0 30px #ff0000,  
+                    0 0 40px #ff0000, 
+                    0 0 50px #ff0000, 
+                    0 0 60px #d50000,  
+                    0 0 70px #a10000; 
+                }
+                50% {
+                  text-shadow: 
+                    0 0 20px #ffff66,
+                    0 0 30px #ffff66,
+                    0 0 40px #ffcc33,
+                    0 0 50px #ffcc33,
+                    0 0 60px #ff9933,
+                    0 0 70px #ff9933,
+                    0 0 80px #ff6600;
+                }
+                 }
+                 .tow{
+                    font-weight: bold;
+                    color: #ffbf00; /* צבע צהוב למספר */
+                    text-align: center;
+                    text-shadow: 
+                      0 0 10px #ffff33, 
+                     0 0 20px #ffff33,   
+                      0 0 30px #ffcc00,  
+                      0 0 40px #ffcc00, 
+                      0 0 50px #ff9900, 
+                      0 0 60px #ff9900,  
+                      0 0 70px #ff6600;   
+                    animation: neonGlow2 1.5s ease-in-out infinite;
+                    font-size: 5vh;
+                
+                }
+                @keyframes neonGlow2 {
+                    0%, 100% {
+                        text-shadow: 
+                        0 0 10px #ffb769, 
+                       0 0 20px #ffb133,   
+                        0 0 30px #ff9100,  
+                        0 0 40px #ff9500,  
+                        0 0 50px #ff9500,
+                        0 0 60px #ff6803,  
+                        0 0 70px #ea6d00; 
+                    }
+                    50% {
+                      text-shadow: 
+                        0 0 20px #ffff66,
+                        0 0 30px #ffff66,
+                        0 0 40px #ffcc33,
+                        0 0 50px #ffcc33,
+                        0 0 60px #ff9933,
+                        0 0 70px #ff9933,
+                        0 0 80px #ff6600;
+                    }
+                     }
         }
 
     }
