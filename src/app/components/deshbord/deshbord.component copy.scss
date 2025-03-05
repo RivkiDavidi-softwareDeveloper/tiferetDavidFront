@@ -95,9 +95,9 @@ display: flex;
         flex: 1;
         margin: 1.4vh 1vw 0.8vh 1vw;
         display: inline-block;
-        box-shadow: 4px 7px 10px 4px  rgba(186, 186, 186, 0.6);
+        box-shadow: 4px 4px 10px rgba(203, 203, 203, 0.6);
         text-align: center;
-color: white;
+
         [teur] {
             font-size: 2.9vh;
             font-family: Assistant-Regular;
@@ -107,46 +107,28 @@ color: white;
         [num] {
             height: 5.6vh;
             line-height: 5.6vh;
-            color: black;
 
             font-size: 3.8vh;
             font-family: Assistant-Bold;
             display: block;
-            background-color: rgb(255, 255, 255);
+            background-color: rgb(214, 255, 235);
         }
     }
 
     [b1] {
-        background-color: #ea6d00;
+        background-color: $color-green-light
     }
 
     [b2] {
-        background-color: #960202;
+        background-color: $color-orange
     }
 
     [b3] {
-        background-color: #13217a;
+        background-color: rgb(0, 221, 173);
     }
 
     [b4] {
-        background-color: #029640;
-    }
-    [b1] {
-        background-color: $color-green-light;
-        background-color: #029640;
-    }
-
-    [b2] {
-        background-color: $color-orange;
-        background-color: #ea6d00;
-    }
-
-    [b3] {
-        background-color: #960202;
-    }
-
-    [b4] {
-        background-color: #13217a;
+        background-color: rgb(219, 40, 255);
     }
 }
 
@@ -177,26 +159,36 @@ color: white;
 
         [b1] {
             background-color: rgb(255, 152, 152);
+            background-color: rgb(186, 43, 43);
+
             background-image: url('../icons/Topic.png');
         }
 
         [b2] {
             background-color: rgb(255, 224, 152);
+            background-color: rgb(201, 144, 11);
+
             background-image: url('../icons/meeting2black.png');
         }
 
         [b3] {
             background-color: rgb(241, 255, 152);
+            background-color: rgb(147, 167, 19);
+
             background-image: url('../icons/car3black.png');
         }
 
         [b4] {
             background-color: rgb(174, 255, 152);
+            background-color: rgb(58, 167, 28);
+
             background-image: url('../icons/time.png');
         }
 
         [b5] {
             background-color: rgb(152, 255, 219);
+            background-color: rgb(17, 129, 90);
+
             background-image: url('../icons/school6black.png');
         }
     }
@@ -224,33 +216,38 @@ color: white;
             }
 
             [c1] {
-                background-color: rgb(255, 220, 220);
+           //     background-color: rgb(255, 220, 220);
                 line-height: 4.4vh;
-
+        //        color: rgb(27, 102, 94);
+ 
             }
 
             [c2] {
-                line-height: 4.4vh;
-                background-color: rgb(255, 240, 205);
-
+                 line-height: 4.4vh;
+             /*   background-color: rgb(255, 240, 205);
+                color: rgb(27, 102, 94);
+ */
             }
 
             [c3] {
-                line-height: 4.4vh;
-                background-color: rgb(248, 255, 203);
-
+               line-height: 4.4vh;
+              /*    background-color: rgb(248, 255, 203);
+                color: rgb(27, 102, 94);
+ */
             }
 
             [c4] {
                 line-height: 4.4vh;
-                background-color: rgb(210, 251, 198);
+              //  background-color: rgb(210, 251, 198);
                 font-size: 2.3vh;
+              //  color: rgb(27, 102, 94);
 
             }
 
             [c5] {
-                background-color: rgb(217, 255, 242);
+            //    background-color: rgb(217, 255, 242);
                 line-height: 4.4vh;
+           //     color: rgb(27, 102, 94);
 
             }
 

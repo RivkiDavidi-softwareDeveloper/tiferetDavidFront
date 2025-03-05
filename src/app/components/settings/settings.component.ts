@@ -26,7 +26,7 @@ displayPopap=false
     this.general();
   }
   general() {
-    this.api.getLoginSystem2().subscribe(Date => {
+    this.api.getSystemLogin().subscribe(Date => {
       this.system = Date;
       this.cdRef.detectChanges();
     })
@@ -45,7 +45,7 @@ displayPopap=false
     if (this.SL_password.length > 0) {
       this.system.SL_password = this.SL_password
     }
-    this.api.UpdateLoginSystem(this.system).subscribe(Date => {
+    this.api.UpdateSystemLogin(this.system).subscribe(Date => {
     })
   }
   close() {

@@ -1,11 +1,11 @@
-<!-- <div otefHI>
+<div otefHI>
     <div class="highlight-box" *ngIf="matAmounts[8][0]>0">
         ברכות לפעיל {{nameWorker(matAmounts[8][0])}} - מקסימום זמן פעילות פר חניך השבוע
     </div>
     <div class="highlight-box" *ngIf="matAmounts[8][1]>0">
         ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
     </div>
-</div> -->
+</div>
 <div filter *ngIf="status=='system'">
     <label>בחירת פעיל: </label>
     <select (change)="selectFilter($event)">

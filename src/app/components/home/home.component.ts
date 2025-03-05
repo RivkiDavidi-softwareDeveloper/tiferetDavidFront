@@ -15,6 +15,7 @@ import { DistanceTrackerComponent } from "../distance-tracker/distance-tracker.c
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { error } from 'console';
 import { response } from 'express';
+import { City } from '../../models/city.class';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,9 @@ import { response } from 'express';
 })
 export class HomeComponent implements OnInit {
   //  console.error("Geolocation is not supported by this browser.");
+
+  //ערים
+  lisOfCities: Array<City> = []
 
 
   sec = true
@@ -73,9 +77,19 @@ export class HomeComponent implements OnInit {
   isLoading = false
 
   constructor(private api: ApiService, private formBuilder: FormBuilder, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) {
-
+this.generalCities()
   }
 
+
+    //ערים
+    public generalCities() {
+      this.api.getCities().subscribe(Date => {
+        this.lisOfCities = []
+        this.lisOfCities.push(...Date);
+        this.cdRef.detectChanges();
+        console.log(this.lisOfCities.length+"כמות הערים")
+      } )
+    }
   //פעולה לטיימר
 
 
@@ -170,11 +184,8 @@ export class HomeComponent implements OnInit {
     if (this.name.length > 0 && this.password.length > 0) {
       this.api.getLogin(this.name, this.password).subscribe(
         (response) => {
-          if (response == null) {
-            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', '', { duration: 3000 });
-            this.isLoading = false
-          }
-          else {
+          console.log(response.Wo_ID)
+
             if (response.Wo_ID === "111111111") {
               this.workersLoginShow = false; this.systemLoginShow = true; this.buttonShow = false;
               this.isLoading = false
@@ -184,12 +195,17 @@ export class HomeComponent implements OnInit {
               this.workersLoginShow = true; this.systemLoginShow = false; this.buttonShow = false;
               this.isLoading = false
             }
-          }
         },
         (error) => {
-          this.snackBar.open('השרת לא פעיל', '', { duration: 3000 });
-          this.isLoading = false
-
+          this.isLoading = false;
+      
+          if (error.status === 404) {
+            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', '', { duration: 3000 });
+          } else if (error.status === 500) {
+            this.snackBar.open('השרת אינו פעיל', '', { duration: 3000 });
+          } else {
+            this.snackBar.open('אירעה שגיאה לא צפויה', '', { duration: 3000 });
+          }
         })
     }
     else {

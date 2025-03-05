@@ -32,37 +32,64 @@ export class ApiService {
 
 
   constructor(private httpp: HttpClient) { }
-  private urlBasis = 'http://localhost:3000/api';
+  //private urlBasis = "https://localhost:44342/api";
+  private urlBasis = 'http://localhost:3000/api/cities';
 
 
-   //כניסה
-   getLogin(name: string , password: string): Observable<any> {
-    const body = { name, password };
-    return this.httpp.post(`${this.urlBasis}/workers/login`, body); 
-  }
+
 
 
   //רשימה של כל הערים
   getCities(): Observable<City[]> {
     return this.httpp.get<City[]>(this.urlBasis+"/cities");
   }
+/*   public getCities2(): Observable<Array<City>> {
+    const url: string = this.urlBasis + "/cities/getAllCities";
+    return this.httpp.get(url) as Observable<Array<City>>
+  } */
   //מוסיפה עיר
   AddCity(city: City): Observable<City> {
     return this.httpp.post<City>(this.urlBasis+"/cities", city);
   }
+/*   public AddCity2(city: City): Observable<any> {
+    const url: string = this.urlBasis + "/cities/Add";
+    return this.httpp.post<any>(url, city);
+  } */
+  //////////////////////////////////////////////////////////////////ניסיון node.js 
 
 
+  //פעולה המקבלת שם וקוד ומחזירה         //עובד:0  מנהל:1 שגוי:2
 
+  public getLogin(name: string | undefined, password: string | undefined): Observable<Worker> {
+    const url: string = this.urlBasis + "/workers/getLogin/" + name + "/" + password;
+    return this.httpp.get(url) as Observable<Worker>;
+  }
+  /*   public getLoginWorker(name: string | undefined, password: string | undefined): Observable<Worker> {
+      const url: string = this.urlBasis + "/workers/getWorker/" + name + "/" + password;
+      return this.httpp.get(url) as Observable<Worker>;
+    } */
+
+  /*   public getLoginSystem(name: string | undefined, password: string | undefined): Observable<SystemLogin> {
+      const url: string = this.urlBasis + "/system/getSystem/" + name + "/" + password;
+      return this.httpp.get(url) as Observable<SystemLogin>;
+    } */
   //מחזיר רק את הרשומה של תפארת דוד
-  getSystemLogin(): Observable<SystemLogin> {
-    return this.httpp.get<SystemLogin>(this.urlBasis+"/systemLogins");
+  public getLoginSystem2(): Observable<SystemLogin> {
+    const url: string = this.urlBasis + "/system/getSystem";
+    return this.httpp.get(url) as Observable<SystemLogin>;
   }
   //עדכון כניסת מערכת
-    UpdateSystemLogin(systemLogin: SystemLogin): Observable<any> {
-    const body = {systemLogin};
-    return this.httpp.put(`${this.urlBasis} /systemLogins/${systemLogin.SL_code}`,body);
+  public UpdateLoginSystem(systemLogin: SystemLogin): Observable<any> {
+    const url: string = this.urlBasis + "/system/Update";
+    return this.httpp.put<any>(url, systemLogin);
   }
-//////////////////////////////////////עד כאן שינתי
+
+  //פעולה המקבלת קוד עובד ומחזירה רשימה של תלמידים שלו
+  public getStudentForWorker(code: number | undefined): Observable<Array<Student>> {
+    const url: string = this.urlBasis + "/students/getStudentsorWorker/" + code;
+    return this.httpp.get(url) as Observable<Array<Student>>;
+  }
+
   //מחזירה רשימה של כל העובדים
   public getWorkers(genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
     const url: string = this.urlBasis + "/workers/getWorkers/" + genderO + "/" + genderF + "/" + typeWO + "/" + typeWF;
