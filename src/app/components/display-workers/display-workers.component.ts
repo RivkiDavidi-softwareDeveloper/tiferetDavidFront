@@ -53,27 +53,21 @@ export class DisplayWorkersComponent implements OnInit {
   //חיפוש
   onInputChange(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
-    console.log(this.searchText);
 
     this.api.FindWorker(this.searchText, this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date)
+      this.amount=this.listOfWorkers.length
+
     })
 
     if (this.searchText === "") {
-      this.searchText = "null"
       this.searchText = ""
-
       this.general();
     }
-    else {
-      this.amountW();
-    }
-  }
-  public amountW() {
-    this.api.getAmountWorkers(this.searchText, this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => { this.amount = Date })
 
   }
+
 
   //סגירת הפופפ
   closeP(display: boolean) {
@@ -90,11 +84,10 @@ export class DisplayWorkersComponent implements OnInit {
 
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
+      this.amount=this.listOfWorkers.length
       this.cdRef.detectChanges();
     })
-    if (this.searchText === "null") {
-      this.amountW();
-    }
+
   }
   //מחזיר את סוג העובד
   public typeW(num: number): string {
