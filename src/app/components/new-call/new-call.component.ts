@@ -63,7 +63,9 @@ export class NewCallComponent {
   }
   //רשימה של עובדים
   public generalWorkers() {
-    this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
+    //  this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, 0, 0, 0).subscribe(Date => {
+
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
@@ -181,7 +183,9 @@ export class NewCallComponent {
         typeWF = 2
       }
     }
-    this.api.getWorkers(0, genderF, 0, typeWF).subscribe(Date => {
+  //  this.api.getWorkers(0, genderF, 0, typeWF).subscribe(Date => {
+      this.api.FindWorker("",0, genderF, 0, typeWF).subscribe(Date => {
+
       this.listOfWorkersGroups = []
       this.listOfWorkersGroups.push(...Date);
       this.cdRef.detectChanges();

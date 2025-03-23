@@ -60,7 +60,9 @@ export class ReportsComponent {
   }
   //רשימה של פעילים
   generalWorkers() {
-    this.api.getWorkers(0, this.genderF, 0, 0).subscribe(Date => {
+    //this.api.getWorkers(0, this.genderF, 0, 0).subscribe(Date => {
+      this.api.FindWorker("",0, this.genderF, 0, 0).subscribe(Date => {
+
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();

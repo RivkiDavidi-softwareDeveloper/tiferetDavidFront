@@ -82,7 +82,9 @@ export class DisplayWorkersComponent implements OnInit {
 
   //רשימה של עובדים
   public general(): void {
-    this.api.getWorkers(this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
+   // this.api.getWorkers(this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
+      this.api.FindWorker(this.searchText,this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
+
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();

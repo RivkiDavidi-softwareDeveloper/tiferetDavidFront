@@ -109,8 +109,8 @@ export class DisplayStudentsComponent implements OnInit {
       this.wgenderO = 0;
     }
     this.wtypeWO = 0;
-
-    this.api.getWorkers(this.wgenderO, this.genderF, this.wtypeWO, this.wtypeWF).subscribe(Date => {
+//getworkers
+    this.api.FindWorker("",this.wgenderO, this.genderF, this.wtypeWO, this.wtypeWF).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();

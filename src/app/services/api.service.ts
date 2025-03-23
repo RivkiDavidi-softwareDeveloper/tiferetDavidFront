@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Injectable } from '@angular/core';
 import { City } from '../models/city.class';
@@ -35,49 +35,64 @@ export class ApiService {
   private urlBasis = 'http://localhost:3000/api';
 
 
-   //כניסה
-   getLogin(name: string , password: string): Observable<any> {
+  //כניסה
+  getLogin(name: string, password: string): Observable<any> {
     const body = { name, password };
-    return this.httpp.post(`${this.urlBasis}/workers/login`, body); 
+    return this.httpp.post(`${this.urlBasis}/workers/login`, body);
   }
 
 
   //רשימה של כל הערים
   getCities(): Observable<City[]> {
-    return this.httpp.get<City[]>(this.urlBasis+"/cities");
+    return this.httpp.get<City[]>(this.urlBasis + "/cities");
   }
   //מוסיפה עיר
   AddCity(city: City): Observable<City> {
-    return this.httpp.post<City>(this.urlBasis+"/cities", city);
+    return this.httpp.post<City>(this.urlBasis + "/cities", city);
   }
 
 
 
   //מחזיר רק את הרשומה של תפארת דוד
   getSystemLogin(): Observable<SystemLogin> {
-    return this.httpp.get<SystemLogin>(this.urlBasis+"/systemLogins");
+    return this.httpp.get<SystemLogin>(this.urlBasis + "/systemLogins");
   }
   //עדכון כניסת מערכת
-    UpdateSystemLogin(systemLogin: SystemLogin): Observable<any> {
-    const body = {systemLogin};
-    return this.httpp.put(`${this.urlBasis} /systemLogins/${systemLogin.SL_code}`,body);
+  UpdateSystemLogin(systemLogin: SystemLogin): Observable<any> {
+    const body = { systemLogin };
+    return this.httpp.put(`${this.urlBasis} /systemLogins/${systemLogin.SL_code}`, body);
   }
-//////////////////////////////////////עד כאן שינתי
   //מחזירה רשימה של כל העובדים
-  public getWorkers(genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
-    const url: string = this.urlBasis + "/workers/getWorkers/" + genderO + "/" + genderF + "/" + typeWO + "/" + typeWF;
-    return this.httpp.get(url) as Observable<Array<Worker>>;
+/*   public getWorkers(genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
+    const params = new HttpParams()
+    .set('value',"")
+      .set('genderO', genderO.toString())
+      .set('genderF', genderF.toString())
+      .set('typeWO', typeWO.toString())
+      .set('typeWF', typeWF.toString());
+    return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter2", { params });
   }
+ */
+
+  //חיפוש עובד
+  public FindWorker(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
+    const params = new HttpParams()
+    .set('value',value)
+    .set('genderO', genderO.toString())
+    .set('genderF', genderF.toString())
+    .set('typeWO', typeWO.toString())
+    .set('typeWF', typeWF.toString());
+  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter2", { params });
+
+  }
+  //////////////////////////////////////עד כאן שינתי
+
   //מחזירה כמות של העובדים
   public getAmountWorkers(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<number> {
     const url: string = this.urlBasis + "/workers/GetAmount/" + value + "/" + genderO + "/" + genderF + "/" + typeWO + "/" + typeWF;
     return this.httpp.get(url) as Observable<number>;
   }
-  //חיפוש עובד
-  public FindWorker(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
-    const url: string = this.urlBasis + "/workers/Find/" + value + "/" + genderO + "/" + genderF + "/" + typeWO + "/" + typeWF;
-    return this.httpp.get(url) as Observable<Array<Worker>>;
-  }
+
   //מוחקת עובד
   public DeleteWorker(code: number): Observable<number> {
     const url: string = this.urlBasis + "/workers/Delete/" + code;

@@ -62,7 +62,9 @@ export class DeshbordComponent {
 
   //רשימת פעילים
   getAllWorkers() {
-    this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
+    //this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
+
+    this.api.FindWorker("",0, 0, 0, 0).subscribe(Date => {
       this.listWorkers = []
       this.listWorkers.push(...Date)
       this.cdRef.detectChanges();
