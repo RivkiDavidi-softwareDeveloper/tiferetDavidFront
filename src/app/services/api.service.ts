@@ -62,27 +62,16 @@ export class ApiService {
     const body = { systemLogin };
     return this.httpp.put(`${this.urlBasis} /systemLogins/${systemLogin.SL_code}`, body);
   }
-  //מחזירה רשימה של כל העובדים
-/*   public getWorkers(genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
-    const params = new HttpParams()
-    .set('value',"")
-      .set('genderO', genderO.toString())
-      .set('genderF', genderF.toString())
-      .set('typeWO', typeWO.toString())
-      .set('typeWF', typeWF.toString());
-    return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter2", { params });
-  }
- */
-
+  //+מחזירה רשימה של כל העובדים
   //חיפוש עובד
   public FindWorker(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
     const params = new HttpParams()
-    .set('value',value)
+    .set('value',value.toString())
     .set('genderO', genderO.toString())
     .set('genderF', genderF.toString())
     .set('typeWO', typeWO.toString())
     .set('typeWF', typeWF.toString());
-  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter2", { params });
+  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter", { params });
 
   }
   //////////////////////////////////////עד כאן שינתי

@@ -42,7 +42,8 @@ export class DisplayWorkersComponent implements OnInit {
   amountAll = 0;
   sec: string = ""
   listOfWorkers: Array<Worker> = []
-  searchText: string = "null";
+ // searchText: string = "null";
+  searchText: string = "";
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit(): void {
@@ -61,6 +62,8 @@ export class DisplayWorkersComponent implements OnInit {
 
     if (this.searchText === "") {
       this.searchText = "null"
+      this.searchText = ""
+
       this.general();
     }
     else {
