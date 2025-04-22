@@ -73,7 +73,7 @@ export class ReportsComponent {
   }
   //רשימת חניכים
   generalStudent() {
-    this.api.getStudents(0, this.genderF, 0, this.workerF).subscribe(Date => {
+    this.api.FindStudent("",0, this.genderF, 0, this.workerF).subscribe(Date => {
       this.listOfStudent = [];
       this.listOfStudent.push(...Date);
       this.cdRef.detectChanges();

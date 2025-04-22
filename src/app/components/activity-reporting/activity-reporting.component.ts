@@ -317,7 +317,7 @@ export class ActivityReportingComponent implements OnInit {
     //רשימת חניכים
     async generalStudents(ifFrequency: number): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            this.api.getStudents(0, 0, this.statusF, this.worker.Wo_code).subscribe(Date => {
+            this.api.FindStudent(" ",0, 0, this.statusF, this.worker.Wo_code).subscribe(Date => {
                 this.listOfStudents = []
                 this.listOfStudents.push(...Date);
                 this.cdRef.detectChanges();

@@ -34,7 +34,7 @@ export class StudentsForProjectComponent {
   }
   //רשימת חניכים
   generalStudents(): void {
-    this.api.getStudents(0, 0, 0, -1).subscribe(Date => {
+    this.api.FindStudent("",0, 0, 0, -1).subscribe(Date => {
       this.listOfStudents = []
       this.listOfStudents.push(...Date);
       this.cdRef.detectChanges();

@@ -53,7 +53,7 @@ export class DisplayStudentsComponent implements OnInit {
 
 
   amount: number = 0;
-  searchText: string = "null"
+  searchText: string = ""
   orderText = "מגדר";
   filterGG = "הכל";
   filterTT = "הכל"
@@ -93,7 +93,7 @@ export class DisplayStudentsComponent implements OnInit {
       this.workerF = this.codeWorkerSelected;
 
     }
-    this.api.getStudents(this.order, this.genderF, this.statusF, this.workerF).subscribe(Date => {
+    this.api.FindStudent(this.searchText,this.order, this.genderF, this.statusF, this.workerF).subscribe(Date => {
       this.listOfStudents = []
       this.listOfStudents.push(...Date);
       this.cdRef.detectChanges();
@@ -132,27 +132,22 @@ export class DisplayStudentsComponent implements OnInit {
   }
   //כמות
   amountW() {
-    this.api.getAmountStudents(this.searchText, this.order, this.genderF, this.statusF, this.workerF)
-      .subscribe(Date => { this.amount = Date })
+
+      this.amount=this.listOfStudents.length
 
   }
   //חיפוש
   onInputChange(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
-    if (this.searchText === "")
-      this.searchText = "null"
     this.api.FindStudent(this.searchText, this.order, this.genderF, this.statusF, this.workerF)
       .subscribe(Date => {
         this.listOfStudents = []
         this.listOfStudents.push(...Date)
 
       })
-    if (this.searchText === "null") {
-      this.generalStudents();
-    }
-    else {
+
       this.amountW();
-    }
+    
   }
   //סגירת הפופפ
   closePAdd(display: boolean) {

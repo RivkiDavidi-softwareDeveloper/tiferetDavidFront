@@ -71,16 +71,28 @@ export class ApiService {
     .set('genderF', genderF.toString())
     .set('typeWO', typeWO.toString())
     .set('typeWF', typeWF.toString());
-  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers/filter", { params });
+  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers", { params });
 
   }
+
+
+
+    //+מחזירה רשימה של כל החניכים
+  //חיפוש חניך
+  public FindStudent(value: string,   order: number, genderF: number, statusF: number, workerF: number): Observable<Array<Student>> {
+    const params = new HttpParams()
+    .set('value',value.toString())
+    .set('order', order.toString())
+    .set('genderF', genderF.toString())
+    .set('statusF', statusF.toString())
+    .set('workerF', workerF.toString());
+  return this.httpp.get<Array<Student>>(this.urlBasis + "/students", { params });
+
+  }
+
   //////////////////////////////////////עד כאן שינתי
 
-  //מחזירה כמות של העובדים
-  public getAmountWorkers(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<number> {
-    const url: string = this.urlBasis + "/workers/GetAmount/" + value + "/" + genderO + "/" + genderF + "/" + typeWO + "/" + typeWF;
-    return this.httpp.get(url) as Observable<number>;
-  }
+
 
   //מוחקת עובד
   public DeleteWorker(code: number): Observable<number> {
@@ -103,21 +115,8 @@ export class ApiService {
 
 
 
-  //מחזירה רשימה של כל החניכים
-  public getStudents(order: number, genderF: number, statusF: number, workerF: number): Observable<Array<Student>> {
-    const url: string = this.urlBasis + "/students/GetStudents/" + order + "/" + genderF + "/" + statusF + "/" + workerF;
-    return this.httpp.get(url) as Observable<Array<Student>>;
-  }
-  //מחזירה כמות של החניכים
-  public getAmountStudents(value: string, order: number, genderF: number, statusF: number, workerF: number): Observable<number> {
-    const url: string = this.urlBasis + "/students/GetAmount/" + value + "/" + order + "/" + genderF + "/" + statusF + "/" + workerF;
-    return this.httpp.get(url) as Observable<number>;
-  }
-  //חיפוש חניך
-  public FindStudent(value: string, order: number, genderF: number, statusF: number, workerF: number): Observable<Array<Student>> {
-    const url: string = this.urlBasis + "/students/Find/" + value + "/" + order + "/" + genderF + "/" + statusF + "/" + workerF;
-    return this.httpp.get(url) as Observable<Array<Student>>;
-  }
+
+
   //מוסיפה חניך
   public AddStudent(student: Student): Observable<any> {
     const url: string = this.urlBasis + "/students/Add";
