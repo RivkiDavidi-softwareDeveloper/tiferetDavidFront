@@ -3,7 +3,6 @@
         <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update'">עדכון חניך</h2>
-<h2>{{studentUpdate.St_name}}</h2>
         <div allChose>
             <div chose>
                 <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}"
