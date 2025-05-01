@@ -2,7 +2,7 @@ import { DifficultyStudent } from "./difficultyStudent.class";
 import { Parentt } from "./parent.class";
 import { StudiesForStudent } from "./studiesForStudent.class";
 
-export class Student {
+export class Student2 {
     constructor(public St_code: number,
         public St_ID: string,
         public St_gender: number,
@@ -27,8 +27,12 @@ export class Student {
         public St_requester: string,
         public St_code_synagogue: number,
         public St_code_frequency: number,
-        public St_amount_frequency: number
-) { }
+        public St_amount_frequency: number,
+        public Parent: Parentt | undefined,
+        public Parent1: Parentt | undefined,
+        public DifficultyStudents: Array<DifficultyStudent>,
+        public Worker: Worker | undefined,
+        public StudiesForStudents: Array<StudiesForStudent>) { }
 
 
 }

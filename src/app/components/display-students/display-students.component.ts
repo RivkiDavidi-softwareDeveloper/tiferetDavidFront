@@ -30,8 +30,18 @@ import { error } from 'node:console';
 export class DisplayStudentsComponent implements OnInit {
   listOfStudents: Array<Student> = []
   listOfWorkers: Array<Worker> = []
-  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, [])
-  @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, [])
+  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
+  Parent1Display: Parentt = new Parentt(111, "", "", "", "")
+  DifficultyStudentDisplay: Array<DifficultyStudent>=[]
+  WorkerDisplay: Worker =new Worker(111,"",1,1,"","","","","")
+  StudiesForStudentDisplay: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
+  @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  @Input() ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
+  @Input() Parent1Update: Parentt = new Parentt(111, "", "", "", "")
+  @Input() DifficultyStudentUpdate: Array<DifficultyStudent>=[]
+  @Input() WorkerUpdate: Worker =new Worker(111,"",1,1,"","","","","")
+  @Input() StudiesForStudentUpdate: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
   @Input() codeWorkerSelected = 0;
   //הגדרות סינונים של חניכים
   //מגדר-1 אב-0
@@ -84,7 +94,7 @@ export class DisplayStudentsComponent implements OnInit {
   ngOnInit(): void {
     this.generalStudents();
     this.generalWorkers();
-      
+
   }
 
   //רשימת חניכים
@@ -93,12 +103,13 @@ export class DisplayStudentsComponent implements OnInit {
       this.workerF = this.codeWorkerSelected;
 
     }
-    this.api.FindStudent(this.searchText,this.order, this.genderF, this.statusF, this.workerF).subscribe(Date => {
+    this.api.FindStudent(this.searchText, this.order, this.genderF, this.statusF, this.workerF).subscribe(Date => {
       this.listOfStudents = []
       this.listOfStudents.push(...Date);
       this.cdRef.detectChanges();
+      this.amount = this.listOfStudents.length
+
     })
-    this.amountW();
   }
   //רשימת עובדים
   public generalWorkers(): void {
@@ -109,8 +120,8 @@ export class DisplayStudentsComponent implements OnInit {
       this.wgenderO = 0;
     }
     this.wtypeWO = 0;
-//getworkers
-    this.api.FindWorker("",this.wgenderO, this.genderF, this.wtypeWO, this.wtypeWF).subscribe(Date => {
+    //getworkers
+    this.api.FindWorker("", this.wgenderO, this.genderF, this.wtypeWO, this.wtypeWF).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
@@ -130,12 +141,7 @@ export class DisplayStudentsComponent implements OnInit {
       }
     }
   }
-  //כמות
-  amountW() {
 
-      this.amount=this.listOfStudents.length
-
-  }
   //חיפוש
   onInputChange(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
@@ -143,19 +149,21 @@ export class DisplayStudentsComponent implements OnInit {
       .subscribe(Date => {
         this.listOfStudents = []
         this.listOfStudents.push(...Date)
+        this.amount = this.listOfStudents.length
 
       })
 
-      this.amountW();
-    
+
   }
   //סגירת הפופפ
   closePAdd(display: boolean) {
+
     this.sAddStudent = display;
     this.sUpdateStudent = display;
     this.generalStudents();
     this.popupDisplayOut.emit(false)
     this.imageBlobURL = ""
+
   }
   //סגירת פופפ אקסל
   closePUploadExcel(display: boolean) {
@@ -236,47 +244,163 @@ export class DisplayStudentsComponent implements OnInit {
   }
   //הצגה מורחבת
   public async display(s: Student): Promise<void> {
+    this.studentDisplay = s;
     await new Promise<void>((resolve, reject) => {
-      this.studentDisplay = s;
-      //תמונה
-      const imageName = this.studentDisplay.St_image
-      if (imageName) {
-        this.api.getImageStudent(imageName)
-          .subscribe((data: Blob) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              this.imageBlobURL = reader.result as string;
-            };
-            reader.readAsDataURL(data);
-            resolve();
-          });
+      const code = this.studentDisplay?.St_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentDisplay = data;
+          resolve();
+
+        });
       }
     })
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.studentDisplay?.St_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1Display = data;
+          resolve();
+
+        });
+      }
+    })
+        //שליפת לימודים
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentDisplay?.St_code;
+          if (code != null) {
+            this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+              this.StudiesForStudentDisplay = data;
+              resolve();
+    
+            });
+          }
+        })
+        //שליפת רשימת קשיים
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentDisplay?.St_code;
+          if (code!= null) {
+            this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+              this.DifficultyStudentDisplay=[]
+              this.DifficultyStudentDisplay.push(...data);
+              resolve();
+    
+            });
+          }
+        })
+        //שליפת פעיל
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentDisplay?.St_worker_code;
+          if (code != null) {
+            this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+              this.WorkerDisplay = data;
+              resolve();
+    
+            });
+          }
+        })
+    /*
+         await new Promise<void>((resolve, reject) => {
+ 
+     //תמונה
+     const imageName = this.studentDisplay.St_image
+     if (imageName) {
+       this.api.getImageStudent(imageName)
+         .subscribe((data: Blob) => {
+           const reader = new FileReader();
+           reader.onloadend = () => {
+             this.imageBlobURL = reader.result as string;
+           };
+           reader.readAsDataURL(data);
+           resolve();
+         });
+     }
+         }) */
+
     this.displayPopup = true
+
   }
   //ערוך חניך
   async edit(student: Student) {
+    this.studentUpdate = student
     await new Promise<void>((resolve, reject) => {
-      this.studentUpdate = student
 
-      //תמונה
-      const imageName = this.studentUpdate.St_image
-      if (imageName) {
-        this.api.getImageStudent(imageName)
-          .subscribe((data: Blob) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              this.imageBlobURL = reader.result as string;
-            };
-            reader.readAsDataURL(data);
-            resolve();
-          });
-      }
-      else {
-        resolve();
+      const code = this.studentUpdate?.St_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentUpdate = data;
+          resolve();
+
+        });
       }
     })
+
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.studentUpdate?.St_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1Update = data;
+          resolve();
+
+        });
+      }
+    })
+        //שליפת לימודים
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentUpdate?.St_code;
+          if (code != null) {
+            this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+              this.StudiesForStudentUpdate = data;
+              resolve();
+    
+            });
+          }
+        })
+        //שליפת רשימת קשיים
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentUpdate?.St_code;
+          if (code!= null) {
+            this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+              this.DifficultyStudentUpdate=[]
+              this.DifficultyStudentUpdate.push(...data);
+
+              resolve();
+    
+            });
+          }
+        })
+        //שליפת פעיל
+        await new Promise<void>((resolve, reject) => {
+          const code = this.studentUpdate?.St_worker_code;
+          if (code != null) {
+            this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+              this.WorkerUpdate = data;
+              resolve();
+    
+            });
+          }
+        })
+    /*  //תמונה
+     await new Promise<void>((resolve, reject) => {
+       const imageName = this.studentUpdate.St_image
+       if (imageName) {
+         this.api.getImageStudent(imageName)
+           .subscribe((data: Blob) => {
+             const reader = new FileReader();
+             reader.onloadend = () => {
+               this.imageBlobURL = reader.result as string;
+             };
+             reader.readAsDataURL(data);
+             resolve();
+           });
+       }
+       else {
+         resolve();
+       }
+     }) */
+
     this.sUpdateStudent = true
+
   }
   //מדפיס
   public print(): void {

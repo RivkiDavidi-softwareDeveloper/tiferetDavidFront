@@ -66,28 +66,66 @@ export class ApiService {
   //חיפוש עובד
   public FindWorker(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
     const params = new HttpParams()
-    .set('value',value.toString())
-    .set('genderO', genderO.toString())
-    .set('genderF', genderF.toString())
-    .set('typeWO', typeWO.toString())
-    .set('typeWF', typeWF.toString());
-  return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers", { params });
+      .set('value', value.toString())
+      .set('genderO', genderO.toString())
+      .set('genderF', genderF.toString())
+      .set('typeWO', typeWO.toString())
+      .set('typeWF', typeWF.toString());
+    return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers", { params });
 
   }
 
 
 
-    //+מחזירה רשימה של כל החניכים
+  //+מחזירה רשימה של כל החניכים
   //חיפוש חניך
-  public FindStudent(value: string,   order: number, genderF: number, statusF: number, workerF: number): Observable<Array<Student>> {
+  public FindStudent(value: string, order: number, genderF: number, statusF: number, workerF: number): Observable<Array<Student>> {
     const params = new HttpParams()
-    .set('value',value.toString())
-    .set('order', order.toString())
-    .set('genderF', genderF.toString())
-    .set('statusF', statusF.toString())
-    .set('workerF', workerF.toString());
-  return this.httpp.get<Array<Student>>(this.urlBasis + "/students", { params });
+      .set('value', value.toString())
+      .set('order', order.toString())
+      .set('genderF', genderF.toString())
+      .set('statusF', statusF.toString())
+      .set('workerF', workerF.toString());
+    return this.httpp.get<Array<Student>>(this.urlBasis + "/students", { params });
 
+  }
+  //הצגת כל הקהילות
+  public GetAllCommunities(): Observable<Array<Community>> {
+    return this.httpp.get<Array<Community>>(this.urlBasis + "/communities");
+  }
+  //הצגת כל הבתי כנסיות 
+  public GetAllSynagogues(): Observable<Array<Synagogue>> {
+    return this.httpp.get<Array<Synagogue>>(this.urlBasis + "/synagogues");
+  }
+  //הצגת כל הבתי כנסיות ששיכים לקהילה מסוימת
+  public GetAllSynagoguesOfCommunity(codeCommunity: number): Observable<Array<Synagogue>> {
+    const params = new HttpParams()
+      .set('codeCommunity', codeCommunity.toString())
+    return this.httpp.get<Array<Synagogue>>(this.urlBasis + "/synagogues/ofCommunity", { params });
+  }
+  //הצגת הורה לפי קוד הורה
+  public GetParentOfCode(codeParent: number): Observable<Parentt> {
+    const params = new HttpParams()
+      .set('codeParent', codeParent.toString())
+    return this.httpp.get<Parentt>(this.urlBasis + "/parents/OfCode", { params });
+  }
+  //הצגת לימודים לחניך לפי קוד חניך
+  public GetStudiesOfCodeStudent(codeStudent: number): Observable<StudiesForStudent> {
+    const params = new HttpParams()
+      .set('codeStudent', codeStudent.toString())
+    return this.httpp.get<StudiesForStudent>(this.urlBasis + "/studiesForStudents/OfCodeStudent", { params });
+  }
+  //הצגת עובד לחניך לפי קוד עובד
+  public GetWorkerOfCodeStudent(codeWoreker: number): Observable<Worker> {
+    const params = new HttpParams()
+      .set('codeWoreker', codeWoreker.toString())
+    return this.httpp.get<Worker>(this.urlBasis + "/workers/OfCodeWorker", { params });
+  }
+  //הצגת רשימת קשיים לחניך לפי קוד חניך
+  public GetDifficultyesOfCodeStudent(codeStudent: number): Observable<Array<DifficultyStudent>> {
+    const params = new HttpParams()
+      .set('codeStudent', codeStudent.toString())
+    return this.httpp.get<Array<DifficultyStudent>>(this.urlBasis + "/difficultyStudents/OfCodeStudent", { params });
   }
 
   //////////////////////////////////////עד כאן שינתי
@@ -357,22 +395,8 @@ export class ApiService {
   }
 
 
-  //הצגת כל הקהילות
 
-  public GetAllCommunities(): Observable<Array<Community>> {
-    const url: string = this.urlBasis + "/Communities/GetAllCommunities";
-    return this.httpp.get(url) as Observable<Array<Community>>
-  }
-  //הצגת כל הבתי כנסיות 
-  public GetAllSynagogues(): Observable<Array<Synagogue>> {
-    const url: string = this.urlBasis + "/Communities/GetAllSynagogues";
-    return this.httpp.get(url) as Observable<Array<Synagogue>>
-  }
-  //הצגת כל הבתי כנסיות ששיכים לקהילה מסוימת
-  public etAllSynagoguesOfCommunity(codeCommunity: number): Observable<Array<Synagogue>> {
-    const url: string = this.urlBasis + "/Communities/etAllSynagoguesOfCommunity/" + codeCommunity;
-    return this.httpp.get(url) as Observable<Array<Synagogue>>
-  }
+
   //הוספת קהילה
   public AddCommunity(community: Community): Observable<any> {
     const url: string = this.urlBasis + "/Communities/AddCommunity";

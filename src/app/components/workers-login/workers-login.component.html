@@ -52,7 +52,8 @@
         [target]="target" (editStudent)="updateStudent($event)">
     </app-activity-reporting>
     <app-display-students *ngIf="students" [codeWorkerSelected]="worker.Wo_code" [sUpdateStudent]="displayUpdateStudent"
-        [studentUpdate]="studentUpdate" [imageBlobURL]="imageBlobURL"
+        [studentUpdate]="studentUpdate" [ParentUpdate]="ParentUpdate" [Parent1Update]="Parent1Update" [DifficultyStudentUpdate]="DifficultyStudentUpdate"
+        [WorkerUpdate]="WorkerUpdate" [StudiesForStudentUpdate]="StudiesForStudentUpdate" [imageBlobURL]="imageBlobURL"
         (popupDisplayOut)="closePAdd($event)"></app-display-students>
     <app-tasks *ngIf="task" [worker]="worker" (amountTask)="updateAmountTask()"></app-tasks>
     <app-worker-inquiries *ngIf="pz"  [worker]="worker"></app-worker-inquiries>

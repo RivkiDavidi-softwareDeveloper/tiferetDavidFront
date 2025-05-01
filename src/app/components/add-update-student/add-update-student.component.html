@@ -3,7 +3,7 @@
         <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update'">עדכון חניך</h2>
-
+<h2>{{studentUpdate.St_name}}</h2>
         <div allChose>
             <div chose>
                 <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}"
@@ -238,7 +238,7 @@
                 <label>שם </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_F.length>0 && !validNameFather,'borderInputRed':validNameFather}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_name}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent.Pa_name}}"
                     (input)="onInputChangeNameFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_F.length>0 && !validNameFather,'borderInputRed':validNameFather}">
 
@@ -249,7 +249,7 @@
                 <label>ת.ז </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeIDFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_ID_F.length>0 && !validIDFather,'borderInputRed':validIDFather}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_ID}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent.Pa_ID}}"
                     (input)="onInputChangeIDFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_ID_F.length>0 && !validIDFather,'borderInputRed':validIDFather}">
 
@@ -260,7 +260,7 @@
                 <label>עיסוק </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_work}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent.Pa_work}}"
                     (input)="onInputChangeWorkFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
 
@@ -271,7 +271,7 @@
                 <label>פלאפון </label>
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_F.length>0 && !validCellPhoneFather,'borderInputRed':validCellPhoneFather}">
-                <input type="tel" *ngIf="status === 'update'" value="{{studentUpdate.Parent?.Pa_cell_phone}}"
+                <input type="tel" *ngIf="status === 'update'" value="{{Parent.Pa_cell_phone}}"
                     (input)="onInputChangeCellPhoneFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_F.length>0 && !validCellPhoneFather,'borderInputRed':validCellPhoneFather}">
                 <label eror *ngIf="validCellPhoneFather">הכנס מס' תקין</label>
@@ -284,7 +284,7 @@
                 <label>שם </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_M.length>0 && !validNameMother,'borderInputRed':validNameMother}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_name}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent1.Pa_name}}"
                     (input)="onInputChangeNameMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_M.length>0 && !validNameMother,'borderInputRed':validNameMother}">
 
@@ -295,7 +295,7 @@
                 <label>ת.ז </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeIDMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_ID_M.length>0 && !validIDMother,'borderInputRed':validIDMother}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_ID}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent1.Pa_ID}}"
                     (input)="onInputChangeIDMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_ID_M.length>0 && !validIDMother,'borderInputRed':validIDMother}">
 
@@ -306,7 +306,7 @@
                 <label>עיסוק </label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_work}}"
+                <input type="text" *ngIf="status === 'update'" value="{{Parent1.Pa_work}}"
                     (input)="onInputChangeWorkMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
 
@@ -317,7 +317,7 @@
                 <label>פלאפון </label>
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_M.length>0 && !validCellPhoneMother,'borderInputRed':validCellPhoneMother}">
-                <input type="email" *ngIf="status === 'update'" value="{{studentUpdate.Parent1?.Pa_cell_phone}}"
+                <input type="email" *ngIf="status === 'update'" value="{{Parent1.Pa_cell_phone}}"
                     (input)="onInputChangeCellPhoneMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_M.length>0 && !validCellPhoneMother,'borderInputRed':validCellPhoneMother}">
 
@@ -349,17 +349,17 @@
                 <select *ngIf="cb1 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
                     <option hidden>בחר </option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='ישיבה גדולה'">ישיבה גדולה </option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='ישיבה קטנה'">ישיבה קטנה </option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='תלמוד תורה'">תלמוד תורה </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה גדולה'">ישיבה גדולה </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה קטנה'">ישיבה קטנה </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='תלמוד תורה'">תלמוד תורה </option>
                 </select>
 
                 <select *ngIf="cb2 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
                     <option hidden> בחר</option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='סמינר (יג יד)'">סמינר (יג יד)</option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='תיכון'">תיכון</option>
-                    <option [selected]="studentUpdate.StudiesForStudents[0].SFS_current_school==='בית ספר יסודי'">בית ספר יסודי</option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='סמינר (יג יד)'">סמינר (יג יד)</option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='תיכון'">תיכון</option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='בית ספר יסודי'">בית ספר יסודי</option>
                 </select>
 
             </div>
@@ -367,7 +367,7 @@
                 <label>שם המוסד</label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentSchoolName($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_school_ame.length>0 && !validCurrentSchoolName,'borderInputRed':validCurrentSchoolName}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_current_school_ame}}"
+                <input type="text" *ngIf="status === 'update'" value="{{StudiesForStudent.SFS_current_school_ame}}"
                     (input)="onInputChangeCurrentSchoolName($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_school_ame.length>0 && !validCurrentSchoolName,'borderInputRed':validCurrentSchoolName}">
 
@@ -379,7 +379,7 @@
 
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeReceptionClass($event)"
                     [ngClass]="{'borderInputGreen':SFS_reception_class.length>0 && !validReceptionClass,'borderInputRed':validReceptionClass}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_reception_class}}"
+                <input type="text" *ngIf="status === 'update'" value="{{StudiesForStudent.SFS_reception_class}}"
                     (input)="onInputChangeReceptionClass($event)"
                     [ngClass]="{'borderInputGreen':SFS_reception_class.length>0 && !validReceptionClass,'borderInputRed':validReceptionClass}">
 
@@ -391,7 +391,7 @@
 
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentClass($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_class.length>0 && !validCurrentClass,'borderInputRed':validCurrentClass}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_current_class}}"
+                <input type="text" *ngIf="status === 'update'" value="{{StudiesForStudent.SFS_current_class}}"
                     (input)="onInputChangeCurrentClass($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_class.length>0 && !validCurrentClass,'borderInputRed':validCurrentClass}">
 
@@ -403,7 +403,7 @@
 
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangePreviousInstitutions($event)"
                     [ngClass]="{'borderInputGreen':SFS_previous_institutions.length>0 && !validPreviousInstitutions,'borderInputRed':validPreviousInstitutions}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_previous_institutions}}"
+                <input type="text" *ngIf="status === 'update'" value="{{StudiesForStudent.SFS_previous_institutions}}"
                     (input)="onInputChangePreviousInstitutions($event)"
                     [ngClass]="{'borderInputGreen':SFS_previous_institutions.length>0 && !validPreviousInstitutions,'borderInputRed':validPreviousInstitutions}">
 
@@ -414,7 +414,7 @@
                 <label *ngIf="cb2">בית ספר קודם</label>
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangePreviousSchool($event)"
                     [ngClass]="{'borderInputGreen':SFS_previous_school.length>0 && !validPreviousSchool,'borderInputRed':validPreviousSchool}">
-                <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.StudiesForStudents[0].SFS_previous_school}}"
+                <input type="text" *ngIf="status === 'update'" value="{{StudiesForStudent.SFS_previous_school}}"
                     (input)="onInputChangePreviousSchool($event)"
                     [ngClass]="{'borderInputGreen':SFS_previous_school.length>0 && !validPreviousSchool,'borderInputRed':validPreviousSchool}">
 

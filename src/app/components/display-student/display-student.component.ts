@@ -23,20 +23,23 @@ import { Synagogue } from '../../models/synagogue.class';
   styleUrl: './display-student.component.scss'
 })
 export class DisplayStudentComponent implements OnInit {
-print() {
-  window.print();
+  print() {
+    window.print();
 
-}
+  }
   @Input() selectedImage: string = "";
 
-  @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined,undefined,[],undefined,[])
+  @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
 
   @Input() popupDisplayIn: boolean = false;
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   selectedImage2: string = './boy.png';
-  //עובדים
-  listOfWorkers: Array<Worker> = []
-  nameWorker: string = ""
+  @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
+  @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
+  @Input() DifficultyStudent: Array<DifficultyStudent> = []
+  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+
 
   //ערים
   lisOfCities: Array<City> = []
@@ -51,32 +54,12 @@ print() {
 
   }
   ngOnInit(): void {
-    this.generalWorkers();
     this.generalCities();
     this.generalCommunities()
     this.generalSynagogueis()
   }
 
-  //רשימת עובדים
-  public generalWorkers(): void {
-  //  this.api.getWorkers(1, 0, 0, 0).subscribe(Date => {
 
-    this.api.FindWorker("",1, 0, 0, 0).subscribe(Date => {
-      this.listOfWorkers = []
-      this.listOfWorkers.push(...Date);
-      this.cdRef.detectChanges();
-    })
-  }
-  //שליפת שם עובד
-  public worker(codeWorker: number): string {
-
-    this.listOfWorkers.forEach(w => {
-      if (w.Wo_code == codeWorker) {
-        this.nameWorker = w.Wo_name + " " + w.Wo_Fname;
-      }
-    });
-    return this.nameWorker;
-  }
   //קהילות
   public generalCommunities() {
     this.api.GetAllCommunities().subscribe(Date => {
@@ -87,7 +70,7 @@ print() {
   }
   //בתי כנסת
   public generalSynagogueis() {
-    this.api.etAllSynagoguesOfCommunity(this.codeCommonity).subscribe(Date => {
+    this.api.GetAllSynagoguesOfCommunity(this.codeCommonity).subscribe(Date => {
       this.listOfsynagogueis = []
       this.listOfsynagogueis.push(...Date);
       this.cdRef.detectChanges();

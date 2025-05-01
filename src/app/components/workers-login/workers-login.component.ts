@@ -23,7 +23,7 @@ import { DeshbordComponent } from "../deshbord/deshbord.component";
 
 
 export class WorkersLoginComponent implements OnInit {
-  deshbord=true
+  deshbord = true
   active: boolean = false;
   students: boolean = false;
   task: boolean = false;
@@ -34,9 +34,12 @@ export class WorkersLoginComponent implements OnInit {
   amountTasksND = 0
   //מעבר לעדכון חניך מדיווח על פעילות
   displayUpdateStudent = false
-  parent1: Parentt = new Parentt(1, "", "", "", "")
-  parent2: Parentt = new Parentt(1, "", "", "", "")
-  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, [])
+  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
+  Parent1Update: Parentt = new Parentt(111, "", "", "", "")
+  DifficultyStudentUpdate: Array<DifficultyStudent> = []
+  WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  StudiesForStudentUpdate: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   imageBlobURL: string = ""
 
 
@@ -71,7 +74,7 @@ export class WorkersLoginComponent implements OnInit {
     }
   }
   onListSelected(event: Event) {
-    this.deshbord=false
+    this.deshbord = false
     this.active = false;
     this.students = false;
     this.task = false;
@@ -79,12 +82,12 @@ export class WorkersLoginComponent implements OnInit {
     this.pz = false;
     const value = Number((event.target as HTMLInputElement).value);
     switch (value) {
-      case 1: this.deshbord=true;break;
+      case 1: this.deshbord = true; break;
       case 2: this.active = true; break;
       case 3: this.students = true; break;
       case 4: this.task = true; break;
-      case 5:  this.pz = true; break;
-      case 6:this.projects = true; break;
+      case 5: this.pz = true; break;
+      case 6: this.projects = true; break;
       default: this.deshbord = true;
 
     }
@@ -144,22 +147,77 @@ export class WorkersLoginComponent implements OnInit {
 
   //מעבר לעדכון חניך 
   async updateStudent(student: Student) {
+    this.studentUpdate = student
+    //שליפת אבא
     await new Promise<void>((resolve, reject) => {
-      this.studentUpdate = student
-      //תמונה
-      const imageName = this.studentUpdate.St_image
-      if (imageName) {
-        this.api.getImageStudent(imageName)
-          .subscribe((data: Blob) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              this.imageBlobURL = reader.result as string;
-            };
-            reader.readAsDataURL(data);
-          });
+      const code = this.studentUpdate?.St_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentUpdate = data;
+          resolve();
+
+        });
       }
-      resolve();
     })
+    //שליפת אמא
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_mother_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.Parent1Update = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+          this.StudiesForStudentUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת רשימת קשיים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_code;
+      if (code!= null) {
+        this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+          this.DifficultyStudentUpdate.push(...data);
+          resolve();
+
+        });
+      }
+    })
+    //שליפת פעיל
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_worker_code;
+      if (code != null) {
+        this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+          this.WorkerUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+    /*     await new Promise<void>((resolve, reject) => {
+          //תמונה
+          const imageName = this.studentUpdate.St_image
+          if (imageName) {
+            this.api.getImageStudent(imageName)
+              .subscribe((data: Blob) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  this.imageBlobURL = reader.result as string;
+                };
+                reader.readAsDataURL(data);
+              });
+          }
+          resolve();
+        }) */
     this.displayUpdateStudent = true;
     this.active = false;
     this.students = true;

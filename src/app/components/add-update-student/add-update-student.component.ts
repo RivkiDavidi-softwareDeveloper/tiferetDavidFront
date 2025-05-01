@@ -40,8 +40,12 @@ export class AddUpdateStudentComponent implements OnInit {
   listOfsynagogueis: Array<Synagogue> = []
   codeCommonity = -1
   //לעדכון
-  @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, undefined, undefined, [], undefined, [])
-
+  @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
+  @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
+  @Input() DifficultyStudent: Array<DifficultyStudent>=[]
+  @Input() Worker: Worker =new Worker(111,"",1,1,"","","","","")
+  @Input() StudiesForStudent: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   cb1: boolean = true;
   cb2: boolean = false;
@@ -158,6 +162,8 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //רשימת עובדים
   public generalWorkers(): void {
+    console.log(this.studentUpdate?.St_name+"2")
+
     if (this.cb1) {
       this.genderF = 1
     }
@@ -192,7 +198,7 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //בתי כנסת
   public generalSynagogueis() {
-    this.api.etAllSynagoguesOfCommunity(this.codeCommonity).subscribe(Date => {
+    this.api.GetAllSynagoguesOfCommunity(this.codeCommonity).subscribe(Date => {
       this.listOfsynagogueis = []
       this.listOfsynagogueis.push(...Date);
       this.cdRef.detectChanges();
@@ -205,7 +211,7 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //קשיים
   ifCheck(code: number) {
-    if (this.studentUpdate.DifficultyStudents.find(d => d.DS_diffculty_code == code) != null) {
+    if (this.DifficultyStudent.find(d => d.DS_diffculty_code == code) != null) {
       return true;
     }
     return false;
@@ -704,16 +710,16 @@ export class AddUpdateStudentComponent implements OnInit {
   onSelestDifficulity(event: Event) {
     const code = Number((event.target as HTMLInputElement).value)
     if (this.status === "update") {
-      if (this.studentUpdate.DifficultyStudents.find(l => l.DS_diffculty_code == code)) {
-        this.studentUpdate.DifficultyStudents.forEach((d, index) => {
+      if (this.DifficultyStudent.find(l => l.DS_diffculty_code == code)) {
+        this.DifficultyStudent.forEach((d, index) => {
           if (d.DS_diffculty_code == code) {
-            this.studentUpdate.DifficultyStudents.splice(index, 1);
+            this.DifficultyStudent.splice(index, 1);
           }
         });
       }
       else {
         var diff: DifficultyStudent = new DifficultyStudent(1, code, 1)
-        this.studentUpdate.DifficultyStudents.push(diff);
+        this.DifficultyStudent.push(diff);
       }
     }
     else {
@@ -769,15 +775,17 @@ export class AddUpdateStudentComponent implements OnInit {
       if (this.St_code_synagogue == -1) {
         this.St_code_synagogue = null
       }
+      //אבא ואמא , רשימת קשיים, ואובייקט לימודים להוספה:
+  /*     new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F),
+      new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M)    ,   this.listOfDiffSelected, undefined, [new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
+          this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school)]
+      , */
       const studentAdd: Student = new Student(1, this.St_ID, this.St_gender, this.St_name, this.St_Fname, this.St_image,
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency,
-        new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F),
-        new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M)
-        , this.listOfDiffSelected, undefined, [new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
-          this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school)])
+        this.St_code_frequency, this.St_amount_frequency
+)
 
 
       //הוספת חניך
@@ -877,39 +885,40 @@ export class AddUpdateStudentComponent implements OnInit {
       if (this.St_requester.length != 0) {
         this.studentUpdate.St_requester = this.St_requester;
       }
-      //ת.ז אבא
+      //אבא ואמא עדכון
+/*       //ת.ז אבא
       if (this.Pa_ID_F.length != 0) {
-        if (this.studentUpdate.Parent)
-          this.studentUpdate.Parent.Pa_ID = this.Pa_ID_F;
+        if (this.Parent)
+          this.Parent.Pa_ID = this.Pa_ID_F;
       }
       if (this.Pa_name_F.length != 0) {
-        if (this.studentUpdate.Parent)
-          this.studentUpdate.Parent.Pa_name = this.Pa_name_F;
+        if (this.Parent)
+          this.Parent.Pa_name = this.Pa_name_F;
       }
       if (this.Pa_cell_phone_F.length != 0) {
-        if (this.studentUpdate.Parent)
-          this.studentUpdate.Parent.Pa_cell_phone = this.Pa_cell_phone_F;
+        if (this.Parent)
+          this.Parent.Pa_cell_phone = this.Pa_cell_phone_F;
       }
       if (this.Pa_work_F.length != 0) {
-        if (this.studentUpdate.Parent)
-          this.studentUpdate.Parent.Pa_work = this.Pa_work_F;
+        if (this.Parent)
+          this.Parent.Pa_work = this.Pa_work_F;
       }
       if (this.Pa_ID_M.length != 0) {
-        if (this.studentUpdate.Parent1)
-          this.studentUpdate.Parent1.Pa_ID = this.Pa_ID_M;
+        if (this.Parent1)
+          this.Parent1.Pa_ID = this.Pa_ID_M;
       }
       if (this.Pa_name_M.length != 0) {
-        if (this.studentUpdate.Parent1)
-          this.studentUpdate.Parent1.Pa_name = this.Pa_name_M;
+        if (this.Parent1)
+          this.Parent1.Pa_name = this.Pa_name_M;
       }
       if (this.Pa_cell_phone_M.length != 0) {
-        if (this.studentUpdate.Parent1)
-          this.studentUpdate.Parent1.Pa_cell_phone = this.Pa_cell_phone_M;
+        if (this.Parent1)
+          this.Parent1.Pa_cell_phone = this.Pa_cell_phone_M;
       }
       if (this.Pa_work_M.length != 0) {
-        if (this.studentUpdate.Parent1)
-          this.studentUpdate.Parent1.Pa_work = this.Pa_work_M;
-      }
+        if (this.Parent1)
+          this.Parent1.Pa_work = this.Pa_work_M;
+      } */
       //עיר
       if (this.St_city_code != -1) {
         this.studentUpdate.St_city_code = this.St_city_code
@@ -937,25 +946,25 @@ export class AddUpdateStudentComponent implements OnInit {
       if (this.St_code_synagogue != -1) {
         this.studentUpdate.St_code_synagogue = this.St_code_synagogue
       }
-      //רשומת לימודים
+/*       //רשומת לימודים
       if (this.SFS_current_school.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_current_school = this.SFS_current_school;
+        this.StudiesForStudent.SFS_current_school = this.SFS_current_school;
       }
       if (this.SFS_current_school_ame.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_current_school_ame = this.SFS_current_school_ame;
+        this.StudiesForStudent.SFS_current_school_ame = this.SFS_current_school_ame;
       }
       if (this.SFS_reception_class.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_reception_class = this.SFS_reception_class;
+        this.StudiesForStudent.SFS_reception_class = this.SFS_reception_class;
       }
       if (this.SFS_current_class.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_current_class = this.SFS_current_class;
+        this.StudiesForStudent.SFS_current_class = this.SFS_current_class;
       }
       if (this.SFS_previous_institutions.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_previous_institutions = this.SFS_previous_institutions;
+        this.StudiesForStudent.SFS_previous_institutions = this.SFS_previous_institutions;
       }
       if (this.SFS_previous_school.length != 0) {
-        this.studentUpdate.StudiesForStudents[0].SFS_previous_school = this.SFS_previous_school;
-      }
+        this.StudiesForStudent.SFS_previous_school = this.SFS_previous_school;
+      } */
       //עדכון תלמיד
       console.log(this.studentUpdate)
       await new Promise<void>((resolve, reject) => {

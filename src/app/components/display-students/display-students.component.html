@@ -132,13 +132,13 @@
     (popupDisplayOut)="closePAdd($event)" [codeWorkerLogin]="codeWorkerSelected"></app-add-update-student>
 
 <app-add-update-student [popupDisplayIn]="sUpdateStudent" [status]="'update'"
-    [selectedImage]="imageBlobURL" [studentUpdate]="studentUpdate"
-    (popupDisplayOut)="closePAdd($event)" [codeWorkerLogin]="codeWorkerSelected"></app-add-update-student>
+    [selectedImage]="imageBlobURL" [studentUpdate]="studentUpdate"  [Parent]="ParentUpdate" [Parent1]="Parent1Update"
+    [DifficultyStudent]="DifficultyStudentUpdate" [Worker]="WorkerUpdate" [StudiesForStudent]="StudiesForStudentUpdate" (popupDisplayOut)="closePAdd($event)" [codeWorkerLogin]="codeWorkerSelected"></app-add-update-student>
 
 
 
-<app-display-student [popupDisplayIn]="displayPopup" [student]="studentDisplay"
-    [selectedImage]="imageBlobURL"
+<app-display-student [popupDisplayIn]="displayPopup" [student]="studentDisplay" [Parent]="ParentDisplay" [Parent1]="Parent1Display"
+    [DifficultyStudent]="DifficultyStudentDisplay" [Worker]="WorkerDisplay" [StudiesForStudent]="StudiesForStudentDisplay"     [selectedImage]="imageBlobURL"
     (popupDisplayOut)="closePDisplay($event)"></app-display-student>
 
 <app-upload-file-excel [popupDisplayIn]="sUploadExcel"
