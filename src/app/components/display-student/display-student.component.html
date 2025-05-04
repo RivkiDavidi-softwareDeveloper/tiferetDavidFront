@@ -1,4 +1,4 @@
-<div class="background" *ngIf="popupDisplayIn">
+<div class="background" *ngIf="popupDisplayIn && !statusPrint">
     <div class="popup">
         <button class="close" (click)="close();" nonePrint2>x</button>
         <h2>{{student.St_name+" "+student.St_Fname}}</h2>

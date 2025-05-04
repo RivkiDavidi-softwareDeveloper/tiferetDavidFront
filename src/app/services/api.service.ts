@@ -127,6 +127,28 @@ export class ApiService {
       .set('codeStudent', codeStudent.toString())
     return this.httpp.get<Array<DifficultyStudent>>(this.urlBasis + "/difficultyStudents/OfCodeStudent", { params });
   }
+  //הצגת פעילויות + חיפוש
+  public FindActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
+    const params = new HttpParams()
+      .set('nameWorker', nameWorker.toString())
+      .set('nameStudent', nameStudent.toString())
+      .set('order', order.toString())
+      .set('genderF', genderF.toString())
+      .set('workerF', workerF.toString())
+      .set('studentF', studentF.toString())
+      .set('monthF', monthF.toString())
+      .set('yearF', yearF.toString())
+      .set('categoryF', categoryF.toString());
+
+    return this.httpp.get<Array<Activity>>(this.urlBasis + "/activities", { params });
+
+  }
+  //הצגת קטגוריות לפעילות
+  public getCategories(): Observable<Array<CategoriesForActivity>> {
+    return this.httpp.get<Array<CategoriesForActivity>>(this.urlBasis + "/categoriesForActivities");
+
+
+  }
 
   //////////////////////////////////////עד כאן שינתי
 
@@ -236,16 +258,7 @@ export class ApiService {
 
 
 
-  //הצגת פעילויות
-  public getActivities(order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
-    const url: string = this.urlBasis + "/activities/GetActivities/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
-    return this.httpp.get(url) as Observable<Array<Activity>>
-  }
-  //חיפוש פעילות
-  public FindActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
-    const url: string = this.urlBasis + "/activities/FindActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
-    return this.httpp.get(url) as Observable<Array<Activity>>
-  }
+
   //כמויות פעילות
   public AountsActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
     const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
@@ -269,11 +282,7 @@ export class ApiService {
     const url: string = this.urlBasis + "/activities/AddActivity";
     return this.httpp.post(url, formData);
   }
-  //הצגת קטגוריות לפעילות
-  public getCategories(): Observable<Array<CategoriesForActivity>> {
-    const url: string = this.urlBasis + "/activities/GeneralCategories";
-    return this.httpp.get(url) as Observable<Array<CategoriesForActivity>>
-  }
+
   //הצגת תת קטגוריות לקטגוריה
   public getSubCategoryForCategory1(codeCategory: number, searchText: string): Observable<Array<SubcategoryForTypeActivity>> {
     const url: string = this.urlBasis + "/activities/SubCategoryForCategory/" + codeCategory + "/" + searchText;

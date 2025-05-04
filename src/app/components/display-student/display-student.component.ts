@@ -23,10 +23,7 @@ import { Synagogue } from '../../models/synagogue.class';
   styleUrl: './display-student.component.scss'
 })
 export class DisplayStudentComponent implements OnInit {
-  print() {
-    window.print();
-
-  }
+ 
   @Input() selectedImage: string = "";
 
   @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
@@ -39,7 +36,13 @@ export class DisplayStudentComponent implements OnInit {
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
   @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+  statusPrint: boolean=false
+  print() {
+    this.statusPrint=true
+    window.print();
 
+
+  }
 
   //ערים
   lisOfCities: Array<City> = []

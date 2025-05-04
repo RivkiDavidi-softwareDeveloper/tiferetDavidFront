@@ -274,7 +274,7 @@ export class ActivityReportingComponent implements OnInit {
     //רשימת הפעילויות
     generalActivities() {
         if (!this.displayGroupActivities) {
-            this.api.getActivities(1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
+            this.api.FindActivities("","",1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
                 this.listOfAcitivities = [];
                 this.listOfAcitivities.push(...Date);
                 this.cdRef.detectChanges();

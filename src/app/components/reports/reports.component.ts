@@ -31,8 +31,8 @@ export class ReportsComponent {
   monthF = 0
   yearF = 0
   categoryF = 0
-  searchTextWorker: string = "null"
-  searchTextStudent: string = "null"
+  searchTextWorker: string = ""
+  searchTextStudent: string = ""
 
   amounts: Array<number> = [0, 0, 0, 0]
   //סינון לפי שנים
@@ -50,7 +50,7 @@ export class ReportsComponent {
   }
   //רשימת הפעילויות
   generalActivities() {
-    this.api.getActivities(this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent,this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -60,7 +60,6 @@ export class ReportsComponent {
   }
   //רשימה של פעילים
   generalWorkers() {
-    //this.api.getWorkers(0, this.genderF, 0, 0).subscribe(Date => {
       this.api.FindWorker("",0, this.genderF, 0, 0).subscribe(Date => {
 
       this.listOfWorkers = [];
@@ -396,11 +395,11 @@ export class ReportsComponent {
   }
   //כמות
   amountW() {
-    this.api.AountsActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF)
+/*     this.api.AountsActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF)
       .subscribe(Date => {
         this.amounts = []
         this.amounts.push(...Date)
-      })
+      }) */
 
   }
   //חיפוש עובד
@@ -412,13 +411,9 @@ export class ReportsComponent {
       this.cdRef.detectChanges();
     });
 
-    if (this.searchTextWorker === "") {
-      this.searchTextWorker = "null"
-      this.generalActivities();
-    }
-    else {
+    
       this.amountW();
-    }
+    
   }
   //חיפוש חניך
   onInputChangeSearchStudent(event: Event) {
@@ -429,13 +424,9 @@ export class ReportsComponent {
       this.cdRef.detectChanges();
     });
 
-    if (this.searchTextStudent === "") {
-      this.searchTextStudent = "null"
-      this.generalActivities();
-    }
-    else {
+
       this.amountW();
-    }
+    
   }
   //מוסיפה פסיקים
   addCommasToNumber(num: number): string {
