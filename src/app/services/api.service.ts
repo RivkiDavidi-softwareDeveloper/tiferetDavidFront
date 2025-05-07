@@ -198,6 +198,11 @@ export class ApiService {
     const Ta_code = task.Ta_code;
     return this.httpp.put(`${this.urlBasis + "/tasks"}/${Ta_code}`, task);
   }
+  //מוסיפה חניך
+    //הוספת משימה
+    AddStudent(studentData: any) : Observable<any> {
+      return this.httpp.post(this.urlBasis + "/students", studentData);
+    }
 
 
 
@@ -225,11 +230,7 @@ export class ApiService {
 
 
 
-  //מוסיפה חניך
-  public AddStudent(student: Student): Observable<any> {
-    const url: string = this.urlBasis + "/students/Add";
-    return this.httpp.post<any>(url, student);
-  }
+
   //מוחקת חניך
   public DeleteStudent(code: number): Observable<number> {
     const url: string = this.urlBasis + "/students/Delete/" + code;

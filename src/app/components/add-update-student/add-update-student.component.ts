@@ -775,26 +775,26 @@ export class AddUpdateStudentComponent implements OnInit {
       if (this.St_code_synagogue == -1) {
         this.St_code_synagogue = null
       }
-      //אבא ואמא , רשימת קשיים, ואובייקט לימודים להוספה:
-  /*     new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F),
-      new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M)    ,   this.listOfDiffSelected, undefined, [new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
-          this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school)]
-      , */
+      const parentFAdd=new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F);
+      const parentMAdd=new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M);
+      const listOfDiffSelectedAdd=this.listOfDiffSelected;
+      const studiesAdd=new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
+        this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school);
       const studentAdd: Student = new Student(1, this.St_ID, this.St_gender, this.St_name, this.St_Fname, this.St_image,
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency
-)
+        this.St_code_frequency, this.St_amount_frequency);
+       const dataStudentAdd={data: [studentAdd,parentFAdd,parentMAdd,listOfDiffSelectedAdd,studiesAdd]}
 
 
       //הוספת חניך
       await new Promise<void>((resolve, reject) => {
 
-        this.api.AddStudent(studentAdd).subscribe(
+        this.api.AddStudent(dataStudentAdd).subscribe(
           (response) => {
             this.St_code = response
-            //הוספת תמונה
+/*             //הוספת תמונה
             if (this.image) {
               const formData = new FormData();
               formData.append('image', this.image, this.image.name);
@@ -806,7 +806,7 @@ export class AddUpdateStudentComponent implements OnInit {
                   console.error('Error uploading image:', error);
                 }
               );
-            }
+            } */
             resolve();
             this.loading = false
 

@@ -149,7 +149,7 @@ export class ActivityReportingComponent implements OnInit {
     displayPopap = false;
     //סטטוס האנימציה
     loading = false;
-//צליל 
+    //צליל 
     audio: HTMLAudioElement;
 
     //סגירת הפופפ
@@ -161,18 +161,18 @@ export class ActivityReportingComponent implements OnInit {
         this.time.setHours(0);
         this.time.setMinutes(0);
         this.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
-    // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
-    this.audio = new Audio();
-    const audioName = 'glocken.mp3';
-    this.audio.src = `assets/${audioName}`;;
-    this.audio.load();
+        // יצירת אובייקט אודיו והגדרת הנתיב לקובץ האודיו
+        this.audio = new Audio();
+        const audioName = 'glocken.mp3';
+        this.audio.src = `assets/${audioName}`;;
+        this.audio.load();
     }
     checkCondition(): void {
         // אם התנאי מתקיים, נגן את הצליל
         if (this.displayPopap) {
-          this.audio.play();
+            this.audio.play();
         }
-      }
+    }
     //הוספת משימת המשך
     addTask() {
         this.displayAddTask = true
@@ -274,7 +274,7 @@ export class ActivityReportingComponent implements OnInit {
     //רשימת הפעילויות
     generalActivities() {
         if (!this.displayGroupActivities) {
-            this.api.FindActivities("","",1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
+            this.api.FindActivities("", "", 1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
                 this.listOfAcitivities = [];
                 this.listOfAcitivities.push(...Date);
                 this.cdRef.detectChanges();
@@ -317,7 +317,7 @@ export class ActivityReportingComponent implements OnInit {
     //רשימת חניכים
     async generalStudents(ifFrequency: number): Promise<void> {
         await new Promise<void>((resolve, reject) => {
-            this.api.FindStudent("",0, 0, this.statusF, this.worker.Wo_code).subscribe(Date => {
+            this.api.FindStudent("", 0, 0, this.statusF, this.worker.Wo_code).subscribe(Date => {
                 this.listOfStudents = []
                 this.listOfStudents.push(...Date);
                 this.cdRef.detectChanges();
@@ -353,7 +353,7 @@ export class ActivityReportingComponent implements OnInit {
             });
             if (this.listOfStudents2.length == 0) {
                 this.displayPopap = false
-                        }
+            }
         }
         else {
             var lastDate = ""
@@ -957,6 +957,11 @@ export class ActivityReportingComponent implements OnInit {
         if (this.validation2()) {
             this.addStudent.St_gender = this.worker.Wo_gender;
             this.addStudent.St_worker_code = this.worker.Wo_code;
+            const parentFAdd = new Parentt(1, "", "", "", "");
+            const parentMAdd = new Parentt(1, "", "", "", "");;
+            const studiesAdd = new StudiesForStudent(1, 1, "", "", "", "","", "");
+            const dataStudentAdd={data: [this.addStudent, parentFAdd, parentMAdd, [], studiesAdd]}
+
             //הוספת חניך
             await new Promise<void>((resolve, reject) => {
 
