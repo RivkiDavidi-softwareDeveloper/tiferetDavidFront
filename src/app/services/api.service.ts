@@ -149,30 +149,78 @@ export class ApiService {
 
 
   }
+  //הצגת פרויקטים
+  public getProgects(genderF: number, valueSearch: string): Observable<Array<Project>> {
+    const params = new HttpParams()
+      .set('genderF', genderF.toString())
+      .set('valueSearch', valueSearch.toString());
+
+    return this.httpp.get<Array<Project>>(this.urlBasis + "/projects", { params });
+  }
+
+  //הצגת חניכים לפרויקט    
+  public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
+    const params = new HttpParams()
+      .set('codeProject', codeProject.toString());
+    return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects", { params });
+  }
+  //הצגת כל המשימות לפי קוד פעיל
+  public GetAllTastForWorker(workerCode: number): Observable<Array<Taskk>> {
+    const params = new HttpParams()
+      .set('workerCode', workerCode.toString());
+    return this.httpp.get<Array<Taskk>>(this.urlBasis + "/tasks", { params });
+  }
+  //הצגת כמות המשימות שלא התבצעו
+  //0 - לא בוצע    
+  //1- כן בוצע
+  public GetAmoumtTasksNotDoneForWorker(workerCode: number): Observable<number> {
+    const params = new HttpParams()
+      .set('workerCode', workerCode.toString());
+    return this.httpp.get<number>(this.urlBasis + "/tasks/GetAmoumtTasksNotDoneForWorker", { params });
+
+  }
+  //מוסיפה עובד
+  AddWorker(workerData: Worker) {
+    return this.httpp.post(this.urlBasis + "/workers", workerData);
+  }
+
+  //עדכון עובד
+  UpdateWorker(workerData: Worker): Observable<any> {
+    const wo_code = workerData.Wo_code;
+    return this.httpp.put(`${this.urlBasis + "/workers"}/${wo_code}`, workerData);
+  }
+  //הוספת משימה
+  AddTask(task: Taskk) {
+    return this.httpp.post(this.urlBasis + "/tasks", task);
+  }
+  //עדכון משימה
+  UpdateTask(task: Taskk): Observable<any> {
+    const Ta_code = task.Ta_code;
+    return this.httpp.put(`${this.urlBasis + "/tasks"}/${Ta_code}`, task);
+  }
+
+
 
   //////////////////////////////////////עד כאן שינתי
 
 
 
+
+
+
+
+
+
   //מוחקת עובד
-  public DeleteWorker(code: number): Observable<number> {
-    const url: string = this.urlBasis + "/workers/Delete/" + code;
-    return this.httpp.get(url) as Observable<number>;
+  //לא עובד
+  //צריך בצד שרת למחוק קודם את כל היסטוריית הפעיל ואז למחוק אותו
+  /*   public DeleteWorker(code: number): Observable<number> {
+      const url: string = this.urlBasis + "/workers/Delete/" + code;
+      return this.httpp.get(url) as Observable<number>;
+    } */
+  DeleteWorker(wo_code: number) {
+    return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
-  //מוסיפה עובד
-  public AddWorker(worker: Worker): Observable<any> {
-    const url: string = this.urlBasis + "/workers/Add";
-    return this.httpp.post<any>(url, worker);
-  }
-  //עדכון עובד
-  public UpdateWorker(worker: Worker): Observable<any> {
-    const url: string = this.urlBasis + "/workers/Update";
-    return this.httpp.put<any>(url, worker);
-  }
-
-
-
-
 
 
 
@@ -348,16 +396,8 @@ export class ApiService {
     const url: string = this.urlBasis + "/calls/GetAmoumtMessagesNotDoneForWorker/" + workerCode;
     return this.httpp.get(url) as Observable<number>
   }
-  //הצגת פרויקטים
-  public getProgects(genderF: number | undefined): Observable<Array<Project>> {
-    const url: string = this.urlBasis + "/projects/GetProgects/" + genderF;
-    return this.httpp.get(url) as Observable<Array<Project>>
-  }
-  //הצגת חניכים לפרויקט    
-  public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
-    const url: string = this.urlBasis + "/projects/GetStudentsForProjects/" + codeProject;
-    return this.httpp.get(url) as Observable<Array<StudentForProject>>
-  }
+
+
   //הוספת פרויקט
 
   public AddProject(project: Project): Observable<any> {
@@ -377,26 +417,8 @@ export class ApiService {
     return this.httpp.get<any>(url);
   }
 
-  //הצגת כל המשימות לפי קוד פעיל
-  public GetAllTastForWorker(workerCode: number | undefined): Observable<Array<Taskk>> {
-    const url: string = this.urlBasis + "/tasks/GetAllTastForWorker/" + workerCode;
-    return this.httpp.get(url) as Observable<Array<Taskk>>
-  }
-  //הצגת כמות המשימות שלא התבצעו
-  public GetAmoumtTasksNotDoneForWorker(workerCode: number): Observable<number> {
-    const url: string = this.urlBasis + "/tasks/GetAmoumtTasksNotDoneForWorker/" + workerCode;
-    return this.httpp.get(url) as Observable<number>
-  }
-  //עדכון משימה
-  public UpdateTask(task: Taskk): Observable<any> {
-    const url: string = this.urlBasis + "/tasks/Update";
-    return this.httpp.put<any>(url, task);
-  }
-  //הוספת משימה
-  public AddTask(task: Taskk): Observable<any> {
-    const url: string = this.urlBasis + "/tasks/AddTask";
-    return this.httpp.post<any>(url, task);
-  }
+
+
   //מחיקת משימה
   public deleteTask(task: Taskk): Observable<any> {
     const url: string = this.urlBasis + "/tasks/DeleteTask";
@@ -429,9 +451,3 @@ export class ApiService {
     return this.httpp.get(url) as Observable<Array<Array<number>>>
   }
 }
-
-
-
-
-
-

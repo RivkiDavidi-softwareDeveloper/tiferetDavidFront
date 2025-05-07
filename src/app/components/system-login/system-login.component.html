@@ -6,13 +6,13 @@
                 <div class="inHome"></div>
             </button>
         </div>
-        <button [ngClass]="{'button1':true,'button2':!!deshbord}"
-            (click)="deshbord=true;workers=false;students=false;reports=false;projects=false;settings=false;requests=false">דשבורד</button>
+<!--         <button [ngClass]="{'button1':true,'button2':!!deshbord}"
+            (click)="deshbord=true;workers=false;students=false;reports=false;projects=false;settings=false;requests=false">דשבורד</button> -->
             <button [ngClass]="{'button1':true,'button2':!!reports}"
             (click)="deshbord=false;students=false;reports=true;workers=false;projects=false;settings=false;requests=false">דוחות
             פעילות</button>
-            <button [ngClass]="{'button1':true,'button2':!!requests}"
-            (click)="deshbord=false;students=false;reports=false;workers=false;projects=false;settings=false;requests=true">פניות צוות</button>
+<!--             <button [ngClass]="{'button1':true,'button2':!!requests}"
+            (click)="deshbord=false;students=false;reports=false;workers=false;projects=false;settings=false;requests=true">פניות צוות</button> -->
         <button [ngClass]="{'button1':true,'button2':!!workers}"
             (click)="deshbord=false;workers=true;students=false;reports=false;projects=false;settings=false;requests=false">פעילים</button>
         <button [ngClass]="{'button1':true,'button2':!!students}"
@@ -21,9 +21,9 @@
         <button [ngClass]="{'button1':true,'button2':!!projects}"
             (click)="deshbord=false;students=false;reports=false;workers=false;projects=true;settings=false;requests=false">פרויקטים</button>
 
-        <button [ngClass]="{'button1':true,'button2':!!settings}"
+<!--         <button [ngClass]="{'button1':true,'button2':!!settings}"
             (click)="deshbord=false;students=false;reports=false;workers=false;projects=false;settings=true;requests=false">הגדרות</button>
-    </div>
+  -->   </div>
     <div class="tab2">
         <div [ngClass]="{'homeOtef':true}">
             <button [ngClass]="{'home':true}"
@@ -34,14 +34,14 @@
         <!--         <button list ></button>
             
  --> <select (change)="onListSelected($event)">
-            <option selected [value]="0">דשבורד</option>
-            <option [value]="3">דוחות פעילות</option>
-            <option [value]="5">פניות צוות</option>
-            <option  [value]="1">פעילים</option>
+<!--             <option selected [value]="0">דשבורד</option>
+ -->            <option [value]="3">דוחות פעילות</option>
+<!--             <option [value]="5">פניות צוות</option>
+ -->            <option  [value]="1">פעילים</option>
             <option [value]="2">חניכים</option>
             <option [value]="4">פרויקטים</option>
-            <option [value]="6">הגדרות</option>
-
+<!--             <option [value]="6">הגדרות</option>
+ -->
         </select>
 
     </div>
@@ -52,11 +52,12 @@
 <div windos>
     <header>בס"ד</header>
 
-    <app-deshbord *ngIf="deshbord"></app-deshbord>
-    <app-display-workers *ngIf="workers"></app-display-workers>
+<!--     <app-deshbord *ngIf="deshbord"></app-deshbord>
+ -->    <app-display-workers *ngIf="workers"></app-display-workers>
     <app-display-students *ngIf="students"></app-display-students>
     <app-reports *ngIf="reports"></app-reports>
     <app-projects *ngIf="projects"></app-projects>
-    <app-worker-inquiries *ngIf="requests" [worker]="worker"></app-worker-inquiries>
-    <app-settings *ngIf="settings"></app-settings>
-</div>
+<!--     <app-worker-inquiries *ngIf="requests" [worker]="worker"></app-worker-inquiries>
+ -->  
+<!--   <app-settings *ngIf="settings"></app-settings>
+ --></div>

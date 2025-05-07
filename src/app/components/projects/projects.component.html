@@ -1,7 +1,7 @@
 <h1>פרויקטים</h1>
 <button newProject  (click)="displayAddProject=true">פרויקט חדש</button>
 <div find>
-    <input type="search" role="combobox" placeholder="חפש לפי שם פרויקט" (input)="onInputChangeSearch($event)">
+    <input type="search" role="combobox" placeholder="חפש שם פרויקט, תיאור או תוכן" (input)="onInputChangeSearch($event)">
 </div>
 <div allProjects>
     <app-project *ngFor="let p of listProject" [project]="p"></app-project>

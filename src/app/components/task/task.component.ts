@@ -65,7 +65,6 @@ export class TaskComponent {
   add(): void {
     if (this.validation()) {
       const taskAdd: Taskk = new Taskk(1, this.worker.Wo_code, this.Ta_description, this.Ta_date, this.Ta_time, 0)
-      console.log(taskAdd)
       this.api.AddTask(taskAdd).subscribe(
         (response) => {
           this.snackBar.open('המשימה נוספה בהצלחה', 'סגור', { duration: 2000 });

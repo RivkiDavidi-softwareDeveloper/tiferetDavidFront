@@ -21,11 +21,12 @@ export class ContactToProjectComponent {
     this.general();
   }
   async general() {
-    this.api.getProgects(this.worker?.Wo_gender).subscribe(Date => {
-      this.listProject = []
-      this.listProject.push(...Date);
-      this.cdRef.detectChanges();
-    })
+    if (this.worker)
+      this.api.getProgects(this.worker.Wo_gender,"").subscribe(Date => {
+        this.listProject = []
+        this.listProject.push(...Date);
+        this.cdRef.detectChanges();
+      })
 
   }
   selectProject(event: Event) {
@@ -39,7 +40,7 @@ export class ContactToProjectComponent {
     this.api.AddStudentsForProjectForWorker(this.worker?.Wo_code, this.codeProject).subscribe(
 
       (response) => {
-        this.snackBar.open('החיניכים שויכו בהצלחה', 'סגור', { duration: 2000 });
+        this.snackBar.open('החניכים שויכו בהצלחה', 'סגור', { duration: 2000 });
 
       },
       (error) => {
