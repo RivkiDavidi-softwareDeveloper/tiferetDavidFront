@@ -325,7 +325,7 @@ export class AddUpdateStudentComponent implements OnInit {
           this.snackBar.open('העיר נוספה בהצלחה', '', { duration: 2000 });
           this.generalCities();
           this.addCityStatus = false;
-          this.St_city_code = response
+          this.St_city_code = (response as City).Ci_code;
         },
         (error) => {
           this.snackBar.open('הוספת העיר נכשלה נסה שוב.', '', { duration: 2000 });
@@ -376,7 +376,7 @@ export class AddUpdateStudentComponent implements OnInit {
           this.snackBar.open('הקהילה נוספה בהצלחה', '', { duration: 2000 });
           this.generalCommunities();
           this.addCommunityStatus = false;
-          this.codeCommonity = response;
+          this.codeCommonity = (response as Community).Com_code;
           this.generalSynagogueis();
         },
         (error) => {
@@ -414,7 +414,7 @@ export class AddUpdateStudentComponent implements OnInit {
           this.snackBar.open('הבית כנסת נוסף בהצלחה', '', { duration: 2000 });
           this.generalSynagogueis();
           this.addSynagugaStatus = false;
-         this.St_code_synagogue = response
+         this.St_code_synagogue = (response as Synagogue).Sy_code;
         },
         (error) => {
           this.snackBar.open('הוספת הבית כנסת נכשלה נסה שוב.', '', { duration: 2000 });
@@ -794,19 +794,7 @@ export class AddUpdateStudentComponent implements OnInit {
         this.api.AddStudent(dataStudentAdd).subscribe(
           (response) => {
             this.St_code = response
-/*             //הוספת תמונה
-            if (this.image) {
-              const formData = new FormData();
-              formData.append('image', this.image, this.image.name);
-              this.api.uploadImageStudent(formData, "image" + this.St_code).subscribe(
-                (response) => {
-                  console.log('Image uploaded successfully:', response);
-                },
-                (error) => {
-                  console.error('Error uploading image:', error);
-                }
-              );
-            } */
+
             resolve();
             this.loading = false
 
@@ -822,11 +810,23 @@ export class AddUpdateStudentComponent implements OnInit {
       this.popupDisplayOut.emit(false);
     }
     else {
-      this.snackBar.open('!הפרטים שגויים', 'x', { duration: 3000 });
+      this.snackBar.open('!חסרים פרטים או שחלקם שגויים', 'x', { duration: 3000 });
       this.loading = false
 
     }
-
+/*             //הוספת תמונה
+            if (this.image) {
+              const formData = new FormData();
+              formData.append('image', this.image, this.image.name);
+              this.api.uploadImageStudent(formData, "image" + this.St_code).subscribe(
+                (response) => {
+                  console.log('Image uploaded successfully:', response);
+                },
+                (error) => {
+                  console.error('Error uploading image:', error);
+                }
+              );
+            } */
   }
   //עדכון
   public async update(): Promise<void> {
@@ -1075,7 +1075,8 @@ export class AddUpdateStudentComponent implements OnInit {
       && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
       && !this.validWorkMother && !this.validCellPhoneMother && !this.validStatusSocio && !this.validCurrentSchoolName
       && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
-      && !this.validContact && !this.validContactPhone && !this.validDescriptionReceptionStatus && !this.validRequester;
+      && !this.validContact && !this.validContactPhone && !this.validDescriptionReceptionStatus && !this.validRequester &&
+        this.St_city_code!=-1 &&  this.St_code_synagogue!= -1 &&  this.St_worker_code!= -1 &&   this.St_risk_code!= -1 &&  this.St_code_frequency != -1;
   }
   //ממירה לתאריך
   date(dateString: string) {

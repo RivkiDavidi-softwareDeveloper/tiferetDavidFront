@@ -52,7 +52,6 @@ export class ApiService {
   }
 
 
-
   //מחזיר רק את הרשומה של תפארת דוד
   getSystemLogin(): Observable<SystemLogin> {
     return this.httpp.get<SystemLogin>(this.urlBasis + "/systemLogins");
@@ -198,13 +197,20 @@ export class ApiService {
     const Ta_code = task.Ta_code;
     return this.httpp.put(`${this.urlBasis + "/tasks"}/${Ta_code}`, task);
   }
-  //מוסיפה חניך
-    //הוספת משימה
-    AddStudent(studentData: any) : Observable<any> {
-      return this.httpp.post(this.urlBasis + "/students", studentData);
-    }
+  //הוספת חניך
+  AddStudent(studentData: any): Observable<any> {
+    return this.httpp.post(this.urlBasis + "/students", studentData);
+  }
 
+  //הוספת קהילה
+  public AddCommunity(community: Community): Observable<any> {
+    return this.httpp.post(this.urlBasis + "/communities", community);
+  }
 
+  //הוספת בית כנסת
+  public AddSynagogue(synagogue: Synagogue): Observable<any> {
+    return this.httpp.post(this.urlBasis + "/synagogues", synagogue);
+  }
 
   //////////////////////////////////////עד כאן שינתי
 
@@ -429,17 +435,7 @@ export class ApiService {
 
 
 
-  //הוספת קהילה
-  public AddCommunity(community: Community): Observable<any> {
-    const url: string = this.urlBasis + "/Communities/AddCommunity";
-    return this.httpp.post<any>(url, community);
-  }
 
-  //הוספת בית כנסת
-  public AddSynagogue(synagogue: Synagogue): Observable<any> {
-    const url: string = this.urlBasis + "/Communities/AddSynagogue";
-    return this.httpp.post<any>(url, synagogue);
-  }
   //העלאת קבצים לפעילויות לחניכים ולעובדים
   public FilesUpload(folder: string, newFolder: number, formData: FormData): Observable<any> {
     const url: string = this.urlBasis + "/Files/Upload/" + folder + "/" + newFolder;
