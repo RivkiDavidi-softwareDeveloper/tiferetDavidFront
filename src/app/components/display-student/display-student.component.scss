@@ -42,21 +42,24 @@ $color-turqis-dark: rgb(10, 70, 56);
 .popup2 {
     display: none;
     padding: 20px 30px;
-    top: 0;    position: fixed;
-background-color: white;
+    top: 0;
+    position: fixed;
+    background-color: white;
     right: 0;
-width: 100vw;
+    width: 100vw;
     z-index: 4;
-    [towBox]{
+
+    [towBox] {
         display: flex;
         flex-direction: row;
-        [box]{
-            flex :1;
+
+        [box] {
+            flex: 1;
             width: 50vw;
             display: inline;
         }
     }
-  
+
 }
 
 //הגדרת גודלי כתב
@@ -260,17 +263,24 @@ label {
 }
 
 @media print {
-    [nonePrint2] {
-        display: none;
-    }
-
     .background {
         display: none;
 
     }
+table{
+            display: none;
+
+}
+/* 
+    body {
+        * {
+            display: none !important;
+    } */
 
     .popup2 {
-        display: block;
+        // display: contents;
+        display: block !important;
+
         [otefImage] {
             width: 150px;
             height: 200px;
@@ -280,8 +290,7 @@ label {
             top: 50px;
             z-index: 1;
             left: 70px;
-        
-
         }
     }
+
 }

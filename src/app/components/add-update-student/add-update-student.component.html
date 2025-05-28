@@ -39,6 +39,7 @@
         <div buttonImage *ngIf="status === 'add'">
             <div textII> בחר תמונה</div>
             <input type="file" inputImage *ngIf="status === 'add'" (input)="onFileSelected($event)">
+ 
         </div>
         <div otefImage *ngIf="status === 'add'">
             <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">

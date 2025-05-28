@@ -203,15 +203,37 @@ export class ApiService {
   }
 
   //הוספת קהילה
-  public AddCommunity(community: Community): Observable<any> {
+  AddCommunity(community: Community): Observable<any> {
     return this.httpp.post(this.urlBasis + "/communities", community);
   }
 
   //הוספת בית כנסת
-  public AddSynagogue(synagogue: Synagogue): Observable<any> {
+  AddSynagogue(synagogue: Synagogue): Observable<any> {
     return this.httpp.post(this.urlBasis + "/synagogues", synagogue);
   }
+  //הוספת ועדכון תמונה לחניך
+  uploadStudentImage(formData: FormData): Observable<any> {
+    return this.httpp.post(`${this.urlBasis + "/students/upload-student-image"}`, formData);
+  }
+  //עדכון חניך
+  UpdateStudent(studentData: any): Observable<any> {
+    return this.httpp.put(this.urlBasis + "/students", studentData);
+  }
 
+  //קבלת תמונת חניך מהשרת
+  getStudentImage(imageName: string) {
+    const url = `${this.urlBasis}/students/getStudentImage/${imageName}`;
+    return this.httpp.get(url, { responseType: 'blob' }); // החזרת Blob כדי להציג תמונה
+  }
+  //מוחקת חניך
+  DeleteStudent(code: number) {
+    return this.httpp.delete(`${this.urlBasis}/students/${code}`);
+  }
+  //הצגת תת קטגוריות לקטגוריה לפי קוד קטגוריה
+  getSubCategoryForCategory(codeCategory: number): Observable<Array<SubcategoryForTypeActivity>> {
+    const url: string = this.urlBasis + "/activities/SubCategoryForCategory/" + codeCategory;
+    return this.httpp.get(url) as Observable<Array<SubcategoryForTypeActivity>>
+  }
   //////////////////////////////////////עד כאן שינתי
 
 
@@ -225,10 +247,6 @@ export class ApiService {
   //מוחקת עובד
   //לא עובד
   //צריך בצד שרת למחוק קודם את כל היסטוריית הפעיל ואז למחוק אותו
-  /*   public DeleteWorker(code: number): Observable<number> {
-      const url: string = this.urlBasis + "/workers/Delete/" + code;
-      return this.httpp.get(url) as Observable<number>;
-    } */
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
@@ -237,16 +255,8 @@ export class ApiService {
 
 
 
-  //מוחקת חניך
-  public DeleteStudent(code: number): Observable<number> {
-    const url: string = this.urlBasis + "/students/Delete/" + code;
-    return this.httpp.get(url) as Observable<number>;
-  }
-  //עדכון חניך
-  public UpdateStudent(student: Student): Observable<any> {
-    const url: string = this.urlBasis + "/students/Update";
-    return this.httpp.put<any>(url, student);
-  }
+
+
 
   //שליחת קובץ אקסל חניכים
   public uploadExcelFile(data: any[]): Observable<any> {
@@ -254,71 +264,11 @@ export class ApiService {
   }
 
 
-
-  //מחזירה רשימה של כל ההורים
-  public getParents(): Observable<Array<Parentt>> {
-    const url: string = this.urlBasis + "/parents/GetParents";
-    return this.httpp.get(url) as Observable<Array<Parentt>>;
-  }
-  //מוסיפה הורה
-  public AddParent(parent: Parentt): Observable<any> {
-    const url: string = this.urlBasis + "/parents/Add";
-    return this.httpp.post<any>(url, parent);
-  }
-
-
-
-  //מחזירה רשימה של כל הלימודים לכל החניכים
-  public getStudiesForStudens(): Observable<Array<StudiesForStudent>> {
-    const url: string = this.urlBasis + "/studiesForStuden/GetStudiesForStudens";
-    return this.httpp.get(url) as Observable<Array<StudiesForStudent>>;
-  }
-  //מוסיפה לימודים
-  public AddStudiesForStuden(studies: StudiesForStudent): Observable<any> {
-    const url: string = this.urlBasis + "/studiesForStuden/Add";
-    return this.httpp.post<any>(url, studies);
-  }
-  //עדכון לימודים לחניך
-  public UpdateStudiesForStuden(studies: StudiesForStudent): Observable<any> {
-    const url: string = this.urlBasis + "/studiesForStuden/Update";
-    return this.httpp.put<any>(url, studies);
-  }
-
-
-
-
-  //רשימה של כל הקשיים לכל החניכים
-  public getDifficultiesStudents(): Observable<Array<DifficultyStudent>> {
-    const url: string = this.urlBasis + "/DifficultiesStudents/GetDifficultiesStudents";
-    return this.httpp.get(url) as Observable<Array<DifficultyStudent>>
-  }
-  //מוסיפה רשימה של קשיים לתלמיד
-  public AddDifficulitiesForStudent(difficulitiesForStudent: Array<DifficultyStudent>): Observable<any> {
-    const url: string = this.urlBasis + "/DifficultiesStudents/AddDifficulitiesForStudent";
-    return this.httpp.post<any>(url, difficulitiesForStudent);
-  }
-  /*     //מעדכנת רשימה של קשיים לתלמיד
-      public UpdateDifficulitiesForStudent(difficulitiesForStudent: Array<DifficultyStudent>): Observable<any> {
-        const url: string = this.urlBasis + "/DifficultiesStudents/UpdateDifficulitiesForStudent";
-        return this.httpp.put<any>(url, difficulitiesForStudent);
-      } */
-  //מוחקת רשימה של קשיים לתלמיד
-  public DeleteDifficulitiesForStudent(code: number): Observable<any> {
-    const url: string = this.urlBasis + "/DifficultiesStudents/Delete/" + code;
-    return this.httpp.get(url) as Observable<any>;
-  }
-
-
-
-
-
-
-
-  //כמויות פעילות
-  public AountsActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
-    const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
-    return this.httpp.get(url) as Observable<Array<number>>
-  }
+  /*   //כמויות פעילות
+    public AountsActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
+      const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
+      return this.httpp.get(url) as Observable<Array<number>>
+    } */
   //הוספת פעילות
   /*   public AddActivity(activity: Activity): Observable<any> {
       const url: string = this.urlBasis + "/activities/Add";
@@ -343,11 +293,7 @@ export class ApiService {
     const url: string = this.urlBasis + "/activities/SubCategoryForCategory/" + codeCategory + "/" + searchText;
     return this.httpp.get(url) as Observable<Array<SubcategoryForTypeActivity>>
   }
-  //הצגת תת קטגוריות לקטגוריה
-  public getSubCategoryForCategory(codeCategory: number): Observable<Array<SubcategoryForTypeActivity>> {
-    const url: string = this.urlBasis + "/activities/SubCategoryForCategory/" + codeCategory;
-    return this.httpp.get(url) as Observable<Array<SubcategoryForTypeActivity>>
-  }
+
 
   AddSubCategory(subCategory: SubcategoryForTypeActivity): Observable<any> {
     const url: string = this.urlBasis + "/activities/AddSubCategory";
@@ -362,17 +308,7 @@ export class ApiService {
   }
 
 
-  //שליחת תמונת חניך לשרת
-  uploadImageStudent(formData: FormData, name: string): Observable<any> {
 
-    const url: string = this.urlBasis + "/images/UploadStudentImage/" + name;
-    return this.httpp.post(url, formData);
-  }
-  //קבלת תמונת חניך מהשרת
-  public getImageStudent(imageName: string): Observable<any> {
-    const url: string = this.urlBasis + "/images/GetImage/" + imageName;
-    return this.httpp.get(url, { responseType: 'blob' }) as Observable<any>
-  }
   //הצגת שיחות
   public getCalls(codeWorker: number, mailEnterOrSend: number): Observable<Array<Calll>> {
     const url: string = this.urlBasis + "/calls/GetCallls/" + codeWorker + "/" + mailEnterOrSend;

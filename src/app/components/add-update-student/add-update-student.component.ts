@@ -43,9 +43,9 @@ export class AddUpdateStudentComponent implements OnInit {
   @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1)
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
-  @Input() DifficultyStudent: Array<DifficultyStudent>=[]
-  @Input() Worker: Worker =new Worker(111,"",1,1,"","","","","")
-  @Input() StudiesForStudent: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
+  @Input() DifficultyStudent: Array<DifficultyStudent> = []
+  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   cb1: boolean = true;
   cb2: boolean = false;
@@ -162,7 +162,7 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //רשימת עובדים
   public generalWorkers(): void {
-    console.log(this.studentUpdate?.St_name+"2")
+    console.log(this.studentUpdate?.St_name + "2")
 
     if (this.cb1) {
       this.genderF = 1
@@ -171,9 +171,9 @@ export class AddUpdateStudentComponent implements OnInit {
       this.genderF = 2
 
     }
-   // this.api.getWorkers(1, this.genderF, 0, 0).subscribe(Date => {
+    // this.api.getWorkers(1, this.genderF, 0, 0).subscribe(Date => {
 
-    this.api.FindWorker("",1, this.genderF, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 1, this.genderF, 0, 0).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
@@ -236,6 +236,7 @@ export class AddUpdateStudentComponent implements OnInit {
   }
 
   //קליטת ערכים מתוך הינפוטים
+  //תמונה
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -245,6 +246,7 @@ export class AddUpdateStudentComponent implements OnInit {
     reader.readAsDataURL(file);
     this.image = file
   }
+
   //ת.ז
   onInputChangeID(event: Event) {
     const id: string = (event.target as HTMLInputElement).value
@@ -414,7 +416,7 @@ export class AddUpdateStudentComponent implements OnInit {
           this.snackBar.open('הבית כנסת נוסף בהצלחה', '', { duration: 2000 });
           this.generalSynagogueis();
           this.addSynagugaStatus = false;
-         this.St_code_synagogue = (response as Synagogue).Sy_code;
+          this.St_code_synagogue = (response as Synagogue).Sy_code;
         },
         (error) => {
           this.snackBar.open('הוספת הבית כנסת נכשלה נסה שוב.', '', { duration: 2000 });
@@ -739,7 +741,7 @@ export class AddUpdateStudentComponent implements OnInit {
   //הוספה
   public async add(): Promise<void> {
     this.loading = true
-    if (this.validation()) {
+    if (this.validationAdd()) {
       if (this.cb1) {
         this.St_gender = 1;
       }
@@ -775,17 +777,20 @@ export class AddUpdateStudentComponent implements OnInit {
       if (this.St_code_synagogue == -1) {
         this.St_code_synagogue = null
       }
-      const parentFAdd=new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F);
-      const parentMAdd=new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M);
-      const listOfDiffSelectedAdd=this.listOfDiffSelected;
-      const studiesAdd=new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
+      if (this.image) {
+        this.St_image = "yes";
+      }
+      const parentFAdd = new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F);
+      const parentMAdd = new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M);
+      const listOfDiffSelectedAdd = this.listOfDiffSelected;
+      const studiesAdd = new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
         this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school);
       const studentAdd: Student = new Student(1, this.St_ID, this.St_gender, this.St_name, this.St_Fname, this.St_image,
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
         this.St_code_frequency, this.St_amount_frequency);
-       const dataStudentAdd={data: [studentAdd,parentFAdd,parentMAdd,listOfDiffSelectedAdd,studiesAdd]}
+      const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
 
 
       //הוספת חניך
@@ -793,8 +798,17 @@ export class AddUpdateStudentComponent implements OnInit {
 
         this.api.AddStudent(dataStudentAdd).subscribe(
           (response) => {
-            this.St_code = response
+            this.St_code = (response as Student).St_code
+            if (this.image) {
+              const formData = new FormData();
+              formData.append("image", this.image, "student" + String(this.St_code));
 
+              this.api.uploadStudentImage(formData).subscribe({
+                next: () => console.log("תמונה הועלתה בהצלחה"),
+                error: err => console.error("שגיאה בהעלאת תמונה", err)
+              });
+
+            }
             resolve();
             this.loading = false
 
@@ -810,165 +824,158 @@ export class AddUpdateStudentComponent implements OnInit {
       this.popupDisplayOut.emit(false);
     }
     else {
-      this.snackBar.open('!חסרים פרטים או שחלקם שגויים', 'x', { duration: 3000 });
+      this.snackBar.open('חסרים פרטים או שחלקם שגויים', 'x', { duration: 3000 });
       this.loading = false
 
     }
-/*             //הוספת תמונה
-            if (this.image) {
-              const formData = new FormData();
-              formData.append('image', this.image, this.image.name);
-              this.api.uploadImageStudent(formData, "image" + this.St_code).subscribe(
-                (response) => {
-                  console.log('Image uploaded successfully:', response);
-                },
-                (error) => {
-                  console.error('Error uploading image:', error);
-                }
-              );
-            } */
+
   }
   //עדכון
   public async update(): Promise<void> {
     this.loading = true
+    //ת.ז 
+    if (this.St_ID.length != 0) {
+      this.studentUpdate.St_ID = this.St_ID;
+    }
+    //שם פרטי
+    if (this.St_name.length != 0) {
+      this.studentUpdate.St_name = this.St_name;
+    }
+    //שם משפחה
+    if (this.St_Fname.length != 0) {
+      this.studentUpdate.St_Fname = this.St_Fname;
+    }
+    //תמונה
+    
+    if (this.image) {
+      this.studentUpdate.St_image = "yes";
+    }
+    else{
+      this.studentUpdate.St_image = this.St_image;
+    
+    }
+    //תאריל לידה
+    if (this.St_birthday.length != 0) {
+      this.studentUpdate.St_birthday = this.St_birthday;
+    }
+    //כתובת
+    if (this.St_address.length != 0) {
+      this.studentUpdate.St_address = this.St_address;
+    }
+    //פלאפון
+    if (this.St_cell_phone.length != 0) {
+      this.studentUpdate.St_cell_phone = this.St_cell_phone;
+    }
+    //טלפון
+    if (this.St_phone.length != 0) {
+      this.studentUpdate.St_phone = this.St_phone;
+    }
+    //מייל
+    if (this.St_email.length != 0) {
+      this.studentUpdate.St_email = this.St_email;
+    }
+    //תיאור
+    if (this.St_description_reception_status.length != 0) {
+      this.studentUpdate.St_description_reception_status = this.St_description_reception_status;
+    }
+    //איש קשר
+    if (this.St_contact.length != 0) {
+      this.studentUpdate.St_contact = this.St_contact;
+    }
+    //פל איש קשר
+    if (this.St_contact_phone.length != 0) {
+      this.studentUpdate.St_contact_phone = this.St_contact_phone;
+    }
+    //מבקש
+    if (this.St_requester.length != 0) {
+      this.studentUpdate.St_requester = this.St_requester;
+    }
+    //אבא ואמא עדכון
+    //ת.ז אבא
+    if (this.Pa_ID_F.length != 0) {
+      if (this.Parent)
+        this.Parent.Pa_ID = this.Pa_ID_F;
+    }
+    if (this.Pa_name_F.length != 0) {
+      if (this.Parent)
+        this.Parent.Pa_name = this.Pa_name_F;
+    }
+    if (this.Pa_cell_phone_F.length != 0) {
+      if (this.Parent)
+        this.Parent.Pa_cell_phone = this.Pa_cell_phone_F;
+    }
+    if (this.Pa_work_F.length != 0) {
+      if (this.Parent)
+        this.Parent.Pa_work = this.Pa_work_F;
+    }
+    if (this.Pa_ID_M.length != 0) {
+      if (this.Parent1)
+        this.Parent1.Pa_ID = this.Pa_ID_M;
+    }
+    if (this.Pa_name_M.length != 0) {
+      if (this.Parent1)
+        this.Parent1.Pa_name = this.Pa_name_M;
+    }
+    if (this.Pa_cell_phone_M.length != 0) {
+      if (this.Parent1)
+        this.Parent1.Pa_cell_phone = this.Pa_cell_phone_M;
+    }
+    if (this.Pa_work_M.length != 0) {
+      if (this.Parent1)
+        this.Parent1.Pa_work = this.Pa_work_M;
+    }
+    //עיר
+    if (this.St_city_code != -1) {
+      this.studentUpdate.St_city_code = this.St_city_code
+    }
+    //חונך
+    if (this.St_worker_code != -1) {
+      this.studentUpdate.St_worker_code = this.St_worker_code
+    }
+    //סיכון
+    if (this.St_risk_code != -1) {
+      this.studentUpdate.St_risk_code = this.St_risk_code
+    }
+    //סוג תדירות
+    if (this.St_code_frequency != -1) {
+      this.studentUpdate.St_code_frequency = this.St_code_frequency
+    }
+    //כמות תדירות
+    if (this.St_amount_frequency != 0) {
+      this.studentUpdate.St_amount_frequency = this.St_amount_frequency
+    }
+    //סוציואקנומי
 
-    if (this.validation()) {
-      //ת.ז 
-      if (this.St_ID.length != 0) {
-        this.studentUpdate.St_ID = this.St_ID;
-      }
-      //שם פרטי
-      if (this.St_name.length != 0) {
-        this.studentUpdate.St_name = this.St_name;
-      }
-      //שם משפחה
-      if (this.St_Fname.length != 0) {
-        this.studentUpdate.St_Fname = this.St_Fname;
-      }
-      //תמונה
-      if (this.St_image.length != 0) {
-        this.studentUpdate.St_image = this.St_image;
-      }
-      //תאריל לידה
-      if (this.St_birthday.length != 0) {
-        this.studentUpdate.St_birthday = this.St_birthday;
-      }
-      //כתובת
-      if (this.St_address.length != 0) {
-        this.studentUpdate.St_address = this.St_address;
-      }
-      //פלאפון
-      if (this.St_cell_phone.length != 0) {
-        this.studentUpdate.St_cell_phone = this.St_cell_phone;
-      }
-      //טלפון
-      if (this.St_phone.length != 0) {
-        this.studentUpdate.St_phone = this.St_phone;
-      }
-      //מייל
-      if (this.St_email.length != 0) {
-        this.studentUpdate.St_email = this.St_email;
-      }
-      //תיאור
-      if (this.St_description_reception_status.length != 0) {
-        this.studentUpdate.St_description_reception_status = this.St_description_reception_status;
-      }
-      //איש קשר
-      if (this.St_contact.length != 0) {
-        this.studentUpdate.St_contact = this.St_contact;
-      }
-      //פל איש קשר
-      if (this.St_contact_phone.length != 0) {
-        this.studentUpdate.St_contact_phone = this.St_contact_phone;
-      }
-      //מבקש
-      if (this.St_requester.length != 0) {
-        this.studentUpdate.St_requester = this.St_requester;
-      }
-      //אבא ואמא עדכון
-/*       //ת.ז אבא
-      if (this.Pa_ID_F.length != 0) {
-        if (this.Parent)
-          this.Parent.Pa_ID = this.Pa_ID_F;
-      }
-      if (this.Pa_name_F.length != 0) {
-        if (this.Parent)
-          this.Parent.Pa_name = this.Pa_name_F;
-      }
-      if (this.Pa_cell_phone_F.length != 0) {
-        if (this.Parent)
-          this.Parent.Pa_cell_phone = this.Pa_cell_phone_F;
-      }
-      if (this.Pa_work_F.length != 0) {
-        if (this.Parent)
-          this.Parent.Pa_work = this.Pa_work_F;
-      }
-      if (this.Pa_ID_M.length != 0) {
-        if (this.Parent1)
-          this.Parent1.Pa_ID = this.Pa_ID_M;
-      }
-      if (this.Pa_name_M.length != 0) {
-        if (this.Parent1)
-          this.Parent1.Pa_name = this.Pa_name_M;
-      }
-      if (this.Pa_cell_phone_M.length != 0) {
-        if (this.Parent1)
-          this.Parent1.Pa_cell_phone = this.Pa_cell_phone_M;
-      }
-      if (this.Pa_work_M.length != 0) {
-        if (this.Parent1)
-          this.Parent1.Pa_work = this.Pa_work_M;
-      } */
-      //עיר
-      if (this.St_city_code != -1) {
-        this.studentUpdate.St_city_code = this.St_city_code
-      }
-      //חונך
-      if (this.St_worker_code != -1) {
-        this.studentUpdate.St_worker_code = this.St_worker_code
-      }
-      //סיכון
-      if (this.St_risk_code != -1) {
-        this.studentUpdate.St_risk_code = this.St_risk_code
-      }
-      //סוג תדירות
-      if (this.St_code_frequency != -1) {
-        this.studentUpdate.St_code_frequency = this.St_code_frequency
-      }
-      //כמות תדירות
-      if (this.St_amount_frequency != 0) {
-        this.studentUpdate.St_amount_frequency = this.St_amount_frequency
-      }
-      //סוציואקנומי
-
-      //קהילה
-      //בית כנסת
-      if (this.St_code_synagogue != -1) {
-        this.studentUpdate.St_code_synagogue = this.St_code_synagogue
-      }
-/*       //רשומת לימודים
-      if (this.SFS_current_school.length != 0) {
-        this.StudiesForStudent.SFS_current_school = this.SFS_current_school;
-      }
-      if (this.SFS_current_school_ame.length != 0) {
-        this.StudiesForStudent.SFS_current_school_ame = this.SFS_current_school_ame;
-      }
-      if (this.SFS_reception_class.length != 0) {
-        this.StudiesForStudent.SFS_reception_class = this.SFS_reception_class;
-      }
-      if (this.SFS_current_class.length != 0) {
-        this.StudiesForStudent.SFS_current_class = this.SFS_current_class;
-      }
-      if (this.SFS_previous_institutions.length != 0) {
-        this.StudiesForStudent.SFS_previous_institutions = this.SFS_previous_institutions;
-      }
-      if (this.SFS_previous_school.length != 0) {
-        this.StudiesForStudent.SFS_previous_school = this.SFS_previous_school;
-      } */
+    //קהילה
+    //בית כנסת
+    if (this.St_code_synagogue != -1) {
+      this.studentUpdate.St_code_synagogue = this.St_code_synagogue
+    }
+    //רשומת לימודים
+    if (this.SFS_current_school.length != 0) {
+      this.StudiesForStudent.SFS_current_school = this.SFS_current_school;
+    }
+    if (this.SFS_current_school_ame.length != 0) {
+      this.StudiesForStudent.SFS_current_school_ame = this.SFS_current_school_ame;
+    }
+    if (this.SFS_reception_class.length != 0) {
+      this.StudiesForStudent.SFS_reception_class = this.SFS_reception_class;
+    }
+    if (this.SFS_current_class.length != 0) {
+      this.StudiesForStudent.SFS_current_class = this.SFS_current_class;
+    }
+    if (this.SFS_previous_institutions.length != 0) {
+      this.StudiesForStudent.SFS_previous_institutions = this.SFS_previous_institutions;
+    }
+    if (this.SFS_previous_school.length != 0) {
+      this.StudiesForStudent.SFS_previous_school = this.SFS_previous_school;
+    }
+    if (this.validationUpdate()) {
       //עדכון תלמיד
-      console.log(this.studentUpdate)
+      const dataStudentUpdate = { data: [this.studentUpdate, this.Parent, this.Parent1, this.listOfDiffSelected, this.StudiesForStudent] }
+
       await new Promise<void>((resolve, reject) => {
-        this.api.UpdateStudent(this.studentUpdate).subscribe(
+        this.api.UpdateStudent(dataStudentUpdate).subscribe(
           (response) => {
             this.sec = response
             resolve();
@@ -984,30 +991,26 @@ export class AddUpdateStudentComponent implements OnInit {
       //עדכון תמונה
       if (this.image) {
         const formData = new FormData();
-        formData.append('image', this.image, this.image.name);
+        formData.append("image", this.image, "student" + String(this.studentUpdate.St_code));
         await new Promise<void>((resolve, reject) => {
-          this.api.uploadImageStudent(formData, "image" + this.studentUpdate.St_code).subscribe(
-            (response) => {
-              console.log('Image uploaded successfully:', response);
-              resolve();
-
+          this.api.uploadStudentImage(formData).subscribe({
+            next: () => {
+              console.log("תמונה הועלתה בהצלחה"); resolve();
             },
-            (error) => {
-              console.error('Error uploading image:', error);
-              resolve();
-
+            error: err => {
+              console.error("שגיאה בהעלאת תמונה", err); resolve();
             }
-          );
-
-        });
-        this.loading = false
-
+          });
+        }
+        );
       }
+      this.loading = false
+
       this.empty()
       this.popupDisplayOut.emit(false);
     }
     else {
-      this.snackBar.open('!הפרטים שגויים', 'x', { duration: 3000 });
+      this.snackBar.open('חסרים פרטים או שחלקם שגויים', 'x', { duration: 3000 });
       this.loading = false
 
     }
@@ -1069,14 +1072,25 @@ export class AddUpdateStudentComponent implements OnInit {
   }
 
   //בודקת אם כל הדגלים תקינים
-  public validation(): boolean {
+  public validationAdd(): boolean {
     return !this.validNane && !this.validNameF && !this.validId && !this.validCellPhoneStudent && !this.validCellPhoneStudent
       && !this.validBirthday && !this.validAddress && !this.validPhoneHome && !this.validEmail && !this.validNameFather
       && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
       && !this.validWorkMother && !this.validCellPhoneMother && !this.validStatusSocio && !this.validCurrentSchoolName
       && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
       && !this.validContact && !this.validContactPhone && !this.validDescriptionReceptionStatus && !this.validRequester &&
-        this.St_city_code!=-1 &&  this.St_code_synagogue!= -1 &&  this.St_worker_code!= -1 &&   this.St_risk_code!= -1 &&  this.St_code_frequency != -1;
+      this.St_city_code != -1 && this.St_code_synagogue != -1 && this.St_worker_code != -1 && this.St_risk_code != -1 && this.St_code_frequency != -1;
+  }
+  //בודקת אם כל הדגלים תקינים
+  public validationUpdate(): boolean {
+    return !this.validNane && !this.validNameF && !this.validId && !this.validCellPhoneStudent && !this.validCellPhoneStudent
+      && !this.validBirthday && !this.validAddress && !this.validPhoneHome && !this.validEmail && !this.validNameFather
+      && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
+      && !this.validWorkMother && !this.validCellPhoneMother && !this.validStatusSocio && !this.validCurrentSchoolName
+      && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
+      && !this.validContact && !this.validContactPhone && !this.validDescriptionReceptionStatus && !this.validRequester &&
+      this.studentUpdate.St_city_code != -1 && this.studentUpdate.St_code_synagogue != -1 && this.studentUpdate.St_worker_code != -1 &&
+      this.studentUpdate.St_risk_code != -1 && this.studentUpdate.St_code_frequency != -1;
   }
   //ממירה לתאריך
   date(dateString: string) {
@@ -1086,5 +1100,15 @@ export class AddUpdateStudentComponent implements OnInit {
 
 
 
-
+/*
+קוד ישן שליחה תמונה ל-c#  this.api.uploadImageStudent(formData, "image" + ).subscribe(
+   (response) => {
+     console.log('Image uploaded successfully:', response);
+     resolve();
+   },
+   (error) => {
+     console.error('Error uploading image:', error);
+     resolve();
+   }
+ ); */
 

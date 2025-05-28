@@ -33,15 +33,15 @@ export class DisplayStudentsComponent implements OnInit {
   studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
   ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
   Parent1Display: Parentt = new Parentt(111, "", "", "", "")
-  DifficultyStudentDisplay: Array<DifficultyStudent>=[]
-  WorkerDisplay: Worker =new Worker(111,"",1,1,"","","","","")
-  StudiesForStudentDisplay: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
+  DifficultyStudentDisplay: Array<DifficultyStudent> = []
+  WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  StudiesForStudentDisplay: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
   @Input() ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1Update: Parentt = new Parentt(111, "", "", "", "")
-  @Input() DifficultyStudentUpdate: Array<DifficultyStudent>=[]
-  @Input() WorkerUpdate: Worker =new Worker(111,"",1,1,"","","","","")
-  @Input() StudiesForStudentUpdate: StudiesForStudent=new StudiesForStudent(111,1,"","","","","","")
+  @Input() DifficultyStudentUpdate: Array<DifficultyStudent> = []
+  @Input() WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() StudiesForStudentUpdate: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Input() codeWorkerSelected = 0;
   //הגדרות סינונים של חניכים
   //מגדר-1 אב-0
@@ -265,57 +265,57 @@ export class DisplayStudentsComponent implements OnInit {
         });
       }
     })
-        //שליפת לימודים
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentDisplay?.St_code;
-          if (code != null) {
-            this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
-              this.StudiesForStudentDisplay = data;
-              resolve();
-    
-            });
-          }
-        })
-        //שליפת רשימת קשיים
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentDisplay?.St_code;
-          if (code!= null) {
-            this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
-              this.DifficultyStudentDisplay=[]
-              this.DifficultyStudentDisplay.push(...data);
-              resolve();
-    
-            });
-          }
-        })
-        //שליפת פעיל
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentDisplay?.St_worker_code;
-          if (code != null) {
-            this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
-              this.WorkerDisplay = data;
-              resolve();
-    
-            });
-          }
-        })
-    /*
-         await new Promise<void>((resolve, reject) => {
- 
-     //תמונה
-     const imageName = this.studentDisplay.St_image
-     if (imageName) {
-       this.api.getImageStudent(imageName)
-         .subscribe((data: Blob) => {
-           const reader = new FileReader();
-           reader.onloadend = () => {
-             this.imageBlobURL = reader.result as string;
-           };
-           reader.readAsDataURL(data);
-           resolve();
-         });
-     }
-         }) */
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+          this.StudiesForStudentDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת רשימת קשיים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_code;
+      if (code != null) {
+        this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+          this.DifficultyStudentDisplay = []
+          this.DifficultyStudentDisplay.push(...data);
+          resolve();
+
+        });
+      }
+    })
+    //שליפת פעיל
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_worker_code;
+      if (code != null) {
+        this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+          this.WorkerDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+    //תמונה
+    if (this.studentDisplay.St_image == "yes") {
+      await new Promise<void>((resolve, reject) => {
+        const imageName = "student" + this.studentDisplay.St_code
+        this.api.getStudentImage(imageName)
+          .subscribe((data: Blob) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              this.imageBlobURL = reader.result as string;
+            };
+            reader.readAsDataURL(data);
+            resolve();
+          }, (error) => resolve());
+
+      })
+    }
+
 
     this.displayPopup = true
 
@@ -345,59 +345,56 @@ export class DisplayStudentsComponent implements OnInit {
         });
       }
     })
-        //שליפת לימודים
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentUpdate?.St_code;
-          if (code != null) {
-            this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
-              this.StudiesForStudentUpdate = data;
-              resolve();
-    
-            });
-          }
-        })
-        //שליפת רשימת קשיים
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentUpdate?.St_code;
-          if (code!= null) {
-            this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
-              this.DifficultyStudentUpdate=[]
-              this.DifficultyStudentUpdate.push(...data);
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+          this.StudiesForStudentUpdate = data;
+          resolve();
 
-              resolve();
-    
-            });
-          }
-        })
-        //שליפת פעיל
-        await new Promise<void>((resolve, reject) => {
-          const code = this.studentUpdate?.St_worker_code;
-          if (code != null) {
-            this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
-              this.WorkerUpdate = data;
-              resolve();
-    
-            });
-          }
-        })
-    /*  //תמונה
-     await new Promise<void>((resolve, reject) => {
-       const imageName = this.studentUpdate.St_image
-       if (imageName) {
-         this.api.getImageStudent(imageName)
-           .subscribe((data: Blob) => {
-             const reader = new FileReader();
-             reader.onloadend = () => {
-               this.imageBlobURL = reader.result as string;
-             };
-             reader.readAsDataURL(data);
-             resolve();
-           });
-       }
-       else {
-         resolve();
-       }
-     }) */
+        });
+      }
+    })
+    //שליפת רשימת קשיים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_code;
+      if (code != null) {
+        this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+          this.DifficultyStudentUpdate = []
+          this.DifficultyStudentUpdate.push(...data);
+
+          resolve();
+
+        });
+      }
+    })
+    //שליפת פעיל
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentUpdate?.St_worker_code;
+      if (code != null) {
+        this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+          this.WorkerUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+    //תמונה
+    if (this.studentUpdate?.St_image == "yes") {
+      await new Promise<void>((resolve, reject) => {
+        const imageName = "student" + this.studentUpdate?.St_code
+        this.api.getStudentImage(imageName)
+          .subscribe((data: Blob) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              this.imageBlobURL = reader.result as string;
+            };
+            reader.readAsDataURL(data);
+            resolve();
+          }, (error) => resolve());
+      })
+    }
 
     this.sUpdateStudent = true
 

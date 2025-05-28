@@ -1,25 +1,30 @@
 $color-turqis: rgb(31, 126, 104);
 $color-turqis-dark: rgb(10, 70, 56);
 $color-white-dark: rgb(242, 244, 244);
+
 @keyframes backgroundAnimation {
     0% {
-      background-color:  rgb(255, 255, 255);
-  
+        background-color: rgb(255, 255, 255);
+
     }
+
     50% {
-      background-color: rgb(255, 255, 255);
-  
+        background-color: rgb(255, 255, 255);
+
     }
+
     100% {
-      background-color:rgb(255, 255, 255);
+        background-color: rgb(255, 255, 255);
     }
-  }
-  :host {
+}
+
+:host {
     display: block;
     height: 100%;
     width: 100%;
     animation: backgroundAnimation 10s infinite alternate;
-  }
+}
+
 button {
     font-family: Assistant-Light;
 }
@@ -28,6 +33,7 @@ h1,
 h2 {
     font-family: Assistant-Bold;
 }
+
 .top {
     background-color: $color-turqis;
     height: 10vh;
@@ -39,11 +45,13 @@ h2 {
     box-shadow: 0px 0px 10px 0px #4c4c4c;
 
 }
+
 .ologo {
     width: 20%;
     display: flexbox;
     direction: ltr;
 }
+
 .logo {
     height: 10vh;
     background-image: url('./logoTbig.png');
@@ -52,13 +60,14 @@ h2 {
     text-align: left;
     background-repeat: no-repeat;
 }
+
 .tab {
     direction: rtl;
     display: flex;
     flex-wrap: wrap;
     height: 35%;
     width: 80%;
-    margin: 1.2vh 30px 1.2vh  0px;
+    margin: 1.2vh 30px 1.2vh 0px;
 }
 
 
@@ -93,17 +102,19 @@ h2 {
 
     }
 }
-[list]{
+
+[list] {
     width: 30px;
-    height:30px;
+    height: 30px;
     background-image: url('../icons/list.png');
     background-size: contain;
     background-repeat: no-repeat;
-    border: 0px solid rgb(255, 255, 255,0.0);
-    background-color: rgb(242, 244, 244,0.0);
+    border: 0px solid rgb(255, 255, 255, 0.0);
+    background-color: rgb(242, 244, 244, 0.0);
     filter: invert(100%);
 
 }
+
 [windos] {
     margin: 10vh 0px 0px 0px;
     display: block;
@@ -114,7 +125,7 @@ h2 {
 }
 
 .button1 {
-    margin:5px;
+    margin: 5px;
     background-color: $color-turqis;
     flex: 1;
     border: 0px;
@@ -142,6 +153,7 @@ button:hover {
     background-color: $color-white-dark;
     color: $color-turqis-dark;
 }
+
 .homeOtef {
     margin: 5px;
     flex: 0.4;
@@ -153,6 +165,7 @@ button:hover {
     transition: border-top 1s;
     font-family: Assistant-Bold;
 }
+
 .home {
     width: 46px;
     height: 100%;
@@ -166,7 +179,8 @@ button:hover {
     align-items: center;
 
 }
-.inHome{
+
+.inHome {
     background-color: rgb(242, 244, 244, 0.0);
     background-image: url('../icons/exit2.png');
     background-size: contain;
@@ -185,6 +199,7 @@ button:hover {
         .tab {
             display: none;
         }
+
         .tab2 {
             display: contents;
             width: 60%;
@@ -202,7 +217,7 @@ button:hover {
 
     .ologo {
         margin-left: 7px;
-     width: 40%;
+        width: 40%;
     }
 
     [windos] {
@@ -220,7 +235,7 @@ button:hover {
 
     .ologo {
         margin-left: 2px;
-      width: 40%;
+        width: 40%;
     }
 
     .logo {
@@ -236,38 +251,43 @@ button:hover {
         height: 50px;
 
     }
+
     [windos] {
         margin: 70px 20px 0px 0px;
     }
-    select{
+
+    select {
         margin: 5px;
     }
 }
-header{
+
+header {
     display: none;
 }
+
 @media print {
-    [nonePrint]{
-      display: none;
+    [nonePrint] {
+        display: none;
     }
-    [windos]{
+
+    [windos] {
         margin: 0;
         overflow: visible;
     }
 
-        header {
-            height: 2cm;
-            display: block;
-            text-align: right;
-            background-image: url('./logoTbig.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: left;
-          }
-        
-          footer {
-            text-align: center;
-          }
-  
-    
-  }
+    header {
+        height: 2cm;
+        display: block;
+        text-align: right;
+        background-image: url('./logoTbig.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: left;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+
+}

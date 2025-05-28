@@ -27,8 +27,6 @@ import { City } from '../../models/city.class';
 export class HomeComponent implements OnInit {
   //  console.error("Geolocation is not supported by this browser.");
 
-  //ערים
-  lisOfCities: Array<City> = []
 
 
   sec = true
@@ -77,19 +75,10 @@ export class HomeComponent implements OnInit {
   isLoading = false
 
   constructor(private api: ApiService, private formBuilder: FormBuilder, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) {
-this.generalCities()
   }
 
 
-    //ערים
-    public generalCities() {
-      this.api.getCities().subscribe(Date => {
-        this.lisOfCities = []
-        this.lisOfCities.push(...Date);
-        this.cdRef.detectChanges();
-        console.log(this.lisOfCities.length+"כמות הערים")
-      } )
-    }
+
   //פעולה לטיימר
 
 

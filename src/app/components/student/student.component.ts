@@ -56,17 +56,18 @@ export class StudentComponent {
 
   }
   getImage(): void {
-    const imageName = this.student?.St_image
-    if (imageName) {
-      this.api.getImageStudent(imageName)
-        .subscribe((data: Blob) => {
+    if (this.student?.St_image == "yes") {
 
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            this.imageBlobURL = reader.result as string;
-          };
-          reader.readAsDataURL(data);
-        });
+    const imageName = "student" + this.student?.St_code
+    this.api.getStudentImage(imageName)
+      .subscribe((data: Blob) => {
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.imageBlobURL = reader.result as string;
+        };
+        reader.readAsDataURL(data);
+      });
     }
   }
   //פעילות אחרונה

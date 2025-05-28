@@ -199,7 +199,7 @@ export class ActivityReportingComponent implements OnInit {
         this.editStudent.emit(student);
 
     }
-    //רשימת תת קטגטרית רכישת מוצר
+    //רשימת תת קטגורית רכישת מוצר
     generalSubCategoryGift() {
         this.api.getSubCategoryForCategory(5).subscribe(Date => {
             this.listSubCategoryGift = []
