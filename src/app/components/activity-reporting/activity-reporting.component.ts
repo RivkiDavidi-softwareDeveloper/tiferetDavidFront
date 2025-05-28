@@ -18,6 +18,7 @@ import { FileUploadComponent } from "../file-upload/file-upload.component";
 import { AddActivityRequest } from '../../models/AddActivityRequest.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { TaskComponent } from "../task/task.component";
+import { response } from 'express';
 
 @Component({
     selector: 'app-activity-reporting',
@@ -190,7 +191,16 @@ export class ActivityReportingComponent implements OnInit {
             resolve(); // מסמן שהפעולה הושלמה
         });
         //this.generalStudents2()
+/*  // קוד לביצוע מחיקה
+        this.api.DeleteActi().subscribe(
+          (response) => {
+            this.snackBar.open('!הפעילויות נמחק בהצלחה', 'x', { duration: 3000 });
+          },
+          (error) => {
+            this.snackBar.open('תהליך המחיקה נכשל', 'x', { duration: 3000 });
 
+          }
+        ) */
     }
     //מעבר לעריכת חניך
     updateStudent() {
@@ -246,12 +256,13 @@ export class ActivityReportingComponent implements OnInit {
                 if (codeTypeActivity == 6) {
                     this.generalSubCategoryOut();
                     this.displaySubCategoryOut = false;
-                    this.codeSubCategoryOut = response
+                    this.codeSubCategoryOut = (response as SubcategoryForTypeActivity).SFTA_code
                 }
                 else {
                     this.generalSubCategoryGift();
                     this.displaySubCategoryGift = false;
-                    this.codeSubCategoryGift = response
+                    this.codeSubCategoryGift = (response as SubcategoryForTypeActivity).SFTA_code
+                    
                 }
 
             }
@@ -361,8 +372,9 @@ export class ActivityReportingComponent implements OnInit {
                 this.listOfStudents2 = []
                 await new Promise<void>((resolve, reject) => {
                     this.listOfStudents.forEach(s => {
-                        this.api.getLastActivityForStudent(s.St_code).subscribe(Date => {
-                            lastDate = Date;
+                        this.api.getLastActivityForStudent(s.St_code).subscribe(response => {
+                            lastDate = response;
+                            console.log(lastDate)
                             if (lastDate) {
                                 if (this.ifRedPoit(lastDate, s)) {
                                     this.listOfStudents2.push(s)
@@ -922,9 +934,12 @@ export class ActivityReportingComponent implements OnInit {
                 }
 
                 const activityAdd: Activity = new Activity(1, this.worker.Wo_code, this.AFS_date, this.AFS_activity_time,
-                    this.AFS_with_who, this.AFS_short_description, this.AFS_description, this.AFS_price, this.AFS_exit, this.AFS_target, this.AFS_kilometer, this.AFS_name_school, this.listSelectedStudents, this.listTypesForActivity)
+                    this.AFS_with_who, this.AFS_short_description, this.AFS_description, this.AFS_price, this.AFS_exit,
+                    this.AFS_target, this.AFS_kilometer, this.AFS_name_school, this.listSelectedStudents, this.listTypesForActivity)
                 await new Promise<void>((resolve, reject) => {
-                    this.api.addActivity(activityAdd, this.selectedFiles).subscribe((response) => {
+                    /*                     this.api.addActivity(activityAdd, this.selectedFiles).subscribe((response) => {
+                     */
+                    this.api.addActivity(activityAdd).subscribe((response) => {
                         console.log('Activity added successfully', response);
                         this.snackBar.open('הפעילות נשמרה בהצלחה', 'x', { duration: 3000 });
                         this.loading = false;
@@ -959,8 +974,8 @@ export class ActivityReportingComponent implements OnInit {
             this.addStudent.St_worker_code = this.worker.Wo_code;
             const parentFAdd = new Parentt(1, "", "", "", "");
             const parentMAdd = new Parentt(1, "", "", "", "");;
-            const studiesAdd = new StudiesForStudent(1, 1, "", "", "", "","", "");
-            const dataStudentAdd={data: [this.addStudent, parentFAdd, parentMAdd, [], studiesAdd]}
+            const studiesAdd = new StudiesForStudent(1, 1, "", "", "", "", "", "");
+            const dataStudentAdd = { data: [this.addStudent, parentFAdd, parentMAdd, [], studiesAdd] }
 
             //הוספת חניך
             await new Promise<void>((resolve, reject) => {

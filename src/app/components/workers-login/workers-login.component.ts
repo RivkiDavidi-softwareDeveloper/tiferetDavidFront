@@ -121,14 +121,14 @@ export class WorkersLoginComponent implements OnInit {
   }
   //כמות הודעות שלא נקראו
   amoumtMessagesNotDone() {
-    this.api.GetAmoumtMessagesNotDoneForWorker(this.worker.Wo_code).subscribe(Date => {
+   /*  this.api.GetAmoumtMessagesNotDoneForWorker(this.worker.Wo_code).subscribe(Date => {
       this.amountMessagesND = Number(Date);
       this.cdRef.detectChanges();
       if (!this.degelAudioMessege) {
         this.checkCondition()
         this.degelAudioMessege = true
       }
-    });
+    }); */
   }
   //כמות משימות שלא התבצעו
   amoumtTasksNotDone() {

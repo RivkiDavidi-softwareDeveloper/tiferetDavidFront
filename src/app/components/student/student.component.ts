@@ -58,23 +58,25 @@ export class StudentComponent {
   getImage(): void {
     if (this.student?.St_image == "yes") {
 
-    const imageName = "student" + this.student?.St_code
-    this.api.getStudentImage(imageName)
-      .subscribe((data: Blob) => {
+      const imageName = "student" + this.student?.St_code
+      this.api.getStudentImage(imageName)
+        .subscribe((data: Blob) => {
 
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          this.imageBlobURL = reader.result as string;
-        };
-        reader.readAsDataURL(data);
-      });
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            this.imageBlobURL = reader.result as string;
+          };
+          reader.readAsDataURL(data);
+        });
     }
   }
   //פעילות אחרונה
   getLastDate() {
-    this.api.getLastActivityForStudent(this.student?.St_code).subscribe(Date => {
-      this.lastDate = Date;
-    })
+    if (this.student)
+      this.api.getLastActivityForStudent(this.student?.St_code).subscribe(response => {
+        this.lastDate = response;
+        console.log(this.lastDate)
+      })
   }
   //האם זמן התדירות עבר
   ifRedPoit(): boolean {
