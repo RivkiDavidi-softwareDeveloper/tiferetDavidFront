@@ -162,8 +162,6 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //רשימת עובדים
   public generalWorkers(): void {
-    console.log(this.studentUpdate?.St_name + "2")
-
     if (this.cb1) {
       this.genderF = 1
     }

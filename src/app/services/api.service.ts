@@ -240,32 +240,25 @@ export class ApiService {
   }
   //מקבלת קוד חניך ושולפת מתי היתה הפעילות האחרונה איתו
   public getLastActivityForStudent(studentCode: number): Observable<any> {
-        return this.httpp.get(`${this.urlBasis}/activities/lastActivityForStudent/${studentCode}`);
+    return this.httpp.get(`${this.urlBasis}/activities/lastActivityForStudent/${studentCode}`);
   }
-  //הוספת פעילות
-
-
-/*   addActivity(activity: Activity, files: FileList | undefined): Observable<any> {
-    const formData: FormData = new FormData();
-
-    formData.append('activity', JSON.stringify(activity));
-    if (files)
-      for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i], files[i].name);
-      }
-    const url: string = this.urlBasis + "/activities/AddActivity";
-    return this.httpp.post(url, formData);
-  } */
-    addActivity(activity: Activity): Observable<any> {
+  //הוספת פעילות לא כולל קבצים
+  addActivity(activity: Activity): Observable<any> {
     return this.httpp.post(`${this.urlBasis}/activities/`, activity);
   }
-
-
-
-    DeleteActi() {
-      const code=9;
-    return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
+  //שליחת קובץ אקסל חניכים
+  /*   public uploadExcelFile(data: any[]): Observable<any> {
+      return this.httpp.post(this.urlBasis + '/Excel/Upload', data);
+    } */
+  uploadExcelFile(formData: FormData) {
+    return this.httpp.post(this.urlBasis + '/students/importExcel', formData);
   }
+
+  /* מחיקת כל הפעילויות
+      DeleteActi() {
+        const code=9;
+      return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
+    } */
   //////////////////////////////////////עד כאן שינתי
 
 
@@ -285,10 +278,7 @@ export class ApiService {
 
 
 
-  //שליחת קובץ אקסל חניכים
-  public uploadExcelFile(data: any[]): Observable<any> {
-    return this.httpp.post(this.urlBasis + '/Excel/Upload', data);
-  }
+
 
 
   /*   //כמויות פעילות
@@ -306,7 +296,7 @@ export class ApiService {
 
 
 
-   //הצגת שיחות
+  //הצגת שיחות
   public getCalls(codeWorker: number, mailEnterOrSend: number): Observable<Array<Calll>> {
     const url: string = this.urlBasis + "/calls/GetCallls/" + codeWorker + "/" + mailEnterOrSend;
     return this.httpp.get(url) as Observable<Array<Calll>>
@@ -331,13 +321,13 @@ export class ApiService {
     const url: string = this.urlBasis + "/calls/UpdateRecipientDone";
     return this.httpp.put<any>(url, recipient);
   }
-    /*
-  //הצגת כמות ההודעות שלא נקראו
-  public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number> {
-    const url: string = this.urlBasis + "/calls/GetAmoumtMessagesNotDoneForWorker/" + workerCode;
-    return this.httpp.get(url) as Observable<number>
-  }
- */
+  /*
+//הצגת כמות ההודעות שלא נקראו
+public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number> {
+  const url: string = this.urlBasis + "/calls/GetAmoumtMessagesNotDoneForWorker/" + workerCode;
+  return this.httpp.get(url) as Observable<number>
+}
+*/
 
   //הוספת פרויקט
 
@@ -387,4 +377,18 @@ export class ApiService {
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
+  //הוספת פעילות כולל קבצים
+
+
+  /*   addActivity(activity: Activity, files: FileList | undefined): Observable<any> {
+      const formData: FormData = new FormData();
+  
+      formData.append('activity', JSON.stringify(activity));
+      if (files)
+        for (let i = 0; i < files.length; i++) {
+          formData.append('files', files[i], files[i].name);
+        }
+      const url: string = this.urlBasis + "/activities/AddActivity";
+      return this.httpp.post(url, formData);
+    } */
 }

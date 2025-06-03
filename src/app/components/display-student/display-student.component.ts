@@ -23,7 +23,7 @@ import { Synagogue } from '../../models/synagogue.class';
   styleUrl: './display-student.component.scss'
 })
 export class DisplayStudentComponent implements OnInit {
- 
+
   @Input() selectedImage: string = "";
 
   @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
@@ -137,6 +137,7 @@ export class DisplayStudentComponent implements OnInit {
   }
   //חישוב גיל
   calculateAgeInYearsAndMonths(dateString: string): string {
+    
     const birthDate = new Date(dateString);
     const today = new Date();
 
@@ -169,5 +170,13 @@ export class DisplayStudentComponent implements OnInit {
   //שם תדירות
   Frequency(num: number): string {
     return Frequency[num]
+  }
+  convertDateBack(dateStr: string) {
+    if (dateStr.length > 0) {
+      const [year, month, day] = dateStr.split('-');
+      return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+    }
+    return "";
+
   }
 }

@@ -388,8 +388,8 @@
                 <label eror *ngIf="validReceptionClass">טקסט ארוך מהנדרש</label>
             </div>
             <div ca>
-                <label *ngIf="cb1">שיעור/כיתה נוכחי</label>
-                <label *ngIf="cb2">כיתה נוכחי</label>
+                <label *ngIf="cb1">שיעור/כיתה נוכחי (יש להכניס במבנה לדוג': כיתה ח / שיעור א)</label>
+                <label *ngIf="cb2">כיתה נוכחית (יש להכניס במבנה לדוג': כיתה יא)</label>
 
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentClass($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_class.length>0 && !validCurrentClass,'borderInputRed':validCurrentClass}">
