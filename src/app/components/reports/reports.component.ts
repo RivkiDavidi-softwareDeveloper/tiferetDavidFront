@@ -41,7 +41,7 @@ export class ReportsComponent {
   ngOnInit(): void {
     this.years = this.generateYears(); // הגדרת השנים בעת יצירת הקומפוננטה
     this.yearF = new Date().getFullYear()
-    this.monthF = new Date().getMonth()+1;
+    this.monthF = new Date().getMonth() + 1;
     this.generalActivities();
     this.generalWorkers();
     this.generalStudent();
@@ -50,36 +50,32 @@ export class ReportsComponent {
   }
   //רשימת הפעילויות
   generalActivities() {
-    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent,this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
+      this.amountW()
 
     });
-    this.amountW()
   }
   //רשימה של פעילים
   generalWorkers() {
-      this.api.FindWorker("",0, this.genderF, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, this.genderF, 0, 0).subscribe(Date => {
 
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
-      console.log(this.listOfWorkers.length + "פעילים")
-
     });
 
   }
   //רשימת חניכים
   generalStudent() {
-    this.api.FindStudent("",0, this.genderF, 0, this.workerF).subscribe(Date => {
+    this.api.FindStudent("", 0, this.genderF, 0, this.workerF).subscribe(Date => {
       this.listOfStudent = [];
       this.listOfStudent.push(...Date);
       this.cdRef.detectChanges();
-      console.log(this.listOfStudent.length + "חניכים")
 
     });
-    console.log(this.listOfStudent.length + "חניכים")
 
   }
   // רשימת קטגוריות לפעילות
@@ -395,38 +391,44 @@ export class ReportsComponent {
   }
   //כמות
   amountW() {
-/*     this.api.AountsActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF)
-      .subscribe(Date => {
-        this.amounts = []
-        this.amounts.push(...Date)
-      }) */
-
+    this.amounts[0] = 0;
+    this.amounts[1] = 0;
+    this.amounts[2] = 0;
+    this.amounts[3] = 0;
+    this.amounts[0] = this.listOfAcitivities.length;
+    this.listOfAcitivities.forEach(a => {
+      this.amounts[1] += a.AFS_activity_time;
+      this.amounts[2] += a.AFS_price;
+      this.amounts[3] += a.AFS_kilometer;
+    });
   }
   //חיפוש עובד
   onInputChangeSearchWorker(event: Event) {
     this.searchTextWorker = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
+      this.amountW();
+
     });
 
-    
-      this.amountW();
-    
+
+
   }
   //חיפוש חניך
   onInputChangeSearchStudent(event: Event) {
     this.searchTextStudent = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker,this.searchTextStudent,this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
+      this.amountW();
+
     });
 
 
-      this.amountW();
-    
+
   }
   //מוסיפה פסיקים
   addCommasToNumber(num: number): string {

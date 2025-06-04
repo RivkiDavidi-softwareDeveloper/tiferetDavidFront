@@ -75,7 +75,6 @@ export class StudentComponent {
     if (this.student)
       this.api.getLastActivityForStudent(this.student?.St_code).subscribe(response => {
         this.lastDate = response;
-        console.log(this.lastDate)
       })
   }
   //האם זמן התדירות עבר

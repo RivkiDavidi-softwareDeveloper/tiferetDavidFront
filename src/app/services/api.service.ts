@@ -247,9 +247,6 @@ export class ApiService {
     return this.httpp.post(`${this.urlBasis}/activities/`, activity);
   }
   //שליחת קובץ אקסל חניכים
-  /*   public uploadExcelFile(data: any[]): Observable<any> {
-      return this.httpp.post(this.urlBasis + '/Excel/Upload', data);
-    } */
   uploadExcelFile(formData: FormData) {
     return this.httpp.post(this.urlBasis + '/students/importExcel', formData);
   }
@@ -281,11 +278,6 @@ export class ApiService {
 
 
 
-  /*   //כמויות פעילות
-    public AountsActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<number>> {
-      const url: string = this.urlBasis + "/activities/AountsActivities/" + nameWorker + "/" + nameStudent + "/" + order + "/" + genderF + "/" + workerF + "/" + studentF + "/" + monthF + "/" + yearF + "/" + categoryF;
-      return this.httpp.get(url) as Observable<Array<number>>
-    } */
 
 
 
