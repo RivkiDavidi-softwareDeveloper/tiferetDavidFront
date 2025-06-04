@@ -39,4 +39,8 @@ export class ProjectsComponent {
     this.general()
     
   }
+  //הפעלת general מפרויקט
+    handleData(data: boolean) {
+    this.general();
+  }
 }

@@ -37,6 +37,7 @@ $color-turqis: rgb(1, 180, 150);
     }
 
     button {
+
         background-color: rgb(1, 180, 150);
         color: white;
         border: none;
@@ -50,6 +51,7 @@ $color-turqis: rgb(1, 180, 150);
         font-size: 2.6vh;
         line-height: 12%;
         margin-top: 4%;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
 
         &:hover {
             opacity: 0.5
@@ -62,6 +64,51 @@ $color-turqis: rgb(1, 180, 150);
 
     .buttonG {
         background-color: $color-pink ;
+    }
+
+    [otefEdid] {
+        display: flex;
+
+        [edit] {
+            background-image: url('../icons/reqest2.png');
+            background-position: 80%;
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-color: white;
+            font-size: 2.1vh;
+            color: black;
+            height: 25px;
+        font-family: Assistant-Regular;
+            margin: 0px 10% 0px 2%;
+            margin-top: 2%;
+
+            flex: 1;
+        }
+
+        [edit]:hover ,[delete]:hover{
+            font-family: Assistant-Bold;
+
+        }
+
+        [edit]:active ,[delete]:active{
+            font-family: Assistant-Bold;
+            top: 2px;
+        }
+
+        [delete] {
+            background-image: url('../icons/delete2.png');
+            background-position: 80%;
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-color: white;
+            font-size: 2.1vh;
+            color: black;
+        font-family: Assistant-Regular;
+            height: 25px;
+            margin: 0px 2% 0px 10%;
+            margin-top: 2%;
+            flex: 1;
+        }
     }
 
 }

@@ -853,7 +853,7 @@ export class AddUpdateStudentComponent implements OnInit {
       this.studentUpdate.St_image = this.St_image;
     
     }
-    //תאריל לידה
+    //תאריך לידה
     if (this.St_birthday.length != 0) {
       this.studentUpdate.St_birthday = this.St_birthday;
     }

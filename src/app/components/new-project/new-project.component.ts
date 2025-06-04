@@ -131,13 +131,13 @@ export class NewProjectComponent {
 
         this.api.AddProject(addProject).subscribe(
           (response) => {
-            this.snackBar.open('!הפרויקט נוסף בהצלחה', 'x', { duration: 3000 });
+            this.snackBar.open('הפרויקט נוסף בהצלחה', 'x', { duration: 3000 });
 
             resolve(); // מסמן שהפעולה הושלמה
 
           },
           (error) => {
-            this.snackBar.open('!אירעה שגיאה', 'x', { duration: 3000 });
+            this.snackBar.open('אירעה שגיאה', 'x', { duration: 3000 });
 
             resolve(); // מסמן שהפעולה הושלמה
 
@@ -154,6 +154,8 @@ export class NewProjectComponent {
 
   public async update(): Promise<void> {
     if (this.validation2()) {
+
+      this.Pr_gender = this.projectUpdate.Pr_gender
 
 
       if (this.Pr_name.length == 0) {

@@ -107,7 +107,7 @@ export class DisplayWorkersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // קוד לביצוע מחיקה
+     /*    // קוד לביצוע מחיקה
         this.api.DeleteWorker(code).subscribe(Date => {
           if (Date == 3) {
             this.snackBar.open('לא ניתן למחוק פעיל זה מכיון שמשויכים אליו חניכים/ הודעות ', 'x', { duration: 3000 });
@@ -116,7 +116,7 @@ export class DisplayWorkersComponent implements OnInit {
             this.snackBar.open('!העובד נמחק בהצלחה', 'x', { duration: 3000 });
             this.general();
           }
-        })
+        }) */
       } else {}
     });
   }

@@ -250,7 +250,19 @@ export class ApiService {
   uploadExcelFile(formData: FormData) {
     return this.httpp.post(this.urlBasis + '/students/importExcel', formData);
   }
-
+  //הוספת פרויקט
+  AddProject(project: Project): Observable<any> {
+    return this.httpp.post(`${this.urlBasis}/projects/`, project);
+  }
+  //עדכון פרויקט
+  UpdateProject(project: Project): Observable<any> {
+    const Pr_code = project.Pr_code;
+    return this.httpp.put(`${this.urlBasis + "/projects"}/${Pr_code}`, project);
+  }
+  //מחיקת פרויקט
+  deleteProject(Pr_code: number): Observable<any> {
+    return this.httpp.delete(`${this.urlBasis + "/projects"}/${Pr_code}`);
+  }
   /* מחיקת כל הפעילויות
       DeleteActi() {
         const code=9;
@@ -321,17 +333,8 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
 }
 */
 
-  //הוספת פרויקט
 
-  public AddProject(project: Project): Observable<any> {
-    const url: string = this.urlBasis + "/projects/AddProject";
-    return this.httpp.post<any>(url, project);
-  }
-  //עדכון פרויקט
-  public UpdateProject(project: Project): Observable<any> {
-    const url: string = this.urlBasis + "/projects/UpdateProject";
-    return this.httpp.put<any>(url, project);
-  }
+
   //הוספת חניכים לפרויקט
   //הוספת חניך לפקרויקט
   //הוספת חניכים לפרויקט לפי קוד פעיל
@@ -342,11 +345,6 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
 
 
 
-  //מחיקת משימה
-  public deleteTask(task: Taskk): Observable<any> {
-    const url: string = this.urlBasis + "/tasks/DeleteTask";
-    return this.httpp.post<any>(url, task);
-  }
 
 
 
@@ -363,16 +361,25 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
     const url: string = this.urlBasis + "/deshbord/GeneralDeshbord/" + codeFilter;
     return this.httpp.get(url) as Observable<Array<Array<number>>>
   }
-  //מוחקת עובד
-  //לא עובד
-  //צריך בצד שרת למחוק קודם את כל היסטוריית הפעיל ואז למחוק אותו
-  DeleteWorker(wo_code: number) {
-    return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
-  }
-  //הוספת פעילות כולל קבצים
+  /*   //מוחקת עובד
+    //לא עובד
+    //צריך בצד שרת למחוק קודם את כל היסטוריית הפעיל ואז למחוק אותו
+    DeleteWorker(wo_code: number) {
+      return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
+    } */
+
+  /*   //מחיקת משימה
+    //פעולה לא בשימוש
+    public deleteTask(task: Taskk): Observable<any> {
+      const url: string = this.urlBasis + "/tasks/DeleteTask";
+      return this.httpp.post<any>(url, task);
+    } */
 
 
-  /*   addActivity(activity: Activity, files: FileList | undefined): Observable<any> {
+  /*  
+    //הוספת פעילות כולל קבצים
+
+   addActivity(activity: Activity, files: FileList | undefined): Observable<any> {
       const formData: FormData = new FormData();
   
       formData.append('activity', JSON.stringify(activity));
