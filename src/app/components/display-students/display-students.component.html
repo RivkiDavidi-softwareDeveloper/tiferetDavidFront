@@ -133,7 +133,8 @@
 
 <app-add-update-student [popupDisplayIn]="sUpdateStudent" [status]="'update'"
     [selectedImage]="imageBlobURL" [studentUpdate]="studentUpdate"  [Parent]="ParentUpdate" [Parent1]="Parent1Update"
-    [DifficultyStudent]="DifficultyStudentUpdate" [Worker]="WorkerUpdate" [StudiesForStudent]="StudiesForStudentUpdate" (popupDisplayOut)="closePAdd($event)" [codeWorkerLogin]="codeWorkerSelected"></app-add-update-student>
+    [DifficultyStudent]="DifficultyStudentUpdate" [Worker]="WorkerUpdate" [StudiesForStudent]="StudiesForStudentUpdate"
+     (popupDisplayOut)="closePAdd($event)" [codeWorkerLogin]="codeWorkerSelected" [cb1]="studentUpdate.St_gender==1" [cb2]="studentUpdate.St_gender==2"></app-add-update-student>
 
 
 

@@ -1,8 +1,8 @@
-<div class="background" *ngIf="popupDisplayIn" >
-    <div class="popup"   >
-        <button class="close" (click)="close();" >x</button>
-        <h2 >{{student.St_name+" "+student.St_Fname}}</h2>
-        <div  otefImage>
+<div class="background" *ngIf="popupDisplayIn">
+    <div class="popup">
+        <button class="close" (click)="close();">x</button>
+        <h2>{{student.St_name+" "+student.St_Fname}}</h2>
+        <div otefImage>
             <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
         </div>
         <label>ת.ז: <label l2>{{student.St_ID}}</label></label>
@@ -39,12 +39,31 @@
         <h3 title5>לימודים</h3>
         <label>מוסד לימודים נוכחי:<label l2>{{StudiesForStudent.SFS_current_school}}</label> </label>
         <label>שם המוסד:<label l2> {{StudiesForStudent.SFS_current_school_ame}}</label></label>
-        <label>שיעור בקליטה:<label l2>{{StudiesForStudent.SFS_reception_class}}</label> </label>
-        <label>שיעור נוכחי: <label l2>{{StudiesForStudent.SFS_current_class}}</label></label>
-        <label>ישיבות קודמות:<label l2>{{StudiesForStudent.SFS_previous_institutions}}</label> </label>
-        <label>תלמוד תורה בו למד: <label l2>{{StudiesForStudent.SFS_previous_school}}</label></label>
-        <label>איש צוות מקושר: <label l2>{{student.St_contact}}</label></label>
-        <label>פל' איש צוות מקושר:<label l2> {{student.St_contact_phone}}</label></label>
+        <label *ngIf="student.St_gender==1">שיעור/כיתה בקליטה:<label
+                l2>{{StudiesForStudent.SFS_reception_class}}</label> </label>
+        <label *ngIf="student.St_gender==2">כיתה בקליטה:<label l2>{{StudiesForStudent.SFS_reception_class}}</label>
+        </label>
+
+        <label *ngIf="student.St_gender==1">שיעור/כיתה נוכחי: <label
+                l2>{{StudiesForStudent.SFS_current_class}}</label></label>
+        <label *ngIf="student.St_gender==2">כיתה נוכחית: <label
+                l2>{{StudiesForStudent.SFS_current_class}}</label></label>
+
+        <label *ngIf="student.St_gender==1">ישיבות קודמות:<label
+                l2>{{StudiesForStudent.SFS_previous_institutions}}</label> </label>
+        <label *ngIf="student.St_gender==2">תיכונים קודמים:<label
+                l2>{{StudiesForStudent.SFS_previous_institutions}}</label> </label>
+
+        <label *ngIf="student.St_gender==1">תלמוד תורה בו למד: <label
+                l2>{{StudiesForStudent.SFS_previous_school}}</label></label>
+        <label *ngIf="student.St_gender==2">בית ספר יסודי בו למדה: <label
+                l2>{{StudiesForStudent.SFS_previous_school}}</label></label>
+
+        <label *ngIf="student.St_gender==1">איש צוות מקושר: <label l2>{{student.St_contact}}</label></label>
+        <label *ngIf="student.St_gender==2">איש צוות מקושרת: <label l2>{{student.St_contact}}</label></label>
+
+        <label *ngIf="student.St_gender==1">פל' איש צוות מקושר:<label l2> {{student.St_contact_phone}}</label></label>
+        <label *ngIf="student.St_gender==2">פל' איש צוות מקושרת:<label l2> {{student.St_contact_phone}}</label></label>
 
         <h3 title6>תדירות הפעילות</h3>
         <label>סוג התדירות: <label l2>{{Frequency(student.St_code_frequency)}}</label></label>
@@ -57,8 +76,12 @@
                 l2>{{TypeDiffi(d.DS_diffculty_code)+","}}</label></label>
 
         <label>תאור מצב קליטה:<label l2>{{student.St_description_reception_status}}</label> </label>
-        <label>פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+" "+Worker.Wo_Fname}}</label></label>
-      <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
+        <label *ngIf="student.St_gender==1">פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+"
+                "+Worker.Wo_Fname}}</label></label>
+        <label *ngIf="student.St_gender==2">פעילה/חונכת ישירה: <label l2>{{Worker.Wo_name+"
+                "+Worker.Wo_Fname}}</label></label>
+
+        <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
         <br>
 
         <button (click)="print()" title="הדפס">הדפס</button>
@@ -129,7 +152,7 @@
 
             <label>תאור מצב קליטה:<label l2>{{student.St_description_reception_status}}</label> </label>
             <label>פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+" "+Worker.Wo_Fname}}</label></label>
-           <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
+            <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
         </div>
     </div>
 

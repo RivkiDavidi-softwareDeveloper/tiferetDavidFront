@@ -47,8 +47,8 @@ export class AddUpdateStudentComponent implements OnInit {
   @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
-  cb1: boolean = true;
-  cb2: boolean = false;
+ @Input() cb1: boolean = true;
+ @Input() cb2: boolean = false;
   cb3: boolean = true;
   cb4: boolean = false;
   cb5: boolean = false;
@@ -159,6 +159,7 @@ export class AddUpdateStudentComponent implements OnInit {
     this.generalWorkers();
     this.generalCommunities()
     this.generalSynagogueis()
+
   }
   //רשימת עובדים
   public generalWorkers(): void {
