@@ -1,0 +1,200 @@
+$color-yellow: rgb(255, 255, 82);
+$color-red: rgb(229, 45, 45);
+$color-turqis: rgb(1, 180, 150);
+$color-turqis-light: rgb(0, 254, 212);
+$color-pink: rgb(255, 0, 136);
+$color-blue-light: rgb(0, 200, 255);
+$color-green-light: rgb(11, 239, 7);
+$color-orange: rgb(255, 140, 0);
+
+//הרקע והפופפ
+[background] {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+
+    [popup] {
+        height: 360px;
+        width: 580px;
+        margin: auto;
+        overflow: scroll;
+        scroll-behavior: auto;
+        background-color: white;
+        padding: 20px 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: relative;
+
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-family: Assistant-SemiBold;
+        }
+
+        [name] {
+            margin-bottom: 20px;
+            color: $color-turqis;
+            font-size: 4vh;
+            font-weight: bold;
+        }
+
+        //כפתור
+        button {
+            font-family: Assistant-Regular;
+            background-color: $color-turqis;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: large;
+            font-weight: bold;
+            padding-bottom: 4px;
+            text-align: center;
+            width: 130px;
+            height: 41px;
+            text-decoration: none;
+
+        }
+
+        button:hover {
+            font-weight: bolder;
+        }
+
+        button:active {
+            position: relative;
+            top: 2px;
+
+        }
+
+        //כפתור סגירה
+        [close] {
+            width: 30px;
+            height: 30px;
+            background-color: $color-turqis;
+            font-family: Assistant-Bold;
+            border: none;
+            border-radius: 0px;
+            position: absolute;
+            top: 15px;
+            z-index: 999;
+            left: 15px;
+        }
+
+        [close]:active {
+            position: absolute;
+            top: 15px;
+            background-color: $color-turqis-light;
+        }
+
+        select {
+            font-size: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            height: 43px;
+            display: block;
+            text-align: right;
+            width: 276px;
+            font-family: Assistant-Regular;
+            //padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        // עיצוב מדריך
+        .guide-section {
+            border-top: 1px solid #ddd;
+            padding-top: 12px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+
+
+        }
+
+        .guide-title {
+            font-size: 17px;
+            font-weight: bold;
+            background-color: rgb(234, 255, 252);
+            ;
+            color: $color-turqis;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        div[tagList] {
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        ul.tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0;
+            margin: 0;
+        }
+
+        li[tagListItem] {
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #333;
+            list-style: none;
+            flex: 0 1 auto;
+            cursor: pointer;
+
+            div:first-child {
+                font-weight: bold;
+                color: #222;
+            }
+
+            div:last-child {
+                font-size: 12px;
+                color: #666;
+            }
+
+
+        }
+
+        li[tagListItem].selected {
+            border: 3px solid #000000; // צבע בולט (כחול)
+            background: #fafafa;
+
+        }
+
+        //כפתור שמירה
+        [save] {
+            display: block;
+            margin: 5px auto;
+        }
+
+        //חיפוש
+        .find {
+            color: gray;
+            border: 1px solid black;
+            width: 250px;
+            height: 30px;
+            padding: 2px 10px;
+            border-radius: 50px;
+        }
+
+        .find>input {
+            border: none;
+            outline: none;
+            font-family: Assistant-Light;
+            width: 240px;
+            height: 26px;
+            margin: auto;
+            font-size: 2.3vh;
+
+        }
+
+    }
+}

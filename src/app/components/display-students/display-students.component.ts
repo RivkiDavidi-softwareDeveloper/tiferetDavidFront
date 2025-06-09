@@ -152,8 +152,6 @@ export class DisplayStudentsComponent implements OnInit {
         this.amount = this.listOfStudents.length
 
       })
-
-
   }
   //סגירת הפופפ
   closePAdd(display: boolean) {

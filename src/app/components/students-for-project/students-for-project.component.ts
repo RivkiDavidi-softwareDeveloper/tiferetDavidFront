@@ -7,23 +7,26 @@ import { Project } from '../../models/project.class';
 import { Student } from '../../models/student.class';
 import { SharerForProject } from '../../models/sharerForProject.class';
 import { UploadFileExcelComponent } from "../upload-file-excel/upload-file-excel.component";
-import { GuideForProject } from '../../models/guideForProject';
+import { GuideForProject } from '../../models/guideForProject.class';
+import { GuideWithRelations } from '../../models/guideWithRelations.interface';
+import { AddStudentForProjectComponent } from "../add-student-for-project/add-student-for-project.component";
 
 @Component({
   selector: 'app-students-for-project',
   standalone: true,
-  imports: [CommonModule, UploadFileExcelComponent],
+  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent],
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
 export class StudentsForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
-  listStudentsForProjects: Array<StudentForProject> = []
-  listSharersForProjects: Array<SharerForProject> = []
-  listGuideForProjects: Array<GuideForProject> = []
+  
 
+
+  listAll:Array<GuideWithRelations>=[]
   sUploadExcel = false
+  sAddStudentForProject = false
 
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit() {
@@ -31,19 +34,10 @@ export class StudentsForProjectComponent {
   }
   //חניכים לפרויקט
   general() {
-    this.api.getStudentsForProjects(this.project.Pr_code).subscribe(Date => {
-      this.listStudentsForProjects = []
-      this.listStudentsForProjects.push(...Date);
-      this.cdRef.detectChanges();
-    })
-    this.api.getSharersForProjects(this.project.Pr_code).subscribe(Date => {
-      this.listSharersForProjects = []
-      this.listSharersForProjects.push(...Date);
-      this.cdRef.detectChanges();
-    })
-    this.api.getGuidesForProjects(this.project.Pr_code).subscribe(Date => {
-      this.listGuideForProjects = []
-      this.listGuideForProjects.push(...Date);
+
+    this.api.getGuidesForProjectsWithSudentsAndSharers(this.project.Pr_code).subscribe(Date => {
+      this.listAll = []
+      this.listAll.push(...Date);
       this.cdRef.detectChanges();
     })
   }
@@ -55,6 +49,12 @@ export class StudentsForProjectComponent {
   //סגירת פופפ אקסל
   closePUploadExcel(display: boolean) {
     this.sUploadExcel = display;
+    this.general();
+    // this.imageBlobURL = ""
+  }
+    //סגירת פופפ אקסל
+  closePAddStudentForProject(display: boolean) {
+    this.sAddStudentForProject = display;
     this.general();
     // this.imageBlobURL = ""
   }

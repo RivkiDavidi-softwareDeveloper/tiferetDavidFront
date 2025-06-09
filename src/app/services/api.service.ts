@@ -25,7 +25,8 @@ import { Community } from '../models/community.class';
 import { Synagogue } from '../models/synagogue.class';
 import { AddActivityRequest } from '../models/AddActivityRequest.class';
 import { SharerForProject } from '../models/sharerForProject.class';
-import { GuideForProject } from '../models/guideForProject';
+import { GuideForProject } from '../models/guideForProject.class';
+import { GuideWithRelations } from '../models/guideWithRelations.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -266,23 +267,33 @@ export class ApiService {
   }
 
 
-  //הצגת חניכים לפרויקט    
-  public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
-    const params = new HttpParams()
-      .set('codeProject', codeProject.toString());
-    return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects", { params });
-  }
-  //הצגת משתתפים לפרויקט    
-  public getSharersForProjects(codeProject: number): Observable<Array<SharerForProject>> {
-    const params = new HttpParams()
-      .set('codeProject', codeProject.toString());
-    return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects", { params });
-  }
-  //הצגת משתתפים לפרויקט    
+  /*   //הצגת חניכים לפרויקט    
+    public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
+      const params = new HttpParams()
+        .set('codeProject', codeProject.toString());
+      return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects", { params });
+    }
+    //הצגת משתתפים לפרויקט    
+    public getSharersForProjects(codeProject: number): Observable<Array<SharerForProject>> {
+      const params = new HttpParams()
+        .set('codeProject', codeProject.toString());
+      return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects", { params });
+    } */
+  //הצגת מדריכים לפרויקט    
   public getGuidesForProjects(codeProject: number): Observable<Array<GuideForProject>> {
     const params = new HttpParams()
       .set('codeProject', codeProject.toString());
     return this.httpp.get<Array<GuideForProject>>(this.urlBasis + "/guideForProjects", { params });
+  }
+  //הצגת מדריכים לפרויקט כולל חניכים ומשתתפים    
+  public getGuidesForProjectsWithSudentsAndSharers(codeProject: number): Observable<Array<GuideWithRelations>> {
+    const params = new HttpParams()
+      .set('codeProject', codeProject.toString());
+    return this.httpp.get<Array<GuideWithRelations>>(this.urlBasis + "/guideForProjects/WithSudentsAndSharers", { params });
+  }
+  //הוספת חניך לפרויקט
+  AddStudentForProject(studentForProject: StudentForProject): Observable<any> {
+    return this.httpp.post<any>(this.urlBasis + "/studentForProjects", studentForProject);
   }
   /* מחיקת כל הפעילויות
       DeleteActi() {

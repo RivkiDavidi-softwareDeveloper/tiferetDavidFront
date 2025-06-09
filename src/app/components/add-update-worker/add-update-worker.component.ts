@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./add-update-worker.component.scss'],
 
 })
-export class AddUpdateWorkerComponent  {
+export class AddUpdateWorkerComponent {
   @Input() status: string = 'add';
   @Input() popupDisplayIn: boolean = false;
   @Input() amountWorkers: number = 200;
@@ -83,7 +83,8 @@ export class AddUpdateWorkerComponent  {
       this.Wo_Fname = namef;
       this.validNameF = false;
     }
-    else {      this.validNameF = true;
+    else {
+      this.validNameF = true;
     }
   }
 
@@ -93,10 +94,10 @@ export class AddUpdateWorkerComponent  {
       this.Wo_ID = id;
       this.validId = false;
       if (this.cb3) {
-        this.password =  id.slice(5, 9)
+        this.password = id.slice(5, 9)
       }
       else {
-        this.password =  id.slice(5, 9)
+        this.password = id.slice(5, 9)
       }
       this.Wo_password = this.password
 
@@ -106,19 +107,19 @@ export class AddUpdateWorkerComponent  {
     }
   }
   onInputChangePS(event: Event) {
-    var str= (event.target as HTMLInputElement).value;
-    if(str.length==4){
-      this.Wo_password =str
-      this.validPassword=false
+    var str = (event.target as HTMLInputElement).value;
+    if (str.length == 4) {
+      this.Wo_password = str
+      this.validPassword = false
     }
-    else{
-      this.validPassword=true
+    else {
+      this.validPassword = true
     }
 
   }
   onInputChangePL(event: Event) {
     const pel: string = (event.target as HTMLInputElement).value
-    if ((pel.length == 10 || pel.length == 9|| pel.length==0) && this.isNumeric(pel)) {
+    if ((pel.length == 10 || pel.length == 9 || pel.length == 0) && this.isNumeric(pel)) {
       this.Wo_cell_phone = pel;
       this.validTel = false;
     }
@@ -131,23 +132,24 @@ export class AddUpdateWorkerComponent  {
     const email: string = (event.target as HTMLInputElement).value
     if (this.isValidEmail(email)) {
       this.Wo_email = email;
-      this.validEmail = false;    }
+      this.validEmail = false;
+    }
     else {
-            this.validEmail = true;
+      this.validEmail = true;
     }
 
   }
   //בודקת את תקינות כל הינפוטים
-  validation():boolean{
+  validation(): boolean {
     return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail && this.Wo_ID.length > 0
-    && this.Wo_name.length > 0 && this.Wo_Fname.length > 0 && this.Wo_password.length > 0 && this.Wo_cell_phone.length > 0;
+      && this.Wo_name.length > 0 && this.Wo_Fname.length > 0 && this.Wo_password.length > 0 && this.Wo_cell_phone.length > 0;
   }
-  validation2():boolean{
+  validation2(): boolean {
     return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail;
   }
   //הוספה
   public async add(): Promise<void> {
-    if (this.validation() ) {
+    if (this.validation()) {
       if (this.cb1) {
         this.Wo_gender = 1;
       }
@@ -165,17 +167,17 @@ export class AddUpdateWorkerComponent  {
       console.log(workerAdd)
       await new Promise<void>((resolve, reject) => {
 
-      this.api.AddWorker(workerAdd).subscribe(
-        (response) => {
-          this.sec = response
-          resolve(); // מסמן שהפעולה הושלמה
+        this.api.AddWorker(workerAdd).subscribe(
+          (response) => {
+            this.sec = response
+            resolve(); // מסמן שהפעולה הושלמה
 
-        },
-        (error) => {
-          this.sec = error
-          resolve(); // מסמן שהפעולה הושלמה
+          },
+          (error) => {
+            this.sec = error
+            resolve(); // מסמן שהפעולה הושלמה
 
-        });
+          });
       });
       this.empty()
       this.popupDisplayOut.emit(false);
@@ -186,10 +188,10 @@ export class AddUpdateWorkerComponent  {
   }
   //עדכון
 
-  public async update(): Promise<void>  {
+  public async update(): Promise<void> {
     if (this.validation2()) {
 
-    
+
       if (this.Wo_ID.length == 0) {
         this.Wo_ID = this.workerUpdate.Wo_ID
       }
@@ -208,21 +210,21 @@ export class AddUpdateWorkerComponent  {
       if (this.Wo_email.length == 0) {
         this.Wo_email = this.workerUpdate.Wo_email
       }
-      const workerUpdate: Worker = new Worker(this.workerUpdate.Wo_code, this.Wo_ID,this.workerUpdate.Wo_gender,this.workerUpdate.Wo_type_worker,
+      const workerUpdate: Worker = new Worker(this.workerUpdate.Wo_code, this.Wo_ID, this.workerUpdate.Wo_gender, this.workerUpdate.Wo_type_worker,
         this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email);
-        await new Promise<void>((resolve, reject) => {
+      await new Promise<void>((resolve, reject) => {
 
-      this.api.UpdateWorker(workerUpdate).subscribe(
-        (response) => {
-          this.sec = response
-          resolve(); // מסמן שהפעולה הושלמה
+        this.api.UpdateWorker(workerUpdate).subscribe(
+          (response) => {
+            this.sec = response
+            resolve(); // מסמן שהפעולה הושלמה
 
-        },
-        (error) => {
-          this.sec = error
-          resolve(); // מסמן שהפעולה הושלמה
+          },
+          (error) => {
+            this.sec = error
+            resolve(); // מסמן שהפעולה הושלמה
 
-        });
+          });
 
       });
       this.empty()

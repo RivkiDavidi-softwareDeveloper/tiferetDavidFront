@@ -5,8 +5,8 @@
     <p contect><label bold>תכנים:</label><label>{{project.Pr_content}}</label></p>
     <p place><label bold>מקום:</label><label>{{project.Pr_Place}}</label></p>
     <p date><label bold>תאריך:</label><label>{{convertDateBack(project.Pr_date)}}</label></p>
-    <button *ngIf="project.Pr_gender==1" class="buttonB" (click)="displayPopap=true">חניכים ומשתתפים משויכים</button>
-    <button *ngIf="project.Pr_gender==2" class="buttonG" (click)="displayPopap=true">חניכות ומשתתפות משויכות</button>
+    <button *ngIf="project.Pr_gender==1" class="buttonB" (click)="displayPopap=true">מדריכים ומשתתפים משויכים</button>
+    <button *ngIf="project.Pr_gender==2" class="buttonG" (click)="displayPopap=true">מדריכות ומשתתפות משויכות</button>
     <div otefEdid>
         <button edit title="ערוך" (click)="displayAddProject = true;">ערוך</button>
         <button delete title="מחק" (click)="deleteProject()">מחק</button>

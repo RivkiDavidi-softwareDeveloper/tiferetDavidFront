@@ -1,23 +1,33 @@
 <div background>
+
     <div popup>
         <button close (click)="close();">x</button>
 
-        <p name> {{project.Pr_name}}</p>
-        <button>שייך חניכים ממאגר</button>
-        <button (click)="sUploadExcel=true">הוסף משתתפים מקובץ אקסל</button>
-        <p>מדריכים:</p>
-        
-        <p>חניכים לפרויקט:</p>
+        <p name>פרויקט | {{ project.Pr_name }}</p>
+        <button buttonTop addStudent (click)="sAddStudentForProject=true">שייך חניכים ממאגר</button>
+        <button buttonTop exelSharers (click)="sUploadExcel = true">הוסף משתתפים מקובץ אקסל</button>
 
-        <div tagList>
-<!--             <li tagListItem *ngFor="let s of listStudentsForProjects">{{s.Student.St_name+" "+s.Student.St_Fname}}</li>
- -->            <li tagListItem *ngFor="let s of listSharersForProjects">{{s.Sharer.Sh_name+" "+s.Sharer.Sh_Fname +" "+s.Sharer.Sh_ID}}</li>
+        <div *ngFor="let g of listAll" class="guide-section">
+            <div class="guide-title">מדריך | {{ g.guide.GFP_name }}</div>
 
+            <div tagList>חניכים ומשתתפים:</div>
+            <ul class="tag-list">
+                <li tagListItem *ngFor="let s of g.students">
+                    <div><strong>{{ s.Student.St_name + " " + s.Student.St_Fname }}</strong></div>
+                    <div>ת.ז: {{ s.Student.St_ID }}</div>
+                </li>
+                <li tagListItem *ngFor="let s of g.sharers">
+                    <div><strong>{{ s.Sharer.Sh_name + " " + s.Sharer.Sh_Fname }}</strong></div>
+                    <div>ת.ז: {{ s.Sharer.Sh_ID }}</div>
+                </li>
+            </ul>
         </div>
-
     </div>
+
 </div>
 
 
 <app-upload-file-excel [popupDisplayIn]="sUploadExcel" [status]="'משתתפים'" [codeProject]="project.Pr_code"
     (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>
+<app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [project]="project"
+    (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>

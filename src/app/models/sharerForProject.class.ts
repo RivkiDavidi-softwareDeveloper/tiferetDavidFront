@@ -5,6 +5,8 @@ export class SharerForProject {
     public SFP_code: number,
     public SFP_code_project: number,
     public SFP_code_Sharer: number,
+    public SFP_code_guide: number,
+
     public Sharer: Sharer
 
 
