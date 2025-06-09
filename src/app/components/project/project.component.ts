@@ -42,28 +42,31 @@ export class ProjectComponent {
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-
-
           this.api.deleteProject(this.project.Pr_code).subscribe(
             (response) => {
               this.snackBar.open('!הפרויקט נמחק בהצלחה', 'x', { duration: 3000 });
-                                this.dataSent.emit(true);
-
+              this.dataSent.emit(true);
               resolve();
-
             },
             (error) => {
-              this.snackBar.open('!אירעה שגיאה', 'x', { duration: 3000 });
-              resolve(); 
+              this.snackBar.open('!לא ניתן למחוק פרויקט זה מכיון שישנם משתתפים המשויכים אליו', 'x', { duration: 3000 });
+              resolve();
             });
         }
-        else{
-                        resolve(); 
+        else {
+          resolve();
 
         }
       });
-
     });
   }
+  //המרה לתצוגת תאריך שונה
+convertDateBack(dateStr: string) {
+    if (dateStr.length > 0) {
+      const [year, month, day] = dateStr.split('-');
+      return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+    }
+    return "";
 
+  }
 }

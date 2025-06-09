@@ -48,7 +48,8 @@ $color-turqis: rgb(1, 180, 150);
         height: 25px;
         margin: 0px 10%;
         font-family: Assistant-Bold;
-        font-size: 2.6vh;
+        font-size: 2.2vh;
+
         line-height: 12%;
         margin-top: 4%;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
@@ -78,19 +79,21 @@ $color-turqis: rgb(1, 180, 150);
             font-size: 2.1vh;
             color: black;
             height: 25px;
-        font-family: Assistant-Regular;
+            font-family: Assistant-Regular;
             margin: 0px 10% 0px 2%;
             margin-top: 2%;
 
             flex: 1;
         }
 
-        [edit]:hover ,[delete]:hover{
+        [edit]:hover,
+        [delete]:hover {
             font-family: Assistant-Bold;
 
         }
 
-        [edit]:active ,[delete]:active{
+        [edit]:active,
+        [delete]:active {
             font-family: Assistant-Bold;
             top: 2px;
         }
@@ -103,7 +106,7 @@ $color-turqis: rgb(1, 180, 150);
             background-color: white;
             font-size: 2.1vh;
             color: black;
-        font-family: Assistant-Regular;
+            font-family: Assistant-Regular;
             height: 25px;
             margin: 0px 2% 0px 10%;
             margin-top: 2%;

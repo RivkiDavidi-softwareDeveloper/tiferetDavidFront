@@ -2,12 +2,22 @@
     <div popup>
         <button close (click)="close();">x</button>
 
-        <p>חניכים לפרויקט:</p>
-         <p name> {{project.Pr_name}}</p>
-         <div tagList>
-            <li tagListItem *ngFor="let s of listStudentsForProjects">{{nameStudent(s.SFP_code_student)}}</li>
-
-         </div>
+        <p name> {{project.Pr_name}}</p>
+        <button>שייך חניכים ממאגר</button>
+        <button (click)="sUploadExcel=true">הוסף משתתפים מקובץ אקסל</button>
+        <p>מדריכים:</p>
         
+        <p>חניכים לפרויקט:</p>
+
+        <div tagList>
+<!--             <li tagListItem *ngFor="let s of listStudentsForProjects">{{s.Student.St_name+" "+s.Student.St_Fname}}</li>
+ -->            <li tagListItem *ngFor="let s of listSharersForProjects">{{s.Sharer.Sh_name+" "+s.Sharer.Sh_Fname +" "+s.Sharer.Sh_ID}}</li>
+
+        </div>
+
     </div>
 </div>
+
+
+<app-upload-file-excel [popupDisplayIn]="sUploadExcel" [status]="'משתתפים'" [codeProject]="project.Pr_code"
+    (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>

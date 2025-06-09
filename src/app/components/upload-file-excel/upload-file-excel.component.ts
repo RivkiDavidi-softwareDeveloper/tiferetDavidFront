@@ -18,8 +18,8 @@ import { HttpClient } from '@angular/common/http';
 export class UploadFileExcelComponent {
   @Input() popupDisplayIn: boolean = false;
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
-
-
+  @Input() status: string = "חניכים";
+@Input() codeProject:number=1;
   constructor(private api: ApiService, private excelService: ExcelService, private snackBar: MatSnackBar) { }
 
   file: File | null = null;
@@ -37,41 +37,7 @@ export class UploadFileExcelComponent {
     reader.readAsDataURL(file);
     this.file = file
   }
-  /*   onFileChange22222(event: any) {
-      const target: DataTransfer = <DataTransfer>(event.target);
-      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-  
-      this.file = target.files[0];
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-        const bstr: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-        const wsname: string = wb.SheetNames[0];
-        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-        this.data = <any>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      };
-      reader.readAsBinaryString(this.file);
-    } */
 
-
-  /* 
-    onFileChange(event: any) {
-      const target: DataTransfer = <DataTransfer>(event.target);
-      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-  
-      this.file = target.files[0];
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-        const bstr: string = e.target.result;
-        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-        const wsname: string = wb.SheetNames[0];
-        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-        const jsonData: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1 }) as any[][];
-        this.data = jsonData.map((row: any[]) => row.slice(0, 39));
-  
-      };
-      reader.readAsBinaryString(this.file);
-    } */
   uploadFile() {
     if (!this.file) {
       this.snackBar.open('לא נבחר קובץ ', 'x', { duration: 1500 });
@@ -81,7 +47,8 @@ export class UploadFileExcelComponent {
 
       const formData = new FormData();
       formData.append('file', this.file, "fileuPLOWE");
-      this.api.uploadExcelFile(formData).subscribe({
+      if(this.status=="חניכים"){
+ this.api.uploadExcelFileStudents(formData).subscribe({
         next: res => {
           this.snackBar.open('קובץ החניכים הועלה בהצלחה', 'x', { duration: 1500 });
           this.close();
@@ -90,10 +57,29 @@ export class UploadFileExcelComponent {
           this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
         }
       });
+      }
+      else{
+         this.api.uploadExcelFileSharersForProject(formData,this.codeProject).subscribe({
+        next: res => {
+          this.snackBar.open('קובץ המשתתפים לפרויקט הועלה בהצלחה', 'x', { duration: 1500 });
+          this.close();
+        },
+        error: err => {
+          this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
+        }
+      });
+      }
+     
     }
   }
   downloadFile(): void {
-    const fileName = 'אקסל חניכים למילוי.xlsx';
+    let fileName = ""
+    if (this.status == "חניכים") {
+      fileName = 'אקסל חניכים למילוי.xlsx';
+    }
+    else {
+      fileName = 'אקסל משתתפים לפרויקט למילוי.xlsx';
+    }
     const fileUrl = `assets/${fileName}`;
     const a = document.createElement('a');
     a.href = fileUrl;

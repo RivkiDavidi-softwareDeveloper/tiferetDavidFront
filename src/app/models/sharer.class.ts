@@ -16,8 +16,6 @@ export class Sharer {
       public Sh_phone: string,
       public Sh_name_school_bein_hazmanim: string,
       public Sh_nusah_tfila: string,
-      public Parent: Parentt | undefined,
-      public Parent1: Parentt | undefined
     ){
     }
 }

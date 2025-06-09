@@ -3,11 +3,13 @@
         <br>
         <button close (click)="close();">x</button>
 
-        <button download (click)="downloadFile()"  >הורד קובץ חניכים למילוי</button>
-<!--         <input type="file" (change)="onFileChange($event)"> -->
+        <button download *ngIf="status=='חניכים'" (click)="downloadFile()">הורד קובץ חניכים למילוי</button>
+        <button download *ngIf="status=='משתתפים'" (click)="downloadFile()">הורד קובץ משתתפים למילוי</button>
+
+        <!--         <input type="file" (change)="onFileChange($event)"> -->
         <input type="file" id="file-upload" (change)="onFileSelected($event)">
 
-<!--         <label for="file-upload" class="upload-label">בחר קובץ</label> -->
+        <!--         <label for="file-upload" class="upload-label">בחר קובץ</label> -->
         <button *ngIf="file" upload (click)="uploadFile()">העלה קובץ</button>
 
 

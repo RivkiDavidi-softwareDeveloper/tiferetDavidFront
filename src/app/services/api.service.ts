@@ -24,6 +24,8 @@ import { Taskk } from '../models/task.class';
 import { Community } from '../models/community.class';
 import { Synagogue } from '../models/synagogue.class';
 import { AddActivityRequest } from '../models/AddActivityRequest.class';
+import { SharerForProject } from '../models/sharerForProject.class';
+import { GuideForProject } from '../models/guideForProject';
 
 @Injectable({
   providedIn: 'root'
@@ -155,12 +157,7 @@ export class ApiService {
     return this.httpp.get<Array<Project>>(this.urlBasis + "/projects", { params });
   }
 
-  //הצגת חניכים לפרויקט    
-  public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
-    const params = new HttpParams()
-      .set('codeProject', codeProject.toString());
-    return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects", { params });
-  }
+
   //הצגת כל המשימות לפי קוד פעיל
   public GetAllTastForWorker(workerCode: number): Observable<Array<Taskk>> {
     const params = new HttpParams()
@@ -247,8 +244,12 @@ export class ApiService {
     return this.httpp.post(`${this.urlBasis}/activities/`, activity);
   }
   //שליחת קובץ אקסל חניכים
-  uploadExcelFile(formData: FormData) {
+  uploadExcelFileStudents(formData: FormData) {
     return this.httpp.post(this.urlBasis + '/students/importExcel', formData);
+  }
+  //שליחת קובץ אקסל משתתפים לפרויקט
+  uploadExcelFileSharersForProject(formData: FormData, codeProject: number) {
+    return this.httpp.post(`${this.urlBasis + "/sharerForProjects/importExcel"}/${codeProject}`, formData);
   }
   //הוספת פרויקט
   AddProject(project: Project): Observable<any> {
@@ -262,6 +263,26 @@ export class ApiService {
   //מחיקת פרויקט
   deleteProject(Pr_code: number): Observable<any> {
     return this.httpp.delete(`${this.urlBasis + "/projects"}/${Pr_code}`);
+  }
+
+
+  //הצגת חניכים לפרויקט    
+  public getStudentsForProjects(codeProject: number): Observable<Array<StudentForProject>> {
+    const params = new HttpParams()
+      .set('codeProject', codeProject.toString());
+    return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects", { params });
+  }
+  //הצגת משתתפים לפרויקט    
+  public getSharersForProjects(codeProject: number): Observable<Array<SharerForProject>> {
+    const params = new HttpParams()
+      .set('codeProject', codeProject.toString());
+    return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects", { params });
+  }
+  //הצגת משתתפים לפרויקט    
+  public getGuidesForProjects(codeProject: number): Observable<Array<GuideForProject>> {
+    const params = new HttpParams()
+      .set('codeProject', codeProject.toString());
+    return this.httpp.get<Array<GuideForProject>>(this.urlBasis + "/guideForProjects", { params });
   }
   /* מחיקת כל הפעילויות
       DeleteActi() {
