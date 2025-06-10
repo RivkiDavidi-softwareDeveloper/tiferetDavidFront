@@ -1,0 +1,21 @@
+<div background *ngIf="popupDisplayIn">
+
+    <div popup>
+        <button close (click)="close();">x</button>
+        <br>
+        <br>
+
+        <label>הכנס שם מדריך:</label>
+        <input type="text" *ngIf="status === 'add'"
+            [ngClass]="{'borderInputGreen':nameGuide.length>0 && !validNane,'borderInputRed':validNane}"
+            (input)="onInputChangeN($event)">
+        <label eror *ngIf="validNane">מוגבל ל-30 תוים</label>
+        <br>
+
+        <button save (click)="add()">שמור</button>
+
+
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+    </div>
+
+</div>

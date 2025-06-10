@@ -10,24 +10,26 @@ import { UploadFileExcelComponent } from "../upload-file-excel/upload-file-excel
 import { GuideForProject } from '../../models/guideForProject.class';
 import { GuideWithRelations } from '../../models/guideWithRelations.interface';
 import { AddStudentForProjectComponent } from "../add-student-for-project/add-student-for-project.component";
+import { AddGuideForProjectComponent } from "../add-guide-for-project/add-guide-for-project.component";
+import { Sharer } from '../../models/sharer.class';
 
 @Component({
   selector: 'app-students-for-project',
   standalone: true,
-  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent],
+  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent],
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
 export class StudentsForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
-  
 
 
-  listAll:Array<GuideWithRelations>=[]
+
+  listAll: Array<GuideWithRelations> = []
   sUploadExcel = false
   sAddStudentForProject = false
-
+  sAddGuide = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit() {
     this.general();
@@ -41,7 +43,28 @@ export class StudentsForProjectComponent {
       this.cdRef.detectChanges();
     })
   }
+  displaySharer(sharer: Sharer) {
 
+  }
+  editSharer(sharer: Sharer) {
+
+  }
+  deleteSharer(codeSharer: number, nameSharer: string) {
+
+  }
+  displayStudent(student: Student) {
+
+  }
+  
+  editStudent(student: Student) {
+
+  }
+  deleteStudent(codeStudent: number, nameStudent: string) {
+
+  }
+print(){
+    window.print();
+}
   //סגירת הפופפ
   close(): void {
     this.popupDisplayOut.emit(false)
@@ -50,13 +73,16 @@ export class StudentsForProjectComponent {
   closePUploadExcel(display: boolean) {
     this.sUploadExcel = display;
     this.general();
-    // this.imageBlobURL = ""
   }
-    //סגירת פופפ אקסל
+  //סגירת פופפ הוספת חניכים ממאגר
   closePAddStudentForProject(display: boolean) {
     this.sAddStudentForProject = display;
     this.general();
-    // this.imageBlobURL = ""
+  }
+  //סגירת פופפ הוספת מדריך
+  closeAddGuide(display: boolean) {
+    this.sAddGuide = display;
+    this.general();
   }
 }
 

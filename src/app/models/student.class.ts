@@ -10,7 +10,7 @@ export class Student {
         public St_Fname: string,
         public St_image: string,
         public St_birthday: string,
-        public St_father_code: number|undefined,
+        public St_father_code: number | undefined,
         public St_mother_code: number | undefined,
         public St_city_code: number,
         public St_address: string,
@@ -27,8 +27,11 @@ export class Student {
         public St_requester: string,
         public St_code_synagogue: number,
         public St_code_frequency: number,
-        public St_amount_frequency: number
-) { }
+        public St_amount_frequency: number,
+        public St_name_school_bein_hazmanim: string,
+        public St_nusah_tfila: string,
+        public St_veshinantem: string,
+    ) { }
 
 
 }

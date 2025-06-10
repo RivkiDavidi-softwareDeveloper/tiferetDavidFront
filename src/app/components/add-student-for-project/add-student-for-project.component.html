@@ -14,12 +14,10 @@
                 <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
             </div>
             <ul class="tag-list">
-     <!--            <li tagListItem *ngFor="let s of listOfStudents">
-                    <div (click)="Select(s)"><strong>{{ s.St_name + " " + s.St_Fname }}</strong></div>
-                    <div>ת.ז: {{ s.St_ID }}</div>
-                </li> -->
-                <li tagListItem *ngFor="let s of listOfStudents" [class.selected]="s === selectedStudent" (click)="Select(s)">
-                    <div >
+
+                <li tagListItem *ngFor="let s of listOfStudents" [class.selected]="s === selectedStudent"
+                    (click)="Select(s)">
+                    <div>
                         <strong>{{ s.St_name + " " + s.St_Fname }}</strong>
                     </div>
                     <div>ת.ז: {{ s.St_ID }}</div>

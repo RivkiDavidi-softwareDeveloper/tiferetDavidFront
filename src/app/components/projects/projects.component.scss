@@ -110,3 +110,8 @@ button {
   }
 
 }
+@media print {
+  [nonePrint] {
+    display: none;
+  }
+}

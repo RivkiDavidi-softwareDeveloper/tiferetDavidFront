@@ -1,17 +1,82 @@
 <div background>
 
-    <div popup>
-        <button close (click)="close();">x</button>
+    <div popup Yesprint>
+        <button nonePrint close (click)="close();">x</button>
 
-        <p name>פרויקט | {{ project.Pr_name }}</p>
+        <p name Yesprint><label inName>פרויקט | </label>{{ project.Pr_name }}</p>
         <button buttonTop addStudent (click)="sAddStudentForProject=true">שייך חניכים ממאגר</button>
         <button buttonTop exelSharers (click)="sUploadExcel = true">הוסף משתתפים מקובץ אקסל</button>
+        <button buttonTop addGuide (click)="sAddGuide = true">הוסף מדריך</button>
+        <button buttonTop print (click)="print()">הדפס</button>
 
         <div *ngFor="let g of listAll" class="guide-section">
-            <div class="guide-title">מדריך | {{ g.guide.GFP_name }}</div>
+            <div class="guide-title"><label inName>מדריך | </label>{{ g.guide.GFP_name }}</div>
 
             <div tagList>חניכים ומשתתפים:</div>
-            <ul class="tag-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>שם</th>
+                        <th>ת.ז</th>
+                        <th>פל' חניך</th>
+                        <th>ישיבת בין הזמנים</th>
+                        <th>נוסח התפילה</th>
+                        <th>"ושננתם"</th>
+
+                        <th nonePrint> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of g.sharers">
+                        <td (click)="displaySharer(s.Sharer);">
+                            <div class="iconBig"
+                                [ngClass]="{'iconColorBoy':s.Sharer.Sh_gender==1,'iconColorGirl':s.Sharer.Sh_gender==2,}">
+                                <div class="icon"></div>
+                            </div>
+                        </td>
+                        <td class="bold" (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_name +" "+s.Sharer.Sh_Fname}}
+                        </td>
+                        <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_ID}}</td>
+                        <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_cell_phone}}</td>
+                        <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_name_school_bein_hazmanim}}</td>
+                        <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_nusah_tfila}}</td>
+                        <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_veshinantem}}</td>
+
+                        <td nonePrint>
+                            <button edit title="ערוך" (click)="editSharer(s.Sharer);">ערוך</button>
+                            <button edit title="העבר לרישום כחניך" (click)="editSharer(s.Sharer);">העבר לרישום
+                                כחניך</button>
+
+                            <button iconn2 delete title="מחק" class="button"
+                                (click)="deleteSharer(s.Sharer.Sh_code,s.Sharer.Sh_name+' '+s.Sharer.Sh_Fname)"></button>
+                    </tr>
+                    <tr *ngFor="let s of g.students">
+                        <td (click)="displayStudent(s.Student);">
+                            <div class="iconBig"
+                                [ngClass]="{'iconColorBoy':s.Student.St_gender==1,'iconColorGirl':s.Student.St_gender==2,}">
+                                <div class="icon"></div>
+                            </div>
+                        </td>
+                        <td class="bold" (click)="displayStudent(s.Student);">{{s.Student.St_name +"
+                            "+s.Student.St_Fname}}</td>
+                        <td (click)="displayStudent(s.Student);">{{s.Student.St_ID}}</td>
+                        <td (click)="displayStudent(s.Student);">{{s.Student.St_cell_phone}}</td>
+                        <td (click)="displayStudent(s.Student);">{{s.Student.St_name_school_bein_hazmanim}}</td>
+                        <td (click)="displayStudent(s.Student);">{{s.Student.St_nusah_tfila}}</td>
+                        <td (click)="displayStudent(s.Student);">{{s.Student.St_veshinantem}}</td>
+
+                        <td nonePrint>
+                            <button edit title="ערוך" (click)="editStudent(s.Student);">ערוך</button>
+                            <div >רשום כחניך במערכת</div>
+
+                            <button iconn2 delete title="מחק" class="button"
+                                (click)="deleteStudent(s.Student.St_code,s.Student.St_name+' '+s.Student.St_Fname)"></button>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--    <ul class="tag-list">
                 <li tagListItem *ngFor="let s of g.students">
                     <div><strong>{{ s.Student.St_name + " " + s.Student.St_Fname }}</strong></div>
                     <div>ת.ז: {{ s.Student.St_ID }}</div>
@@ -20,7 +85,7 @@
                     <div><strong>{{ s.Sharer.Sh_name + " " + s.Sharer.Sh_Fname }}</strong></div>
                     <div>ת.ז: {{ s.Sharer.Sh_ID }}</div>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 
@@ -31,3 +96,5 @@
     (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>
 <app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [project]="project"
     (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>
+<app-add-guide-for-project [popupDisplayIn]="sAddGuide" [codeProject]="project.Pr_code"
+    (popupDisplayOut)="closeAddGuide($event)"></app-add-guide-for-project>

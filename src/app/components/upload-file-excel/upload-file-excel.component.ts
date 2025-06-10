@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExcelService } from '../../services/excel.service';
 import { Student } from '../../models/student.class';
 import { ApiService } from '../../services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +19,7 @@ export class UploadFileExcelComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() status: string = "חניכים";
 @Input() codeProject:number=1;
-  constructor(private api: ApiService, private excelService: ExcelService, private snackBar: MatSnackBar) { }
+  constructor(private api: ApiService, private snackBar: MatSnackBar) { }
 
   file: File | null = null;
   data: any[] = [];

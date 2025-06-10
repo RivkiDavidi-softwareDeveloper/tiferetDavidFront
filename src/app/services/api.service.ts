@@ -295,11 +295,20 @@ export class ApiService {
   AddStudentForProject(studentForProject: StudentForProject): Observable<any> {
     return this.httpp.post<any>(this.urlBasis + "/studentForProjects", studentForProject);
   }
+  //הוספת מדריך לפרויקט
+  AddGuideForProject(guideForProject: GuideForProject): Observable<any> {
+    return this.httpp.post<any>(this.urlBasis + "/guideForProjects", guideForProject);
+  }
   /* מחיקת כל הפעילויות
       DeleteActi() {
         const code=9;
       return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
     } */
+  //מוחקת עובד
+  DeleteWorker(wo_code: number) {
+    return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
+  }
+
   //////////////////////////////////////עד כאן שינתי
 
 

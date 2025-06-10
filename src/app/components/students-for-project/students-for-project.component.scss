@@ -21,8 +21,8 @@ $color-orange: rgb(255, 140, 0);
   z-index: 8;
 
   [popup] {
-    height: 480px;
-    width: 700px;
+    height: 75%;
+    width: 80%;
     margin: auto;
     overflow: scroll;
     scroll-behavior: auto;
@@ -41,7 +41,7 @@ $color-orange: rgb(255, 140, 0);
       margin-bottom: 20px;
       color: $color-turqis;
       font-size: 4vh;
-      font-weight: bold;
+      font-weight: bolder;
     }
 
     //כפתור
@@ -61,7 +61,7 @@ $color-orange: rgb(255, 140, 0);
 
     }
 
- /*    button:hover {
+    /*    button:hover {
       font-weight: bolder;
     } */
 
@@ -93,7 +93,7 @@ $color-orange: rgb(255, 140, 0);
 
     [buttonTop] {
       background-position: 94%;
-      background-size: 15px;
+      background-size: 20px;
       background-repeat: no-repeat;
       background-color: white;
       font-size: 2.1vh;
@@ -104,7 +104,8 @@ $color-orange: rgb(255, 140, 0);
       margin-left: 10px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
       width: 240px;
-display: inline;    }
+      display: inline;
+    }
 
     [exelSharers] {
       background-image: url('../icons/excel.png');
@@ -114,17 +115,26 @@ display: inline;    }
       background-image: url('../icons/students.png');
     }
 
+    [addGuide] {
+      background-image: url('../icons/userPlus.png');
+    }
+        [print] {
+      background-image: url('../icons/print.png');
+    }
+
 
     // עיצוב מדריך
     .guide-section {
-      border-top: 1px solid #ddd;
-      padding-top: 12px;
-      margin-top: 16px;
+      border: 2.5px solid #ddd;
+      padding: 7px;
+
+      margin-top: 18px;
     }
 
     .guide-title {
       font-size: 17px;
-      font-weight: bold;
+      font-weight: bolder;
+      ;
       background-color: rgb(234, 255, 252);
       ;
       color: $color-turqis;
@@ -167,5 +177,165 @@ display: inline;    }
       }
     }
 
+    [inName] {
+      font-weight: normal;
+
+    }
+
+    table {
+      font-size: 2.1vh;
+      width: 100%;
+      margin: auto 0px auto 2.5vw;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-family: Assistant-Regular;
+
+      th,
+      td {
+        padding: 4px;
+        text-align: right;
+        border-bottom: 1px solid rgb(207, 207, 207);
+        word-wrap: break-word;
+      }
+
+      th {
+        background-color: rgb(229, 235, 235);
+      }
+
+      tr:hover {
+        background-color: rgb(229, 235, 235);
+      }
+
+
+      th:nth-child(1),
+      td:nth-child(1) {
+        width: 0.8cm;
+      }
+
+      th:nth-child(9),
+      td:nth-child(9) {
+        text-align: left;
+      }
+
+      thead {
+        height: 0.3cm;
+        font-family: Assistant-Bold;
+      }
+
+      //תמונה של הקוביה של המגדר
+      .iconBig {
+        height: 16px;
+        width: 16px;
+        margin: 1px auto;
+        border-radius: 50px;
+      }
+
+      .icon {
+        background-image: url('../icons/nesu2.png');
+        filter: invert(100%);
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 16px;
+        width: 16px;
+        display: block;
+        border: 5px solid (242, 14, 244);
+      }
+
+      //בן
+      .iconColorBoy {
+        background-color: $color-blue-light;
+        border: 5px solid $color-blue-light;
+      }
+
+      //בת
+      .iconColorGirl {
+        background-color: $color-pink;
+        border: 5px solid $color-pink;
+
+      }
+
+      //הסמלים של העריכה , הוספת פניה, מחיקה ותלמידים בטבלה
+
+      [delete] {
+        background-image: url('../icons/delete2.png');
+      }
+
+      /*   [edit] {
+    background-image: url('../icons/edit2.png');
+  } */
+      [edit] {
+        background-image: url('../icons/edit2.png');
+        background-position: 95%;
+        background-size: 20px;
+        background-repeat: no-repeat;
+        padding-left: 8px;
+        text-align: left;
+        font-size: 2.1vh;
+        width: 60px;
+        height: 25px;
+        background-color: white;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+        color: black;
+      }
+
+      [edit]:hover {
+        font-family: Assistant-Bold;
+        padding-left: 6px;
+
+      }
+
+      [edit]:active {
+        font-family: Assistant-Bold;
+        padding-left: 6px;
+        top: 2px;
+      }
+
+      [iconn2] {
+        height: 17px;
+        width: 17px;
+        background-size: contain;
+        margin: 7px;
+        background-repeat: no-repeat;
+        background-color: rgb(0, 0, 0, 0.0);
+      }
+
+    }
+
   }
+}
+@media print {
+  [nonePrint] {
+    display: none;
+  }
+  [background] {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 8;
+
+  [popup] {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    overflow: scroll;
+    scroll-behavior: auto;
+    background-color: white;
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    [buttonTop]{
+      display: none;
+    }
+  }
+}
+/*   [Yesprint]{
+  display: block !important;
+
+  } */
 }

@@ -30,13 +30,13 @@ import { error } from 'node:console';
 export class DisplayStudentsComponent implements OnInit {
   listOfStudents: Array<Student> = []
   listOfWorkers: Array<Worker> = []
-  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
   ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
   Parent1Display: Parentt = new Parentt(111, "", "", "", "")
   DifficultyStudentDisplay: Array<DifficultyStudent> = []
   WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   StudiesForStudentDisplay: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
-  @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
   @Input() ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1Update: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudentUpdate: Array<DifficultyStudent> = []

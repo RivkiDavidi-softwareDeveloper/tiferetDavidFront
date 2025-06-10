@@ -40,7 +40,7 @@ export class AddUpdateStudentComponent implements OnInit {
   listOfsynagogueis: Array<Synagogue> = []
   codeCommonity = -1
   //לעדכון
-  @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
@@ -788,7 +788,7 @@ export class AddUpdateStudentComponent implements OnInit {
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency);
+        this.St_code_frequency, this.St_amount_frequency,"","","");
       const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
 
 

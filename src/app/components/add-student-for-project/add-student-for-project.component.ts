@@ -36,16 +36,14 @@ export class AddStudentForProjectComponent {
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
-  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
 
   listOfStudents: Array<Student> = []
   listOfGuides: Array<GuideForProject> = []
-  sUploadExcel = false
   //הגדרות סינונים של חניכים
   //מגדר-1 אב-0
   order = 1;
   genderF = 0;
-
   searchText = ""
   //אנימציה
   loading = false
@@ -93,18 +91,22 @@ export class AddStudentForProjectComponent {
 
           });
       });
-         this.loading = false
+      this.loading = false
 
       this.empty()
       this.popupDisplayOut.emit(false);
     }
+    else{
+            this.snackBar.open('לא נבחר חניך או מדריך', 'x', { duration: 3000 });
+
+    }
   }
   empty() {
     this.selectedGuideCode = -1
-    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1)
+    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
 
   }
-    //חיפוש
+  //חיפוש
   onInputChange(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
     this.generalStudent()
@@ -113,8 +115,13 @@ export class AddStudentForProjectComponent {
   close(): void {
     this.popupDisplayOut.emit(false)
   }
+  //בחירת חניך
   Select(student: Student) {
-    this.selectedStudent = student;
+    if (this.selectedStudent.St_code == student.St_code) {
+      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
+    }
+    else
+      this.selectedStudent = student;
   }
 }
 
