@@ -31,6 +31,7 @@ import { Worker } from '../../models/worker.class';
 export class StudentsForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
+  //העברת משתתף לחניך
   studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
   ParentNew: Parentt = new Parentt(-1, "", "", "", "")
   Parent1New: Parentt = new Parentt(-1, "", "", "", "")
@@ -38,11 +39,20 @@ export class StudentsForProjectComponent {
   WorkerNew: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "")
   StudiesForStudentNew: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   sAddStudentFromSharer = false
+  //עדכון פרטי חניך בפרויקט
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+
+  studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, this.studentUpdate)
+
+
   loading = false
   listAll: Array<GuideWithRelations> = []
+  listStudentsForProject: Array<StudentForProject> = []
+
   sUploadExcel = false
   sAddStudentForProject = false
   sAddGuide = false
+  sUpdateStudentForProject = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit() {
     this.general();
@@ -55,6 +65,7 @@ export class StudentsForProjectComponent {
       this.listAll.push(...Date);
       this.cdRef.detectChanges();
     })
+
   }
   displaySharer(sharer: Sharer) {
 
@@ -62,8 +73,8 @@ export class StudentsForProjectComponent {
   editSharer(sharer: Sharer) {
 
   }
-
-  async editSharerForStudent(sharer: Sharer) {
+  //רישום חניך ממשתתתף
+  async editSharerForStudent(sharer: Sharer, codeGuide: number, codeSharerForProject: number) {
     this.loading = true
     this.studentNew.St_ID = sharer.Sh_ID
     this.studentNew.St_gender = sharer.Sh_gender
@@ -166,12 +177,33 @@ export class StudentsForProjectComponent {
         });
       }
     })
+    //רישום לפרויקט כחניך
+    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, codeGuide, this.studentNew)
+    await new Promise<void>((resolve, reject) => {
+      this.api.AddStudentForProject(studentForProject).subscribe(
+        (response) => {
+          resolve(); // מסמן שהפעולה הושלמה
+
+        },
+        (error) => {
+          resolve(); // מסמן שהפעולה הושלמה
+
+        });
+    });
+    //מחיקה מהפרויקט כמשתתף
+    this.api.deleteSharerForProjects(codeSharerForProject).subscribe(
+      (message: any) => {
+        this.general();
+      },
+      (error) => {
+      });
     this.loading = false
 
     this.sAddStudentFromSharer = true
 
   }
-  deleteSharer(codeSharer: number, nameSharer: string) {
+  //מחיקת  משתתף מפרויקט
+  deleteSharer(codeSharerForProject: number, nameSharer: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
       data: { title: 'אישור מחיקה', message: ' :האם למחוק את המשתתף' + nameSharer + '\n מפרויקט:' + this.project.Pr_name + '?' }
@@ -179,7 +211,7 @@ export class StudentsForProjectComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // קוד לביצוע מחיקה
-        this.api.deleteSharerForProjects(codeSharer).subscribe(
+        this.api.deleteSharerForProjects(codeSharerForProject).subscribe(
           (message: any) => {
             this.snackBar.open(message.message, 'x', { duration: 3000 });
             this.general();
@@ -195,10 +227,13 @@ export class StudentsForProjectComponent {
 
   }
 
-  editStudent(student: Student) {
+  editStudent(studentForProject: StudentForProject) {
 
+    this.studentForProjectUpdate = studentForProject
+    this.sUpdateStudentForProject=true
   }
-  deleteStudent(codeStudent: number, nameStudent: string) {
+  //מחיקת חניך מפרויקט
+  deleteStudent(codeStudentForProject: number, nameStudent: string) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
       data: { title: 'אישור מחיקה', message: ' :האם למחוק את החניך' + nameStudent + '\n מפרויקט:' + this.project.Pr_name + '?' }
@@ -206,7 +241,7 @@ export class StudentsForProjectComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // קוד לביצוע מחיקה
-        this.api.deleteStudentForProject(codeStudent).subscribe(
+        this.api.deleteStudentForProject(codeStudentForProject).subscribe(
           (message: any) => {
             this.snackBar.open(message.message, 'x', { duration: 3000 });
             this.general();
@@ -221,6 +256,12 @@ export class StudentsForProjectComponent {
   print() {
     window.print();
   }
+  enterListOfStudents() {
+    this.listStudentsForProject = []
+    this.listAll.forEach(g => {
+      this.listStudentsForProject.push(...g.students)
+    });
+  }
   //סגירת הפופפ
   close(): void {
     this.popupDisplayOut.emit(false)
@@ -233,6 +274,7 @@ export class StudentsForProjectComponent {
   //סגירת פופפ הוספת חניכים ממאגר
   closePAddStudentForProject(display: boolean) {
     this.sAddStudentForProject = display;
+    this.sUpdateStudentForProject = display
     this.general();
   }
   //סגירת פופפ הוספת מדריך
@@ -245,6 +287,7 @@ export class StudentsForProjectComponent {
     this.sAddStudentFromSharer = display;
     this.general();
   }
+
 }
 
 

@@ -316,7 +316,11 @@ export class ApiService {
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
-
+  //עדכון חניך עבור שיוך חניך לפרויקט בלבד
+  UpdateStudentForProject(student: Student): Observable<any> {
+    const St_code = student.St_code;
+    return this.httpp.put(`${this.urlBasis + "/students"}/${St_code}`, student);
+  }
 
   //////////////////////////////////////עד כאן שינתי
 

@@ -7,7 +7,7 @@
 
         <label>הכנס שם מדריך:</label>
         <input type="text" *ngIf="status === 'add'"
-            [ngClass]="{'borderInputGreen':nameGuide.length>0 && !validNane,'borderInputRed':validNane}"
+            [ngClass]="{'borderInputRed':validNane}"
             (input)="onInputChangeN($event)">
         <label eror *ngIf="validNane">מוגבל ל-30 תוים</label>
         <br>

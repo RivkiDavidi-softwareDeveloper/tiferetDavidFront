@@ -2,18 +2,18 @@
 
     <div popup>
         <button close (click)="close();">x</button>
-        <br>
-        <label>בחר מדריך:</label>
-        <select (change)="onGuideSelected($event)">
-            <option selected hidden> בחר</option>
-            <option *ngFor="let g of listOfGuides" [value]="g.GFP_code">{{g.GFP_name }}</option>
-        </select>
-        <label>בחר חניך:</label>
+        <h1 *ngIf="status === 'add'">שייך חניך ממאגר</h1>
+        <h1 *ngIf="status === 'update'">עדכן פרטי חניך לפרויקט </h1>
+
+
+        <label *ngIf="status === 'add'">בחר חניך</label>
+        <label *ngIf="status === 'update'"> חניך</label>
+
         <div class="guide-section">
-            <div class="find">
+            <div *ngIf="status === 'add'" class="find">
                 <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
             </div>
-            <ul class="tag-list">
+            <ul class="tag-list" *ngIf="status === 'add'">
 
                 <li tagListItem *ngFor="let s of listOfStudents" [class.selected]="s === selectedStudent"
                     (click)="Select(s)">
@@ -22,10 +22,51 @@
                     </div>
                     <div>ת.ז: {{ s.St_ID }}</div>
                 </li>
-
+            </ul>
+            <ul class="tag-list" *ngIf="status === 'update'">
+                <li tagListItem [class.selected]="studentForProjectUpdate.Student === studentUpdate">
+                    <div>
+                        <strong>{{ studentForProjectUpdate.Student.St_name + " " +
+                            studentForProjectUpdate.Student.St_Fname }}</strong>
+                    </div>
+                    <div>ת.ז: {{ studentForProjectUpdate.Student.St_ID }}</div>
+                </li>
             </ul>
         </div>
-        <button save (click)="add()">שמור</button>
+        <label> מדריך</label>
+        <select *ngIf="status === 'add'" (change)="onGuideSelected($event)">
+            <option selected hidden> בחר</option>
+            <option *ngFor="let g of listOfGuides" [value]="g.GFP_code">{{g.GFP_name }}</option>
+        </select>
+        <select *ngIf="status === 'update'" (change)="onGuideSelected($event)">
+            <option selected hidden> בחר</option>
+            <option *ngFor="let g of listOfGuides" [value]="g.GFP_code"
+                [selected]="g.GFP_code==studentForProjectUpdate.SFP_code_guide">{{g.GFP_name }}</option>
+        </select>
+        <label>ישיבת בין הזמנים</label>
+        <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validNaneBeinHazmanim}"
+            (input)="onInputChangeNaneBeinHazmanim($event)">
+
+        <input type="text" *ngIf="status === 'update'"
+            value="{{studentForProjectUpdate.Student.St_name_school_bein_hazmanim}}"
+            [ngClass]="{'borderInputRed':validNaneBeinHazmanim}" (input)="onInputChangeNaneBeinHazmanim($event)">
+
+        <label eror *ngIf="validNaneBeinHazmanim">מוגבל ל-40 תוים</label>
+        <label>נוסח התפילה</label>
+        <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validNusahTfila}"
+            (input)="onInputChangeNusahTfila($event)">
+        <input type="text" *ngIf="status === 'update'" value="{{studentForProjectUpdate.Student.St_nusah_tfila}}"
+            [ngClass]="{'borderInputRed':validNusahTfila}" (input)="onInputChangeNusahTfila($event)">
+        <label eror *ngIf="validNusahTfila">מוגבל ל-40 תוים</label>
+
+        <label>"ושננתם"</label>
+        <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validVeshinantem}"
+            (input)="onInputChangeVeshinantem($event)">
+        <input type="text" *ngIf="status === 'update'" value="{{studentForProjectUpdate.Student.St_veshinantem}}"
+            [ngClass]="{'borderInputRed':validVeshinantem}" (input)="onInputChangeVeshinantem($event)">
+        <label eror *ngIf="validVeshinantem">מוגבל ל-40 תוים</label>
+        <button save *ngIf="status === 'add'" (click)="add()">הוסף</button>
+        <button save *ngIf="status === 'update'" (click)="update()"> עדכן</button>
 
 
         <app-loading-spinner *ngIf="loading"></app-loading-spinner>

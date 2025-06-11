@@ -33,10 +33,23 @@ import { StudentForProject } from '../../models/studentForProject.class';
 export class AddStudentForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() popupDisplayIn: boolean = false;
+  @Input() status = "add"
+  @Input() listStudentsForProject: Array<StudentForProject> = []
+  St_name_school_bein_hazmanim = ""
+  St_nusah_tfila = ""
+  St_veshinantem = ""
+  validNaneBeinHazmanim = false
+  validNusahTfila = false
+  validVeshinantem = false
+
+  //לעדכון
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+
+  @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, this.studentUpdate)
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
-  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
+  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   listOfStudents: Array<Student> = []
   listOfGuides: Array<GuideForProject> = []
@@ -75,13 +88,39 @@ export class AddStudentForProjectComponent {
   onGuideSelected(event: Event) {
     this.selectedGuideCode = Number((event.target as HTMLInputElement).value);
   }
+  //הוספה
   async add() {
-    if (this.selectedGuideCode != -1 && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1) {
+    if (this.selectedGuideCode != -1 && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1 && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
       this.loading = true
+      console.log(this.selectedStudent.St_code + "קוד חניך")
+      const studentExists = this.listStudentsForProject.find(s => s.SFP_code_student == this.selectedStudent.St_code)
+      console.log(this.listStudentsForProject.length)
+      if (studentExists != null) {
+        this.snackBar.open('החניך כבר רשום לפרויקט', 'x', { duration: 3000 });
+        this.loading = false
+
+        return;
+
+      }
       const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.selectedStudent.St_code, this.selectedGuideCode, this.selectedStudent)
       await new Promise<void>((resolve, reject) => {
 
         this.api.AddStudentForProject(studentForProject).subscribe(
+          (response) => {
+            resolve(); // מסמן שהפעולה הושלמה
+
+          },
+          (error) => {
+            resolve(); // מסמן שהפעולה הושלמה
+
+          });
+      });
+      this.selectedStudent.St_name_school_bein_hazmanim = this.St_name_school_bein_hazmanim;
+      this.selectedStudent.St_nusah_tfila = this.St_nusah_tfila;
+      this.selectedStudent.St_veshinantem = this.St_veshinantem;
+      await new Promise<void>((resolve, reject) => {
+
+        this.api.UpdateStudentForProject(this.selectedStudent).subscribe(
           (response) => {
             resolve(); // מסמן שהפעולה הושלמה
 
@@ -96,15 +135,26 @@ export class AddStudentForProjectComponent {
       this.empty()
       this.popupDisplayOut.emit(false);
     }
-    else{
-            this.snackBar.open('לא נבחר חניך או מדריך', 'x', { duration: 3000 });
+    else {
+      this.snackBar.open('לא נבחר חניך או מדריך', 'x', { duration: 3000 });
 
     }
   }
+  //עדכון
+  update() {
+
+  }
   empty() {
     this.selectedGuideCode = -1
-    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
-
+    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+    this.searchText = ""
+    this.St_name_school_bein_hazmanim = ""
+    this.St_nusah_tfila = ""
+    this.St_veshinantem = ""
+    this.validNaneBeinHazmanim = false
+    this.validNusahTfila = false
+    this.validVeshinantem = false
+    this.generalStudent()
   }
   //חיפוש
   onInputChange(event: Event) {
@@ -113,15 +163,49 @@ export class AddStudentForProjectComponent {
   }
   //סגירת הפופפ
   close(): void {
+    this.empty()
     this.popupDisplayOut.emit(false)
   }
   //בחירת חניך
   Select(student: Student) {
     if (this.selectedStudent.St_code == student.St_code) {
-      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
+      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
     }
     else
       this.selectedStudent = student;
+  }
+  //ישיבת בין הזמנים
+  onInputChangeNaneBeinHazmanim(event: Event) {
+    const name: string = (event.target as HTMLInputElement).value
+    if (name.length <= 40) {
+      this.St_name_school_bein_hazmanim = name;
+      this.validNaneBeinHazmanim = false;
+    }
+    else {
+      this.validNaneBeinHazmanim = true;
+    }
+  }
+  //נוסח תפילה
+  onInputChangeNusahTfila(event: Event) {
+    const name: string = (event.target as HTMLInputElement).value
+    if (name.length <= 40) {
+      this.St_nusah_tfila = name;
+      this.validNusahTfila = false;
+    }
+    else {
+      this.validNusahTfila = true;
+    }
+  }
+  //ושננתם
+  onInputChangeVeshinantem(event: Event) {
+    const name: string = (event.target as HTMLInputElement).value
+    if (name.length <= 40) {
+      this.St_veshinantem = name;
+      this.validVeshinantem = false;
+    }
+    else {
+      this.validVeshinantem = true;
+    }
   }
 }
 

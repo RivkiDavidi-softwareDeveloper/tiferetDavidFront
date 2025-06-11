@@ -51,7 +51,6 @@ export class AddGuideForProjectComponent {
     if (name.length <= 30) {
       this.nameGuide = name;
       this.validNane = false;
-
     }
     else {
       this.validNane = true;
