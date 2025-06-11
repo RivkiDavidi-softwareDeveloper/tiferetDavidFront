@@ -15,6 +15,7 @@ import { DifficultyStudent } from '../../models/difficultyStudent.class';
 import { Community } from '../../models/community.class';
 import { Synagogue } from '../../models/synagogue.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
+import { Sharer } from '../../models/sharer.class';
 
 @Component({
   selector: 'app-add-update-student',
@@ -24,8 +25,12 @@ import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.comp
   styleUrl: './add-update-student.component.scss'
 })
 export class AddUpdateStudentComponent implements OnInit {
+  //רישום משתתף כחניך
+  @Input() sharer: Sharer=new Sharer(-1,"000000000",1,"","","",1,1,1,"","","","","","")
   @Input() codeWorkerLogin = 0;
   @Input() status: string = 'add';
+    @Input() status2: string = 'add';
+
   @Input() popupDisplayIn: boolean = false;
   //ערים
   lisOfCities: Array<City> = []

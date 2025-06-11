@@ -12,25 +12,38 @@ import { GuideWithRelations } from '../../models/guideWithRelations.interface';
 import { AddStudentForProjectComponent } from "../add-student-for-project/add-student-for-project.component";
 import { AddGuideForProjectComponent } from "../add-guide-for-project/add-guide-for-project.component";
 import { Sharer } from '../../models/sharer.class';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Parentt } from '../../models/parent.class';
+import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
+import { AddUpdateStudentComponent } from "../add-update-student/add-update-student.component";
+import { DifficultyStudent } from '../../models/difficultyStudent.class';
+import { StudiesForStudent } from '../../models/studiesForStudent.class';
+import { Worker } from '../../models/worker.class';
 
 @Component({
   selector: 'app-students-for-project',
   standalone: true,
-  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent],
+  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent, LoadingSpinnerComponent, AddUpdateStudentComponent],
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
 export class StudentsForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
-
-
-
+  studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+  ParentNew: Parentt = new Parentt(-1, "", "", "", "")
+  Parent1New: Parentt = new Parentt(-1, "", "", "", "")
+  DifficultyStudentNew: Array<DifficultyStudent> = []
+  WorkerNew: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "")
+  StudiesForStudentNew: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+  sAddStudentFromSharer = false
+  loading = false
   listAll: Array<GuideWithRelations> = []
   sUploadExcel = false
   sAddStudentForProject = false
   sAddGuide = false
-  constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
+  constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit() {
     this.general();
   }
@@ -49,22 +62,165 @@ export class StudentsForProjectComponent {
   editSharer(sharer: Sharer) {
 
   }
-  deleteSharer(codeSharer: number, nameSharer: string) {
 
+  async editSharerForStudent(sharer: Sharer) {
+    this.loading = true
+    this.studentNew.St_ID = sharer.Sh_ID
+    this.studentNew.St_gender = sharer.Sh_gender
+    this.studentNew.St_name = sharer.Sh_name
+    this.studentNew.St_Fname = sharer.Sh_Fname
+    this.studentNew.St_birthday = sharer.Sh_birthday
+    this.studentNew.St_father_code = sharer.Sh_father_code
+    this.studentNew.St_mother_code = sharer.Sh_mother_code
+    this.studentNew.St_city_code = sharer.Sh_city_code
+    this.studentNew.St_address = sharer.Sh_address
+    this.studentNew.St_cell_phone = sharer.Sh_cell_phone
+    this.studentNew.St_phone = sharer.Sh_phone
+    this.studentNew.St_name_school_bein_hazmanim = sharer.Sh_name_school_bein_hazmanim
+    this.studentNew.St_nusah_tfila = sharer.Sh_nusah_tfila
+    this.studentNew.St_veshinantem = sharer.Sh_veshinantem
+    this.studentNew.St_worker_code = -1;
+    this.studentNew.St_code_synagogue = -1
+    this.studentNew.St_activity_status = 1
+    this.studentNew.St_email = ""
+    this.studentNew.St_risk_code = 1
+    this.studentNew.St_description_reception_status = ""
+    this.studentNew.St_contact = ""
+    this.studentNew.St_contact_phone = ""
+    this.studentNew.St_socioeconomic_status = 10
+    this.studentNew.St_requester = ""
+    this.studentNew.St_code_frequency = 1
+    this.studentNew.St_amount_frequency = 1
+    //שליפת הורים
+    await new Promise<void>((resolve, reject) => {
+
+      const code = this.studentNew?.St_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentNew = data;
+          resolve();
+
+        });
+      }
+    })
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.studentNew?.St_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1New = data;
+          resolve();
+
+        });
+      }
+    })
+    const dataStudentAdd = { data: [this.studentNew, this.ParentNew, this.Parent1New, this.DifficultyStudentNew, this.StudiesForStudentNew] }
+
+    //הוספת חניך
+    await new Promise<void>((resolve, reject) => {
+
+      this.api.AddStudent(dataStudentAdd).subscribe(
+        (response) => {
+          this.studentNew.St_code = (response as Student).St_code
+          this.studentNew.St_worker_code = (response as Student).St_worker_code
+          this.studentNew.St_code_synagogue = (response as Student).St_code_synagogue
+          resolve();
+        },
+        (error) => {
+          resolve();
+        });
+    });
+
+
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentNew.St_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+          this.StudiesForStudentNew = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת רשימת קשיים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentNew.St_code;
+      if (code != null) {
+        this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+          this.DifficultyStudentNew = []
+          this.DifficultyStudentNew.push(...data);
+
+          resolve();
+
+        });
+      }
+    })
+    //שליפת פעיל
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentNew.St_worker_code;
+      if (code != null) {
+        this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+          this.WorkerNew = data;
+          resolve();
+
+        });
+      }
+    })
+    this.loading = false
+
+    this.sAddStudentFromSharer = true
+
+  }
+  deleteSharer(codeSharer: number, nameSharer: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'אישור מחיקה', message: ' :האם למחוק את המשתתף' + nameSharer + '\n מפרויקט:' + this.project.Pr_name + '?' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // קוד לביצוע מחיקה
+        this.api.deleteSharerForProjects(codeSharer).subscribe(
+          (message: any) => {
+            this.snackBar.open(message.message, 'x', { duration: 3000 });
+            this.general();
+          },
+          (error) => {
+            this.snackBar.open(error.error.error, 'x', { duration: 3000 });
+          });
+
+      }
+    });
   }
   displayStudent(student: Student) {
 
   }
-  
+
   editStudent(student: Student) {
 
   }
   deleteStudent(codeStudent: number, nameStudent: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'אישור מחיקה', message: ' :האם למחוק את החניך' + nameStudent + '\n מפרויקט:' + this.project.Pr_name + '?' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // קוד לביצוע מחיקה
+        this.api.deleteStudentForProject(codeStudent).subscribe(
+          (message: any) => {
+            this.snackBar.open(message.message, 'x', { duration: 3000 });
+            this.general();
+          },
+          (error: any) => {
+            this.snackBar.open(error.error.error, 'x', { duration: 3000 });
+          });
 
+      }
+    });
   }
-print(){
+  print() {
     window.print();
-}
+  }
   //סגירת הפופפ
   close(): void {
     this.popupDisplayOut.emit(false)
@@ -82,6 +238,11 @@ print(){
   //סגירת פופפ הוספת מדריך
   closeAddGuide(display: boolean) {
     this.sAddGuide = display;
+    this.general();
+  }
+  //סגירת פופפ  העברת משתתף לרישום כחניך
+  closePAddStudentFromSharer(display: boolean) {
+    this.sAddStudentFromSharer = display;
     this.general();
   }
 }

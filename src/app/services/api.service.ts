@@ -299,6 +299,14 @@ export class ApiService {
   AddGuideForProject(guideForProject: GuideForProject): Observable<any> {
     return this.httpp.post<any>(this.urlBasis + "/guideForProjects", guideForProject);
   }
+  //מוחקת חניך מפרויקט
+  deleteStudentForProject(SFP_code: number) {
+    return this.httpp.delete(`${this.urlBasis + "/studentForProjects"}/${SFP_code}`);
+  }
+  //מוחקת משתתף מפרויקט
+  deleteSharerForProjects(SFP_code: number) {
+    return this.httpp.delete(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`);
+  }
   /* מחיקת כל הפעילויות
       DeleteActi() {
         const code=9;
@@ -308,6 +316,7 @@ export class ApiService {
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
+
 
   //////////////////////////////////////עד כאן שינתי
 

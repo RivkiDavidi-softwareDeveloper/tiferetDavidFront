@@ -109,20 +109,20 @@ export class DisplayWorkersComponent implements OnInit {
       if (result) {
         // קוד לביצוע מחיקה
         this.api.DeleteWorker(code).subscribe(
-          (response) => {
-            this.snackBar.open('!העובד נמחק בהצלחה', 'x', { duration: 3000 });
+          (message: any) => {
+            this.snackBar.open(message.message, 'x', { duration: 3000 });
             this.general();
           },
           (error) => {
-            this.snackBar.open('לא ניתן למחוק פעיל זה מכיון שמשויכים אליו חניכים/ הודעות ', 'x', { duration: 3000 });
+            this.snackBar.open(error.error.error, 'x', { duration: 3000 });
           });
-        
-  } else { }
+
+      } else { }
     });
   }
-//עורך עובד
-edit(w: Worker): void {
-  this.updateWorker.Wo_code = w.Wo_code
+  //עורך עובד
+  edit(w: Worker): void {
+    this.updateWorker.Wo_code = w.Wo_code
     this.updateWorker.Wo_ID = w.Wo_ID
     this.updateWorker.Wo_gender = w.Wo_gender
     this.updateWorker.Wo_type_worker = w.Wo_type_worker
@@ -132,101 +132,101 @@ edit(w: Worker): void {
     this.updateWorker.Wo_cell_phone = w.Wo_cell_phone
     this.updateWorker.Wo_email = w.Wo_email
     this.sUpdateWorker = true
-}
-//חסימת פעיל
-lock(w: Worker) {
-  w.Wo_password = w.Wo_password + String(Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111)
-  this.api.UpdateWorker(w).subscribe(
-    (response) => {
-      this.sec = response
-    },
-    (error) => {
-      this.sec = error
-    });
-  this.locking = true;
-}
-//שחרור פעיל
-unlock(w: Worker) {
-  w.Wo_password = w.Wo_password + "987"
-  w.Wo_password = w.Wo_password.substring(0, 4);
+  }
+  //חסימת פעיל
+  lock(w: Worker) {
+    w.Wo_password = w.Wo_password + String(Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111)
+    this.api.UpdateWorker(w).subscribe(
+      (response) => {
+        this.sec = response
+      },
+      (error) => {
+        this.sec = error
+      });
+    this.locking = true;
+  }
+  //שחרור פעיל
+  unlock(w: Worker) {
+    w.Wo_password = w.Wo_password + "987"
+    w.Wo_password = w.Wo_password.substring(0, 4);
 
-  this.api.UpdateWorker(w).subscribe(
-    (response) => {
-      this.sec = response
-    },
-    (error) => {
-      this.sec = error
-    });
-  this.locking = false;
+    this.api.UpdateWorker(w).subscribe(
+      (response) => {
+        this.sec = response
+      },
+      (error) => {
+        this.sec = error
+      });
+    this.locking = false;
 
-}
-//בדיקה האם פעיל חסום
-ifLocking(password: string): boolean {
-  if (password.length == 10) {
-    return true;
   }
-  return false;
-}
-//סינון מצב פעילות
-onActivityStatusSelected(event: Event) {
-  this.typeWF = Number((event.target as HTMLInputElement).value);
-  this.general()
-}
-//סינון מגדר
-onGenderSelected(event: Event) {
-  this.genderF = Number((event.target as HTMLInputElement).value);
-  this.general()
-}
-// מיון
-onOrderSelected(event: Event) {
-  const status = (event.target as HTMLInputElement).value;
-  if (status === "מגדר") {
-    this.genderO = 1;
-    this.typeWO = 0;
+  //בדיקה האם פעיל חסום
+  ifLocking(password: string): boolean {
+    if (password.length == 10) {
+      return true;
+    }
+    return false;
   }
-  else {
-    this.genderO = 0;
-    this.typeWO = 1
+  //סינון מצב פעילות
+  onActivityStatusSelected(event: Event) {
+    this.typeWF = Number((event.target as HTMLInputElement).value);
+    this.general()
   }
-  this.general();
-}
-//שם מיון
-nameOrder() {
-  if (this.genderO == 0) {
-    return "סוג עובד"
+  //סינון מגדר
+  onGenderSelected(event: Event) {
+    this.genderF = Number((event.target as HTMLInputElement).value);
+    this.general()
   }
-  return "מגדר"
-}
-//שם סינון
-nameFilterG(codeG: number) {
-  if (codeG == 0) {
-    return "הכל"
+  // מיון
+  onOrderSelected(event: Event) {
+    const status = (event.target as HTMLInputElement).value;
+    if (status === "מגדר") {
+      this.genderO = 1;
+      this.typeWO = 0;
+    }
+    else {
+      this.genderO = 0;
+      this.typeWO = 1
+    }
+    this.general();
   }
-  if (codeG == 1) {
-    return "בנים"
+  //שם מיון
+  nameOrder() {
+    if (this.genderO == 0) {
+      return "סוג עובד"
+    }
+    return "מגדר"
   }
-  return "בנות"
-}
-nameFilterTW(codeTW: number, codeG: number) {
-  if (codeTW == 0) {
-    return "הכל"
-  }
-  if (codeTW == 1) {
+  //שם סינון
+  nameFilterG(codeG: number) {
     if (codeG == 0) {
-      return "פעילים/ות"
+      return "הכל"
     }
     if (codeG == 1) {
-      return "פעילים"
+      return "בנים"
     }
-    return "פעילות"
+    return "בנות"
   }
-  if (codeG == 0) {
-    return "חונכים/ות"
+  nameFilterTW(codeTW: number, codeG: number) {
+    if (codeTW == 0) {
+      return "הכל"
+    }
+    if (codeTW == 1) {
+      if (codeG == 0) {
+        return "פעילים/ות"
+      }
+      if (codeG == 1) {
+        return "פעילים"
+      }
+      return "פעילות"
+    }
+    if (codeG == 0) {
+      return "חונכים/ות"
+    }
+    if (codeG == 1) {
+      return "חונכים"
+    }
+    return "חונכות"
   }
-  if (codeG == 1) {
-    return "חונכים"
-  }
-  return "חונכות"
-}
 
 }

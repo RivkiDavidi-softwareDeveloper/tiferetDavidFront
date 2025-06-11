@@ -321,6 +321,7 @@ export class DisplayStudentsComponent implements OnInit {
   //ערוך חניך
   async edit(student: Student) {
     this.studentUpdate = student
+    //שליפת הורים
     await new Promise<void>((resolve, reject) => {
 
       const code = this.studentUpdate?.St_father_code;

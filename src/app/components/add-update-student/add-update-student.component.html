@@ -3,6 +3,8 @@
         <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update'">עדכון חניך</h2>
+        <h2 *ngIf="status2 === 'addFromSharer'">רישום משתתף כחניך</h2>
+
         <div allChose>
             <div chose>
                 <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}"
@@ -39,7 +41,7 @@
         <div buttonImage *ngIf="status === 'add'">
             <div textII> בחר תמונה</div>
             <input type="file" inputImage *ngIf="status === 'add'" (input)="onFileSelected($event)">
- 
+
         </div>
         <div otefImage *ngIf="status === 'add'">
             <img [src]="selectedImage" *ngIf="selectedImage" alt="Selected Image">
@@ -55,7 +57,7 @@
 
         </div>
         <br>
-                <label gray>השדות המסומנים ב* הם שדות חובה</label>
+        <label gray>השדות המסומנים ב* הם שדות חובה</label>
 
         <h3 title1>פרטים אישיים</h3>
         <div contectAll>
@@ -188,7 +190,8 @@
                 <select *ngIf="status === 'add'" (change)="onCommunitySelected($event)"
                     [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
-                    <option *ngFor="let c of listOfCommunities;" [value]="c.Com_code" [selected]="codeCommonity==c.Com_code">{{ c.Com_name }}</option>
+                    <option *ngFor="let c of listOfCommunities;" [value]="c.Com_code"
+                        [selected]="codeCommonity==c.Com_code">{{ c.Com_name }}</option>
                     <option [value]="-2">הוסף קהילה </option>
 
                 </select>
@@ -196,9 +199,10 @@
                     [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
                     <option hidden>בחר</option>
                     <option *ngFor="let c of listOfCommunities;"
-                        [selected]="selectedCommunity(studentUpdate.St_code_synagogue,c.Com_code) || codeCommonity==c.Com_code" [value]="c.Com_code">
+                        [selected]="selectedCommunity(studentUpdate.St_code_synagogue,c.Com_code) || codeCommonity==c.Com_code"
+                        [value]="c.Com_code">
                         {{ c.Com_name }}</option>
-                        <option [value]="-2">הוסף קהילה </option>
+                    <option [value]="-2">הוסף קהילה </option>
 
                 </select>
 
@@ -213,7 +217,8 @@
                 <select [disabled]="codeCommonity==-1" *ngIf="status === 'add'" (change)="onSynagogueSelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
-                    <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code" [selected]="St_code_synagogue==s.Sy_code">{{ s.Sy_name }}</option>
+                    <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code"
+                        [selected]="St_code_synagogue==s.Sy_code">{{ s.Sy_name }}</option>
                     <option [value]="-2">הוסף בית כנסת </option>
 
                 </select>
@@ -221,9 +226,10 @@
                     (change)="onSynagogueSelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
                     <option hidden>בחר</option>
-                    <option *ngFor="let s of listOfsynagogueis" [selected]="s.Sy_code==studentUpdate.St_code_synagogue || St_code_synagogue==s.Sy_code"
+                    <option *ngFor="let s of listOfsynagogueis"
+                        [selected]="s.Sy_code==studentUpdate.St_code_synagogue || St_code_synagogue==s.Sy_code"
                         [value]="s.Sy_code">{{ s.Sy_name }}</option>
-                        <option [value]="-2">הוסף בית כנסת </option>
+                    <option [value]="-2">הוסף בית כנסת </option>
 
                 </select>
             </div>
@@ -568,7 +574,7 @@
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeRequester($event)"
                     [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
                 <input type="text" *ngIf="status === 'update'" value="{{Requester2()}}"
-                    (input)="onInputChangeRequester($event)" 
+                    (input)="onInputChangeRequester($event)"
                     [ngClass]="{'borderInputGreen':St_requester.length>0 && !validRequester,'borderInputRed':validRequester}">
 
                 <label eror *ngIf="validRequester">טקסט ארוך מהנדרש</label>

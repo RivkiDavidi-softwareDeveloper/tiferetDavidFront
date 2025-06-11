@@ -1,6 +1,6 @@
-<div background>
+<div background1>
 
-    <div popup Yesprint>
+    <div popup1 Yesprint>
         <button nonePrint close (click)="close();">x</button>
 
         <p name Yesprint><label inName>פרויקט | </label>{{ project.Pr_name }}</p>
@@ -45,11 +45,11 @@
 
                         <td nonePrint>
                             <button edit title="ערוך" (click)="editSharer(s.Sharer);">ערוך</button>
-                            <button edit title="העבר לרישום כחניך" (click)="editSharer(s.Sharer);">העבר לרישום
+                            <button edit addStudent title="רְשום כחניך" (click)="editSharerForStudent(s.Sharer);">רשום
                                 כחניך</button>
 
                             <button iconn2 delete title="מחק" class="button"
-                                (click)="deleteSharer(s.Sharer.Sh_code,s.Sharer.Sh_name+' '+s.Sharer.Sh_Fname)"></button>
+                                (click)="deleteSharer(s.SFP_code,s.Sharer.Sh_name+' '+s.Sharer.Sh_Fname)"></button>
                     </tr>
                     <tr *ngFor="let s of g.students">
                         <td (click)="displayStudent(s.Student);">
@@ -68,10 +68,10 @@
 
                         <td nonePrint>
                             <button edit title="ערוך" (click)="editStudent(s.Student);">ערוך</button>
-                            <div >רשום כחניך במערכת</div>
+                            <div studentAlredy>רַשום כחניך במערכת</div>
 
                             <button iconn2 delete title="מחק" class="button"
-                                (click)="deleteStudent(s.Student.St_code,s.Student.St_name+' '+s.Student.St_Fname)"></button>
+                                (click)="deleteStudent(s.SFP_code ,s.Student.St_name+' '+s.Student.St_Fname)"></button>
                     </tr>
                 </tbody>
             </table>
@@ -90,6 +90,7 @@
     </div>
 
 </div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
 
 <app-upload-file-excel [popupDisplayIn]="sUploadExcel" [status]="'משתתפים'" [codeProject]="project.Pr_code"
@@ -98,3 +99,9 @@
     (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>
 <app-add-guide-for-project [popupDisplayIn]="sAddGuide" [codeProject]="project.Pr_code"
     (popupDisplayOut)="closeAddGuide($event)"></app-add-guide-for-project>
+
+<app-add-update-student [popupDisplayIn]="sAddStudentFromSharer" [status]="'update'" [status2]="'addFromSharer'" 
+    [studentUpdate]="studentNew" [Parent]="ParentNew" [Parent1]="Parent1New"
+    [DifficultyStudent]="DifficultyStudentNew" [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew"
+    (popupDisplayOut)="closePAddStudentFromSharer($event)" [codeWorkerLogin]="0" [cb1]="studentNew.St_gender==1"
+    [cb2]="studentNew.St_gender==2"></app-add-update-student>

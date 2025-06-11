@@ -8,7 +8,7 @@ $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
 
 //הרקע והפופפ
-[background] {
+[background1] {
   position: fixed;
   top: 0;
   right: 0;
@@ -20,9 +20,9 @@ $color-orange: rgb(255, 140, 0);
   align-items: center;
   z-index: 8;
 
-  [popup] {
+  [popup1] {
     height: 75%;
-    width: 80%;
+    width: 90%;
     margin: auto;
     overflow: scroll;
     scroll-behavior: auto;
@@ -118,7 +118,8 @@ $color-orange: rgb(255, 140, 0);
     [addGuide] {
       background-image: url('../icons/userPlus.png');
     }
-        [print] {
+
+    [print] {
       background-image: url('../icons/print.png');
     }
 
@@ -212,9 +213,11 @@ $color-orange: rgb(255, 140, 0);
         width: 0.8cm;
       }
 
-      th:nth-child(9),
-      td:nth-child(9) {
+      th:nth-child(8),
+      td:nth-child(8) {
         text-align: left;
+        width: 4.8cm;
+
       }
 
       thead {
@@ -260,36 +263,47 @@ $color-orange: rgb(255, 140, 0);
         background-image: url('../icons/delete2.png');
       }
 
-      /*   [edit] {
-    background-image: url('../icons/edit2.png');
-  } */
       [edit] {
         background-image: url('../icons/edit2.png');
-        background-position: 95%;
-        background-size: 20px;
+        background-position: 97%;
+        background-size: 16px;
         background-repeat: no-repeat;
         padding-left: 8px;
         text-align: left;
-        font-size: 2.1vh;
-        width: 60px;
+        font-size: 1.9vh;
+        width: 50px;
         height: 25px;
         background-color: white;
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
         color: black;
+        margin-left: 6px;
       }
 
       [edit]:hover {
-        font-family: Assistant-Bold;
         padding-left: 6px;
 
       }
 
       [edit]:active {
-        font-family: Assistant-Bold;
         padding-left: 6px;
         top: 2px;
       }
 
+      [addStudent] {
+        background-image: url('../icons/student.png');
+        width: 80px;
+        padding-left: 3px;
+        background-size: 15px;
+      }
+      [studentAlredy] {
+        display: inline;
+        color: gray;
+        font-size: 10px;
+        width: 80px;
+        text-align: center;
+        margin-left: 6px;
+        height: 25px;
+      }
       [iconn2] {
         height: 17px;
         width: 17px;
@@ -303,38 +317,42 @@ $color-orange: rgb(255, 140, 0);
 
   }
 }
+
 @media print {
   [nonePrint] {
     display: none;
   }
-  [background] {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 8;
 
-  [popup] {
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    overflow: scroll;
-    scroll-behavior: auto;
-    background-color: white;
-    padding: 20px 30px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: relative;
-    [buttonTop]{
-      display: none;
+  [background1] {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8;
+
+    [popup1] {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+      overflow: scroll;
+      scroll-behavior: auto;
+      background-color: white;
+      padding: 20px 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: relative;
+
+      [buttonTop] {
+        display: none;
+      }
     }
   }
-}
-/*   [Yesprint]{
+
+  /*   [Yesprint]{
   display: block !important;
 
   } */
