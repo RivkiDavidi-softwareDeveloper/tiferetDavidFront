@@ -34,7 +34,7 @@ export class WorkersLoginComponent implements OnInit {
   amountTasksND = 0
   //מעבר לעדכון חניך מדיווח על פעילות
   displayUpdateStudent = false
-  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
+  studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"")
   ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   Parent1Update: Parentt = new Parentt(111, "", "", "", "")
   DifficultyStudentUpdate: Array<DifficultyStudent> = []

@@ -36,19 +36,19 @@
         <label> מדריך</label>
         <select *ngIf="status === 'add'" (change)="onGuideSelected($event)">
             <option selected hidden> בחר</option>
-            <option *ngFor="let g of listOfGuides" [value]="g.GFP_code">{{g.GFP_name }}</option>
+            <option *ngFor="let g of listOfGuides" [value]="g.guide.GFP_code">{{g.guide.GFP_name }}</option>
         </select>
         <select *ngIf="status === 'update'" (change)="onGuideSelected($event)">
             <option selected hidden> בחר</option>
-            <option *ngFor="let g of listOfGuides" [value]="g.GFP_code"
-                [selected]="g.GFP_code==studentForProjectUpdate.SFP_code_guide">{{g.GFP_name }}</option>
+            <option *ngFor="let g of listOfGuides" [value]="g.guide.GFP_code"
+                [selected]="g.guide.GFP_code==studentForProjectUpdate.SFP_code_guide">{{g.guide.GFP_name }}</option>
         </select>
         <label>ישיבת בין הזמנים</label>
         <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validNaneBeinHazmanim}"
             (input)="onInputChangeNaneBeinHazmanim($event)">
 
         <input type="text" *ngIf="status === 'update'"
-            value="{{studentForProjectUpdate.Student.St_name_school_bein_hazmanim}}"
+            value="{{studentForProjectUpdate.SFP_name_school_bein_hazmanim}}"
             [ngClass]="{'borderInputRed':validNaneBeinHazmanim}" (input)="onInputChangeNaneBeinHazmanim($event)">
 
         <label eror *ngIf="validNaneBeinHazmanim">מוגבל ל-40 תוים</label>
@@ -62,7 +62,7 @@
         <label>"ושננתם"</label>
         <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validVeshinantem}"
             (input)="onInputChangeVeshinantem($event)">
-        <input type="text" *ngIf="status === 'update'" value="{{studentForProjectUpdate.Student.St_veshinantem}}"
+        <input type="text" *ngIf="status === 'update'" value="{{studentForProjectUpdate.SFP_veshinantem}}"
             [ngClass]="{'borderInputRed':validVeshinantem}" (input)="onInputChangeVeshinantem($event)">
         <label eror *ngIf="validVeshinantem">מוגבל ל-40 תוים</label>
         <button save *ngIf="status === 'add'" (click)="add()">הוסף</button>

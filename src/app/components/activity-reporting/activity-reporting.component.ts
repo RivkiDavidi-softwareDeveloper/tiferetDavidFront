@@ -64,7 +64,7 @@ export class ActivityReportingComponent implements OnInit {
 
     statusF = 1;
     //החניך שנבחר
-    addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","");
+    addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"");
 
     listSelectedStudents: Array<StudentForActivity> = [];
     listTypesForActivity: Array<CategoriesForActivity> = [];
@@ -997,7 +997,7 @@ export class ActivityReportingComponent implements OnInit {
 
                     });
             });
-            this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","");
+            this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"");
 
 
         }

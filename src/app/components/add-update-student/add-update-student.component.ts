@@ -25,11 +25,9 @@ import { Sharer } from '../../models/sharer.class';
   styleUrl: './add-update-student.component.scss'
 })
 export class AddUpdateStudentComponent implements OnInit {
-  //רישום משתתף כחניך
-  @Input() sharer: Sharer=new Sharer(-1,"000000000",1,"","","",1,1,1,"","","","","","")
   @Input() codeWorkerLogin = 0;
   @Input() status: string = 'add';
-    @Input() status2: string = 'add';
+  @Input() status2: string = 'add';
 
   @Input() popupDisplayIn: boolean = false;
   //ערים
@@ -45,15 +43,15 @@ export class AddUpdateStudentComponent implements OnInit {
   listOfsynagogueis: Array<Synagogue> = []
   codeCommonity = -1
   //לעדכון
-  @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1,"","","")
+  @Input() studentUpdate: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
   @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
- @Input() cb1: boolean = true;
- @Input() cb2: boolean = false;
+  @Input() cb1: boolean = true;
+  @Input() cb2: boolean = false;
   cb3: boolean = true;
   cb4: boolean = false;
   cb5: boolean = false;
@@ -793,7 +791,7 @@ export class AddUpdateStudentComponent implements OnInit {
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency,"","","");
+        this.St_code_frequency, this.St_amount_frequency, "");
       const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
 
 
@@ -850,13 +848,13 @@ export class AddUpdateStudentComponent implements OnInit {
       this.studentUpdate.St_Fname = this.St_Fname;
     }
     //תמונה
-    
+
     if (this.image) {
       this.studentUpdate.St_image = "yes";
     }
-    else{
+    else {
       this.studentUpdate.St_image = this.St_image;
-    
+
     }
     //תאריך לידה
     if (this.St_birthday.length != 0) {

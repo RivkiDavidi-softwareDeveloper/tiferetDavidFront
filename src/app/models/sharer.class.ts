@@ -14,10 +14,10 @@ export class Sharer {
     public Sh_address: string,
     public Sh_cell_phone: string,
     public Sh_phone: string,
-    public Sh_name_school_bein_hazmanim: string,
-    public Sh_nusah_tfila: string,
-    public Sh_veshinantem: string,
-
+/*     public Sh_name_school_bein_hazmanim: string,
+ */    public Sh_nusah_tfila: string,
+/*     public Sh_veshinantem: string,
+ */
   ) {
   }
 }

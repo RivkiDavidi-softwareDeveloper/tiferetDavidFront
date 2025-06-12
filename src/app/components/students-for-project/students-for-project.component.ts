@@ -32,7 +32,7 @@ export class StudentsForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
   //העברת משתתף לחניך
-  studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+  studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
   ParentNew: Parentt = new Parentt(-1, "", "", "", "")
   Parent1New: Parentt = new Parentt(-1, "", "", "", "")
   DifficultyStudentNew: Array<DifficultyStudent> = []
@@ -40,9 +40,9 @@ export class StudentsForProjectComponent {
   StudiesForStudentNew: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   sAddStudentFromSharer = false
   //עדכון פרטי חניך בפרויקט
-  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
-  studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, this.studentUpdate)
+  studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
 
 
   loading = false
@@ -74,22 +74,20 @@ export class StudentsForProjectComponent {
 
   }
   //רישום חניך ממשתתתף
-  async editSharerForStudent(sharer: Sharer, codeGuide: number, codeSharerForProject: number) {
+  async editSharerForStudent(sharerForProject: SharerForProject) {
     this.loading = true
-    this.studentNew.St_ID = sharer.Sh_ID
-    this.studentNew.St_gender = sharer.Sh_gender
-    this.studentNew.St_name = sharer.Sh_name
-    this.studentNew.St_Fname = sharer.Sh_Fname
-    this.studentNew.St_birthday = sharer.Sh_birthday
-    this.studentNew.St_father_code = sharer.Sh_father_code
-    this.studentNew.St_mother_code = sharer.Sh_mother_code
-    this.studentNew.St_city_code = sharer.Sh_city_code
-    this.studentNew.St_address = sharer.Sh_address
-    this.studentNew.St_cell_phone = sharer.Sh_cell_phone
-    this.studentNew.St_phone = sharer.Sh_phone
-    this.studentNew.St_name_school_bein_hazmanim = sharer.Sh_name_school_bein_hazmanim
-    this.studentNew.St_nusah_tfila = sharer.Sh_nusah_tfila
-    this.studentNew.St_veshinantem = sharer.Sh_veshinantem
+    this.studentNew.St_ID = sharerForProject.Sharer.Sh_ID
+    this.studentNew.St_gender = sharerForProject.Sharer.Sh_gender
+    this.studentNew.St_name = sharerForProject.Sharer.Sh_name
+    this.studentNew.St_Fname = sharerForProject.Sharer.Sh_Fname
+    this.studentNew.St_birthday = sharerForProject.Sharer.Sh_birthday
+    this.studentNew.St_father_code = sharerForProject.Sharer.Sh_father_code
+    this.studentNew.St_mother_code = sharerForProject.Sharer.Sh_mother_code
+    this.studentNew.St_city_code = sharerForProject.Sharer.Sh_city_code
+    this.studentNew.St_address = sharerForProject.Sharer.Sh_address
+    this.studentNew.St_cell_phone = sharerForProject.Sharer.Sh_cell_phone
+    this.studentNew.St_phone = sharerForProject.Sharer.Sh_phone
+    this.studentNew.St_nusah_tfila = sharerForProject.Sharer.Sh_nusah_tfila
     this.studentNew.St_worker_code = -1;
     this.studentNew.St_code_synagogue = -1
     this.studentNew.St_activity_status = 1
@@ -178,7 +176,7 @@ export class StudentsForProjectComponent {
       }
     })
     //רישום לפרויקט כחניך
-    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, codeGuide, this.studentNew)
+    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, sharerForProject.SFP_code_guide, sharerForProject.SFP_name_school_bein_hazmanim, sharerForProject.SFP_veshinantem,this.studentNew)
     await new Promise<void>((resolve, reject) => {
       this.api.AddStudentForProject(studentForProject).subscribe(
         (response) => {
@@ -191,7 +189,7 @@ export class StudentsForProjectComponent {
         });
     });
     //מחיקה מהפרויקט כמשתתף
-    this.api.deleteSharerForProjects(codeSharerForProject).subscribe(
+    this.api.deleteSharerForProjects(sharerForProject.SFP_code).subscribe(
       (message: any) => {
         this.general();
       },
@@ -230,7 +228,7 @@ export class StudentsForProjectComponent {
   editStudent(studentForProject: StudentForProject) {
 
     this.studentForProjectUpdate = studentForProject
-    this.sUpdateStudentForProject=true
+    this.sUpdateStudentForProject = true
   }
   //מחיקת חניך מפרויקט
   deleteStudent(codeStudentForProject: number, nameStudent: string) {

@@ -23,6 +23,7 @@ import { Project } from '../../models/project.class';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { GuideForProject } from '../../models/guideForProject.class';
 import { StudentForProject } from '../../models/studentForProject.class';
+import { GuideWithRelations } from '../../models/guideWithRelations.interface';
 @Component({
   selector: 'app-add-student-for-project',
   standalone: true,
@@ -35,24 +36,24 @@ export class AddStudentForProjectComponent {
   @Input() popupDisplayIn: boolean = false;
   @Input() status = "add"
   @Input() listStudentsForProject: Array<StudentForProject> = []
-  St_name_school_bein_hazmanim = ""
+  SFP_name_school_bein_hazmanim = ""
   St_nusah_tfila = ""
-  St_veshinantem = ""
+  SFP_veshinantem = ""
   validNaneBeinHazmanim = false
   validNusahTfila = false
   validVeshinantem = false
 
   //לעדכון
-  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
-  @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, this.studentUpdate)
+  @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "","", this.studentUpdate)
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
-  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
   listOfStudents: Array<Student> = []
-  listOfGuides: Array<GuideForProject> = []
+  @Input() listOfGuides: Array<GuideWithRelations> = []
   //הגדרות סינונים של חניכים
   //מגדר-1 אב-0
   order = 1;
@@ -63,8 +64,8 @@ export class AddStudentForProjectComponent {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit() {
     this.generalStudent();
-    this.generalGuides();
-
+/*     this.generalGuides();
+ */
   }
   //חניכים 
   generalStudent() {
@@ -77,14 +78,14 @@ export class AddStudentForProjectComponent {
   }
 
   //מדריכים 
-  generalGuides() {
+/*   generalGuides() {
 
     this.api.getGuidesForProjects(this.project.Pr_code).subscribe(Date => {
       this.listOfGuides = []
       this.listOfGuides.push(...Date);
       this.cdRef.detectChanges();
     })
-  }
+  } */
   onGuideSelected(event: Event) {
     this.selectedGuideCode = Number((event.target as HTMLInputElement).value);
   }
@@ -102,7 +103,7 @@ export class AddStudentForProjectComponent {
         return;
 
       }
-      const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.selectedStudent.St_code, this.selectedGuideCode, this.selectedStudent)
+      const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.selectedStudent.St_code, this.selectedGuideCode, this.SFP_name_school_bein_hazmanim,this.SFP_veshinantem, this.selectedStudent)
       await new Promise<void>((resolve, reject) => {
 
         this.api.AddStudentForProject(studentForProject).subscribe(
@@ -115,9 +116,7 @@ export class AddStudentForProjectComponent {
 
           });
       });
-      this.selectedStudent.St_name_school_bein_hazmanim = this.St_name_school_bein_hazmanim;
       this.selectedStudent.St_nusah_tfila = this.St_nusah_tfila;
-      this.selectedStudent.St_veshinantem = this.St_veshinantem;
       await new Promise<void>((resolve, reject) => {
 
         this.api.UpdateStudentForProject(this.selectedStudent).subscribe(
@@ -146,11 +145,11 @@ export class AddStudentForProjectComponent {
   }
   empty() {
     this.selectedGuideCode = -1
-    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
     this.searchText = ""
-    this.St_name_school_bein_hazmanim = ""
+    this.SFP_name_school_bein_hazmanim = ""
     this.St_nusah_tfila = ""
-    this.St_veshinantem = ""
+    this.SFP_veshinantem = ""
     this.validNaneBeinHazmanim = false
     this.validNusahTfila = false
     this.validVeshinantem = false
@@ -169,7 +168,7 @@ export class AddStudentForProjectComponent {
   //בחירת חניך
   Select(student: Student) {
     if (this.selectedStudent.St_code == student.St_code) {
-      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
     }
     else
       this.selectedStudent = student;
@@ -178,7 +177,7 @@ export class AddStudentForProjectComponent {
   onInputChangeNaneBeinHazmanim(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
     if (name.length <= 40) {
-      this.St_name_school_bein_hazmanim = name;
+      this.SFP_name_school_bein_hazmanim = name;
       this.validNaneBeinHazmanim = false;
     }
     else {
@@ -200,7 +199,7 @@ export class AddStudentForProjectComponent {
   onInputChangeVeshinantem(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
     if (name.length <= 40) {
-      this.St_veshinantem = name;
+      this.SFP_veshinantem = name;
       this.validVeshinantem = false;
     }
     else {
