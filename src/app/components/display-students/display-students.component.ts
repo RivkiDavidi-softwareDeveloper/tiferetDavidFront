@@ -36,6 +36,7 @@ export class DisplayStudentsComponent implements OnInit {
   DifficultyStudentDisplay: Array<DifficultyStudent> = []
   WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   StudiesForStudentDisplay: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+ 
   @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"")
   @Input() ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1Update: Parentt = new Parentt(111, "", "", "", "")
@@ -169,6 +170,7 @@ export class DisplayStudentsComponent implements OnInit {
     this.generalStudents();
     // this.imageBlobURL = ""
   }
+  //סגירת פופפ הצגת חניך
   closePDisplay(display: boolean) {
 
     this.displayPopup = display

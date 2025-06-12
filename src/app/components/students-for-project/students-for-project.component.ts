@@ -20,11 +20,14 @@ import { AddUpdateStudentComponent } from "../add-update-student/add-update-stud
 import { DifficultyStudent } from '../../models/difficultyStudent.class';
 import { StudiesForStudent } from '../../models/studiesForStudent.class';
 import { Worker } from '../../models/worker.class';
+import { DisplayStudentComponent } from "../display-student/display-student.component";
+import { DisplaySharerComponent } from "../display-sharer/display-sharer.component";
+import { StudiesForSharer } from '../../models/studiesForSharer.class';
 
 @Component({
   selector: 'app-students-for-project',
   standalone: true,
-  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent, LoadingSpinnerComponent, AddUpdateStudentComponent],
+  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent, LoadingSpinnerComponent, AddUpdateStudentComponent, DisplayStudentComponent, DisplaySharerComponent],
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
@@ -39,6 +42,24 @@ export class StudentsForProjectComponent {
   WorkerNew: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "")
   StudiesForStudentNew: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   sAddStudentFromSharer = false
+  //הצגת חניך
+  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
+  Parent1Display: Parentt = new Parentt(111, "", "", "", "")
+  DifficultyStudentDisplay: Array<DifficultyStudent> = []
+  WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  StudiesForStudentDisplay: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+  displayPopup: boolean = false;
+  imageBlobURL: string = ""
+  listStudentForProjects: Array<StudentForProject> = []
+  listSharerForProjects: Array<SharerForProject> = []
+
+  //הצגת משתתף
+  sharerDisplay: Sharer = new Sharer(111, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
+  ParentDisplaySharer: Parentt = new Parentt(111, "", "", "", "")
+  Parent1DisplaySharer: Parentt = new Parentt(111, "", "", "", "")
+  StudiesForSharerDisplay: StudiesForSharer = new StudiesForSharer(111, 1, "", "", "", "", "", "")
+  displayPopupSharer: boolean = false;
   //עדכון פרטי חניך בפרויקט
   studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
@@ -67,7 +88,52 @@ export class StudentsForProjectComponent {
     })
 
   }
-  displaySharer(sharer: Sharer) {
+  //הצגת משתתף
+  public async displaySharer(s: Sharer): Promise<void> {
+    this.sharerDisplay = s;
+    //הורה1
+    await new Promise<void>((resolve, reject) => {
+      const code = this.sharerDisplay?.Sh_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentDisplaySharer = data;
+          resolve();
+
+        });
+      }
+    })
+    //הורה2
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.sharerDisplay?.Sh_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1DisplaySharer = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.sharerDisplay?.Sh_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeSharer(code).subscribe(data => {
+          this.StudiesForSharerDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+        //רשימת פרויקטים
+    await new Promise<void>((resolve, reject) => {
+        this.api.getProjectsForSharer(this.sharerDisplay.Sh_code).subscribe(data => {
+          this.listSharerForProjects=[]
+          this.listSharerForProjects.push(...data);
+          resolve();
+        });
+      
+    })
+    this.displayPopupSharer = true
 
   }
   editSharer(sharer: Sharer) {
@@ -176,7 +242,7 @@ export class StudentsForProjectComponent {
       }
     })
     //רישום לפרויקט כחניך
-    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, sharerForProject.SFP_code_guide, sharerForProject.SFP_name_school_bein_hazmanim, sharerForProject.SFP_veshinantem,this.studentNew)
+    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, sharerForProject.SFP_code_guide, sharerForProject.SFP_name_school_bein_hazmanim, sharerForProject.SFP_veshinantem, this.studentNew)
     await new Promise<void>((resolve, reject) => {
       this.api.AddStudentForProject(studentForProject).subscribe(
         (response) => {
@@ -221,7 +287,93 @@ export class StudentsForProjectComponent {
       }
     });
   }
-  displayStudent(student: Student) {
+
+  //הצגת חניך
+  public async displayStudent(s: Student): Promise<void> {
+    this.studentDisplay = s;
+    //הורה1
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+    //הורה2
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.studentDisplay?.St_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1Display = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeStudent(code).subscribe(data => {
+          this.StudiesForStudentDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת רשימת קשיים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_code;
+      if (code != null) {
+        this.api.GetDifficultyesOfCodeStudent(code).subscribe(data => {
+          this.DifficultyStudentDisplay = []
+          this.DifficultyStudentDisplay.push(...data);
+          resolve();
+
+        });
+      }
+    })
+    //שליפת פעיל
+    await new Promise<void>((resolve, reject) => {
+      const code = this.studentDisplay?.St_worker_code;
+      if (code != null) {
+        this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
+          this.WorkerDisplay = data;
+          resolve();
+
+        });
+      }
+    })
+    //תמונה
+    if (this.studentDisplay.St_image == "yes") {
+      await new Promise<void>((resolve, reject) => {
+        const imageName = "student" + this.studentDisplay.St_code
+        this.api.getStudentImage(imageName)
+          .subscribe((data: Blob) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              this.imageBlobURL = reader.result as string;
+            };
+            reader.readAsDataURL(data);
+            resolve();
+          }, (error) => resolve());
+
+      })
+    }
+    //רשימת פרויקטים
+    await new Promise<void>((resolve, reject) => {
+        this.api.getProjectsForStudent(this.studentDisplay.St_code).subscribe(data => {
+          this.listStudentForProjects=[]
+          this.listStudentForProjects.push(...data);
+          resolve();
+        });
+      
+    })
+
+    this.displayPopup = true
 
   }
 
@@ -285,7 +437,15 @@ export class StudentsForProjectComponent {
     this.sAddStudentFromSharer = display;
     this.general();
   }
-
+  //סגירת פופפ הצגת חניך
+  closePDisplay(display: boolean) {
+    this.displayPopup = display
+    this.imageBlobURL = ""
+  }
+  //סגירת פופפ הצגת משתתף
+  closePDisplaySharer(display: boolean) {
+    this.displayPopupSharer = display
+  }
 }
 
 
@@ -299,26 +459,3 @@ export class StudentsForProjectComponent {
 
 
 
-
-
-/*   //רשימת חניכים
-  generalStudents(): void {
-    this.api.FindStudent("", 0, 0, 0, -1).subscribe(Date => {
-      this.listOfStudents = []
-      this.listOfStudents.push(...Date);
-      this.cdRef.detectChanges();
-    })
-  } */
-/*   //שם חניך
-  nameStudent(codeStudent: number) {
-    if (codeStudent == -1) {
-      return "---"
-    }
-    var name = "";
-    this.listOfStudents.forEach(s => {
-      if (s.St_code == codeStudent) {
-        name = s.St_name + " " + s.St_Fname;
-      }
-    });
-    return name;
-  } */

@@ -27,6 +27,7 @@ import { AddActivityRequest } from '../models/AddActivityRequest.class';
 import { SharerForProject } from '../models/sharerForProject.class';
 import { GuideForProject } from '../models/guideForProject.class';
 import { GuideWithRelations } from '../models/guideWithRelations.interface';
+import { StudiesForSharer } from '../models/studiesForSharer.class';
 
 @Injectable({
   providedIn: 'root'
@@ -116,6 +117,12 @@ export class ApiService {
     const params = new HttpParams()
       .set('codeStudent', codeStudent.toString())
     return this.httpp.get<StudiesForStudent>(this.urlBasis + "/studiesForStudents/OfCodeStudent", { params });
+  }
+    //הצגת לימודים למשתתף לפי קוד משתתף
+  public GetStudiesOfCodeSharer(codeSharer: number): Observable<StudiesForSharer> {
+    const params = new HttpParams()
+      .set('codeSharer', codeSharer.toString())
+    return this.httpp.get<StudiesForSharer>(this.urlBasis + "/studiesForShareres/OfCodeSharer", { params });
   }
   //הצגת עובד לחניך לפי קוד עובד
   public GetWorkerOfCodeStudent(codeWoreker: number): Observable<Worker> {
@@ -279,6 +286,18 @@ export class ApiService {
         .set('codeProject', codeProject.toString());
       return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects", { params });
     } */
+       //הצגת פרויקטים לחניך    
+    public getProjectsForStudent(codeStudent: number): Observable<Array<StudentForProject>> {
+      const params = new HttpParams()
+        .set('codeStudent', codeStudent.toString());
+      return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects/forStudent", { params });
+    }
+    //הצגת פרויקטים למשתתף    
+    public getProjectsForSharer(codeSharer: number): Observable<Array<SharerForProject>> {
+      const params = new HttpParams()
+        .set('codeSharer', codeSharer.toString());
+      return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects/forSharer", { params });
+    }
   //הצגת מדריכים לפרויקט    
   public getGuidesForProjects(codeProject: number): Observable<Array<GuideForProject>> {
     const params = new HttpParams()

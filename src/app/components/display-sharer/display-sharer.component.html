@@ -1,0 +1,138 @@
+<div class="background" *ngIf="popupDisplayIn" displayNone>
+    <div class="popup">
+        <button class="close" (click)="close();">x</button>
+        <h2>{{sharer.Sh_name+" "+sharer.Sh_Fname}}</h2>
+
+        <label>ת.ז: <label l2>{{sharer.Sh_ID}}</label></label>
+        <label>מגדר: <label l2>{{typeGender(sharer.Sh_gender)}}</label> </label>
+        <label>גיל: <label l2>{{calculateAgeInYearsAndMonths(sharer.Sh_birthday)}}</label></label>
+        <label>תאריך לידה: <label l2>{{convertDateBack(sharer.Sh_birthday)}}</label></label>
+
+        <h3 title2>כתובת</h3>
+        <label>עיר: <label l2>{{city(sharer.Sh_city_code)}}</label></label>
+        <label>כתובת:<label l2> {{sharer.Sh_address}}</label></label>
+        <h3 title3>פרטי יצירת קשר</h3>
+        <label>פל' חניך:<label l2>{{sharer.Sh_cell_phone}}</label> </label>
+        <label>טלפון בית: <label l2>{{sharer.Sh_phone}}</label></label>
+        <h3 title4>משפחה</h3>
+        <label>שם האב: <label l2>{{Parent.Pa_name}}</label></label>
+
+        <label>ת.ז: <label l2>{{Parent.Pa_ID}}</label></label>
+        <label>פל':<label l2>{{Parent.Pa_cell_phone}}</label> </label>
+        <br>
+        <label>שם האם:<label l2>{{Parent1.Pa_name}}</label> </label>
+        <label>ת.ז: <label l2>{{Parent1.Pa_ID}}</label></label>
+        <label>פל':<label l2> {{Parent1.Pa_cell_phone}}</label></label>
+
+
+        <h3 title5>לימודים</h3>
+        <label>מוסד לימודים נוכחי:<label l2>{{StudiesForSharer.SFS_current_school}}</label> </label>
+        <label>שם המוסד:<label l2> {{StudiesForSharer.SFS_current_school_ame}}</label></label>
+        <label *ngIf="sharer.Sh_gender==1">שיעור/כיתה נוכחי: <label
+                l2>{{StudiesForSharer.SFS_current_class}}</label></label>
+        <label *ngIf="sharer.Sh_gender==2">כיתה נוכחית: <label l2>{{StudiesForSharer.SFS_current_class}}</label></label>
+        <label *ngIf="sharer.Sh_gender==1">תלמוד תורה בו למד: <label
+                l2>{{StudiesForSharer.SFS_previous_school}}</label></label>
+        <label *ngIf="sharer.Sh_gender==2">בית ספר יסודי בו למדה: <label
+                l2>{{StudiesForSharer.SFS_previous_school}}</label></label>
+        <h3 title7>עוד</h3>
+        <label>נוסח התפילה: <label l2>{{sharer.Sh_nusah_tfila}}</label></label>
+        <h3 title9>פרויקטים שהשתתף בהם</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>שם</th>
+                    <th>מדריך</th>
+                    <th>ישיבת בין הזמנים: </th>
+                    <th>"ושננתם"</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let s of listSharerForProjects">
+                    <td>{{projectName(s.SFP_code_project)}}</td>
+                    <td>{{GuideName(s.SFP_code_guide)}}</td>
+                    <td>{{s.SFP_name_school_bein_hazmanim}}</td>
+                    <td>{{s.SFP_veshinantem}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <br>
+
+        <button (click)="print()" title="הדפס">הדפס</button>
+
+    </div>
+</div>
+<div class="background2" *ngIf="popupDisplayIn">
+
+    <div class="popup2" *ngIf="popupDisplayIn">
+        <h2>{{sharer.Sh_name+" "+sharer.Sh_Fname}}</h2>
+        <div towBox>
+            <div box>
+
+                <!--  -->
+
+                <label>ת.ז: <label l2>{{sharer.Sh_ID}}</label></label>
+                <label>מגדר: <label l2>{{typeGender(sharer.Sh_gender)}}</label> </label>
+                <label>גיל: <label l2>{{calculateAgeInYearsAndMonths(sharer.Sh_birthday)}}</label></label>
+                <label>תאריך לידה: <label l2>{{sharer.Sh_birthday}}</label></label>
+                <h3 title2>כתובת</h3>
+                <label>עיר: <label l2>{{city(sharer.Sh_city_code)}}</label></label>
+                <label>כתובת:<label l2> {{sharer.Sh_address}}</label></label>
+                <h3 title3>פרטי יצירת קשר</h3>
+                <label>פל' חניך:<label l2>{{sharer.Sh_cell_phone}}</label> </label>
+                <label>טלפון בית: <label l2>{{sharer.Sh_phone}}</label></label>
+                <h3 title4>משפחה</h3>
+                <label>שם האב: <label l2>{{Parent.Pa_name}}</label></label>
+
+                <label>ת.ז: <label l2>{{Parent.Pa_ID}}</label></label>
+                <label>פל':<label l2>{{Parent.Pa_cell_phone}}</label> </label>
+                <br>
+                <label>שם האם:<label l2>{{Parent1.Pa_name}}</label> </label>
+                <label>ת.ז: <label l2>{{Parent1.Pa_ID}}</label></label>
+                <label>פל':<label l2> {{Parent1.Pa_cell_phone}}</label></label>
+
+                <h3 title5>לימודים</h3>
+                <label>מוסד לימודים נוכחי:<label l2>{{StudiesForSharer.SFS_current_school}}</label>
+                </label>
+                <label>שם המוסד:<label l2> {{StudiesForSharer.SFS_current_school_ame}}</label></label>
+                <label>שיעור נוכחי: <label l2>{{StudiesForSharer.SFS_current_class}}</label></label>
+                <label>תלמוד תורה בו למד: <label l2>{{StudiesForSharer.SFS_previous_school}}</label></label>
+
+                <h3 title7>עוד</h3>
+
+
+                <label>נוסח התפילה: <label l2>{{sharer.Sh_nusah_tfila}}</label></label>
+            </div>
+            <div box>
+
+                <h3 title9>פרויקטים שהשתתף בהם</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>שם</th>
+                            <th>מדריך</th>
+                            <th>ישיבת בין הזמנים: </th>
+                            <th>"ושננתם"</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let s of listSharerForProjects">
+                            <td>{{projectName(s.SFP_code_project)}}</td>
+                            <td>{{GuideName(s.SFP_code_guide)}}</td>
+                            <td>{{s.SFP_name_school_bein_hazmanim}}</td>
+                            <td>{{s.SFP_veshinantem}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <br>
+
+
+    </div>
+</div>

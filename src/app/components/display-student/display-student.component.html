@@ -85,7 +85,6 @@
                                 "+Worker.Wo_Fname}}</label></label>
 
                 <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
-                <h3 title8>פרטים הקשורים לפרויקטים</h3>
                 <label>נוסח התפילה: <label l2>{{student.St_nusah_tfila}}</label></label>
                 <h3 title9>פרויקטים שהשתתף בהם</h3>
                 <table>
@@ -99,25 +98,12 @@
                                 </tr>
                         </thead>
                         <tbody>
-                                <tr>
-                                        <td>אשרינו תשפ"ה</td>
-                                        <td>שמעון מלכיאלאלי</td>
-                                        <td>שמעון מלכיאלאלי</td>
-                                        <td>אשרינו תשפ"ה</td>
-
-                                </tr>
-                                <tr>
-                                        <td>פעילות בינזמנים תשפ"ה</td>
-                                        <td>שמעון מלכיאלאלי</td>
-                                        <td>שמעון מלכיאלאלי</td>
-                                        <td>אשרינו תשפ"ה</td>
-
-                                </tr>
-                                <!--                   <tr *ngFor="let i of listOfStudents">
-                                        <td>{{p.name}}</td>
-                                        <td>{{p.name}}</td>
-
-                                </tr> -->
+                           <tr *ngFor="let s of listStudentForProjects">
+                                                        <td>{{projectName(s.SFP_code_project)}}</td>
+                                                        <td>{{GuideName(s.SFP_code_guide)}}</td>
+                                                        <td>{{s.SFP_name_school_bein_hazmanim}}</td>
+                                                        <td>{{s.SFP_veshinantem}}</td>
+                                                </tr>
 
                         </tbody>
                 </table>
@@ -199,7 +185,6 @@
                                 </label>
                                 <label>פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+" "+Worker.Wo_Fname}}</label></label>
                                 <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
-                                <h3 title8>פרטים בהקשר לפרויקטים</h3>
                                 <label>נוסח התפילה: <label l2>{{student.St_nusah_tfila}}</label></label>
                                 <h3 title9>פרויקטים שהשתתף בהם</h3>
                                 <table>
@@ -213,26 +198,12 @@
                                                 </tr>
                                         </thead>
                                         <tbody>
-                                                <tr>
-                                                        <td>אשרינו תשפ"ה</td>
-                                                        <td>שמעון מלכיאלאלי</td>
-                                                        <td>שמעון מלכיאלאלי</td>
-                                                        <td>אשרינו תשפ"ה</td>
-
+                                                <tr *ngFor="let s of listStudentForProjects">
+                                                        <td>{{projectName(s.SFP_code_project)}}</td>
+                                                        <td>{{GuideName(s.SFP_code_guide)}}</td>
+                                                        <td>{{s.SFP_name_school_bein_hazmanim}}</td>
+                                                        <td>{{s.SFP_veshinantem}}</td>
                                                 </tr>
-                                                <tr>
-                                                        <td>פעילות בינזמנים תשפ"ה</td>
-                                                        <td>שמעון מלכיאלאלי</td>
-                                                        <td>שמעון מלכיאלאלי</td>
-                                                        <td>אשרינו תשפ"ה</td>
-
-                                                </tr>
-
-                                                <!--                   <tr *ngFor="let i of listOfStudents">
-                                        <td>{{p.name}}</td>
-                                        <td>{{p.name}}</td>
-
-                                </tr> -->
 
                                         </tbody>
                                 </table>

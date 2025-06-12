@@ -46,8 +46,7 @@
 
                         <td nonePrint>
                             <button edit title="ערוך" (click)="editSharer(s.Sharer);">ערוך</button>
-                            <button edit addStudent title="רְשום כחניך"
-                                (click)="editSharerForStudent(s);">רשום
+                            <button edit addStudent title="רְשום כחניך" (click)="editSharerForStudent(s);">רשום
                                 כחניך</button>
 
                             <button iconn2 delete title="מחק" class="button"
@@ -94,23 +93,34 @@
 </div>
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
-
+<!-- העלאת קובץ אקסל משתתפים
+ -->
 <app-upload-file-excel [popupDisplayIn]="sUploadExcel" [status]="'משתתפים'" [codeProject]="project.Pr_code"
     (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>
-
-<app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [project]="project" [status]="'add'"
+<!-- הוספת חניך ממאגר לפרויקטים
+ --><app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [project]="project" [status]="'add'"
     [listStudentsForProject]="listStudentsForProject" [listOfGuides]="listAll"
     (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>
-
-<app-add-student-for-project [popupDisplayIn]="sUpdateStudentForProject" [project]="project" [status]="'update'"
+<!-- עדכון חניך לפרויקט
+ --><app-add-student-for-project [popupDisplayIn]="sUpdateStudentForProject" [project]="project" [status]="'update'"
     [studentForProjectUpdate]="studentForProjectUpdate" [listOfGuides]="listAll"
     (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>
-
-<app-add-guide-for-project [popupDisplayIn]="sAddGuide" [codeProject]="project.Pr_code"
+<!-- הוספת מדריך לפרויקט
+ --><app-add-guide-for-project [popupDisplayIn]="sAddGuide" [codeProject]="project.Pr_code"
     (popupDisplayOut)="closeAddGuide($event)"></app-add-guide-for-project>
-
-<app-add-update-student [popupDisplayIn]="sAddStudentFromSharer" [status]="'update'" [status2]="'addFromSharer'"
+<!-- העברת משתתף לרישום חניך
+ --><app-add-update-student [popupDisplayIn]="sAddStudentFromSharer" [status]="'update'" [status2]="'addFromSharer'"
     [studentUpdate]="studentNew" [Parent]="ParentNew" [Parent1]="Parent1New" [DifficultyStudent]="DifficultyStudentNew"
     [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew"
     (popupDisplayOut)="closePAddStudentFromSharer($event)" [codeWorkerLogin]="0" [cb1]="studentNew.St_gender==1"
     [cb2]="studentNew.St_gender==2"></app-add-update-student>
+<!-- הצגת פרטי חניך
+ --> <app-display-student [popupDisplayIn]="displayPopup" [student]="studentDisplay" [Parent]="ParentDisplay"
+    [Parent1]="Parent1Display" [DifficultyStudent]="DifficultyStudentDisplay" [Worker]="WorkerDisplay" [listStudentForProjects]="listStudentForProjects"
+    [StudiesForStudent]="StudiesForStudentDisplay" [selectedImage]="imageBlobURL"
+    (popupDisplayOut)="closePDisplay($event)"></app-display-student>
+<!--     הצגת פרטי משתתף -->
+<app-display-sharer [popupDisplayIn]="displayPopupSharer" [sharer]="sharerDisplay" [Parent]="ParentDisplaySharer"
+    [Parent1]="Parent1DisplaySharer" [listSharerForProjects]="listSharerForProjects"
+    [StudiesForSharer]="StudiesForSharerDisplay"
+    (popupDisplayOut)="closePDisplaySharer($event)"></app-display-sharer>
