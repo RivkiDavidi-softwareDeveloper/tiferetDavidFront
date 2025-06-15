@@ -86,6 +86,7 @@ export class AddStudentForProjectComponent {
       this.cdRef.detectChanges();
     })
   } */
+ //בחירת מדריך
   onGuideSelected(event: Event) {
     this.selectedGuideCode = Number((event.target as HTMLInputElement).value);
   }

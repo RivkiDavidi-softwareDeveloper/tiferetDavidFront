@@ -1,6 +1,8 @@
 <div class="background" *ngIf="popupDisplayIn">
     <div class="popup">
-        <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
+        <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false;cb5=false">x</button>
+        <button close *ngIf="status2 === 'addFromSharer'" (click)="closeAddFromSharer();cb1=true;cb2=false;cb3=true;cb4=false;cb5=false">x</button>
+
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update' && status2 != 'addFromSharer'">עדכון חניך</h2>
         <h2 *ngIf="status2 === 'addFromSharer'">רישום משתתף כחניך</h2>
@@ -583,7 +585,8 @@
         <br>
         <button *ngIf="status === 'add'" save (click)="add()">שמור</button>
 
-        <button *ngIf="status === 'update'" save (click)="update()">עדכן</button>
+        <button *ngIf="status === 'update' && status2 != 'addFromSharer'" save (click)="update()">עדכן</button>
+        <button *ngIf="status2 === 'addFromSharer'" save (click)="update()">שמור</button>
 
         <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 

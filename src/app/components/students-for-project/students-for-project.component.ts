@@ -23,11 +23,12 @@ import { Worker } from '../../models/worker.class';
 import { DisplayStudentComponent } from "../display-student/display-student.component";
 import { DisplaySharerComponent } from "../display-sharer/display-sharer.component";
 import { StudiesForSharer } from '../../models/studiesForSharer.class';
+import { UpdateSharerComponent } from "../update-sharer/update-sharer.component";
 
 @Component({
   selector: 'app-students-for-project',
   standalone: true,
-  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent, LoadingSpinnerComponent, AddUpdateStudentComponent, DisplayStudentComponent, DisplaySharerComponent],
+  imports: [CommonModule, UploadFileExcelComponent, AddStudentForProjectComponent, AddGuideForProjectComponent, LoadingSpinnerComponent, AddUpdateStudentComponent, DisplayStudentComponent, DisplaySharerComponent, UpdateSharerComponent],
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
@@ -42,6 +43,9 @@ export class StudentsForProjectComponent {
   WorkerNew: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "")
   StudiesForStudentNew: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   sAddStudentFromSharer = false
+  studentForProject: StudentForProject = new StudentForProject(1, 1, 1, 1, "", "", this.studentNew)
+  sharer: Sharer = new Sharer(-1, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
+
   //הצגת חניך
   studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
   ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
@@ -60,6 +64,13 @@ export class StudentsForProjectComponent {
   Parent1DisplaySharer: Parentt = new Parentt(111, "", "", "", "")
   StudiesForSharerDisplay: StudiesForSharer = new StudiesForSharer(111, 1, "", "", "", "", "", "")
   displayPopupSharer: boolean = false;
+  //ערוך משתתף
+  sharerUpdate: Sharer = new Sharer(111, "4444444444", 1, "", "", "", 1, 1, 1, "", "", "", "")
+  ParentSharerUpdate: Parentt = new Parentt(111, "", "", "", "")
+  Parent1SharerUpdate: Parentt = new Parentt(111, "", "", "", "")
+  StudiesForSharerUpdate: StudiesForSharer = new StudiesForSharer(111, 1, "", "", "", "", "", "")
+  sUpdateSharer = false
+  sharerForProjectUpdate: SharerForProject = new SharerForProject(-1, 1, 1, 1, "", "", this.sharerUpdate)
   //עדכון פרטי חניך בפרויקט
   studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
@@ -124,24 +135,62 @@ export class StudentsForProjectComponent {
         });
       }
     })
-        //רשימת פרויקטים
+    //רשימת פרויקטים
     await new Promise<void>((resolve, reject) => {
-        this.api.getProjectsForSharer(this.sharerDisplay.Sh_code).subscribe(data => {
-          this.listSharerForProjects=[]
-          this.listSharerForProjects.push(...data);
-          resolve();
-        });
-      
+      this.api.getProjectsForSharer(this.sharerDisplay.Sh_code).subscribe(data => {
+        this.listSharerForProjects = []
+        this.listSharerForProjects.push(...data);
+        resolve();
+      });
     })
     this.displayPopupSharer = true
 
   }
-  editSharer(sharer: Sharer) {
+  //ערוך משתתף
+  async editSharer(sharerForProject: SharerForProject) {
+    this.sharerForProjectUpdate=sharerForProject
+    this.sharerUpdate = sharerForProject.Sharer
+    //שליפת הורים
+    await new Promise<void>((resolve, reject) => {
+
+      const code = this.sharerUpdate?.Sh_father_code;
+      if (code != null) {
+        this.api.GetParentOfCode(code).subscribe(data => {
+          this.ParentSharerUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+
+    await new Promise<void>((resolve, reject) => {
+      const code1 = this.sharerUpdate?.Sh_mother_code;
+      if (code1 != null) {
+        this.api.GetParentOfCode(code1).subscribe(data => {
+          this.Parent1SharerUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+    //שליפת לימודים
+    await new Promise<void>((resolve, reject) => {
+      const code = this.sharerUpdate?.Sh_code;
+      if (code != null) {
+        this.api.GetStudiesOfCodeSharer(code).subscribe(data => {
+          this.StudiesForSharerUpdate = data;
+          resolve();
+
+        });
+      }
+    })
+    this.sUpdateSharer = true
 
   }
   //רישום חניך ממשתתתף
   async editSharerForStudent(sharerForProject: SharerForProject) {
     this.loading = true
+    this.sharer = sharerForProject.Sharer;
     this.studentNew.St_ID = sharerForProject.Sharer.Sh_ID
     this.studentNew.St_gender = sharerForProject.Sharer.Sh_gender
     this.studentNew.St_name = sharerForProject.Sharer.Sh_name
@@ -242,12 +291,12 @@ export class StudentsForProjectComponent {
       }
     })
     //רישום לפרויקט כחניך
-    const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, sharerForProject.SFP_code_guide, sharerForProject.SFP_name_school_bein_hazmanim, sharerForProject.SFP_veshinantem, this.studentNew)
+    this.studentForProject = new StudentForProject(1, this.project.Pr_code, this.studentNew.St_code, sharerForProject.SFP_code_guide, sharerForProject.SFP_name_school_bein_hazmanim, sharerForProject.SFP_veshinantem, this.studentNew)
     await new Promise<void>((resolve, reject) => {
-      this.api.AddStudentForProject(studentForProject).subscribe(
+      this.api.AddStudentForProject(this.studentForProject).subscribe(
         (response) => {
           resolve(); // מסמן שהפעולה הושלמה
-
+          this.studentForProject.SFP_code = (response as StudentForProject).SFP_code
         },
         (error) => {
           resolve(); // מסמן שהפעולה הושלמה
@@ -365,12 +414,12 @@ export class StudentsForProjectComponent {
     }
     //רשימת פרויקטים
     await new Promise<void>((resolve, reject) => {
-        this.api.getProjectsForStudent(this.studentDisplay.St_code).subscribe(data => {
-          this.listStudentForProjects=[]
-          this.listStudentForProjects.push(...data);
-          resolve();
-        });
-      
+      this.api.getProjectsForStudent(this.studentDisplay.St_code).subscribe(data => {
+        this.listStudentForProjects = []
+        this.listStudentForProjects.push(...data);
+        resolve();
+      });
+
     })
 
     this.displayPopup = true
@@ -445,6 +494,11 @@ export class StudentsForProjectComponent {
   //סגירת פופפ הצגת משתתף
   closePDisplaySharer(display: boolean) {
     this.displayPopupSharer = display
+  }
+  //סגירת פופפ  ערכית משתתף
+  closePUpdateSharer(display: boolean) {
+    this.sUpdateSharer = display;
+    this.general();
   }
 }
 

@@ -16,6 +16,8 @@ import { Community } from '../../models/community.class';
 import { Synagogue } from '../../models/synagogue.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { Sharer } from '../../models/sharer.class';
+import { SharerForProject } from '../../models/sharerForProject.class';
+import { StudentForProject } from '../../models/studentForProject.class';
 
 @Component({
   selector: 'app-add-update-student',
@@ -28,7 +30,6 @@ export class AddUpdateStudentComponent implements OnInit {
   @Input() codeWorkerLogin = 0;
   @Input() status: string = 'add';
   @Input() status2: string = 'add';
-
   @Input() popupDisplayIn: boolean = false;
   //ערים
   lisOfCities: Array<City> = []
@@ -49,6 +50,9 @@ export class AddUpdateStudentComponent implements OnInit {
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
   @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
+  //לרישום מששתף כחניך
+  @Input() studentForProject: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
+@Input() sharer:Sharer=new Sharer(-1,"",1,"","","",1,1,1,"","","","")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() cb1: boolean = true;
   @Input() cb2: boolean = false;
@@ -220,6 +224,49 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //סגירת הפופפ
   public close(): void {
+    this.empty()
+    this.popupDisplayOut.emit(false)
+  }
+  //סגירת הפופפ
+  public async closeAddFromSharer(): Promise<void> {
+    //מחיקת תלמיד מחניך לפרויקט
+    await new Promise<void>((resolve, reject) => {
+
+      this.api.deleteStudentForProject(this.studentForProject.SFP_code).subscribe(
+        (message: any) => {
+          resolve();
+        },
+        (error: any) => {
+          resolve();
+        });
+    });
+    //הוספה משתתף לפרויקט 
+    const sharerForProject: SharerForProject = new SharerForProject(1, this.studentForProject.SFP_code_project, this.sharer.Sh_code,this.studentForProject.SFP_code_guide, this.studentForProject.SFP_name_school_bein_hazmanim, this.studentForProject.SFP_veshinantem, this.sharer)
+    await new Promise<void>((resolve, reject) => {
+
+      this.api.AddSharerForProject(sharerForProject).subscribe(
+        (response) => {
+          resolve();
+
+        },
+        (error) => {
+          resolve();
+
+        });
+    });
+    //מחיקת התלמיד
+    await new Promise<void>((resolve, reject) => {
+
+      this.api.DeleteStudent(this.studentUpdate.St_code).subscribe(
+        (response) => {
+          resolve();
+        },
+        (error) => {
+          resolve();
+
+        }
+      );
+    });
     this.empty()
     this.popupDisplayOut.emit(false)
   }

@@ -45,7 +45,7 @@
                         <td (click)="displaySharer(s.Sharer);">{{s.SFP_veshinantem}}</td>
 
                         <td nonePrint>
-                            <button edit title="ערוך" (click)="editSharer(s.Sharer);">ערוך</button>
+                            <button edit title="ערוך" (click)="editSharer(s);">ערוך</button>
                             <button edit addStudent title="רְשום כחניך" (click)="editSharerForStudent(s);">רשום
                                 כחניך</button>
 
@@ -111,7 +111,7 @@
 <!-- העברת משתתף לרישום חניך
  --><app-add-update-student [popupDisplayIn]="sAddStudentFromSharer" [status]="'update'" [status2]="'addFromSharer'"
     [studentUpdate]="studentNew" [Parent]="ParentNew" [Parent1]="Parent1New" [DifficultyStudent]="DifficultyStudentNew"
-    [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew"
+    [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew" [studentForProject]="studentForProject" [sharer]="sharer"
     (popupDisplayOut)="closePAddStudentFromSharer($event)" [codeWorkerLogin]="0" [cb1]="studentNew.St_gender==1"
     [cb2]="studentNew.St_gender==2"></app-add-update-student>
 <!-- הצגת פרטי חניך
@@ -124,3 +124,10 @@
     [Parent1]="Parent1DisplaySharer" [listSharerForProjects]="listSharerForProjects"
     [StudiesForSharer]="StudiesForSharerDisplay"
     (popupDisplayOut)="closePDisplaySharer($event)"></app-display-sharer>
+    <!-- ערוך משתתף -->
+    <app-update-sharer [popupDisplayIn]="sUpdateSharer" [status]="'update'"
+    [sharerUpdate]="sharerUpdate" [Parent]="ParentSharerUpdate" [Parent1]="Parent1SharerUpdate"
+     [StudiesForSharer]="StudiesForSharerUpdate" [project]="project" 
+    [sharerForProjectUpdate]="sharerForProjectUpdate" [listOfGuides]="listAll"
+    (popupDisplayOut)="closePUpdateSharer($event)"[cb1]="sharerUpdate.Sh_gender==1"
+    [cb2]="studentNew.St_gender==2"></app-update-sharer>

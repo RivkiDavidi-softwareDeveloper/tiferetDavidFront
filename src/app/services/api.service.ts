@@ -222,7 +222,15 @@ export class ApiService {
   UpdateStudent(studentData: any): Observable<any> {
     return this.httpp.put(this.urlBasis + "/students", studentData);
   }
-
+  //עדכון משתתף
+  UpdateSharer(sharerData: any): Observable<any> {
+    return this.httpp.put(this.urlBasis + "/shareres", sharerData);
+  }
+    //עדכון משתתף לפרויקט
+  UpdateSharerForProject(sharerForProject: SharerForProject): Observable<any> {
+    const SFP_code = sharerForProject.SFP_code;
+    return this.httpp.put(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`, sharerForProject);
+  }
   //קבלת תמונת חניך מהשרת
   getStudentImage(imageName: string) {
     const url = `${this.urlBasis}/students/getStudentImage/${imageName}`;
@@ -313,6 +321,10 @@ export class ApiService {
   //הוספת חניך לפרויקט
   AddStudentForProject(studentForProject: StudentForProject): Observable<any> {
     return this.httpp.post<any>(this.urlBasis + "/studentForProjects", studentForProject);
+  }
+    //הוספת משתתף לפרויקט
+  AddSharerForProject(sharerForProject: SharerForProject): Observable<any> {
+    return this.httpp.post<any>(this.urlBasis + "/sharerForProjects", sharerForProject);
   }
   //הוספת מדריך לפרויקט
   AddGuideForProject(guideForProject: GuideForProject): Observable<any> {
