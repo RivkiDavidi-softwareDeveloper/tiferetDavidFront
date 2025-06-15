@@ -11,7 +11,11 @@
         <button buttonTop print (click)="print()">הדפס</button>
 
         <div *ngFor="let g of listAll" class="guide-section">
-            <div class="guide-title"><label inName>מדריך | </label>{{ g.guide.GFP_name }}</div>
+            <div class="guide-title"><label inName>מדריך | </label>{{ g.guide.GFP_name }}
+                <button edit title="ערוך" (click)="editGuide(g);">ערוך</button>
+                 <button iconn2 delete title="מחק" class="button"
+                                (click)="deleteGuide(g)"></button>
+            </div>
 
             <div tagList>חניכים ומשתתפים:</div>
             <table>
@@ -20,7 +24,7 @@
                         <th></th>
                         <th>שם</th>
                         <th>ת.ז</th>
-                        <th>פל' חניך</th>
+                        <th>פל' משתתף/חניך</th>
                         <th>ישיבת בין הזמנים</th>
                         <th>נוסח התפילה</th>
                         <th>"ושננתם"</th>
@@ -108,26 +112,28 @@
 <!-- הוספת מדריך לפרויקט
  --><app-add-guide-for-project [popupDisplayIn]="sAddGuide" [codeProject]="project.Pr_code"
     (popupDisplayOut)="closeAddGuide($event)"></app-add-guide-for-project>
+<!-- ערוך מדריך לפרויקט
+ --><app-add-guide-for-project [popupDisplayIn]="sUpdateGuide" [codeProject]="project.Pr_code" [status]="'update'"
+    [guideForProjectUpdate]="guideForProjectUpdate"
+    (popupDisplayOut)="closeAddGuide($event)"></app-add-guide-for-project>
 <!-- העברת משתתף לרישום חניך
  --><app-add-update-student [popupDisplayIn]="sAddStudentFromSharer" [status]="'update'" [status2]="'addFromSharer'"
     [studentUpdate]="studentNew" [Parent]="ParentNew" [Parent1]="Parent1New" [DifficultyStudent]="DifficultyStudentNew"
-    [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew" [studentForProject]="studentForProject" [sharer]="sharer"
-    (popupDisplayOut)="closePAddStudentFromSharer($event)" [codeWorkerLogin]="0" [cb1]="studentNew.St_gender==1"
-    [cb2]="studentNew.St_gender==2"></app-add-update-student>
+    [Worker]="WorkerNew" [StudiesForStudent]="StudiesForStudentNew" [studentForProject]="studentForProject"
+    [sharer]="sharer" (popupDisplayOut)="closePAddStudentFromSharer($event)" [codeWorkerLogin]="0"
+    [cb1]="studentNew.St_gender==1" [cb2]="studentNew.St_gender==2"></app-add-update-student>
 <!-- הצגת פרטי חניך
  --> <app-display-student [popupDisplayIn]="displayPopup" [student]="studentDisplay" [Parent]="ParentDisplay"
-    [Parent1]="Parent1Display" [DifficultyStudent]="DifficultyStudentDisplay" [Worker]="WorkerDisplay" [listStudentForProjects]="listStudentForProjects"
-    [StudiesForStudent]="StudiesForStudentDisplay" [selectedImage]="imageBlobURL"
-    (popupDisplayOut)="closePDisplay($event)"></app-display-student>
+    [Parent1]="Parent1Display" [DifficultyStudent]="DifficultyStudentDisplay" [Worker]="WorkerDisplay"
+    [listStudentForProjects]="listStudentForProjects" [StudiesForStudent]="StudiesForStudentDisplay"
+    [selectedImage]="imageBlobURL" (popupDisplayOut)="closePDisplay($event)"></app-display-student>
 <!--     הצגת פרטי משתתף -->
 <app-display-sharer [popupDisplayIn]="displayPopupSharer" [sharer]="sharerDisplay" [Parent]="ParentDisplaySharer"
     [Parent1]="Parent1DisplaySharer" [listSharerForProjects]="listSharerForProjects"
-    [StudiesForSharer]="StudiesForSharerDisplay"
-    (popupDisplayOut)="closePDisplaySharer($event)"></app-display-sharer>
-    <!-- ערוך משתתף -->
-    <app-update-sharer [popupDisplayIn]="sUpdateSharer" [status]="'update'"
-    [sharerUpdate]="sharerUpdate" [Parent]="ParentSharerUpdate" [Parent1]="Parent1SharerUpdate"
-     [StudiesForSharer]="StudiesForSharerUpdate" [project]="project" 
-    [sharerForProjectUpdate]="sharerForProjectUpdate" [listOfGuides]="listAll"
-    (popupDisplayOut)="closePUpdateSharer($event)"[cb1]="sharerUpdate.Sh_gender==1"
+    [StudiesForSharer]="StudiesForSharerDisplay" (popupDisplayOut)="closePDisplaySharer($event)"></app-display-sharer>
+<!-- ערוך משתתף -->
+<app-update-sharer [popupDisplayIn]="sUpdateSharer" [status]="'update'" [sharerUpdate]="sharerUpdate"
+    [Parent]="ParentSharerUpdate" [Parent1]="Parent1SharerUpdate" [StudiesForSharer]="StudiesForSharerUpdate"
+    [project]="project" [sharerForProjectUpdate]="sharerForProjectUpdate" [listOfGuides]="listAll"
+    (popupDisplayOut)="closePUpdateSharer($event)" [cb1]="sharerUpdate.Sh_gender==1"
     [cb2]="studentNew.St_gender==2"></app-update-sharer>

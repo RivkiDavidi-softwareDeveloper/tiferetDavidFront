@@ -142,6 +142,42 @@ $color-orange: rgb(255, 140, 0);
       padding: 6px 10px;
       border-radius: 6px;
       margin-bottom: 8px;
+        [delete] {
+        background-image: url('../icons/delete2.png');
+      }
+  [iconn2] {
+        height: 17px;
+        width: 17px;
+        background-size: contain;
+        margin: 7px;
+        background-repeat: no-repeat;
+        background-color: rgb(0, 0, 0, 0.0);
+      }
+      [edit] {
+        background-image: url('../icons/edit2.png');
+        background-position: 97%;
+        background-size: 16px;
+        background-repeat: no-repeat;
+        padding-left: 8px;
+        text-align: left;
+        font-size: 1.9vh;
+        width: 50px;
+        height: 25px;
+        background-color: white;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+        color: black;
+        margin-left: 6px;
+      }
+
+      [edit]:hover {
+        padding-left: 6px;
+
+      }
+
+      [edit]:active {
+        padding-left: 6px;
+        top: 2px;
+      }
     }
 
     div[tagList] {

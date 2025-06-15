@@ -46,7 +46,7 @@ export class AddStudentForProjectComponent {
   //לעדכון
   studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
 
-  @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "","", this.studentUpdate)
+  @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
@@ -64,8 +64,8 @@ export class AddStudentForProjectComponent {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit() {
     this.generalStudent();
-/*     this.generalGuides();
- */
+    /*     this.generalGuides();
+     */
   }
   //חניכים 
   generalStudent() {
@@ -78,15 +78,15 @@ export class AddStudentForProjectComponent {
   }
 
   //מדריכים 
-/*   generalGuides() {
-
-    this.api.getGuidesForProjects(this.project.Pr_code).subscribe(Date => {
-      this.listOfGuides = []
-      this.listOfGuides.push(...Date);
-      this.cdRef.detectChanges();
-    })
-  } */
- //בחירת מדריך
+  /*   generalGuides() {
+  
+      this.api.getGuidesForProjects(this.project.Pr_code).subscribe(Date => {
+        this.listOfGuides = []
+        this.listOfGuides.push(...Date);
+        this.cdRef.detectChanges();
+      })
+    } */
+  //בחירת מדריך
   onGuideSelected(event: Event) {
     this.selectedGuideCode = Number((event.target as HTMLInputElement).value);
   }
@@ -104,7 +104,7 @@ export class AddStudentForProjectComponent {
         return;
 
       }
-      const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.selectedStudent.St_code, this.selectedGuideCode, this.SFP_name_school_bein_hazmanim,this.SFP_veshinantem, this.selectedStudent)
+      const studentForProject: StudentForProject = new StudentForProject(1, this.project.Pr_code, this.selectedStudent.St_code, this.selectedGuideCode, this.SFP_name_school_bein_hazmanim, this.SFP_veshinantem, this.selectedStudent)
       await new Promise<void>((resolve, reject) => {
 
         this.api.AddStudentForProject(studentForProject).subscribe(
@@ -120,7 +120,7 @@ export class AddStudentForProjectComponent {
       this.selectedStudent.St_nusah_tfila = this.St_nusah_tfila;
       await new Promise<void>((resolve, reject) => {
 
-        this.api.UpdateStudentForProject(this.selectedStudent).subscribe(
+        this.api.UpdateStudentForStudentForProjectOnly(this.selectedStudent).subscribe(
           (response) => {
             resolve(); // מסמן שהפעולה הושלמה
 
@@ -141,7 +141,61 @@ export class AddStudentForProjectComponent {
     }
   }
   //עדכון
-  update() {
+  async update() {
+    if (!this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
+      this.loading = true
+      //נוסח תפילה
+      if (this.St_nusah_tfila.length == 0) {
+        this.St_nusah_tfila = this.studentForProjectUpdate.Student.St_nusah_tfila
+      }
+      this.studentForProjectUpdate.Student.St_nusah_tfila = this.St_nusah_tfila;
+      //עדכון חניך
+      await new Promise<void>((resolve, reject) => {
+
+        this.api.UpdateStudentForStudentForProjectOnly(this.studentForProjectUpdate.Student).subscribe(
+          (response) => {
+            resolve(); // מסמן שהפעולה הושלמה
+
+          },
+          (error) => {
+            resolve(); // מסמן שהפעולה הושלמה
+
+          });
+      });
+      //ושננתם
+      if (this.SFP_veshinantem.length == 0) {
+        this.SFP_veshinantem = this.studentForProjectUpdate.SFP_veshinantem
+      }
+      //בין הזמנים
+      if (this.SFP_name_school_bein_hazmanim.length == 0) {
+        this.SFP_name_school_bein_hazmanim = this.studentForProjectUpdate.SFP_name_school_bein_hazmanim
+      }
+      //מדריך
+      if (this.selectedGuideCode != -1) {
+        this.studentForProjectUpdate.SFP_code_guide = this.selectedGuideCode
+      }
+      //עדכון חניך לפרויקט
+
+      const studentForProjectUpdate: StudentForProject = new StudentForProject(this.studentForProjectUpdate.SFP_code, this.studentForProjectUpdate.SFP_code_project
+        , this.studentForProjectUpdate.SFP_code_student, this.studentForProjectUpdate.SFP_code_guide, this.SFP_name_school_bein_hazmanim, this.SFP_veshinantem, this.studentForProjectUpdate.Student);
+      await new Promise<void>((resolve, reject) => {
+        this.api.UpdateStudentForProject(studentForProjectUpdate).subscribe(
+          (response) => {
+            resolve();
+          },
+          (error) => {
+            resolve();
+          }
+        );
+      });
+      this.loading = false
+      this.empty()
+      this.popupDisplayOut.emit(false);
+    }
+    else {
+      this.snackBar.open('פרטים שגויים', 'x', { duration: 3000 });
+
+    }
 
   }
   empty() {

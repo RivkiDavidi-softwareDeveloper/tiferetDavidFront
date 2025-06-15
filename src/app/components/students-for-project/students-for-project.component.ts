@@ -57,7 +57,9 @@ export class StudentsForProjectComponent {
   imageBlobURL: string = ""
   listStudentForProjects: Array<StudentForProject> = []
   listSharerForProjects: Array<SharerForProject> = []
-
+  //ערוך מדריך
+  guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "")
+  sUpdateGuide = false
   //הצגת משתתף
   sharerDisplay: Sharer = new Sharer(111, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
   ParentDisplaySharer: Parentt = new Parentt(111, "", "", "", "")
@@ -148,7 +150,7 @@ export class StudentsForProjectComponent {
   }
   //ערוך משתתף
   async editSharer(sharerForProject: SharerForProject) {
-    this.sharerForProjectUpdate=sharerForProject
+    this.sharerForProjectUpdate = sharerForProject
     this.sharerUpdate = sharerForProject.Sharer
     //שליפת הורים
     await new Promise<void>((resolve, reject) => {
@@ -425,7 +427,7 @@ export class StudentsForProjectComponent {
     this.displayPopup = true
 
   }
-
+  //ערוך חניך
   editStudent(studentForProject: StudentForProject) {
 
     this.studentForProjectUpdate = studentForProject
@@ -451,6 +453,44 @@ export class StudentsForProjectComponent {
 
       }
     });
+  }
+  //ערוך מדריך
+  editGuide(guideWithRelations: GuideWithRelations) {
+
+    this.guideForProjectUpdate = guideWithRelations.guide
+    this.sUpdateGuide = true
+  }
+  //מחיקת  מדריך מפרויקט
+  deleteGuide(guideWithRelations: GuideWithRelations) {
+    if (guideWithRelations.sharers.length == 0 && guideWithRelations.students.length == 0) {
+
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '350px',
+        data: { title: 'אישור מחיקה', message: ' :האם למחוק את המדריך' + guideWithRelations.guide.GFP_name + '\n מפרויקט:' + this.project.Pr_name + '?' }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+
+          // קוד לביצוע מחיקה
+          this.api.deleteGuideForProjects(guideWithRelations.guide.GFP_code).subscribe(
+            (message: any) => {
+              this.snackBar.open(message.message, 'x', { duration: 3000 });
+              this.general();
+            },
+            (error) => {
+              this.snackBar.open(error.error.error, 'x', { duration: 3000 });
+            });
+
+    this.general();
+
+
+        }
+      });
+    }
+    else {
+      this.snackBar.open("לא ניתן למחוק מדריך שיש תחתיו משתתפים", 'x', { duration: 3000 });
+
+    }
   }
   print() {
     window.print();
@@ -479,6 +519,7 @@ export class StudentsForProjectComponent {
   //סגירת פופפ הוספת מדריך
   closeAddGuide(display: boolean) {
     this.sAddGuide = display;
+    this.sUpdateGuide = display
     this.general();
   }
   //סגירת פופפ  העברת משתתף לרישום כחניך

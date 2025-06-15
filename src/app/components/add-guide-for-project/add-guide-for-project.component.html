@@ -5,14 +5,18 @@
         <br>
         <br>
 
-        <label>הכנס שם מדריך:</label>
-        <input type="text" *ngIf="status === 'add'"
-            [ngClass]="{'borderInputRed':validNane}"
+        <label *ngIf="status === 'add'">הכנס שם מדריך:</label>
+        <label *ngIf="status === 'update'"> שם מדריך:</label>
+
+        <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validNane}"
             (input)="onInputChangeN($event)">
+        <input type="text" *ngIf="status === 'update'" value="{{guideForProjectUpdate.GFP_name}}"
+            [ngClass]="{'borderInputRed':validNane}" (input)="onInputChangeN($event)">
         <label eror *ngIf="validNane">מוגבל ל-30 תוים</label>
         <br>
 
-        <button save (click)="add()">שמור</button>
+        <button save *ngIf="status === 'add'" (click)="add()">שמור</button>
+        <button save *ngIf="status === 'update'" (click)="update()">עדכן</button>
 
 
         <app-loading-spinner *ngIf="loading"></app-loading-spinner>

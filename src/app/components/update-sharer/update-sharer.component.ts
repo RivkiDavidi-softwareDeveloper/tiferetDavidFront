@@ -653,7 +653,7 @@ export class UpdateSharerComponent {
       && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
       && !this.validWorkMother && !this.validCellPhoneMother && !this.validCurrentSchoolName
       && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
-      && this.Sh_city_code != -1
+     && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem && this.Sh_city_code != -1
   }
   //בודקת אם כל הדגלים תקינים
   public validationUpdate(): boolean {
@@ -662,7 +662,7 @@ export class UpdateSharerComponent {
       && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
       && !this.validWorkMother && !this.validCellPhoneMother && !this.validCurrentSchoolName
       && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
-      &&
+      && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem &&
       this.sharerUpdate.Sh_city_code != -1
 
   }

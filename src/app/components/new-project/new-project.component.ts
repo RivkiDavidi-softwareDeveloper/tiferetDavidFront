@@ -96,15 +96,19 @@ export class NewProjectComponent {
   }
   //תאריך
   onInputChangeDate(event: Event) {
-    const name: string = (event.target as HTMLInputElement).value
-    if (name.length == 10) {
-      this.Pr_date = name;
+
+    const date: string = (event.target as HTMLInputElement).value
+    if (date.length == 10) {
+      this.Pr_date = date
       this.validPr_date = false;
+
     }
     else {
       this.validPr_date = true;
     }
+    this.projectUpdate.Pr_date = date
   }
+
 
 
 

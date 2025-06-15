@@ -231,6 +231,16 @@ export class ApiService {
     const SFP_code = sharerForProject.SFP_code;
     return this.httpp.put(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`, sharerForProject);
   }
+      //עדכון חניך לפרויקט
+  UpdateStudentForProject(studentForProject: StudentForProject): Observable<any> {
+    const SFP_code = studentForProject.SFP_code;
+    return this.httpp.put(`${this.urlBasis + "/studentForProjects"}/${SFP_code}`, studentForProject);
+  }
+        //עדכון מדריך לפרויקט
+  UpdateGuideForProject(guideForProject: GuideForProject): Observable<any> {
+    const id = guideForProject.GFP_code;
+    return this.httpp.put(`${this.urlBasis + "/guideForProjects"}/${id}`, guideForProject);
+  }
   //קבלת תמונת חניך מהשרת
   getStudentImage(imageName: string) {
     const url = `${this.urlBasis}/students/getStudentImage/${imageName}`;
@@ -338,6 +348,10 @@ export class ApiService {
   deleteSharerForProjects(SFP_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`);
   }
+    //מוחקת מדריך מפרויקט
+  deleteGuideForProjects(code: number) {
+    return this.httpp.delete(`${this.urlBasis + "/guideForProjects"}/${code}`);
+  }
   /* מחיקת כל הפעילויות
       DeleteActi() {
         const code=9;
@@ -348,7 +362,7 @@ export class ApiService {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
   }
   //עדכון חניך עבור שיוך חניך לפרויקט בלבד
-  UpdateStudentForProject(student: Student): Observable<any> {
+  UpdateStudentForStudentForProjectOnly(student: Student): Observable<any> {
     const St_code = student.St_code;
     return this.httpp.put(`${this.urlBasis + "/students"}/${St_code}`, student);
   }

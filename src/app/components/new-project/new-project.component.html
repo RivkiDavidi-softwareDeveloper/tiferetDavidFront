@@ -61,6 +61,7 @@
                 <label>*תאריך</label>
                 <input type="date" *ngIf="status === 'add'" (input)="onInputChangeDate($event)"
                     [ngClass]="{'borderInputGreen':Pr_date.length>0 && !validPr_date,'borderInputRed':validPr_date}">
+
                 <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(projectUpdate.Pr_date)"
                     (input)="onInputChangeDate($event)"
                     [ngClass]="{'borderInputGreen':Pr_date.length>0 && !validPr_date,'borderInputRed':validPr_date}">

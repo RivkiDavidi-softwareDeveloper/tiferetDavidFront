@@ -37,6 +37,8 @@ export class AddGuideForProjectComponent {
   nameGuide = "";
   @Input() status = "add"
   validNane = false
+  //עדכון
+  @Input() guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "")
   //אנימציה
   loading = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
@@ -58,8 +60,6 @@ export class AddGuideForProjectComponent {
   }
   async add() {
     if (this.nameGuide == "" && this.codeProject == -1 && this.validNane == true) {
-      console.log(this.nameGuide)
-      console.log(this.codeProject)
       this.snackBar.open('לא הוזן שם מדריך', 'x', { duration: 3000 });
 
     } else {
@@ -82,8 +82,37 @@ export class AddGuideForProjectComponent {
       this.empty()
       this.popupDisplayOut.emit(false);
     }
-}
-empty() {
-  this.nameGuide = ""
-}
+  }
+  async update() {
+    if (this.validNane == true) {
+      this.snackBar.open('שם מדריך לא תקין', 'x', { duration: 3000 });
+      
+    } else {
+      this.loading = true
+
+      if (this.nameGuide.length == 0) {
+        this.nameGuide = this.guideForProjectUpdate.GFP_name
+      }
+      this.guideForProjectUpdate.GFP_name = this.nameGuide
+      //עדכון מדריך לפרויקט
+      await new Promise<void>((resolve, reject) => {
+        this.api.UpdateGuideForProject(this.guideForProjectUpdate).subscribe(
+          (response) => {
+            resolve();
+
+          },
+          (error) => {
+            resolve();
+
+          });
+      });
+      this.loading = false
+
+      this.empty()
+      this.popupDisplayOut.emit(false);
+    }
+  }
+  empty() {
+    this.nameGuide = ""
+  }
 }
