@@ -3,10 +3,11 @@
 
         <button homeButton (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
         </button>
-<!--         <button [ngClass]="{'button1':true,'button2':deshbord}"
+        <!--         <button [ngClass]="{'button1':true,'button2':deshbord}"
         (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true">דשבורד</button> -->
         <button [ngClass]="{'button1':true,'button2':active}"
-            (click)="active=true;students=false;task=false;projects=false;pz=false;deshbord=false">דיווח על פעילות</button>
+            (click)="active=true;students=false;task=false;projects=false;pz=false;deshbord=false">דיווח על
+            פעילות</button>
         <button *ngIf="worker.Wo_gender==1" [ngClass]="{'button1':true,'button2':students}"
             (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false">אזור חניכים</button>
         <button *ngIf="worker.Wo_gender==2" [ngClass]="{'button1':true,'button2':students}"
@@ -14,24 +15,27 @@
         <button [ngClass]="{'button1':true,'button2':task}"
             (click)="students=false;task=true;projects=false;pz=false;active=false;deshbord=false">משימות ותזכורות
             <label>{{amountTasksND}}</label></button>
-<!--         <button [ngClass]="{'button1':true,'button2':pz}"
+        <!--         <button [ngClass]="{'button1':true,'button2':pz}"
             (click)="students=false;task=false;projects=false;pz=true;active=false;deshbord=false">פניות צוות
-            <label>{{amountMessagesND}}</label></button>
+            <label>{{amountMessagesND}}</label></button>-->
         <button [ngClass]="{'button1':true,'button2':projects}"
-            (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false">שיוך לפרויקטים</button> -->
-            <div>{{worker.Wo_name+" "+worker.Wo_Fname}}</div>
+            (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false">שיוך
+            לפרויקטים</button>
+        <div>{{worker.Wo_name+" "+worker.Wo_Fname}}</div>
     </div>
     <div class="tab2">
 
-        <button homeButton (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=false;close()">
+        <button homeButton
+            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=false;close()">
         </button>
         <select (change)="onListSelected($event)">
-<!--             <option selected [value]="1" [selected]="deshbord">דשבורד</option>
- -->            <option [value]="2" [selected]="active">דיווח על פעילות</option>
+            <!--             <option selected [value]="1" [selected]="deshbord">דשבורד</option>
+ -->
+            <option [value]="2" [selected]="active">דיווח על פעילות</option>
             <option [value]="3" [selected]="students">אזור חניכים</option>
             <option [value]="4" [selected]="task">משימות ותזכורות</option>
-<!--             <option [value]="5" [selected]="pz">פניות צוות</option>
-            <option [value]="6" [selected]="projects">שיוך לפרויקטים</option> -->
+            <!--             <option [value]="5" [selected]="pz">פניות צוות</option>-->
+            <option [value]="6" [selected]="projects">שיוך לפרויקטים</option>
 
 
         </select>
@@ -46,18 +50,19 @@
     <!--     <label class="label1">{{worker?.Wo_name+" "+worker?.Wo_Fname}}</label>
  -->
     <header>בס"ד</header>
-<!--     <app-deshbord *ngIf="deshbord" [codeFilter]="worker.Wo_code" [status]="'worker'"></app-deshbord> -->
+    <!--     <app-deshbord *ngIf="deshbord" [codeFilter]="worker.Wo_code" [status]="'worker'"></app-deshbord> -->
 
     <app-activity-reporting *ngIf="active" [worker]="worker" [minutes]="minutes" [kilomet]="kilomet" [exit]="exit"
         [target]="target" (editStudent)="updateStudent($event)">
     </app-activity-reporting>
     <app-display-students *ngIf="students" [codeWorkerSelected]="worker.Wo_code" [sUpdateStudent]="displayUpdateStudent"
-        [studentUpdate]="studentUpdate" [ParentUpdate]="ParentUpdate" [Parent1Update]="Parent1Update" [DifficultyStudentUpdate]="DifficultyStudentUpdate"
-        [WorkerUpdate]="WorkerUpdate" [StudiesForStudentUpdate]="StudiesForStudentUpdate" [imageBlobURL]="imageBlobURL"
+        [studentUpdate]="studentUpdate" [ParentUpdate]="ParentUpdate" [Parent1Update]="Parent1Update"
+        [DifficultyStudentUpdate]="DifficultyStudentUpdate" [WorkerUpdate]="WorkerUpdate"
+        [StudiesForStudentUpdate]="StudiesForStudentUpdate" [imageBlobURL]="imageBlobURL"
         (popupDisplayOut)="closePAdd($event)"></app-display-students>
     <app-tasks *ngIf="task" [worker]="worker" (amountTask)="updateAmountTask()"></app-tasks>
-  <!--   <app-worker-inquiries *ngIf="pz"  [worker]="worker"></app-worker-inquiries>
-    <app-contact-to-project *ngIf="projects" [worker]="worker"></app-contact-to-project> -->
+    <!--   <app-worker-inquiries *ngIf="pz"  [worker]="worker"></app-worker-inquiries> -->
+    <app-contact-to-project *ngIf="projects" [worker]="worker"></app-contact-to-project>
 
 
 

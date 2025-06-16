@@ -27,6 +27,12 @@ h1 {
     margin: auto;
     text-align: center;
 
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-family: Assistant-SemiBold;
+        }
     //סלקטיםם
     select {
         margin: auto;
@@ -40,10 +46,11 @@ h1 {
         font-size: 18px;
         border-radius: 5px;
         border: 1px solid #ccc;
-        width: 176px;
         font-family: Assistant-Regular;
         background-color: white;
 
+        //border: 1px solid #ccc;
+        width: 276px;
         option {
             background-color: white;
             font-family: Assistant-Regular;

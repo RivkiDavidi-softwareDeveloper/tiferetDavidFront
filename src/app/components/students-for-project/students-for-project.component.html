@@ -11,10 +11,16 @@
         <button buttonTop print (click)="print()">הדפס</button>
 
         <div *ngFor="let g of listAll" class="guide-section">
-            <div class="guide-title"><label inName>מדריך | </label>{{ g.guide.GFP_name }}
-                <button edit title="ערוך" (click)="editGuide(g);">ערוך</button>
-                 <button iconn2 delete title="מחק" class="button"
-                                (click)="deleteGuide(g)"></button>
+            <div class="guide-title">
+                <div otefLabelGuide>
+                    <label inName>מדריך | </label>{{ g.guide.GFP_name }}
+                </div>
+
+                <div otefButtonGuide >
+                    <button edit title="ערוך" (click)="editGuide(g);">ערוך</button>
+                    <button iconn2 delete title="מחק" class="button" (click)="deleteGuide(g)"></button>
+                </div>
+
             </div>
 
             <div tagList>חניכים ומשתתפים:</div>

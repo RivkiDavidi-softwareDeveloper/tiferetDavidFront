@@ -24,6 +24,7 @@ import { DisplayStudentComponent } from "../display-student/display-student.comp
 import { DisplaySharerComponent } from "../display-sharer/display-sharer.component";
 import { StudiesForSharer } from '../../models/studiesForSharer.class';
 import { UpdateSharerComponent } from "../update-sharer/update-sharer.component";
+import { error } from 'console';
 
 @Component({
   selector: 'app-students-for-project',
@@ -239,6 +240,23 @@ export class StudentsForProjectComponent {
         });
       }
     })
+    //שליפת לימודים ממשתתף
+    let studiesForSharer: StudiesForSharer = new StudiesForSharer(-1,1, "","", "", "", "", "")
+    await new Promise<void>((resolve, reject) => {
+        this.api.GetStudiesOfCodeSharer(sharerForProject.Sharer.Sh_code).subscribe(data => {
+          studiesForSharer = data;
+          resolve();
+
+        },
+      error=>{resolve()}
+      );
+      
+    })
+    let studiesForStudent: StudiesForStudent = new StudiesForStudent(studiesForSharer.SFS_code, studiesForSharer.SFS_student_code
+      ,studiesForSharer.SFS_current_school,studiesForSharer.SFS_current_school_ame, studiesForSharer.SFS_reception_class, 
+      studiesForSharer.SFS_current_class, studiesForSharer.SFS_previous_institutions,studiesForSharer. SFS_previous_school)
+
+    this.StudiesForStudentNew =studiesForStudent;
     const dataStudentAdd = { data: [this.studentNew, this.ParentNew, this.Parent1New, this.DifficultyStudentNew, this.StudiesForStudentNew] }
 
     //הוספת חניך
@@ -340,7 +358,7 @@ export class StudentsForProjectComponent {
   }
 
   //הצגת חניך
-  public async displayStudent(s: Student): Promise<void> {
+  async displayStudent(s: Student): Promise<void> {
     this.studentDisplay = s;
     //הורה1
     await new Promise<void>((resolve, reject) => {
@@ -468,20 +486,24 @@ export class StudentsForProjectComponent {
         width: '350px',
         data: { title: 'אישור מחיקה', message: ' :האם למחוק את המדריך' + guideWithRelations.guide.GFP_name + '\n מפרויקט:' + this.project.Pr_name + '?' }
       });
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe(async result => {
         if (result) {
 
           // קוד לביצוע מחיקה
-          this.api.deleteGuideForProjects(guideWithRelations.guide.GFP_code).subscribe(
-            (message: any) => {
-              this.snackBar.open(message.message, 'x', { duration: 3000 });
-              this.general();
-            },
-            (error) => {
-              this.snackBar.open(error.error.error, 'x', { duration: 3000 });
-            });
+          await new Promise<void>((resolve, reject) => {
 
-    this.general();
+            this.api.deleteGuideForProjects(guideWithRelations.guide.GFP_code).subscribe(
+              (message: any) => {
+                this.snackBar.open("המדריך נמחק בהצלחה", 'x', { duration: 3000 });
+                resolve()
+              },
+              (error) => {
+                this.snackBar.open("שגיאה במחיקת מדריך", 'x', { duration: 3000 });
+                resolve()
+
+              });
+          });
+          this.general();
 
 
         }

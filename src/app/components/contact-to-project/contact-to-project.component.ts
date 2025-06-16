@@ -22,7 +22,7 @@ export class ContactToProjectComponent {
   }
   async general() {
     if (this.worker)
-      this.api.getProgects(this.worker.Wo_gender,"").subscribe(Date => {
+      this.api.getProgects(this.worker.Wo_gender, "").subscribe(Date => {
         this.listProject = []
         this.listProject.push(...Date);
         this.cdRef.detectChanges();
@@ -34,19 +34,23 @@ export class ContactToProjectComponent {
   }
   addAllStudentForProject() {
     if (this.codeProject == 0) {
-      this.snackBar.open('לא נבחר פרויקט', 'סגור', { duration: 2000 });
+      this.snackBar.open('לא נבחר פרויקט', 'סגור', { duration: 3000 });
     }
+    if (this.worker)
+      this.api.AddStudentsForProjectForWorker(this.worker.Wo_code, this.codeProject).subscribe(
 
-    this.api.AddStudentsForProjectForWorker(this.worker?.Wo_code, this.codeProject).subscribe(
+        (response) => {
+          this.snackBar.open('החניכים שויכו בהצלחה', 'סגור', { duration: 3000 });
 
-      (response) => {
-        this.snackBar.open('החניכים שויכו בהצלחה', 'סגור', { duration: 2000 });
+        },
+        (error) => {
+          this.snackBar.open('השיוך נכשל', 'סגור', { duration: 3000 });
 
-      },
-      (error) => {
-        this.snackBar.open('השיוך נכשל', 'סגור', { duration: 2000 });
+        });
+    else {
+          this.snackBar.open('השיוך נכשל', 'סגור', { duration: 3000 });
 
-      });
+    }
 
   }
 }

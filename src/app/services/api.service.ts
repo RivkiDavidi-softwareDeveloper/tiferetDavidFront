@@ -118,7 +118,7 @@ export class ApiService {
       .set('codeStudent', codeStudent.toString())
     return this.httpp.get<StudiesForStudent>(this.urlBasis + "/studiesForStudents/OfCodeStudent", { params });
   }
-    //הצגת לימודים למשתתף לפי קוד משתתף
+  //הצגת לימודים למשתתף לפי קוד משתתף
   public GetStudiesOfCodeSharer(codeSharer: number): Observable<StudiesForSharer> {
     const params = new HttpParams()
       .set('codeSharer', codeSharer.toString())
@@ -226,17 +226,17 @@ export class ApiService {
   UpdateSharer(sharerData: any): Observable<any> {
     return this.httpp.put(this.urlBasis + "/shareres", sharerData);
   }
-    //עדכון משתתף לפרויקט
+  //עדכון משתתף לפרויקט
   UpdateSharerForProject(sharerForProject: SharerForProject): Observable<any> {
     const SFP_code = sharerForProject.SFP_code;
     return this.httpp.put(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`, sharerForProject);
   }
-      //עדכון חניך לפרויקט
+  //עדכון חניך לפרויקט
   UpdateStudentForProject(studentForProject: StudentForProject): Observable<any> {
     const SFP_code = studentForProject.SFP_code;
     return this.httpp.put(`${this.urlBasis + "/studentForProjects"}/${SFP_code}`, studentForProject);
   }
-        //עדכון מדריך לפרויקט
+  //עדכון מדריך לפרויקט
   UpdateGuideForProject(guideForProject: GuideForProject): Observable<any> {
     const id = guideForProject.GFP_code;
     return this.httpp.put(`${this.urlBasis + "/guideForProjects"}/${id}`, guideForProject);
@@ -304,18 +304,18 @@ export class ApiService {
         .set('codeProject', codeProject.toString());
       return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects", { params });
     } */
-       //הצגת פרויקטים לחניך    
-    public getProjectsForStudent(codeStudent: number): Observable<Array<StudentForProject>> {
-      const params = new HttpParams()
-        .set('codeStudent', codeStudent.toString());
-      return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects/forStudent", { params });
-    }
-    //הצגת פרויקטים למשתתף    
-    public getProjectsForSharer(codeSharer: number): Observable<Array<SharerForProject>> {
-      const params = new HttpParams()
-        .set('codeSharer', codeSharer.toString());
-      return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects/forSharer", { params });
-    }
+  //הצגת פרויקטים לחניך    
+  public getProjectsForStudent(codeStudent: number): Observable<Array<StudentForProject>> {
+    const params = new HttpParams()
+      .set('codeStudent', codeStudent.toString());
+    return this.httpp.get<Array<StudentForProject>>(this.urlBasis + "/studentForProjects/forStudent", { params });
+  }
+  //הצגת פרויקטים למשתתף    
+  public getProjectsForSharer(codeSharer: number): Observable<Array<SharerForProject>> {
+    const params = new HttpParams()
+      .set('codeSharer', codeSharer.toString());
+    return this.httpp.get<Array<SharerForProject>>(this.urlBasis + "/sharerForProjects/forSharer", { params });
+  }
   //הצגת מדריכים לפרויקט    
   public getGuidesForProjects(codeProject: number): Observable<Array<GuideForProject>> {
     const params = new HttpParams()
@@ -332,7 +332,11 @@ export class ApiService {
   AddStudentForProject(studentForProject: StudentForProject): Observable<any> {
     return this.httpp.post<any>(this.urlBasis + "/studentForProjects", studentForProject);
   }
-    //הוספת משתתף לפרויקט
+  //הוספת חניכים לפרויקט לפי קוד פעיל
+  public AddStudentsForProjectForWorker(codeWorker: number, codeProject: number): Observable<any> {
+    return this.httpp.post(`${this.urlBasis + "/studentForProjects"}/${codeWorker}/${codeProject}`, null);
+  }
+  //הוספת משתתף לפרויקט
   AddSharerForProject(sharerForProject: SharerForProject): Observable<any> {
     return this.httpp.post<any>(this.urlBasis + "/sharerForProjects", sharerForProject);
   }
@@ -348,7 +352,7 @@ export class ApiService {
   deleteSharerForProjects(SFP_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/sharerForProjects"}/${SFP_code}`);
   }
-    //מוחקת מדריך מפרויקט
+  //מוחקת מדריך מפרויקט
   deleteGuideForProjects(code: number) {
     return this.httpp.delete(`${this.urlBasis + "/guideForProjects"}/${code}`);
   }
@@ -434,13 +438,8 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
 
 
 
-  //הוספת חניכים לפרויקט
-  //הוספת חניך לפקרויקט
-  //הוספת חניכים לפרויקט לפי קוד פעיל
-  public AddStudentsForProjectForWorker(codeWorker: number | undefined, codeProject: number): Observable<any> {
-    const url: string = this.urlBasis + "/projects/AddStudentsForProjectForWorker/" + codeWorker + "/" + codeProject;
-    return this.httpp.get<any>(url);
-  }
+
+
 
 
 
