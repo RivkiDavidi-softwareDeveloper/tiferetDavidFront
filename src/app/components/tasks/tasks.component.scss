@@ -85,6 +85,25 @@ button:active {
   }
 }
 
+[more] {
+  background-color: white;
+  border: 2px solid $color-turqis;
+  color: $color-turqis;
+  width: 150px;
+  height: 40px;
+  font-family: Assistant-Bold;
+  font-size: 1em;
+  display: block;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+[more] :active {
+  position: relative;
+  top: 2px;
+  background-color: $color-turqis;
+  color: white;
+}
 
 .lineNan {
   display: none;
@@ -147,7 +166,10 @@ button:active {
   }
 }
 
+label{
+    margin: auto 2.5vw;
 
+}
 
 table {
   font-size: 2.1vh;
@@ -171,7 +193,6 @@ table {
       line-height: 30px;
       background-color: white;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
-
     }
 
     button:hover {
@@ -185,7 +206,20 @@ table {
       padding-left: 6px;
       top: 2px;
     }
+ [delete] {
+    background-image: url('../icons/delete2.png');
+  }
+   [iconn2] {
+    height: 17px;
+    width: 17px;
+    background-size: contain;
+    margin: 7px;
+    background-repeat: no-repeat;
+    background-color: rgb(0, 0, 0, 0.0);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.0); // צל עבור ה-Snackbar
 
+  
+  }
     [vx] {
       width: 25px;
       height: 25px;
@@ -224,12 +258,23 @@ table {
   td:nth-child(2) {
     width: 35vw;
   }
-
-  th:nth-child(5),
+ th:nth-child(3),
+  td:nth-child(3) {
+    width: 12vw;
+  }
+ th:nth-child(4),
+  td:nth-child(4) {
+    width: 8vw;
+  }
+ th:nth-child(5),
   td:nth-child(5) {
-    width: 20vw;
   }
 
+  th:nth-child(6),
+  td:nth-child(6) {
+    text-align: left;
+    width: 25vw;
+  }
   th {
     background-color: rgb(229, 235, 235);
   }
@@ -246,7 +291,7 @@ table {
     background-color: rgb(203, 255, 191);
 
   }
-
+ 
   thead {
     height: 0.3cm;
     font-family: Assistant-Bold;
@@ -375,6 +420,7 @@ header {
   [titleA] {
     display: none;
   }
+
   h1 {
     display: none;
   }
@@ -443,6 +489,7 @@ header {
 
     th:nth-child(6),
     td:nth-child(6) {
+      text-align: left;
       width: 75px;
     }
 

@@ -1,8 +1,12 @@
 <div class="top" [ngClass]="{'topBanot':worker.Wo_gender==2}" nonePrint>
     <div class="tab">
+        <div [ngClass]="{'homeOtef':true}">
+            <button [ngClass]="{'home':true}"
+                (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+                <div class="inHome"></div>
+            </button>
+        </div>
 
-        <button homeButton (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
-        </button>
         <!--         <button [ngClass]="{'button1':true,'button2':deshbord}"
         (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true">דשבורד</button> -->
         <button [ngClass]="{'button1':true,'button2':active}"
@@ -24,10 +28,14 @@
         <div>{{worker.Wo_name+" "+worker.Wo_Fname}}</div>
     </div>
     <div class="tab2">
+        <div [ngClass]="{'homeOtef':true}">
+            <button [ngClass]="{'home':true}"
+                (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=false;close()">
+                <div class="inHome"></div>
+            </button>
+        </div>
 
-        <button homeButton
-            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=false;close()">
-        </button>
+
         <select (change)="onListSelected($event)">
             <!--             <option selected [value]="1" [selected]="deshbord">דשבורד</option>
  -->

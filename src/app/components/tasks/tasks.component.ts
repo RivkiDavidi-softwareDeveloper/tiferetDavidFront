@@ -16,12 +16,13 @@ import { Worker } from '../../models/worker.class';
 })
 export class TasksComponent {
   @Output() amountTask: EventEmitter<boolean> = new EventEmitter()
-
+  amountDisplay = 50;
+  amountDisplayNow = 0
   listTaskss: Array<Taskk> = []
-  @Input() worker:Worker =new Worker(1,"",1,1,"","","","","")
-displayAddTask = false
-/*  @Input()  displayAddTask = false
- */
+  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "")
+  displayAddTask = false
+  /*  @Input()  displayAddTask = false
+   */
   taskUpdate: Taskk | undefined
   displayUpdateTask = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
@@ -30,9 +31,10 @@ displayAddTask = false
 
   }
   generalTasks() {
-    this.api.GetAllTastForWorker(this.worker.Wo_code).subscribe(Date => {
+    this.api.GetAllTastForWorker(this.worker.Wo_code, this.amountDisplay).subscribe(Date => {
       this.listTaskss = [];
       this.listTaskss.push(...Date);
+      this.amountDisplayNow = this.listTaskss.length;
       this.cdRef.detectChanges();
     });
   }
@@ -119,4 +121,27 @@ displayAddTask = false
     this.taskUpdate = taskk
     this.displayUpdateTask = true
   }
+  //הצגת עוד 10 הודעות
+  displayMore() {
+    this.amountDisplay += 10;
+    this.generalTasks()
+  }
+  //מחיקת הודעה
+
+  async deleteTask(code: number) {
+    await new Promise<void>((resolve, reject) => {
+      this.api.deleteTask(code).subscribe(
+        (response) => {
+          this.snackBar.open('!המשימה נמחקה בהצלחה', 'x', { duration: 3000 });
+          resolve();
+        },
+        (error) => {
+          this.snackBar.open('שגיאה במחיקה', 'x', { duration: 3000 });
+          resolve();
+        });
+
+    });
+    this.generalTasks()
+  }
+
 }

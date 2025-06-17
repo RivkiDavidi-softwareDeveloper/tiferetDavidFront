@@ -4,7 +4,7 @@
     <button icon print (click)="print()" title="הדפס">י</button>
 </div>
 <br>
-
+<label>מציג {{amountDisplayNow}} הודעות אחרונות</label>
 <table>
     <thead>
         <tr>
@@ -33,12 +33,15 @@
                 <p> שעה: {{t.Ta_time}}</p>
             </td>
             <td nonePrint><button *ngIf="t.Ta_done==0" clockLeter (click)="updateTask(t)">הזכר לי מאוחר יותר</button>
+                <button iconn2 delete title="מחק" class="button"
+                    (click)="deleteTask(t.Ta_code)"></button>
+
             </td>
         </tr>
 
     </tbody>
 </table>
-<!-- <button>הצג עוד</button>
- --><app-task *ngIf="displayAddTask" [worker]="worker" (popupDisplayOut)="closePAdd(false)"></app-task>
-<app-task *ngIf="displayUpdateTask" [worker]="worker"  [status]="'update'" [taskUpdate]="taskUpdate"
+<button more (click)="displayMore()">הצג עוד</button>
+<app-task *ngIf="displayAddTask" [worker]="worker" (popupDisplayOut)="closePAdd(false)"></app-task>
+<app-task *ngIf="displayUpdateTask" [worker]="worker" [status]="'update'" [taskUpdate]="taskUpdate"
     (popupDisplayOut)="closePAdd(false)"></app-task>

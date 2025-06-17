@@ -174,7 +174,7 @@ export class HomeComponent implements OnInit {
       this.api.getLogin(this.name, this.password).subscribe(
         (response) => {
 
-            if (response.Wo_ID === "111111111") {
+            if (response.Wo_ID === "0000") {
               this.workersLoginShow = false; this.systemLoginShow = true; this.buttonShow = false;
               this.isLoading = false
             }

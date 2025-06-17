@@ -167,9 +167,10 @@ export class ApiService {
 
 
   //הצגת כל המשימות לפי קוד פעיל
-  public GetAllTastForWorker(workerCode: number): Observable<Array<Taskk>> {
+  public GetAllTastForWorker(workerCode: number,amountDisplay:number): Observable<Array<Taskk>> {
     const params = new HttpParams()
-      .set('workerCode', workerCode.toString());
+      .set('workerCode', workerCode.toString())
+      .set('amountDisplay',amountDisplay.toString());
     return this.httpp.get<Array<Taskk>>(this.urlBasis + "/tasks", { params });
   }
   //הצגת כמות המשימות שלא התבצעו
@@ -199,6 +200,10 @@ export class ApiService {
   UpdateTask(task: Taskk): Observable<any> {
     const Ta_code = task.Ta_code;
     return this.httpp.put(`${this.urlBasis + "/tasks"}/${Ta_code}`, task);
+  }
+  //מחיקת משימה
+  deleteTask(Ta_code: number) {
+    return this.httpp.delete(`${this.urlBasis}/tasks/${Ta_code}`);
   }
   //הוספת חניך
   AddStudent(studentData: any): Observable<any> {
@@ -459,20 +464,8 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
     const url: string = this.urlBasis + "/deshbord/GeneralDeshbord/" + codeFilter;
     return this.httpp.get(url) as Observable<Array<Array<number>>>
   }
-  /*   //מוחקת עובד
-    //לא עובד
-    //צריך בצד שרת למחוק קודם את כל היסטוריית הפעיל ואז למחוק אותו
-    DeleteWorker(wo_code: number) {
-      return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
-    } */
 
-  /*   //מחיקת משימה
-    //פעולה לא בשימוש
-    public deleteTask(task: Taskk): Observable<any> {
-      const url: string = this.urlBasis + "/tasks/DeleteTask";
-      return this.httpp.post<any>(url, task);
-    } */
-
+  
 
   /*  
     //הוספת פעילות כולל קבצים

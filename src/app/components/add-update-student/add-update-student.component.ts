@@ -18,6 +18,7 @@ import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.comp
 import { Sharer } from '../../models/sharer.class';
 import { SharerForProject } from '../../models/sharerForProject.class';
 import { StudentForProject } from '../../models/studentForProject.class';
+import { isBuffer } from 'util';
 
 @Component({
   selector: 'app-add-update-student',
@@ -52,7 +53,7 @@ export class AddUpdateStudentComponent implements OnInit {
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   //לרישום מששתף כחניך
   @Input() studentForProject: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
-@Input() sharer:Sharer=new Sharer(-1,"",1,"","","",1,1,1,"","","","")
+  @Input() sharer: Sharer = new Sharer(-1, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() cb1: boolean = true;
   @Input() cb2: boolean = false;
@@ -241,7 +242,7 @@ export class AddUpdateStudentComponent implements OnInit {
         });
     });
     //הוספה משתתף לפרויקט 
-    const sharerForProject: SharerForProject = new SharerForProject(1, this.studentForProject.SFP_code_project, this.sharer.Sh_code,this.studentForProject.SFP_code_guide, this.studentForProject.SFP_name_school_bein_hazmanim, this.studentForProject.SFP_veshinantem, this.sharer)
+    const sharerForProject: SharerForProject = new SharerForProject(1, this.studentForProject.SFP_code_project, this.sharer.Sh_code, this.studentForProject.SFP_code_guide, this.studentForProject.SFP_name_school_bein_hazmanim, this.studentForProject.SFP_veshinantem, this.sharer)
     await new Promise<void>((resolve, reject) => {
 
       this.api.AddSharerForProject(sharerForProject).subscribe(
@@ -749,13 +750,19 @@ export class AddUpdateStudentComponent implements OnInit {
   }
   //מחזיר את החלק הראשון בפונה 
   Requester1() {
-    const parts = this.studentUpdate.St_requester.split(':');
-    return parts[0];
+    if (this.studentUpdate.St_requester) {
+      const parts = this.studentUpdate.St_requester.split(':');
+      return parts[0];
+    }
+    return ""
   }
   //מחזיר את החלק השני בפונה
   Requester2() {
-    const parts = this.studentUpdate.St_requester.split(':');
-    return parts[1];
+    if (this.studentUpdate.St_requester) {
+      const parts = this.studentUpdate.St_requester.split(':');
+      return parts[1];
+    }
+    return ""
   }
   //רשימת קשיים
   onSelestDifficulity(event: Event) {

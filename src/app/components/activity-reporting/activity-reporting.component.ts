@@ -374,7 +374,6 @@ export class ActivityReportingComponent implements OnInit {
                     this.listOfStudents.forEach(s => {
                         this.api.getLastActivityForStudent(s.St_code).subscribe(response => {
                             lastDate = response;
-                            console.log(lastDate)
                             if (lastDate) {
                                 if (this.ifRedPoit(lastDate, s)) {
                                     this.listOfStudents2.push(s)
@@ -940,12 +939,10 @@ export class ActivityReportingComponent implements OnInit {
                     /*                     this.api.addActivity(activityAdd, this.selectedFiles).subscribe((response) => {
                      */
                     this.api.addActivity(activityAdd).subscribe((response) => {
-                        console.log('Activity added successfully', response);
                         this.snackBar.open('הפעילות נשמרה בהצלחה', 'x', { duration: 3000 });
                         this.loading = false;
                         resolve();
                     }, (error) => {
-                        console.error('Error adding activity', error);
                         this.snackBar.open('שמירת הפעילות נכשלה', 'x', { duration: 3000 });
                         this.loading = false;
                         resolve();

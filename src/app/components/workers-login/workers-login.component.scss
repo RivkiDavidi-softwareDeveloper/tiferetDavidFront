@@ -1,4 +1,3 @@
-
 $color-yellow: rgb(255, 255, 82);
 $color-red: rgb(229, 45, 45);
 $color-turqis-light: rgb(0, 254, 212);
@@ -13,25 +12,32 @@ $color-white-dark: rgb(242, 244, 244);
 $color-pink: rgb(207, 14, 66);
 $color-pink-dark: rgb(146, 3, 41);
 $color-white-dark-b: rgb(255, 242, 242);
+
 @keyframes backgroundAnimation {
     0% {
-      background-color:  rgb(255, 255, 255);
-  
+        background-color: rgb(255, 255, 255);
+
     }
+
     50% {
-      background-color: rgb(255, 255, 255);
-  
+        background-color: rgb(255, 255, 255);
+
     }
+
     100% {
-      background-color:rgb(255, 255, 255);
+        background-color: rgb(255, 255, 255);
     }
-  }
-  :host {
+}
+
+:host {
     display: block;
     height: 100%;
     width: 100%;
     animation: backgroundAnimation 10s infinite alternate;
-  }
+}
+
+
+
 .label1 {
     color: red;
 }
@@ -40,10 +46,14 @@ h1,
 h2 {
     font-family: Assistant-Bold;
 }
-button:hover,button:active,button:focus{
+
+button:hover,
+button:active,
+button:focus {
     border-radius: 50px;
 
 }
+
 .top {
     background-color: $color-turqis;
     height: 60px;
@@ -53,7 +63,8 @@ button:hover,button:active,button:focus{
     left: 0px;
     position: absolute;
     box-shadow: 0px 0px 10px 0px #4c4c4c;
-    [homeButton]{
+
+    [homeButton] {
         width: 40px;
         height: 40px;
         border-radius: 50px;
@@ -68,18 +79,58 @@ button:hover,button:active,button:focus{
         display: block;
 
     }
-    [homeButton]:hover,[homeButton]:active,[homeButton]:focus{
+
+    [homeButton]:hover,
+    [homeButton]:active,
+    [homeButton]:focus {
         background-image: url('../icons/exit-turqis.png');
-        background-color:  rgb(248, 246, 246);;
+        background-color: rgb(248, 246, 246);
+        ;
 
     }
+.homeOtef {
+    margin: 5px;
+    flex: 0.4;
+    font-size: x-large;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    transition: border-top 1s;
+    font-family: Assistant-Bold;
+}
+
+.home {
+    width: 46px;
+    height: 100%;
+    border-radius: 50px;
+    border: 2px solid $color-turqis-dark;
+    font-weight: bold;
+    margin: 0px;
+    background-color: rgb(242, 244, 244, 0.0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.inHome {
+    background-color: rgb(242, 244, 244, 0.0);
+    background-image: url('../icons/exit2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: invert(100%);
+    width: 40px;
+    height: 40px;
+}
     .tab {
         direction: rtl;
         display: flex;
         flex-wrap: wrap;
         height: 60px;
         width: 76vw;
-        margin: 1.2vh 4vw 1.2vh  0px;
+        margin: 1.2vh 4vw 1.2vh 0px;
+
         button {
             font-family: Assistant-Light;
             cursor: pointer;
@@ -128,11 +179,13 @@ button:hover,button:active,button:focus{
         display: none;
         flex-wrap: wrap;
         width: 76vw;
-        margin: 1.2vh 4vw 1.2vh  0px;
-              button {
+        margin: 1.2vh 4vw 1.2vh 0px;
+
+        button {
             font-family: Assistant-Light;
             cursor: pointer;
         }
+
         //סלקטיםם
         select {
             font-size: 25px;
@@ -159,11 +212,12 @@ button:hover,button:active,button:focus{
         }
     }
 }
+
 .topBanot {
     background-color: $color-pink;
     box-shadow: 0px 0px 10px 0px #4c4c4c;
 
-/*     .homeOtef {
+    /*     .homeOtef {
 
         .home {
           
@@ -182,7 +236,7 @@ button:hover,button:active,button:focus{
             color: $color-white-dark-b;
             border: 2px solid $color-pink-dark;
             position: relative;
-      
+
         }
 
         .button2:hover {
@@ -201,6 +255,7 @@ button:hover,button:active,button:focus{
     }
 
     .tab2 {
+
         //סלקטיםם
         select {
 
@@ -215,15 +270,17 @@ button:hover,button:active,button:focus{
         }
     }
 }
-button{
+
+button {
     position: relative;
-    label{
+
+    label {
         height: 20px;
         width: 20px;
         background-color: $color-yellow;
         border-radius: 50px;
         position: absolute;
-        top:-9px;
+        top: -9px;
         left: 15px;
         font-size: small;
         color: black;
@@ -236,11 +293,11 @@ button{
     direction: ltr;
 
     .logo {
-        height:55px;
+        height: 55px;
         background-size: contain;
         display: block;
         text-align: left;
-        background-position:left center;
+        background-position: left center;
         background-repeat: no-repeat;
     }
 
@@ -290,6 +347,7 @@ button{
         .tab {
             display: none;
         }
+
         .tab2 {
             display: contents;
             width: 60%;
@@ -381,3 +439,10 @@ button{
 
 
 }
+
+
+
+/////////////////
+/// 
+
+
