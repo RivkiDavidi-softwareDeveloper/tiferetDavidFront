@@ -8,4 +8,4 @@ cmds = ["npm install"]
 cmds = ["./node_modules/.bin/ng build --configuration production"]
 
 [start]
-cmd = "static-server dist/tiferet-david-app/browser"
+cmd = "static-server dist/tiferet-david-app"
