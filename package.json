@@ -4,8 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --hmr",
-   
-  "build": "ng build --configuration production",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:tiferet-david-app": "node dist/tiferet-david-app/server/server.mjs"
@@ -42,7 +41,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.3",
-    "@angular/cli": "^17.0.3",
+    "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.0.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
