@@ -33,7 +33,7 @@
                 </li>
             </ul>
         </div>
-        <label> מדריך</label>
+        <label  > מדריך</label>
         <select *ngIf="status === 'add'" (change)="onGuideSelected($event)">
             <option selected hidden> בחר</option>
             <option *ngFor="let g of listOfGuides" [value]="g.guide.GFP_code">{{g.guide.GFP_name }}</option>

@@ -35,10 +35,13 @@ export class AddGuideForProjectComponent {
   @Input() popupDisplayIn: boolean = false;
   @Input() codeProject = -1;
   nameGuide = "";
+  idGuide = ""
   @Input() status = "add"
   validNane = false
+  validID = false
+
   //עדכון
-  @Input() guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "")
+  @Input() guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "", "")
   //אנימציה
   loading = false
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
@@ -58,13 +61,24 @@ export class AddGuideForProjectComponent {
       this.validNane = true;
     }
   }
+    //ת.ז
+  onInputChangeID(event: Event) {
+    const id: string = (event.target as HTMLInputElement).value
+    if (id.length ==9) {
+      this.idGuide = id;
+      this.validID = false;
+    }
+    else {
+      this.validID = true;
+    }
+  }
   async add() {
-    if (this.nameGuide == "" && this.codeProject == -1 && this.validNane == true) {
-      this.snackBar.open('לא הוזן שם מדריך', 'x', { duration: 3000 });
+    if (this.nameGuide == "" || this.idGuide == "" || this.codeProject == -1 || this.validNane == true || this.validID == true) {
+      this.snackBar.open('אחד הפרטים חסרים או שגויים', 'x', { duration: 3000 });
 
     } else {
       this.loading = true
-      const guideForProject: GuideForProject = new GuideForProject(1, this.codeProject, this.nameGuide)
+      const guideForProject: GuideForProject = new GuideForProject(1, this.codeProject, this.nameGuide, this.idGuide)
       await new Promise<void>((resolve, reject) => {
 
         this.api.AddGuideForProject(guideForProject).subscribe(
@@ -84,16 +98,19 @@ export class AddGuideForProjectComponent {
     }
   }
   async update() {
-    if (this.validNane == true) {
-      this.snackBar.open('שם מדריך לא תקין', 'x', { duration: 3000 });
-      
+    if (this.validNane == true || this.validID == true) {
+      this.snackBar.open('אחד הפרטים חסרים או שגויים', 'x', { duration: 3000 });
+
     } else {
       this.loading = true
 
       if (this.nameGuide.length == 0) {
         this.nameGuide = this.guideForProjectUpdate.GFP_name
       }
-      this.guideForProjectUpdate.GFP_name = this.nameGuide
+      if (this.idGuide.length == 0) {
+        this.idGuide = this.guideForProjectUpdate.GFP_name
+      }
+      this.guideForProjectUpdate.GFP_ID = this.idGuide
       //עדכון מדריך לפרויקט
       await new Promise<void>((resolve, reject) => {
         this.api.UpdateGuideForProject(this.guideForProjectUpdate).subscribe(
@@ -114,5 +131,9 @@ export class AddGuideForProjectComponent {
   }
   empty() {
     this.nameGuide = ""
+    this.idGuide = ""
+    this.validID = false
+    this.validNane = false
+
   }
 }

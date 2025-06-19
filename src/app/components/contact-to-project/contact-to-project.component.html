@@ -9,4 +9,9 @@
         <option *ngFor="let p of listProject" [value]="p.Pr_code">{{p.Pr_name}}</option>
     </select>
     <button (click)="addAllStudentForProject()">שייך את כל החניכים שלי</button>
+        <button (click)="selectStudentForProject()">בחר חניך לשיוך</button>
+
+<app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [project]="projectSelected" [status]="'add'"
+    [listStudentsForProject]="listStudentsForProject" [listOfGuides]="listAll" [codeWorker]="worker.Wo_code"
+    (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>
 </div>

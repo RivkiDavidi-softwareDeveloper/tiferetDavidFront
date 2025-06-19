@@ -35,6 +35,9 @@ export class AddStudentForProjectComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() popupDisplayIn: boolean = false;
   @Input() status = "add"
+  //שיוך מכניסת פעילים
+  @Input() codeWorker=-1
+
   @Input() listStudentsForProject: Array<StudentForProject> = []
   SFP_name_school_bein_hazmanim = ""
   St_nusah_tfila = ""
@@ -70,7 +73,7 @@ export class AddStudentForProjectComponent {
   //חניכים 
   generalStudent() {
 
-    this.api.FindStudent(this.searchText, this.order, this.project.Pr_gender, 0, -1).subscribe(Date => {
+    this.api.FindStudent(this.searchText, this.order, this.project.Pr_gender, 0,this.codeWorker).subscribe(Date => {
       this.listOfStudents = []
       this.listOfStudents.push(...Date);
       this.cdRef.detectChanges();
@@ -92,11 +95,9 @@ export class AddStudentForProjectComponent {
   }
   //הוספה
   async add() {
-    if (this.selectedGuideCode != -1 && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1 && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
+    if (this.selectedGuideCode != -1  && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1 && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
       this.loading = true
-      console.log(this.selectedStudent.St_code + "קוד חניך")
       const studentExists = this.listStudentsForProject.find(s => s.SFP_code_student == this.selectedStudent.St_code)
-      console.log(this.listStudentsForProject.length)
       if (studentExists != null) {
         this.snackBar.open('החניך כבר רשום לפרויקט', 'x', { duration: 3000 });
         this.loading = false
@@ -208,6 +209,7 @@ export class AddStudentForProjectComponent {
     this.validNaneBeinHazmanim = false
     this.validNusahTfila = false
     this.validVeshinantem = false
+    this.status="add"
     this.generalStudent()
   }
   //חיפוש

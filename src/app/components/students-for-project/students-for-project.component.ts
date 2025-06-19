@@ -59,7 +59,7 @@ export class StudentsForProjectComponent {
   listStudentForProjects: Array<StudentForProject> = []
   listSharerForProjects: Array<SharerForProject> = []
   //ערוך מדריך
-  guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "")
+  guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "","")
   sUpdateGuide = false
   //הצגת משתתף
   sharerDisplay: Sharer = new Sharer(111, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
@@ -92,7 +92,6 @@ export class StudentsForProjectComponent {
   ngOnInit() {
     this.general();
   }
-  //חניכים לפרויקט
   general() {
 
     this.api.getGuidesForProjectsWithSudentsAndSharers(this.project.Pr_code).subscribe(Date => {

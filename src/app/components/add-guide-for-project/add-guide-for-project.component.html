@@ -13,6 +13,13 @@
         <input type="text" *ngIf="status === 'update'" value="{{guideForProjectUpdate.GFP_name}}"
             [ngClass]="{'borderInputRed':validNane}" (input)="onInputChangeN($event)">
         <label eror *ngIf="validNane">מוגבל ל-30 תוים</label>
+     
+        <label>ת.ז:</label>
+        <input type="text" *ngIf="status === 'add'" [ngClass]="{'borderInputRed':validID}"
+            (input)="onInputChangeID($event)">
+        <input type="text" *ngIf="status === 'update'" value="{{guideForProjectUpdate.GFP_ID}}"
+            [ngClass]="{'borderInputRed':validID}" (input)="onInputChangeN($event)">
+        <label eror *ngIf="validID">הכנס ת.ז תקינה</label>
         <br>
 
         <button save *ngIf="status === 'add'" (click)="add()">שמור</button>
