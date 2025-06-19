@@ -4,11 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --hmr",
-  "build": "ng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:tiferet-david-app": "node dist/tiferet-david-app/server/server.mjs"
-  },
+    "test": "ng test"  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.11",
@@ -23,7 +21,6 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@angular/ssr": "^17.0.3",
     "@microsoft/signalr": "^8.0.7",
     "@ng-select/ng-select": "^12.0.7",
     "angular-calendar": "^0.31.1",
