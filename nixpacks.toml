@@ -7,5 +7,6 @@ cmds = ["npm install"]
 [phases.build]
 cmds = ["./node_modules/.bin/ng build --configuration production"]
 
+
 [start]
-cmd = "echo Deployment complete"
+cmd = "static-server dist/tiferet-david-app"
