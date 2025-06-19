@@ -1,5 +1,11 @@
 [phases.setup]
 nixPkgs = ["nodejs_18"]
 
+[phases.install]
+cmds = ["npm install"]
+
 [phases.build]
-cmds = ["npm install", "npm run build"]
+cmds = ["./node_modules/.bin/ng build --configuration production"]
+
+[start]
+cmd = "echo Deployment complete"
