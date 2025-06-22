@@ -1,19 +1,14 @@
 <div>
+  <p timer>{{ distanceKm |number: '1.2-2' }} <label>ק"מ</label></p>
+  <button bStart (click)="setOriginLocation();startTimer()">התחל</button>
+  <button bStop (click)="stopTimer()" [disabled]="!ifDisplayStopAndSaveTime">עצור</button>
+  <button bSave (click)="setDestinationLocation()" [disabled]="!originCoords || !ifDisplayStopAndSaveTime">שמור</button>
+</div>
+
+<!--   <div>
     <p timer>{{ distance |number: '1.2-2' }} <label>ק"מ</label></p>
     <button bStart (click)="startTracking();startTimer()">התחל</button>
     <button bStop (click)="stopTimer()"  [disabled]="!ifDisplayStopAndSaveTime">עצור</button>
     <button bSave (click)="stopTracking()" [disabled]="!currentLocation || !ifDisplayStopAndSaveTime">שמור</button>
-<!--     <div *ngIf="startLocation">
-        <h3>מוצא:</h3>
-        <p>קו רוחב: {{ startLocation.latitude }}</p>
-        <p>קו אורך: {{ startLocation.longitude }}</p>
-        <p>כתובת: {{ startLocation.address }}</p>
-      </div>
-      <div *ngIf="currentLocation">
-        <h3>מיקום עכשווי:</h3>
-        <p>קו רוחב: {{ currentLocation.latitude }}</p>
-        <p>קו אורך: {{ currentLocation.longitude }}</p>
-        <p>כתובת: {{ currentLocation.address }}</p>
-      </div> -->
   </div>
-  
+   -->
