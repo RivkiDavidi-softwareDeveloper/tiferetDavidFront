@@ -1,5 +1,5 @@
 <div>
-  <p timer>{{ distanceKm |number: '1.2-2' }} <label>ק"מ</label></p>
+<!--   <p timer>{{ distanceKm |number: '1.2-2' }} <label>ק"מ</label></p> -->
   <button bStart (click)="setOriginLocation();startTimer()">התחל</button>
   <button bStop (click)="stopTimer()" [disabled]="!ifDisplayStopAndSaveTime">עצור</button>
   <button bSave (click)="setDestinationLocation()" [disabled]="!originCoords || !ifDisplayStopAndSaveTime">שמור</button>
