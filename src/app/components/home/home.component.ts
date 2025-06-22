@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
   }
   saveTimer(traveld: Array<string>) {
     this.minutesToSend = this.minutesPrivate 
-    this.snackBar.open('המונה נשמר בהצלחה!', '', { duration: 2000,panelClass: ['custom-snackbar'] });
+    this.snackBar.open('המונה נשמר בהצלחה!', 'X', { duration: 2000,panelClass: ['custom-snackbar'] });
     this.seconds = 0;
     this.minutes = 0;
     this.hours = 0;
@@ -188,16 +188,16 @@ export class HomeComponent implements OnInit {
           this.isLoading = false;
       
           if (error.status === 404) {
-            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', '', { duration: 3000 });
+            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', 'X', { duration: 3000 });
           } else if (error.status === 500) {
-            this.snackBar.open('השרת אינו פעיל', '', { duration: 3000 });
+            this.snackBar.open('השרת אינו פעיל', 'X', { duration: 3000 });
           } else {
-            this.snackBar.open('אירעה שגיאה לא צפויה', '', { duration: 3000 });
+            this.snackBar.open('אירעה שגיאה לא צפויה', 'X', { duration: 3000 });
           }
         })
     }
     else {
-      this.snackBar.open('חסר שם משתמש או סיסמא', '', { duration: 3000 });
+      this.snackBar.open('חסר שם משתמש או סיסמא', 'X', { duration: 3000 });
       this.isLoading = false
 
     }
