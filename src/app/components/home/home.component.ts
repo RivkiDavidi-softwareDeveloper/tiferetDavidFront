@@ -187,17 +187,19 @@ export class HomeComponent implements OnInit {
         (error) => {
           this.isLoading = false;
       
-          if (error.status === 404) {
-            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', 'X', { duration: 3000 });
+          if (error.status === 405) {
+            this.snackBar.open('שם משתמש וסיסמא אינם קיימים במערכת', 'סגור', { duration: 3000 });
           } else if (error.status === 500) {
-            this.snackBar.open('השרת אינו פעיל', 'X', { duration: 3000 });
+            this.snackBar.open('השרת אינו פעיל', 'סגור', { duration: 3000 });
+          }else if (error.status === 404) {
+            this.snackBar.open('השרת אינו פעיל', 'סגור', { duration: 3000 });
           } else {
-            this.snackBar.open('אירעה שגיאה לא צפויה', 'X', { duration: 3000 });
+            this.snackBar.open('אירעה שגיאה לא צפויה', 'סגור', { duration: 3000 });
           }
         })
     }
     else {
-      this.snackBar.open('חסר שם משתמש או סיסמא', 'X', { duration: 3000 });
+      this.snackBar.open('חסר שם משתמש או סיסמא', 'סגור', { duration: 3000 });
       this.isLoading = false
 
     }
