@@ -251,12 +251,12 @@ export class StudentsForProjectComponent {
       );
       
     })
-    let studiesForStudent: StudiesForStudent = new StudiesForStudent(studiesForSharer.SFS_code, studiesForSharer.SFS_student_code
+    let studiesForStudent: StudiesForStudent = new StudiesForStudent(-1, studiesForSharer.SFS_student_code
       ,studiesForSharer.SFS_current_school,studiesForSharer.SFS_current_school_ame, studiesForSharer.SFS_reception_class, 
       studiesForSharer.SFS_current_class, studiesForSharer.SFS_previous_institutions,studiesForSharer. SFS_previous_school)
 
     this.StudiesForStudentNew =studiesForStudent;
-    const dataStudentAdd = { data: [this.studentNew, this.ParentNew, this.Parent1New, this.DifficultyStudentNew, this.StudiesForStudentNew] }
+    const dataStudentAdd = { data: [this.studentNew, this.ParentNew, this.Parent1New, this.DifficultyStudentNew, studiesForStudent] }
 
     //הוספת חניך
     await new Promise<void>((resolve, reject) => {
