@@ -845,8 +845,11 @@ export class AddUpdateStudentComponent implements OnInit {
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency, "");
+        this.St_code_frequency, this.St_amount_frequency,"");
       const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
+console.log(dataStudentAdd.data +"vvvvvv")
+console.log((dataStudentAdd.data[0] as Student).St_name +"שם תלמיד")
+console.log((dataStudentAdd.data[0] as Student) +" תלמיד")
 
 
       //הוספת חניך
