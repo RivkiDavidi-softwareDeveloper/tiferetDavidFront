@@ -59,7 +59,7 @@ export class StudentsForProjectComponent {
   listStudentForProjects: Array<StudentForProject> = []
   listSharerForProjects: Array<SharerForProject> = []
   //ערוך מדריך
-  guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "","")
+  guideForProjectUpdate: GuideForProject = new GuideForProject(-1, 1, "", "")
   sUpdateGuide = false
   //הצגת משתתף
   sharerDisplay: Sharer = new Sharer(111, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
@@ -240,22 +240,22 @@ export class StudentsForProjectComponent {
       }
     })
     //שליפת לימודים ממשתתף
-    let studiesForSharer: StudiesForSharer = new StudiesForSharer(-1,1, "","", "", "", "", "")
+    let studiesForSharer: StudiesForSharer = new StudiesForSharer(-1, 1, "", "", "", "", "", "")
     await new Promise<void>((resolve, reject) => {
-        this.api.GetStudiesOfCodeSharer(sharerForProject.Sharer.Sh_code).subscribe(data => {
-          studiesForSharer = data;
-          resolve();
+      this.api.GetStudiesOfCodeSharer(sharerForProject.Sharer.Sh_code).subscribe(data => {
+        studiesForSharer = data;
+        resolve();
 
-        },
-      error=>{resolve()}
+      },
+        error => { resolve() }
       );
-      
+
     })
     let studiesForStudent: StudiesForStudent = new StudiesForStudent(-1, studiesForSharer.SFS_student_code
-      ,studiesForSharer.SFS_current_school,studiesForSharer.SFS_current_school_ame, studiesForSharer.SFS_reception_class, 
-      studiesForSharer.SFS_current_class, studiesForSharer.SFS_previous_institutions,studiesForSharer. SFS_previous_school)
+      , studiesForSharer.SFS_current_school, studiesForSharer.SFS_current_school_ame, studiesForSharer.SFS_reception_class,
+      studiesForSharer.SFS_current_class, studiesForSharer.SFS_previous_institutions, studiesForSharer.SFS_previous_school)
 
-    this.StudiesForStudentNew =studiesForStudent;
+    this.StudiesForStudentNew = studiesForStudent;
     const dataStudentAdd = { data: [this.studentNew, this.ParentNew, this.Parent1New, this.DifficultyStudentNew, studiesForStudent] }
 
     //הוספת חניך
@@ -282,7 +282,10 @@ export class StudentsForProjectComponent {
           this.StudiesForStudentNew = data;
           resolve();
 
-        });
+        },
+          (error) => {
+            resolve();
+          });
       }
     })
     //שליפת רשימת קשיים
@@ -295,6 +298,10 @@ export class StudentsForProjectComponent {
 
           resolve();
 
+        },
+        (error) => {
+          resolve(); // מסמן שהפעולה הושלמה
+
         });
       }
     })
@@ -305,6 +312,10 @@ export class StudentsForProjectComponent {
         this.api.GetWorkerOfCodeStudent(code).subscribe(data => {
           this.WorkerNew = data;
           resolve();
+
+        },
+        (error) => {
+          resolve(); // מסמן שהפעולה הושלמה
 
         });
       }
