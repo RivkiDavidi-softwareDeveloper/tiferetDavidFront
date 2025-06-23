@@ -849,7 +849,7 @@ export class AddUpdateStudentComponent implements OnInit {
       const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
 console.log(dataStudentAdd.data +"vvvvvv")
 console.log((dataStudentAdd.data[0] as Student).St_name +"שם תלמיד")
-console.log((dataStudentAdd.data[0] as Student) +" תלמיד")
+console.log((dataStudentAdd.data[0] as Student) +" תלמיhד")
 
 
       //הוספת חניך
