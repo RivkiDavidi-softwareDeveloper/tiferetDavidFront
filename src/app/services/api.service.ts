@@ -37,7 +37,7 @@ export class ApiService {
 
   constructor(private httpp: HttpClient) { }
 /*   private urlBasis = 'http://localhost:3000/api';
- */  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
+ */  private urlBasis = 'myserver.railway.internal/api';
 
   //כניסה
   getLogin(name: string, password: string): Observable<any> {
