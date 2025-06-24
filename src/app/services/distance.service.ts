@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 export class DistanceService {
 
 /*   private apiUrl =  'http://localhost:3000/api';
- */ private apiUrl = 'myserver.railway.internal/api';
+ */ private apiUrl = 'https://myserver-production-c24f.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 
