@@ -167,10 +167,10 @@ export class ApiService {
 
 
   //הצגת כל המשימות לפי קוד פעיל
-  public GetAllTastForWorker(workerCode: number,amountDisplay:number): Observable<Array<Taskk>> {
+  public GetAllTastForWorker(workerCode: number, amountDisplay: number): Observable<Array<Taskk>> {
     const params = new HttpParams()
       .set('workerCode', workerCode.toString())
-      .set('amountDisplay',amountDisplay.toString());
+      .set('amountDisplay', amountDisplay.toString());
     return this.httpp.get<Array<Taskk>>(this.urlBasis + "/tasks", { params });
   }
   //הצגת כמות המשימות שלא התבצעו
@@ -361,11 +361,11 @@ export class ApiService {
   deleteGuideForProjects(code: number) {
     return this.httpp.delete(`${this.urlBasis + "/guideForProjects"}/${code}`);
   }
-  /* מחיקת כל הפעילויות
+ //מחיקת כל הפעילויות
       DeleteActi() {
         const code=9;
       return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
-    } */
+    }
   //מוחקת עובד
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);
@@ -375,6 +375,13 @@ export class ApiService {
     const St_code = student.St_code;
     return this.httpp.put(`${this.urlBasis + "/students"}/${St_code}`, student);
   }
+  //הצגת נתונים לדשבורד
+  DisplayDashboard(codeFilter: number): Observable<Array<Array<number>>> {
+    const params = new HttpParams()
+      .set('codeFilter', codeFilter.toString());
+    return this.httpp.get<Array<Array<number>>>(this.urlBasis + "/dashboard/matrix", { params });
+  }
+
 
   //////////////////////////////////////עד כאן שינתי
 
@@ -459,13 +466,6 @@ public GetAmoumtMessagesNotDoneForWorker(workerCode: number): Observable<number>
     return this.httpp.post<any>(url, formData);
   }
 
-  //הצגת נתונים לדשבורד
-  public DisplayDeshbord(codeFilter: number): Observable<Array<Array<number>>> {
-    const url: string = this.urlBasis + "/deshbord/GeneralDeshbord/" + codeFilter;
-    return this.httpp.get(url) as Observable<Array<Array<number>>>
-  }
-
-  
 
   /*  
     //הוספת פעילות כולל קבצים

@@ -7,12 +7,17 @@
     </div>
 </div> -->
 <div filter *ngIf="status=='system'">
-    <label>בחירת פעיל: </label>
+    <label>בחר: </label>
     <select (change)="selectFilter($event)">
         <option selected [value]="-1">כולל</option>
         <option [value]="-2">כללי בנים</option>
         <option [value]="-3">כללי בנות</option>
-        <option *ngFor="let w of listWorkers" [value]="w.Wo_code">{{w.Wo_name+" "+w.Wo_Fname}}</option>
+        <option *ngFor="let w of listWorkers" [value]="w.Wo_code"> <label
+                *ngIf="w.Wo_type_worker==1&&w.Wo_gender==1">פעיל:</label> <label
+                *ngIf="w.Wo_type_worker==2&&w.Wo_gender==1">חונך:</label>
+            <label *ngIf="w.Wo_type_worker==1&&w.Wo_gender==2">פעילה:</label> <label
+                *ngIf="w.Wo_type_worker==2&&w.Wo_gender==2">חונכת:</label> {{w.Wo_name+" "+w.Wo_Fname}}
+        </option>
     </select>
 </div>
 
@@ -21,20 +26,24 @@
 
 <div amounts1>
     <div box b1 *ngIf="status=='system'">
-        <p teur>פעילים</p>
         <p num>{{matAmounts[0][0]}}</p>
+        <p teur>פעילים</p>
+
     </div>
     <div box b2 *ngIf="status=='system'">
-        <p teur>חונכים</p>
         <p num>{{matAmounts[0][1]}}</p>
+        <p teur>חונכים</p>
+
     </div>
     <div box b3>
-        <p teur>חניכים פעילים</p>
         <p num>{{matAmounts[0][2]}}</p>
+        <p teur>חניכים פעילים</p>
+
     </div>
     <div box b4>
-        <p teur>חניכים כללי</p>
         <p num>{{matAmounts[0][3]}}</p>
+        <p teur>חניכים כללי</p>
+
     </div>
 
 </div>
@@ -48,7 +57,7 @@
     </div>
 
     <div contect>
-        
+
         <div>
             <div titleSide> שבועי </div>
 

@@ -19,10 +19,10 @@ import { DeshbordComponent } from "../deshbord/deshbord.component";
     imports: [CommonModule, DisplayWorkersComponent, DisplayStudentsComponent, ReportsComponent, ProjectsComponent, SettingsComponent, WorkerInquiriesComponent, DeshbordComponent]
 })
 export class SystemLoginComponent implements OnInit {
-  deshbord=false
+  deshbord=true
   workers: boolean = false;
   students: boolean = false;
-  reports: boolean = true;
+  reports: boolean = false;
   projects: boolean = false;
   requests: boolean = false;
   settings: boolean = false;

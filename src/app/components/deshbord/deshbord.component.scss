@@ -3,13 +3,15 @@ $color-blue-light: rgb(40, 226, 255);
 $color-yellow: rgb(255, 255, 82);
 $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
-[otefHI]{
-width: 95vw;
+
+[otefHI] {
+    width: 95vw;
     margin: auto;
     display: flex;
+
     .highlight-box {
         flex: 1;
-    
+
         height: 8vh;
         width: 42vw;
         margin: 5vh 1vw 2vh 1vw;
@@ -30,9 +32,9 @@ width: 95vw;
         background-position: 99%;
         background-size: contain;
         background-image: url('../../../assets/medalya2.png');
-    
+
         //  animation: glow 1.5s ease-in-out infinite;  /* זמן אנימציה חלק יותר */
-    
+
     }
 }
 
@@ -58,6 +60,7 @@ width: 95vw;
     label {
         font-size: 18px;
         font-family: Assistant-Regular;
+        color: rgb(48, 68, 70);
 
     }
 
@@ -66,10 +69,10 @@ width: 95vw;
         display: inline-block;
         text-align: right;
         outline: none;
-        color: rgb(0, 0, 0);
+        color: rgb(48, 68, 70);
         font-size: 18px;
         //   border-radius: 5px;
-        border: 2px solid rgb(92, 125, 129);
+        border: 1px solid rgb(137, 163, 165);
         width: 20vw;
         font-family: Assistant-Regular;
         background-color: rgb(255, 255, 255);
@@ -78,41 +81,41 @@ width: 95vw;
             background-color: white;
             font-family: Assistant-Regular;
             font-size: 1.1em;
-            color: black;
+        color: rgb(73, 82, 83);
             font-size: 18px;
-
         }
+
     }
 }
 
 [amounts1] {
     width: 85vw;
     margin: auto;
-display: flex;
+    display: flex;
+
     [box] {
         width: 20vw;
-        height: 6.7vh;
+        height: 7.5vh;
         flex: 1;
         margin: 1.4vh 1vw 0.8vh 1vw;
         display: inline-block;
-        box-shadow: 4px 7px 10px 4px  rgba(186, 186, 186, 0.6);
+        box-shadow: 4px 7px 10px 4px rgba(186, 186, 186, 0.6);
         text-align: center;
-color: white;
+        color: white;
+
         [teur] {
-            font-size: 2.9vh;
+            font-size: 2vh;
             font-family: Assistant-Regular;
-            height: 1.1vh;
         }
 
         [num] {
-            height: 5.6vh;
-            line-height: 5.6vh;
-            color: black;
-
-            font-size: 3.8vh;
+            height: 4.5vh;
+            line-height: 4.5vh;
+            color: rgb(255, 255, 255);
+            margin-bottom: 0px;
+            font-size: 4vh;
             font-family: Assistant-Bold;
             display: block;
-            background-color: rgb(255, 255, 255);
         }
     }
 
@@ -131,6 +134,7 @@ color: white;
     [b4] {
         background-color: #029640;
     }
+
     [b1] {
         background-color: $color-green-light;
         background-color: #029640;
@@ -155,18 +159,18 @@ color: white;
     margin: 1.1vh auto 0vh auto;
 
     [title] {
-        padding-right: 12vw;
+        padding-right: 7.3vw;
 
         [box1] {
-            width: 16vw;
+            width: 15vw;
             height: 6.3vh;
             border-top-left-radius: 100px;
             border-top-right-radius: 100px;
-            margin: 1.5vh 0.5vw 0.3vh 0.5vw;
+            margin: 1.5vh 1.3vw 0.3vh 1.3vw;
             display: inline-block;
             box-shadow: 4px 4px 10px rgba(184, 184, 184, 0.6);
             text-align: center;
-            font-size: 2.1vh;
+            font-size: 1.9vh;
             font-family: Assistant-Bold;
             line-height: 10vh;
             background-repeat: no-repeat;
@@ -176,28 +180,33 @@ color: white;
         }
 
         [b1] {
-            background-color: rgb(255, 152, 152);
-            background-image: url('../icons/Topic.png');
+            background-image: url('../icons/colors/Topic00.png');
+            border: 1px solid rgb(27, 152, 10);
+            color: rgb(27, 152, 10);
         }
 
         [b2] {
-            background-color: rgb(255, 224, 152);
-            background-image: url('../icons/meeting2black.png');
+            background-image: url('../icons/colors/meeting00.png');
+            border: 1px solid rgb(184, 61, 186);
+            color: rgb(184, 61, 186);
         }
 
         [b3] {
-            background-color: rgb(241, 255, 152);
-            background-image: url('../icons/car3black.png');
+            background-image: url('../icons/colors/car00.png');
+            border: 1px solid rgb(90, 217, 209);
+            color: rgb(90, 217, 209)
         }
 
         [b4] {
-            background-color: rgb(174, 255, 152);
-            background-image: url('../icons/time.png');
+            background-image: url('../icons/colors/time00.png');
+            border: 1px solid rgb(253, 147, 8);
+            color: rgb(253, 147, 8);
         }
 
         [b5] {
-            background-color: rgb(152, 255, 219);
-            background-image: url('../icons/school6black.png');
+            background-image: url('../icons/colors/school00.png');
+            border: 1px solid rgb(63, 72, 204);
+            color: rgb(63, 72, 204)
         }
     }
 
@@ -213,10 +222,10 @@ color: white;
 
             div {
                 text-align: center;
-                margin: 0.2vh 0.5vw;
+                margin: 0.2vh 1.3vw;
                 display: inline-block;
                 height: 4.4vh;
-                width: 16vw;
+                width: 15vw;
                 box-shadow: 4px 4px 10px rgba(222, 222, 222, 0.6);
                 font-size: 2.5vh;
                 font-family: Assistant-Bold;
@@ -224,89 +233,85 @@ color: white;
             }
 
             [c1] {
-                background-color: rgb(255, 220, 220);
                 line-height: 4.4vh;
+                border-right: 1px solid rgb(27, 152, 10);
+                border-left: 1px solid rgb(27, 152, 10);
 
             }
 
             [c2] {
                 line-height: 4.4vh;
-                background-color: rgb(255, 240, 205);
+                border-right: 1px solid rgb(184, 61, 186);
+                border-left: 1px solid rgb(184, 61, 186);
 
             }
 
             [c3] {
                 line-height: 4.4vh;
-                background-color: rgb(248, 255, 203);
-
+                border-right: 1px solid rgb(90, 217, 209);
+                border-left: 1px solid rgb(90, 217, 209);
             }
 
             [c4] {
                 line-height: 4.4vh;
-                background-color: rgb(210, 251, 198);
                 font-size: 2.3vh;
-
+                border-right: 1px solid rgb(253, 147, 8);
+                border-left: 1px solid rgb(253, 147, 8);
             }
 
             [c5] {
-                background-color: rgb(217, 255, 242);
                 line-height: 4.4vh;
-
+                border-right: 1px solid rgb(63, 72, 204);
+                border-left: 1px solid rgb(63, 72, 204);
             }
 
             [titleSide] {
-                width: 11vw;
-                background-color: rgb(1, 180, 150); // צבע טורקיז כהה
-                background-color: rgb(20, 233, 169);
-                background-color: rgb(25, 199, 147);
-
-                color: white;
-                border-bottom-right-radius: 100px;
-                border-top-right-radius: 100px;
+                font-size: 2.1vh;
+                text-align: left;
+                color: rgb(50, 50, 50);
                 line-height: 4.4vh;
+                width: 6vw;
+                margin: 0.2vh 1.3vw 0.2vh 0vw;
+                box-shadow: 0 6px 8px -4px rgba(184, 184, 184, 0.6);
+
             }
 
             [titleSide2] {
-                width: 11vw;
-                background-color: rgb(20, 233, 169);
-                background-color: rgb(1, 180, 150); // צבע טורקיז כהה
-                background-color: rgb(12, 153, 130); // צבע טורקיז כהה
-
-                color: rgb(255, 255, 255);
-                font-size: 2.2vh;
+                font-size: 1.8vh;
                 height: 8vh;
-                border-bottom-right-radius: 100px;
-                border-top-right-radius: 100px;
+                text-align: left;
+                color: rgb(50, 50, 50);
                 white-space: normal; // מאפשר שבירת שורות
-                //  overflow-wrap: break-word; // תומך בשבירת מילים בגרסאות דפדפנים חדשות
-                margin: 0.2vh 0.5vw;
-                line-height: 4vh;
+                line-height: 1.5;
                 font-family: Assistant-Regular;
+                width: 6vw;
+                margin: 0.2vh 1.3vw 0.2vh 0vw;
+                box-shadow: 0 6px 8px -4px rgba(184, 184, 184, 0.6);
             }
 
             [t1] {
-                background-color: rgb(255, 206, 206);
-
+                border-right: 1px solid rgb(27, 152, 10);
+                border-left: 1px solid rgb(27, 152, 10);
             }
 
             [t2] {
-                background-color: rgb(255, 235, 188);
-
+                border-right: 1px solid rgb(184, 61, 186);
+                border-left: 1px solid rgb(184, 61, 186);
             }
 
             [t3] {
-                background-color: rgb(246, 255, 188);
-
+                border-right: 1px solid rgb(90, 217, 209);
+                border-left: 1px solid rgb(90, 217, 209);
             }
 
             [t4] {
-                background-color: rgb(200, 255, 185);
-
+                border-right: 1px solid rgb(253, 147, 8);
+                border-left: 1px solid rgb(253, 147, 8);
             }
 
             [t5] {
-                background-color: rgb(198, 255, 235);
-
+                border-right: 1px solid rgb(63, 72, 204);
+                border-left: 1px solid rgb(63, 72, 204);
             }
 
             [t1],
@@ -315,7 +320,7 @@ color: white;
             [t4],
             [t5] {
                 height: 8vh;
-                margin: 0.2vh 0.5vw;
+                margin: 0.2vh 1.3vw;
 
                 .circle-container {
                     display: flex;
@@ -364,41 +369,46 @@ color: white;
             }
 
             [titleSide3] {
-                width: 11vw;
-                background-color: rgb(201, 255, 231);
-                color: rgb(27, 102, 94);
-                font-size: 2.1vh;
+                width: 6vw;
+                margin: 0.2vh 1.3vw 0.2vh 0vw;
+                box-shadow: 0 6px 8px -4px rgba(184, 184, 184, 0.6);
+                text-align: center;
+                color: rgb(50, 50, 50);
+                font-size: 1.7vh;
                 height: 9vh;
-                margin: 0.2vh 0.5vw;
-                line-height: 14vh;
+                line-height: 1.5vh;
                 border-bottom-right-radius: 100px;
                 border-top-right-radius: 100px;
                 background-repeat: no-repeat;
-                background-position: top center;
+                background-position:center;
                 background-size: 6.5vh;
-                background-image: url('../../../assets/medalya3.png');
+                background-image: url('../../../assets/mmedalya.png');
 
             }
 
             [w1] {
-                background-color: rgb(255, 236, 236);
+                border-right: 1px solid rgb(27, 152, 10);
+                border-left: 1px solid rgb(27, 152, 10);
             }
 
             [w2] {
-                background-color: rgb(255, 246, 226);
+                border-right: 1px solid rgb(184, 61, 186);
+                border-left: 1px solid rgb(184, 61, 186);
             }
 
             [w3] {
-                background-color: rgb(251, 255, 224);
+                border-right: 1px solid rgb(90, 217, 209);
+                border-left: 1px solid rgb(90, 217, 209);
             }
 
             [w4] {
-                background-color: rgb(227, 254, 218);
+                border-right: 1px solid rgb(253, 147, 8);
+                border-left: 1px solid rgb(253, 147, 8);
             }
 
             [w5] {
-                background-color: rgb(234, 255, 248);
-
+                border-right: 1px solid rgb(63, 72, 204);
+                border-left: 1px solid rgb(63, 72, 204);
             }
 
             [w1],
@@ -407,77 +417,45 @@ color: white;
             [w4],
             [w5] {
                 height: 9vh;
-                margin: 0.2vh 0.5vw;
+                margin: 0.2vh 1.3vw;
                 font-size: 4.8vh;
                 line-height: 9vh;
             }
-            .one{
+
+            .one {
                 font-weight: bold;
-                color: #ff0000; /* צבע צהוב למספר */
+                color: #ff0000;
+                /* צבע צהוב למספר */
                 text-align: center;
-                text-shadow: 
-                  0 0 10px #ff6969, 
-                 0 0 20px #ff3333,   
-                  0 0 30px #ff0000,  
-                  0 0 40px #ff0000, 
-                  0 0 50px #ff0000, 
-                  0 0 60px #d50000,  
-                  0 0 70px #a10000;   
+                text-shadow:
+                    0 0 10px #ff6969,
+                    0 0 20px #ff3333,
+                    0 0 30px #ff0000,
+                    0 0 40px #ff0000,
+                    0 0 50px #ff0000,
+                    0 0 60px #d50000,
+                    0 0 70px #a10000;
                 animation: neonGlow 1.5s ease-in-out infinite;
                 font-size: 5vh;
-            
+
             }
+
             @keyframes neonGlow {
-                0%, 100% {
-                    text-shadow: 
-                    0 0 10px #ff6969, 
-                   0 0 20px #ff3333,   
-                    0 0 30px #ff0000,  
-                    0 0 40px #ff0000, 
-                    0 0 50px #ff0000, 
-                    0 0 60px #d50000,  
-                    0 0 70px #a10000; 
+
+                0%,
+                100% {
+                    text-shadow:
+                        0 0 10px #ff6969,
+                        0 0 20px #ff3333,
+                        0 0 30px #ff0000,
+                        0 0 40px #ff0000,
+                        0 0 50px #ff0000,
+                        0 0 60px #d50000,
+                        0 0 70px #a10000;
                 }
+
                 50% {
-                  text-shadow: 
-                    0 0 20px #ffff66,
-                    0 0 30px #ffff66,
-                    0 0 40px #ffcc33,
-                    0 0 50px #ffcc33,
-                    0 0 60px #ff9933,
-                    0 0 70px #ff9933,
-                    0 0 80px #ff6600;
-                }
-                 }
-                 .tow{
-                    font-weight: bold;
-                    color: #ffbf00; /* צבע צהוב למספר */
-                    text-align: center;
-                    text-shadow: 
-                      0 0 10px #ffff33, 
-                     0 0 20px #ffff33,   
-                      0 0 30px #ffcc00,  
-                      0 0 40px #ffcc00, 
-                      0 0 50px #ff9900, 
-                      0 0 60px #ff9900,  
-                      0 0 70px #ff6600;   
-                    animation: neonGlow2 1.5s ease-in-out infinite;
-                    font-size: 5vh;
-                
-                }
-                @keyframes neonGlow2 {
-                    0%, 100% {
-                        text-shadow: 
-                        0 0 10px #ffb769, 
-                       0 0 20px #ffb133,   
-                        0 0 30px #ff9100,  
-                        0 0 40px #ff9500,  
-                        0 0 50px #ff9500,
-                        0 0 60px #ff6803,  
-                        0 0 70px #ea6d00; 
-                    }
-                    50% {
-                      text-shadow: 
+                    text-shadow:
                         0 0 20px #ffff66,
                         0 0 30px #ffff66,
                         0 0 40px #ffcc33,
@@ -485,8 +463,52 @@ color: white;
                         0 0 60px #ff9933,
                         0 0 70px #ff9933,
                         0 0 80px #ff6600;
-                    }
-                     }
+                }
+            }
+
+            .tow {
+                font-weight: bold;
+                color: #ffbf00;
+                /* צבע צהוב למספר */
+                text-align: center;
+                text-shadow:
+                    0 0 10px #ffff33,
+                    0 0 20px #ffff33,
+                    0 0 30px #ffcc00,
+                    0 0 40px #ffcc00,
+                    0 0 50px #ff9900,
+                    0 0 60px #ff9900,
+                    0 0 70px #ff6600;
+                animation: neonGlow2 1.5s ease-in-out infinite;
+                font-size: 5vh;
+
+            }
+
+            @keyframes neonGlow2 {
+
+                0%,
+                100% {
+                    text-shadow:
+                        0 0 10px #ffb769,
+                        0 0 20px #ffb133,
+                        0 0 30px #ff9100,
+                        0 0 40px #ff9500,
+                        0 0 50px #ff9500,
+                        0 0 60px #ff6803,
+                        0 0 70px #ea6d00;
+                }
+
+                50% {
+                    text-shadow:
+                        0 0 20px #ffff66,
+                        0 0 30px #ffff66,
+                        0 0 40px #ffcc33,
+                        0 0 50px #ffcc33,
+                        0 0 60px #ff9933,
+                        0 0 70px #ff9933,
+                        0 0 80px #ff6600;
+                }
+            }
         }
 
     }

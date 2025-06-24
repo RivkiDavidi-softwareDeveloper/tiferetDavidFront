@@ -33,8 +33,8 @@ export class DeshbordComponent {
     return `${percentage}, 100`;
   }
 
-  generalDeshbord() {
-    this.api.DisplayDeshbord(this.codeFilter).subscribe(Date => {
+  generalDashboard() {
+    this.api.DisplayDashboard(this.codeFilter).subscribe(Date => {
       this.matAmounts = []
       this.matAmounts.push(...Date);
     }
@@ -43,7 +43,7 @@ export class DeshbordComponent {
   ngOnInit(): void {
     this.getAllWorkers()
 
-    this.generalDeshbord()
+    this.generalDashboard()
 
   }
   nameWorker(codeWorker: number) {
@@ -62,8 +62,6 @@ export class DeshbordComponent {
 
   //רשימת פעילים
   getAllWorkers() {
-    //this.api.getWorkers(0, 0, 0, 0).subscribe(Date => {
-
     this.api.FindWorker("",0, 0, 0, 0).subscribe(Date => {
       this.listWorkers = []
       this.listWorkers.push(...Date)
@@ -75,7 +73,7 @@ export class DeshbordComponent {
   selectFilter(event: Event) {
     var num: number = Number((event.target as HTMLInputElement).value)
     this.codeFilter = num
-    this.generalDeshbord()
+    this.generalDashboard()
   }
   //מוסיפה פסיקים
   addCommasToNumber(num: number): string {

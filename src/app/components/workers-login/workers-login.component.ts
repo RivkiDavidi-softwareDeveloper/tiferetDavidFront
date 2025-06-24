@@ -23,8 +23,8 @@ import { DeshbordComponent } from "../deshbord/deshbord.component";
 
 
 export class WorkersLoginComponent implements OnInit {
-  deshbord = false
-  active: boolean = true;
+  deshbord = true
+  active: boolean = false;
   students: boolean = false;
   task: boolean = false;
   projects: boolean = false;

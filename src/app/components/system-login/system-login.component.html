@@ -6,8 +6,8 @@
                 <div class="inHome"></div>
             </button>
         </div>
-<!--         <button [ngClass]="{'button1':true,'button2':!!deshbord}"
-            (click)="deshbord=true;workers=false;students=false;reports=false;projects=false;settings=false;requests=false">דשבורד</button> -->
+        <button [ngClass]="{'button1':true,'button2':!!deshbord}"
+            (click)="deshbord=true;workers=false;students=false;reports=false;projects=false;settings=false;requests=false">דשבורד</button>
             <button [ngClass]="{'button1':true,'button2':!!reports}"
             (click)="deshbord=false;students=false;reports=true;workers=false;projects=false;settings=false;requests=false">דוחות
             פעילות</button>
@@ -34,8 +34,8 @@
         <!--         <button list ></button>
             
  --> <select (change)="onListSelected($event)">
-<!--             <option selected [value]="0">דשבורד</option>
- -->            <option [value]="3">דוחות פעילות</option>
+            <option selected [value]="0">דשבורד</option>
+            <option [value]="3">דוחות פעילות</option>
 <!--             <option [value]="5">פניות צוות</option>
  -->            <option  [value]="1">פעילים</option>
             <option [value]="2">חניכים</option>
@@ -52,8 +52,8 @@
 <div windos>
     <header>בס"ד</header>
 
-<!--     <app-deshbord *ngIf="deshbord"></app-deshbord>
- -->    <app-display-workers *ngIf="workers"></app-display-workers>
+    <app-deshbord *ngIf="deshbord"></app-deshbord>
+    <app-display-workers *ngIf="workers"></app-display-workers>
     <app-display-students *ngIf="students"></app-display-students>
     <app-reports *ngIf="reports"></app-reports>
     <app-projects *ngIf="projects"></app-projects>

@@ -263,9 +263,9 @@
                 </div>
                 <div>
                     <label *ngIf="!displayGroupActivities && worker.Wo_gender==1">נסיעה משותפת? אם כן בחר חניך
-                        נוסף:</label>
+                        נוסף (שים 💓 לסמן קבוצתית):</label>
                     <label *ngIf="!displayGroupActivities && worker.Wo_gender==2">נסיעה משותפת? אם כן בחרי חניכה
-                        נוספת:</label>
+                        נוספת (שימי 💓 לסמן קבוצתית):</label>
 
                     <select *ngIf="!displayGroupActivities" (change)="onStudentSelected2($event)">
                         <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר מרשימה</option>

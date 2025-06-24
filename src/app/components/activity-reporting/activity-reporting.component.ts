@@ -183,16 +183,7 @@ export class ActivityReportingComponent implements OnInit {
 
     }
     async ngOnInit(): Promise<void> {
-
-        this.generalSubCategoryGift()
-        this.generalSubCategoryOut();
-        await new Promise<void>((resolve, reject) => {
-            this.generalStudents(1);
-            resolve(); // מסמן שהפעולה הושלמה
-        });
-        //this.generalStudents2()
-/*  // קוד לביצוע מחיקה
-        this.api.DeleteActi().subscribe(
+/* this.api.DeleteActi().subscribe(
           (response) => {
             this.snackBar.open('!הפעילויות נמחק בהצלחה', 'x', { duration: 3000 });
           },
@@ -201,6 +192,15 @@ export class ActivityReportingComponent implements OnInit {
 
           }
         ) */
+        this.generalSubCategoryGift()
+        this.generalSubCategoryOut();
+        await new Promise<void>((resolve, reject) => {
+            this.generalStudents(1);
+            resolve(); // מסמן שהפעולה הושלמה
+        });
+        //this.generalStudents2()
+ // קוד לביצוע מחיקה
+        
     }
     //מעבר לעריכת חניך
     updateStudent() {
