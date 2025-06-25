@@ -5,10 +5,11 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { interval } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Worker } from '../../models/worker.class';
+import { GaugeComponentComponent } from "../gauge-component/gauge-component.component";
 @Component({
   selector: 'app-deshbord',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GaugeComponentComponent],
   templateUrl: './deshbord.component.html',
   styleUrl: './deshbord.component.scss',
 

@@ -28,7 +28,12 @@ $color-white-dark: rgb(242, 244, 244);
 button {
     font-family: Assistant-Light;
 }
-
+[name]{
+    text-align: center;
+    color: white;
+    margin: auto;
+    padding: 1vh;
+}
 h1,
 h2 {
     font-family: Assistant-Bold;

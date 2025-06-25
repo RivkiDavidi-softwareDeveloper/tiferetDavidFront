@@ -90,6 +90,10 @@ export class TasksComponent {
   }
   //הדפסה
   print() {
+        // להגדיר את העמוד לרוחב
+    const style = document.createElement('style');
+    style.innerHTML = '@media print { @page { size: landscape; } }';
+    document.head.appendChild(style);
     window.print();
 
   }

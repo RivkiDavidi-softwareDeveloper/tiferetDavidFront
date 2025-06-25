@@ -53,7 +53,12 @@ button:focus {
     border-radius: 50px;
 
 }
-
+[name]{
+    text-align: center;
+    color: white;
+    margin: auto;
+    padding: 1vh;
+}
 .top {
     background-color: $color-turqis;
     height: 60px;

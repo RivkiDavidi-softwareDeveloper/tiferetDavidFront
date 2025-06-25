@@ -1,11 +1,3 @@
-<!-- <div otefHI>
-    <div class="highlight-box" *ngIf="matAmounts[8][0]>0">
-        ברכות לפעיל {{nameWorker(matAmounts[8][0])}} - מקסימום זמן פעילות פר חניך השבוע
-    </div>
-    <div class="highlight-box" *ngIf="matAmounts[8][1]>0">
-        ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
-    </div>
-</div> -->
 <div filter *ngIf="status=='system'">
     <label>בחר: </label>
     <select (change)="selectFilter($event)">
@@ -25,27 +17,22 @@
 
 
 <div amounts1>
-    <div box b1 *ngIf="status=='system'">
+    <div box b1 *ngIf="status=='system'&& codeFilter<0">
         <p num>{{matAmounts[0][0]}}</p>
         <p teur>פעילים</p>
-
     </div>
-    <div box b2 *ngIf="status=='system'">
+    <div box b2 *ngIf="status=='system'&& codeFilter<0">
         <p num>{{matAmounts[0][1]}}</p>
         <p teur>חונכים</p>
-
     </div>
     <div box b3>
         <p num>{{matAmounts[0][2]}}</p>
         <p teur>חניכים פעילים</p>
-
     </div>
     <div box b4>
         <p num>{{matAmounts[0][3]}}</p>
         <p teur>חניכים כללי</p>
-
     </div>
-
 </div>
 <div amounts2>
     <div title>
@@ -142,146 +129,45 @@
         <div>
             <div titleSide2 t21>דירוג יחסי לחודש קודם </div>
             <div t1>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <!-- עיגול רקע (גבול אפור בהיר) -->
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <!-- עיגול קידמי (צבוע לפי ערך של ahuz) -->
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[5][0] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][0])" cx="18" cy="18"
-                            r="15.9155" />
-                        <!-- טקסט בתוך העיגול שמציג את האחוזים -->
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[5][0] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[5][0]"></app-gauge-component>
             </div>
             <div t2>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[5][1] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][1])" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[5][1] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[5][1]"></app-gauge-component>
             </div>
             <div t3>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[5][2] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][2] )" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[5][2] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[5][2]"></app-gauge-component>
             </div>
             <div t4>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[5][3]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][3] )" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[5][3] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[5][3]"></app-gauge-component>
             </div>
             <div t5>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[5][4]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[5][4])" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[5][4] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[5][4]"></app-gauge-component>
+
             </div>
         </div>
         <div>
             <div titleSide2>דירוג יחסי לחודש זה בשנה שעברה</div>
             <div t1>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <!-- עיגול רקע (גבול אפור בהיר) -->
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <!-- עיגול קידמי (צבוע לפי ערך של ahuz) -->
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[6][0] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[6][0])" cx="18" cy="18"
-                            r="15.9155" />
-                        <!-- טקסט בתוך העיגול שמציג את האחוזים -->
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[6][0] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[6][0]"></app-gauge-component>
             </div>
             <div t2>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[6][1] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[6][1])" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[6][1] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[6][1]"></app-gauge-component>
+
             </div>
             <div t3>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[6][2] >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[6][2] )" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[6][2] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[6][2]"></app-gauge-component>
+
             </div>
             <div t4>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[6][3]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[6][3] )" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[6][3] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[6][3]"></app-gauge-component>
+
             </div>
             <div t5>
-                <div class="circle-container">
-                    <svg class="progress-circle" viewBox="0 0 36 36" width="80" height="80">
-                        <circle class="circle-bg" cx="18" cy="18" r="15.9155" />
-                        <circle class="circle-progress"
-                            [attr.stroke]="matAmounts[6][4]  >= 0 ? 'rgb(47, 202, 0)' : 'red'"
-                            [attr.stroke-dasharray]="getStrokeDasharray(matAmounts[6][4])" cx="18" cy="18"
-                            r="15.9155" />
-                        <text x="18" y="20.35" class="percentage-text" text-anchor="middle" dominant-baseline="middle"
-                            transform="rotate(90 18 18)">{{ matAmounts[6][4] }}%</text>
-                    </svg>
-                </div>
+                <app-gauge-component [sum]="matAmounts[6][4]"></app-gauge-component>
+
             </div>
         </div>
-        <div *ngIf="codeFilter!=-1&&codeFilter!=-2&&codeFilter!=-3">
+        <div *ngIf="codeFilter>0">
             <div titleSide3 *ngIf="status!='system'">
                 מיקומך השבוע
             </div>
@@ -307,61 +193,20 @@
         </div>
     </div>
 </div>
-
-
-
-
-<!-- <div deshbord>
-    <div boys>
-        <div titlee t1><label>פעילות בנים</label></div>
-        <div contect>
-            <div box b1>
-                <p  num>{{addCommasToNumber(amountBWorkers)}}</p>
-                <p teur>{{"פעילים/חונכים"}}</p>
-            </div>
-            <div box b2>
-
-                <p num>{{addCommasToNumber(amountBStudents)}}</p>
-                <p teur>חניכים</p>
-            </div>
-            <br>
-            <div box b3>
-                <p num>{{addCommasToNumber(amountBActivites)}}</p>
-                <p teur>שעות פעילות החודש</p>
-            </div>
-            <div box b4>
-                <p num>{{addCommasToNumber(amountBKilometers)}}</p>
-                <p teur>ק"מ נסיעה החודש</p>
-            </div>
-        </div>
-        <br>
-        <br>
-
+<div otefHI>
+    <div class="color-cycle" *ngIf="matAmounts[8][0] > 0">
+        ברכות לפעיל {{ nameWorker(matAmounts[8][0]) }} - מקסימום זמן פעילות פר חניך השבוע
     </div>
-    <div girls>
-        <div titlee t2><label>פעילות בנות</label></div>
-        <div contect>
-            <div box b5>
-                <p num>{{addCommasToNumber(amountGWorkers)}}</p>
-                <p teur>פעילות/חונכות</p>
-            </div>
-            <div box b6>
-
-                <p num>{{addCommasToNumber(amountGStudents)}}</p>
-                <p teur>חניכות</p>
-            </div>
-            <br>
-            <div box b7>
-                <p num>{{addCommasToNumber(amountGActivites)}}</p>
-                <p teur>שעות פעילות החודש</p>
-            </div>
-            <div box b8>
-                <p num>{{addCommasToNumber(amountGKilometers)}}</p>
-                <p teur>ק"מ נסיעה החודש</p>
-            </div>
-        </div>
-        <br>
-        <br>
-
+    <div class="color-cycle" *ngIf="matAmounts[8][1]==0">
+        ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
+    </div>
+</div>
+<!-- 
+<div otefHI>
+    <div class="highlight-box" *ngIf="matAmounts[8][0]>0">
+        ברכות לפעיל {{nameWorker(matAmounts[8][0])}} - מקסימום זמן פעילות פר חניך השבוע
+    </div>
+    <div class="highlight-box" *ngIf="matAmounts[8][1]>0">
+        ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
     </div>
 </div> -->

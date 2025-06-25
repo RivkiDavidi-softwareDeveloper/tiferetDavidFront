@@ -373,18 +373,6 @@ export class ReportsComponent {
     const style = document.createElement('style');
     style.innerHTML = '@media print { @page { size: landscape; } }';
     document.head.appendChild(style);
-    // הוסף את תוכן הכותרת העליונה והתחתונה
-    const header = document.createElement('div');
-    header.innerHTML = '<div style="text-align: left;"><img src="./logoTbig.png" style="width: 100px; height: 100px;" /></div>';
-
-    const footer = document.createElement('div');
-    footer.innerHTML = '<div style="text-align: center;">כותרת תחתונה</div>';
-
-    // עדכן את הכותרת התחתונה כדי להציג רק את דף המס
-    footer.innerHTML = '<div style="text-align: center;">עמוד מס</div>';
-
-    // הוסף לוגו בצד שמאל של הכותרת
-    header.innerHTML = '<div style="text-align: left;"><img src="./logoTbig.png" style="width: 100px; height: 100px;" /></div>';
 
     window.print();
 

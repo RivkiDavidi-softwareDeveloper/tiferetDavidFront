@@ -3,54 +3,70 @@ $color-blue-light: rgb(40, 226, 255);
 $color-yellow: rgb(255, 255, 82);
 $color-green-light: rgb(11, 239, 7);
 $color-orange: rgb(255, 140, 0);
+$color-yellow: rgb(255, 255, 82);
+$color-yellow-dark: rgb(253, 253, 11);
+$color-turqis: rgb(31, 126, 104);
+$color-turqis-dark: rgb(10, 70, 56);
+$color-turqis-light: rgb(86, 191, 166);
 
 [otefHI] {
     width: 95vw;
     margin: auto;
     display: flex;
 
-    .highlight-box {
-        flex: 1;
-
-        height: 8vh;
-        width: 42vw;
-        margin: 5vh 1vw 2vh 1vw;
-
+    .color-cycle {
+        height: 6vh;
+        line-height: 6vh;
+        width: 38vw;
+        margin: 5vh auto 2vh auto;
         display: inline-block;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(45deg, #ffffff, #ffd7d0);
-        color: rgb(151, 10, 10);
-        font-size: 2.2vh;
-        font-family: Assistant-Bold;
-        line-height: 8vh;
-        text-align: center;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(255, 146, 146, 0.7), 0 0 30px rgba(255, 242, 126, 0.7);
-        animation: glow 2s infinite alternate;
         background-repeat: no-repeat;
         background-position: 99%;
         background-size: contain;
-        background-image: url('../../../assets/medalya2.png');
+        background-image: url('../../../assets/mmedalya5.png');
+        font-size: 2.2vh;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        animation: backgroundCycle 5s linear infinite;
+        transition: background-color 2s ease-in-out;
+    }
 
-        //  animation: glow 1.5s ease-in-out infinite;  /* זמן אנימציה חלק יותר */
+    @keyframes backgroundCycle {
+
+        0% {
+            background-color: $color-turqis-light;
+        }
+
+        70% {
+            background-color: $color-turqis;
+        }
+
+        75% {
+            background-color: $color-turqis-light;
+        }
+
+        80% {
+            background-color: $color-yellow;
+        }
+
+        85% {
+            background-color: $color-yellow-dark;
+        }
+
+        90% {
+            background-color: $color-yellow;
+        }
+
+        100% {
+            background-color: $color-turqis-light;
+        }
 
     }
+
 }
-
-
-@keyframes glow {
-    from {
-        box-shadow: 0 0 0px rgba(255, 0, 0, 0.7), 0 0 0px rgba(247, 54, 109, 0.7);
-    }
-
-    to {
-        box-shadow: 0 0 50px rgb(255, 233, 124), 0 0 60px rgb(254, 255, 170);
-        font-size: 2.45vh;
-
-    }
-}
-
 
 
 [filter] {
@@ -81,7 +97,7 @@ $color-orange: rgb(255, 140, 0);
             background-color: white;
             font-family: Assistant-Regular;
             font-size: 1.1em;
-        color: rgb(73, 82, 83);
+            color: rgb(73, 82, 83);
             font-size: 18px;
         }
 
@@ -119,21 +135,6 @@ $color-orange: rgb(255, 140, 0);
         }
     }
 
-    [b1] {
-        background-color: #ea6d00;
-    }
-
-    [b2] {
-        background-color: #960202;
-    }
-
-    [b3] {
-        background-color: #13217a;
-    }
-
-    [b4] {
-        background-color: #029640;
-    }
 
     [b1] {
         background-color: $color-green-light;
@@ -151,6 +152,8 @@ $color-orange: rgb(255, 140, 0);
 
     [b4] {
         background-color: #13217a;
+        background-color: #3446c0;
+
     }
 }
 
@@ -224,43 +227,47 @@ $color-orange: rgb(255, 140, 0);
                 text-align: center;
                 margin: 0.2vh 1.3vw;
                 display: inline-block;
-                height: 4.4vh;
+                height: 4.2vh;
                 width: 15vw;
                 box-shadow: 4px 4px 10px rgba(222, 222, 222, 0.6);
-                font-size: 2.5vh;
+                font-size: 2.2vh;
                 font-family: Assistant-Bold;
 
             }
 
             [c1] {
-                line-height: 4.4vh;
+                line-height: 4.2vh;
                 border-right: 1px solid rgb(27, 152, 10);
                 border-left: 1px solid rgb(27, 152, 10);
 
             }
 
             [c2] {
-                line-height: 4.4vh;
+                line-height: 4.2vh;
                 border-right: 1px solid rgb(184, 61, 186);
                 border-left: 1px solid rgb(184, 61, 186);
 
             }
 
             [c3] {
-                line-height: 4.4vh;
+                line-height: 4.2vh;
                 border-right: 1px solid rgb(90, 217, 209);
                 border-left: 1px solid rgb(90, 217, 209);
+                font-size: 1.8vh;
+
             }
 
             [c4] {
-                line-height: 4.4vh;
+                line-height: 4.2vh;
                 font-size: 2.3vh;
                 border-right: 1px solid rgb(253, 147, 8);
                 border-left: 1px solid rgb(253, 147, 8);
+                font-size: 1.8vh;
+
             }
 
             [c5] {
-                line-height: 4.4vh;
+                line-height: 4.2vh;
                 border-right: 1px solid rgb(63, 72, 204);
                 border-left: 1px solid rgb(63, 72, 204);
             }
@@ -277,12 +284,12 @@ $color-orange: rgb(255, 140, 0);
             }
 
             [titleSide2] {
-                font-size: 1.8vh;
+                font-size: 1.75vh;
                 height: 8vh;
                 text-align: left;
                 color: rgb(50, 50, 50);
                 white-space: normal; // מאפשר שבירת שורות
-                line-height: 1.5;
+                line-height: 1.4;
                 font-family: Assistant-Regular;
                 width: 6vw;
                 margin: 0.2vh 1.3vw 0.2vh 0vw;
@@ -319,7 +326,7 @@ $color-orange: rgb(255, 140, 0);
             [t3],
             [t4],
             [t5] {
-                height: 8vh;
+                height: 10vh;
                 margin: 0.2vh 1.3vw;
 
                 .circle-container {
@@ -377,12 +384,10 @@ $color-orange: rgb(255, 140, 0);
                 font-size: 1.7vh;
                 height: 9vh;
                 line-height: 1.5vh;
-                border-bottom-right-radius: 100px;
-                border-top-right-radius: 100px;
                 background-repeat: no-repeat;
-                background-position:center;
+                background-position: bottom center;
                 background-size: 6.5vh;
-                background-image: url('../../../assets/mmedalya.png');
+                background-image: url('../../../assets/mmdalya4.png');
 
             }
 
@@ -418,7 +423,7 @@ $color-orange: rgb(255, 140, 0);
             [w5] {
                 height: 9vh;
                 margin: 0.2vh 1.3vw;
-                font-size: 4.8vh;
+                font-size: 4vh;
                 line-height: 9vh;
             }
 
@@ -518,7 +523,13 @@ $color-orange: rgb(255, 140, 0);
 
 
 
-@media only screen and (max-width: 960px) {}
+@media only screen and (max-width: 960px) {
+   [otefHI] {
+        .color-cycle {
+            width: 42vw;
+        }
+    }
+}
 
 @media only screen and (max-width: 767px) {
     [amounts1] {
@@ -529,109 +540,15 @@ $color-orange: rgb(255, 140, 0);
         }
 
     }
-}
 
-
-
-
-
-
-
-
-
-
-/* 
-
-//////////
-[deshbord] {
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    height: 89vh;
-    overflow-y: scroll;
-    [boys] {
-        width: 50vw;
-        border-left: 3px gray solid;
-    }
-
-    [girls] {
-        width: 50vw;
-    }
-}
-
-[titlee] {
-    font-size: 2.5vw;
-    font-family: Assistant-Bold;
-    margin-bottom: 1.5vh;
-    margin: 20px auto;
-
-}
-[t1]{
-    color: $color-blue-light;
-}
-[t2]{
-    color: $color-pink;
-}
-[contect] {
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-
-    [box] {
-        width: 20vw;
-        height: 23vh;
-        margin: 2vh 1.5vw;
-        display: inline-block;
-        box-shadow: 4px 4px 10px rgba(75, 75, 75, 0.6);
-
-
-        [num] {
-            padding-top: 20%;
-            font-size: 4.9vh;
-            font-family: Assistant-Bold;
+    [otefHI] {
+display: block;
+        .color-cycle {
+            height: 9vh;
+            line-height: 1.6;
+            width: 85vw;
             display: block;
 
         }
-
-        [teur] {
-            font-size: 1.6vw;
-            padding-top: 7%;
-            font-family: DanaYad-Bold;
-            font-weight: bolder;
-
-        }
     }
-
-    [b1] {
-        background-color: rgb(13, 208, 226);
-    }
-
-    [b2] {
-        background-color: rgb(19, 219, 199);
-    }
-
-    [b3] {
-        background-color: rgb(98, 132, 255);
-    }
-
-    [b4] {
-        background-color: rgb(69, 140, 247);
-    }
-
-
-
-    [b5] {
-        background-color: rgb(255, 96, 159);
-    }
-
-    [b6] {
-        background-color: rgb(255, 85, 85);
-    }
-
-    [b7] {
-        background-color: rgb(255, 0, 136);
-    }
-
-    [b8] {
-        background-color: rgb(243, 82, 125);
-    }
-} */
+}

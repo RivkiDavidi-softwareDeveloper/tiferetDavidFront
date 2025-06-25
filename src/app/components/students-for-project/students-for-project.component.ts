@@ -525,6 +525,10 @@ export class StudentsForProjectComponent {
     }
   }
   print() {
+    const style = document.createElement('style');
+style.innerHTML = '@media print { @page { size: portrait; } }';
+document.head.appendChild(style);
+
     window.print();
   }
   enterListOfStudents() {

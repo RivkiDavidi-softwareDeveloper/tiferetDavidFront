@@ -7,8 +7,8 @@
             </button>
         </div>
 
-                <button [ngClass]="{'button1':true,'button2':deshbord}"
-        (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true">דשבורד</button>
+        <button [ngClass]="{'button1':true,'button2':deshbord}"
+            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true">דשבורד</button>
         <button [ngClass]="{'button1':true,'button2':active}"
             (click)="active=true;students=false;task=false;projects=false;pz=false;deshbord=false">דיווח על
             פעילות</button>
@@ -25,7 +25,6 @@
         <button [ngClass]="{'button1':true,'button2':projects}"
             (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false">שיוך
             לפרויקטים</button>
-        <div>{{worker.Wo_name+" "+worker.Wo_Fname}}</div>
     </div>
     <div class="tab2">
         <div [ngClass]="{'homeOtef':true}">
@@ -37,8 +36,7 @@
 
 
         <select (change)="onListSelected($event)">
-                        <option selected [value]="1" [selected]="deshbord">דשבורד</option>
-
+            <option selected [value]="1" [selected]="deshbord">דשבורד</option>
             <option [value]="2" [selected]="active">דיווח על פעילות</option>
             <option [value]="3" [selected]="students">אזור חניכים</option>
             <option [value]="4" [selected]="task">משימות ותזכורות</option>
@@ -48,6 +46,7 @@
 
         </select>
     </div>
+        <div name>שלום ל{{worker.Wo_name+" "+worker.Wo_Fname}}</div>
 
     <div class="ologo">
         <div [ngClass]="{'logo':true,'logoBanot':worker.Wo_gender==2,'logoBanim':worker.Wo_gender==1}"></div>
@@ -58,7 +57,7 @@
     <!--     <label class="label1">{{worker?.Wo_name+" "+worker?.Wo_Fname}}</label>
  -->
     <header>בס"ד</header>
-        <app-deshbord *ngIf="deshbord" [codeFilter]="worker.Wo_code" [status]="'worker'"></app-deshbord>
+    <app-deshbord *ngIf="deshbord" [codeFilter]="worker.Wo_code" [status]="'worker'"></app-deshbord>
 
     <app-activity-reporting *ngIf="active" [worker]="worker" [minutes]="minutes" [kilomet]="kilomet" [exit]="exit"
         [target]="target" (editStudent)="updateStudent($event)">

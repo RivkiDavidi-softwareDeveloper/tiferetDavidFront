@@ -96,6 +96,10 @@ export class DisplayWorkersComponent implements OnInit {
 
   //מדפיס
   public print(): void {
+    const style = document.createElement('style');
+style.innerHTML = '@media print { @page { size: portrait; } }';
+document.head.appendChild(style);
+
     window.print();
 
   }

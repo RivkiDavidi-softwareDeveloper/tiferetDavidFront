@@ -39,6 +39,10 @@ export class DisplayStudentComponent implements OnInit {
   @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   print() {
+    const style = document.createElement('style');
+style.innerHTML = '@media print { @page { size: portrait; } }';
+document.head.appendChild(style);
+
     window.print();
   }
   @Input() listStudentForProjects: Array<StudentForProject> = []
