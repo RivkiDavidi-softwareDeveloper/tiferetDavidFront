@@ -14,7 +14,15 @@ export class GaugeComponentComponent implements OnChanges {
   rotation: number = 0;
 
   ngOnChanges(): void {
-    const clamped = Math.max(0, Math.min(this.sum, 100));
-    this.rotation = -90 + (clamped * 180 / 100); // מ-0 עד 100 -> מ- -90 עד 90
+    this.sum = this.sum + 100
+    if (this.sum < 0) {
+      this.sum = 0
+    }
+    if (this.sum > 200) {
+      this.sum = 200
+    }
+    const clamped = Math.max(0, Math.min(this.sum, 200));
+    this.rotation = -90 + (clamped * 180 / 200); // סיבוב מ- -90 עד 90
   }
+
 }

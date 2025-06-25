@@ -43,7 +43,7 @@ export class TasksComponent {
     if (code == 1) {
       return 'v'
     }
-    return 'x'
+    return ''
   }
   //תצוגת תאריך
   displayDate(date: string) {
