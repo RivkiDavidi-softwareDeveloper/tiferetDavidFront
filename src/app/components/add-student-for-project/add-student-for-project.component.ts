@@ -41,8 +41,9 @@ export class AddStudentForProjectComponent implements OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket);
-    this.socket.on("students-updated", async () => {
+    this.socket = io(this.api.urlBasisSocket, {
+      transports: ["polling"]
+    });    this.socket.on("students-updated", async () => {
       this.generalStudent();
     });
   }

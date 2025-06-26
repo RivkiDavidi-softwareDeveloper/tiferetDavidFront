@@ -39,8 +39,9 @@ export class ActivityReportingComponent implements OnInit,OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket); 
-    this.socket.on("activities-updated", () => {
+    this.socket = io(this.api.urlBasisSocket, {
+      transports: ["polling"]
+    });    this.socket.on("activities-updated", () => {
       this.generalActivities();
       this.generalCategories();
     });
