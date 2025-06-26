@@ -1,4 +1,7 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+
+
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,7 +12,6 @@ import { Student } from '../../models/student.class';
 import { CategoriesForActivity } from '../../models/categoriesForActivity.class';
 import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
 
-
 @Component({
   selector: 'app-reports',
   standalone: true,
@@ -17,7 +19,11 @@ import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss'
 })
-export class ReportsComponent {
+
+
+export class ReportsComponent implements OnInit, OnDestroy {
+
+
   listOfAcitivities: Array<Activity> = [];
   listOfWorkers: Array<Worker> = [];
   listOfStudentsForActivity: Array<StudentForActivity> = [];
@@ -47,7 +53,24 @@ export class ReportsComponent {
     this.generalStudent();
     this.generalCategories();
 
+    this.connectSocket();
+
   }
+//סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket); 
+    this.socket.on("activities-updated", () => {
+      this.generalActivities();
+      this.generalCategories();
+
+    });
+  }
+
   //רשימת הפעילויות
   generalActivities() {
     this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {

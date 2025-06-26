@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output,OnDestroy,OnInit } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { Taskk } from '../../models/task.class';
 import { ApiService } from '../../services/api.service';
@@ -14,7 +15,21 @@ import { Worker } from '../../models/worker.class';
   styleUrl: './tasks.component.scss',
   imports: [CommonModule, TaskComponent]
 })
-export class TasksComponent {
+export class TasksComponent implements OnInit, OnDestroy  {
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+    this.socket.on("tasks-updated", () => {
+    this.generalTasks();
+    });
+   
+  }
+
   @Output() amountTask: EventEmitter<boolean> = new EventEmitter()
   amountDisplay = 50;
   amountDisplayNow = 0
@@ -28,7 +43,7 @@ export class TasksComponent {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit(): void {
     this.generalTasks();
-
+this.connectSocket()
   }
   generalTasks() {
     this.api.GetAllTastForWorker(this.worker.Wo_code, this.amountDisplay).subscribe(Date => {

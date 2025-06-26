@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -14,7 +15,29 @@ import { GaugeComponentComponent } from "../gauge-component/gauge-component.comp
   styleUrl: './deshbord.component.scss',
 
 })
-export class DeshbordComponent {
+export class DeshbordComponent implements OnInit, OnDestroy {
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+    this.socket.on("workers-updated", () => {
+      this.getAllWorkers()
+      this.generalDashboard()
+    });
+    this.socket.on("students-updated", async () => {
+      this.generalDashboard()
+    });
+    this.socket.on("activities-updated", async () => {
+      this.generalDashboard()
+    });
+
+  }
+
+
   listWorkers: Array<Worker> = []
   @Input() codeFilter = -1
   @Input() status = "system"
@@ -45,7 +68,7 @@ export class DeshbordComponent {
     this.getAllWorkers()
 
     this.generalDashboard()
-
+    this.connectSocket()
   }
   nameWorker(codeWorker: number) {
     const w = this.listWorkers.find(w => w.Wo_code == codeWorker)
@@ -63,7 +86,7 @@ export class DeshbordComponent {
 
   //רשימת פעילים
   getAllWorkers() {
-    this.api.FindWorker("",0, 0, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, 0, 0, 0).subscribe(Date => {
       this.listWorkers = []
       this.listWorkers.push(...Date)
       this.cdRef.detectChanges();

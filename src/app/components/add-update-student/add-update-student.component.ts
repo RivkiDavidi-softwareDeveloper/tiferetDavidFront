@@ -1,5 +1,6 @@
 
-import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef ,OnDestroy} from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { Worker } from '../../models/worker.class';
 import { ApiService } from '../../services/api.service';
@@ -27,7 +28,20 @@ import { isBuffer } from 'util';
   templateUrl: './add-update-student.component.html',
   styleUrl: './add-update-student.component.scss'
 })
-export class AddUpdateStudentComponent implements OnInit {
+export class AddUpdateStudentComponent implements OnInit,OnDestroy {
+//סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket); 
+    this.socket.on("workers-updated", () => {
+    this.generalWorkers();
+    });
+   
+  }
   @Input() codeWorkerLogin = 0;
   @Input() status: string = 'add';
   @Input() status2: string = 'add';
@@ -167,7 +181,7 @@ export class AddUpdateStudentComponent implements OnInit {
     this.generalWorkers();
     this.generalCommunities()
     this.generalSynagogueis()
-
+this.connectSocket()
   }
   //רשימת עובדים
   public generalWorkers(): void {

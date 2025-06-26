@@ -1,5 +1,6 @@
 
-import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef ,OnDestroy} from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +22,20 @@ import { GuideWithRelations } from '../../models/guideWithRelations.interface';
   templateUrl: './update-sharer.component.html',
   styleUrl: './update-sharer.component.scss'
 })
-export class UpdateSharerComponent {
+export class UpdateSharerComponent implements OnInit, OnDestroy {
+
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+   
+  }
+
+
   @Input() status: string = 'add';
   @Input() popupDisplayIn: boolean = false;
 

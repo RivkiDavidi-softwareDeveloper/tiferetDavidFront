@@ -36,8 +36,13 @@ export class ApiService {
 
 
   constructor(private httpp: HttpClient) { }
-/*   private urlBasis = 'http://localhost:3000/api';
- */  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
+/*   public urlBasisSocket = 'http://localhost:3000';
+
+  private urlBasis = 'http://localhost:3000/api'; */
+  
+    public urlBasisSocket = 'https://myserver-production-c24f.up.railway.app';
+
+  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
 
   //כניסה
   getLogin(name: string, password: string): Observable<any> {
@@ -361,11 +366,11 @@ export class ApiService {
   deleteGuideForProjects(code: number) {
     return this.httpp.delete(`${this.urlBasis + "/guideForProjects"}/${code}`);
   }
- //מחיקת כל הפעילויות
-      DeleteActi() {
-        const code=9;
-      return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
-    }
+  //מחיקת כל הפעילויות
+  DeleteActi() {
+    const code = 9;
+    return this.httpp.delete(`${this.urlBasis}/activities/${code}`);
+  }
   //מוחקת עובד
   DeleteWorker(wo_code: number) {
     return this.httpp.delete(`${this.urlBasis + "/workers"}/${wo_code}`);

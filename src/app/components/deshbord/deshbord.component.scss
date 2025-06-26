@@ -332,49 +332,6 @@ $color-turqis-light: rgb(86, 191, 166);
                 margin: 0.2vh 1.3vw;
                 padding-top: 1vh;
 
-                .circle-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 7.4vh;
-                    /* גודל הקונטיינר */
-                    height: 7.4vh;
-                    margin: 0.3vh auto;
-                    box-shadow: 4px 4px 0px rgba(222, 222, 222, 0);
-
-                    .progress-circle {
-                        width: 100%;
-                        /* גודל ה-SVG */
-                        height: 100%;
-                        transform: rotate(-90deg);
-                        /* סובב את העיגול כך שההתקדמות תתחיל מלמעלה */
-                    }
-
-                    .circle-bg {
-                        fill: none;
-                        stroke: #e5e5e5;
-                        stroke: #ffffff;
-
-                        /* צבע אפור בהיר עבור עיגול הרקע */
-                        stroke-width: 4;
-                    }
-
-                    .circle-progress {
-                        fill: none;
-                        stroke-width: 4;
-                        stroke-linecap: round;
-                        /* קצוות מעוגלים לקו ההתקדמות */
-                        transition: stroke-dasharray 0.3s ease;
-                        /* מעבר חלק */
-                    }
-
-                    .percentage-text {
-                        font-size: 1.3vh;
-                        /* התאמת גודל הטקסט */
-                        fill: #333;
-                    }
-                }
-
 
             }
 

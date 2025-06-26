@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild,OnDestroy } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { AddUpdateWorkerComponent } from "../add-update-worker/add-update-worker.component";
 import { ApiService } from '../../services/api.service';
@@ -16,8 +17,20 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrls: ['./display-workers.component.scss'],
   imports: [CommonModule, AddUpdateWorkerComponent]
 })
-export class DisplayWorkersComponent implements OnInit {
-
+export class DisplayWorkersComponent implements OnInit,OnDestroy {
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+    this.socket.on("workers-updated", () => {
+      this.general();
+    });
+   
+  }
   click1: boolean = true; click2: boolean = false; click3: boolean = false;
   click4: boolean = true; click5: boolean = false; click6: boolean = false;
   clickO1: boolean = true; clickO2: boolean = false;
@@ -48,6 +61,7 @@ export class DisplayWorkersComponent implements OnInit {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit(): void {
     this.general();
+    this.connectSocket()
   }
 
   //חיפוש

@@ -1,4 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { ChangeDetectorRef, Component, OnDestroy, OnInit , EventEmitter, Input, Output} from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+
 import { CommonModule, Time } from '@angular/common';
 import { StudentComponent } from "../student/student.component";
 import { Student } from '../../models/student.class';
@@ -28,8 +31,26 @@ import { response } from 'express';
     imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent]
 })
 
-export class ActivityReportingComponent implements OnInit {
-
+export class ActivityReportingComponent implements OnInit,OnDestroy {
+//סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket); 
+    this.socket.on("activities-updated", () => {
+      this.generalActivities();
+      this.generalCategories();
+    });
+    this.socket.on("students-updated", async () => {
+        await new Promise<void>((resolve, reject) => {
+            this.generalStudents(1);
+            resolve(); // מסמן שהפעולה הושלמה
+        });
+    });
+  }
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
 
@@ -198,6 +219,7 @@ export class ActivityReportingComponent implements OnInit {
             this.generalStudents(1);
             resolve(); // מסמן שהפעולה הושלמה
         });
+          this.connectSocket()
         //this.generalStudents2()
  // קוד לביצוע מחיקה
         

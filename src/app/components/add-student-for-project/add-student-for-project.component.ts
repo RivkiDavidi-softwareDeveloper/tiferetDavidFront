@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, OnDestroy } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
+
 import { CommonModule } from '@angular/common';
 import { Student } from '../../models/student.class';
 import { ApiService } from '../../services/api.service';
@@ -31,12 +33,24 @@ import { GuideWithRelations } from '../../models/guideWithRelations.interface';
   templateUrl: './add-student-for-project.component.html',
   styleUrl: './add-student-for-project.component.scss'
 })
-export class AddStudentForProjectComponent {
+export class AddStudentForProjectComponent implements OnDestroy {
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+    this.socket.on("students-updated", async () => {
+      this.generalStudent();
+    });
+  }
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() popupDisplayIn: boolean = false;
   @Input() status = "add"
   //שיוך מכניסת פעילים
-  @Input() codeWorker=-1
+  @Input() codeWorker = -1
 
   @Input() listStudentsForProject: Array<StudentForProject> = []
   SFP_name_school_bein_hazmanim = ""
@@ -67,13 +81,14 @@ export class AddStudentForProjectComponent {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar) { }
   ngOnInit() {
     this.generalStudent();
+    this.connectSocket()
     /*     this.generalGuides();
      */
   }
   //חניכים 
   generalStudent() {
 
-    this.api.FindStudent(this.searchText, this.order, this.project.Pr_gender, 0,this.codeWorker).subscribe(Date => {
+    this.api.FindStudent(this.searchText, this.order, this.project.Pr_gender, 0, this.codeWorker).subscribe(Date => {
       this.listOfStudents = []
       this.listOfStudents.push(...Date);
       this.cdRef.detectChanges();
@@ -95,7 +110,7 @@ export class AddStudentForProjectComponent {
   }
   //הוספה
   async add() {
-    if (this.selectedGuideCode != -1  && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1 && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
+    if (this.selectedGuideCode != -1 && this.selectedStudent.St_code != -1 && this.project.Pr_code != -1 && !this.validNaneBeinHazmanim && !this.validNusahTfila && !this.validVeshinantem) {
       this.loading = true
       const studentExists = this.listStudentsForProject.find(s => s.SFP_code_student == this.selectedStudent.St_code)
       if (studentExists != null) {
@@ -209,7 +224,7 @@ export class AddStudentForProjectComponent {
     this.validNaneBeinHazmanim = false
     this.validNusahTfila = false
     this.validVeshinantem = false
-    this.status="add"
+    this.status = "add"
     this.generalStudent()
   }
   //חיפוש

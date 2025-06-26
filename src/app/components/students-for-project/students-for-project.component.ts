@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, OnDestroy, OnInit } from '@angular/core';
+import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { StudentForProject } from '../../models/studentForProject.class';
 import { ApiService } from '../../services/api.service';
@@ -33,7 +34,29 @@ import { error } from 'console';
   templateUrl: './students-for-project.component.html',
   styleUrl: './students-for-project.component.scss'
 })
-export class StudentsForProjectComponent {
+export class StudentsForProjectComponent implements OnInit, OnDestroy {
+  //סינכרון נתונים בין לקוחות
+  socket: Socket | undefined;
+  ngOnDestroy(): void {
+    if (this.socket)
+      this.socket.disconnect();
+  }
+  connectSocket(): void {
+    this.socket = io(this.api.urlBasisSocket);
+    this.socket.on("guides-updated", () => {
+      this.general();
+    });
+    this.socket.on("sharers-updated", async () => {
+      this.general();
+
+    });
+    this.socket.on("studentsForProjects-updated", async () => {
+      this.general();
+
+    });
+  }
+
+
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
   //העברת משתתף לחניך
@@ -91,6 +114,7 @@ export class StudentsForProjectComponent {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit() {
     this.general();
+    this.connectSocket()
   }
   general() {
 
@@ -299,10 +323,10 @@ export class StudentsForProjectComponent {
           resolve();
 
         },
-        (error) => {
-          resolve(); // מסמן שהפעולה הושלמה
+          (error) => {
+            resolve(); // מסמן שהפעולה הושלמה
 
-        });
+          });
       }
     })
     //שליפת פעיל
@@ -314,10 +338,10 @@ export class StudentsForProjectComponent {
           resolve();
 
         },
-        (error) => {
-          resolve(); // מסמן שהפעולה הושלמה
+          (error) => {
+            resolve(); // מסמן שהפעולה הושלמה
 
-        });
+          });
       }
     })
     //רישום לפרויקט כחניך
@@ -526,8 +550,8 @@ export class StudentsForProjectComponent {
   }
   print() {
     const style = document.createElement('style');
-style.innerHTML = '@media print { @page { size: portrait; } }';
-document.head.appendChild(style);
+    style.innerHTML = '@media print { @page { size: portrait; } }';
+    document.head.appendChild(style);
 
     window.print();
   }
