@@ -1,34 +1,46 @@
-<!-- <svg width="100px" height="50px" viewBox="0 0 200 110">
-  <path d="M 10 100 A 90 90 0 0 1 190 100"
-        stroke="#00cfd1" stroke-width="6" fill="none" />
-
-  <line [attr.transform]="'rotate(' + rotation + ' 100 100)'"
-        x1="100" y1="100" x2="100" y2="20"
-        stroke="black" stroke-width="3"
-        style="transition: transform 0.5s ease;" />
-
-  <circle cx="100" cy="100" r="5" fill="black" />
-</svg> -->
 
 
-<svg width="140px" height="65px" viewBox="0 0 200 110">
-  <!-- קשת -->
-  <path d="M 10 100 A 90 90 0 0 1 190 100"
-        stroke="#00cfd1" stroke-width="6" fill="none" />
 
-  <!-- תוויות אחוזים מחוץ לקשת -->
-  <text x="10" y="95" font-size="10" text-anchor="middle">0%</text>
-  <text x="50" y="45" font-size="10" text-anchor="middle">50%</text>
-  <text x="100" y="30" font-size="10" text-anchor="middle">100%</text>
-  <text x="150" y="45" font-size="10" text-anchor="middle">150%</text>
-  <text x="190" y="95" font-size="10" text-anchor="middle">200%</text>
+
+<svg viewBox="0 0 200 110">
+  <!-- הגדרת קווים קטנים לאורך הקשת -->
+  <defs>
+    <g id="tick">
+      <line x1="100" y1="23" x2="100" y2="27" stroke="#888" stroke-width="1" />
+    </g>
+  </defs>q
+
+  <!-- קשת בסיס אפורה -->
+  <path d="M 23 100 A 77 77 0 0 1 177 100" stroke="#ccc" stroke-width="1.5" fill="none" />
+
+  <!-- קשת צבעונית דינמית -->
+  <path *ngIf="sum !== 100"
+        [attr.d]="arcPath"
+        [attr.stroke]="sum > 100 ? 'rgb(11, 239, 7)' : 'red'"
+        stroke-width="10"
+        fill="none" />
+
+  <!-- קווים קטנים כל 10% -->
+  <g *ngFor="let i of ticks">
+    <use [attr.transform]="'rotate(' + (i * 180 / 200 - 90) + ' 100 100)'" xlink:href="#tick" />
+  </g>
+
+  <!-- תוויות אחוזים -->
+  <text x="8" y="92" font-size="10" text-anchor="middle" fill="gray" transform="rotate(-90 8 92)">0%</text>
+  <text x="32" y="35" font-size="10" text-anchor="middle" fill="gray" transform="rotate(-45 32 35)">50%</text>
+  <text x="100" y="7" font-size="10" text-anchor="middle" fill="gray" transform="rotate(0 100 7)">100%</text>
+  <text x="168" y="35" font-size="10" text-anchor="middle" fill="gray" transform="rotate(45 168 35)">150%</text>
+  <text x="192" y="92" font-size="10" text-anchor="middle" fill="gray" transform="rotate(90 192 92)">200%</text>
 
   <!-- מחוג -->
   <line [attr.transform]="'rotate(' + rotation + ' 100 100)'"
-        x1="100" y1="100" x2="100" y2="20"
-        stroke="black" stroke-width="3"
+        x1="100" y1="100" x2="100" y2="23.8"
+        stroke="black" stroke-width="2.5"
         style="transition: transform 0.5s ease;" />
 
   <!-- מרכז -->
   <circle cx="100" cy="100" r="5" fill="black" />
 </svg>
+
+
+

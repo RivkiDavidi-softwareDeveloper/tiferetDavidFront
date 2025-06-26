@@ -18,7 +18,7 @@ $color-turqis-light: rgb(86, 191, 166);
         height: 6vh;
         line-height: 6vh;
         width: 38vw;
-        margin: 5vh auto 2vh auto;
+        margin: 2vh auto 0.5vh auto;
         display: inline-block;
         justify-content: center;
         align-items: center;
@@ -112,8 +112,10 @@ $color-turqis-light: rgb(86, 191, 166);
     [box] {
         width: 20vw;
         height: 7.5vh;
-        flex: 1;
-        margin: 1.4vh 1vw 0.8vh 1vw;
+      //  flex: 1;
+       // margin: 1.4vh 1vw 0.8vh 1vw;
+                margin: 1.4vh auto 0.8vh auto;
+
         display: inline-block;
         box-shadow: 4px 7px 10px 4px rgba(186, 186, 186, 0.6);
         text-align: center;
@@ -284,8 +286,8 @@ $color-turqis-light: rgb(86, 191, 166);
             }
 
             [titleSide2] {
-                font-size: 1.75vh;
-                height: 8vh;
+                font-size: 1.8vh;
+                height: 10vh;
                 text-align: left;
                 color: rgb(50, 50, 50);
                 white-space: normal; // מאפשר שבירת שורות
@@ -328,7 +330,8 @@ $color-turqis-light: rgb(86, 191, 166);
             [t5] {
                 height: 10vh;
                 margin: 0.2vh 1.3vw;
-padding-top: 1vh;
+                padding-top: 1vh;
+
                 .circle-container {
                     display: flex;
                     justify-content: center;
@@ -524,7 +527,7 @@ padding-top: 1vh;
 
 
 @media only screen and (max-width: 960px) {
-   [otefHI] {
+    [otefHI] {
         .color-cycle {
             width: 42vw;
         }
@@ -542,7 +545,8 @@ padding-top: 1vh;
     }
 
     [otefHI] {
-display: block;
+        display: block;
+
         .color-cycle {
             height: 9vh;
             line-height: 1.6;

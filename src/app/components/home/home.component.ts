@@ -175,16 +175,24 @@ export class HomeComponent implements OnInit {
         (response) => {
 
             if (response.Wo_ID === "0000") {
+               this.name=""
+              this.password=""
               this.workersLoginShow = false; this.systemLoginShow = true; this.buttonShow = false;
+             
               this.isLoading = false
             }
             else {
               this.worker = response;
+              this.name=""
+              this.password=""
               this.workersLoginShow = true; this.systemLoginShow = false; this.buttonShow = false;
+                         
               this.isLoading = false
             }
         },
         (error) => {
+                     this.name=""
+              this.password=""
           this.isLoading = false;
       
           if (error.status === 405) {
@@ -200,13 +208,16 @@ export class HomeComponent implements OnInit {
     }
     else {
       this.snackBar.open('חסר שם משתמש או סיסמא', 'סגור', { duration: 3000 });
+     
       this.isLoading = false
 
     }
 
+
   }
   //-חזרה לבית מכניסת עובדים- סגירת הפופפ
   closeP(display: boolean) {
+
     this.workersLoginShow = false;
     this.systemLoginShow = false
     this.buttonShow = true;

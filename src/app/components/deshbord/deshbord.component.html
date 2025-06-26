@@ -129,41 +129,41 @@
         <div>
             <div titleSide2 t21>דירוג יחסי לחודש קודם </div>
             <div t1>
-                <app-gauge-component [sum]="matAmounts[5][0]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[5][0]+100"></app-gauge-component>
             </div>
             <div t2>
-                <app-gauge-component [sum]="matAmounts[5][1]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[5][1]+100"></app-gauge-component>
             </div>
             <div t3>
-                <app-gauge-component [sum]="matAmounts[5][2]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[5][2]+100"></app-gauge-component>
             </div>
             <div t4>
-                <app-gauge-component [sum]="matAmounts[5][3]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[5][3]+100"></app-gauge-component>
             </div>
             <div t5>
-                <app-gauge-component [sum]="matAmounts[5][4]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[5][4]+100"></app-gauge-component>
 
             </div>
         </div>
         <div>
             <div titleSide2>דירוג יחסי לחודש זה בשנה שעברה</div>
             <div t1>
-                <app-gauge-component [sum]="matAmounts[6][0]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[6][0]+100"></app-gauge-component>
             </div>
             <div t2>
-                <app-gauge-component [sum]="matAmounts[6][1]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[6][1]+100"></app-gauge-component>
 
             </div>
             <div t3>
-                <app-gauge-component [sum]="matAmounts[6][2]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[6][2]+100"></app-gauge-component>
 
             </div>
             <div t4>
-                <app-gauge-component [sum]="matAmounts[6][3]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[6][3]+100"></app-gauge-component>
 
             </div>
             <div t5>
-                <app-gauge-component [sum]="matAmounts[6][4]"></app-gauge-component>
+                <app-gauge-component [sum]="matAmounts[6][4]+100"></app-gauge-component>
 
             </div>
         </div>
@@ -197,16 +197,7 @@
     <div class="color-cycle" *ngIf="matAmounts[8][0] > 0">
         ברכות לפעיל {{ nameWorker(matAmounts[8][0]) }} - מקסימום זמן פעילות פר חניך השבוע
     </div>
-    <div class="color-cycle" *ngIf="matAmounts[8][1]==0">
+    <div class="color-cycle" *ngIf="matAmounts[8][1]>0">
         ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
     </div>
 </div>
-<!-- 
-<div otefHI>
-    <div class="highlight-box" *ngIf="matAmounts[8][0]>0">
-        ברכות לפעיל {{nameWorker(matAmounts[8][0])}} - מקסימום זמן פעילות פר חניך השבוע
-    </div>
-    <div class="highlight-box" *ngIf="matAmounts[8][1]>0">
-        ברכות לפעיל {{nameWorker(matAmounts[8][1])}} - שיבוץ בהצלחה
-    </div>
-</div> -->
