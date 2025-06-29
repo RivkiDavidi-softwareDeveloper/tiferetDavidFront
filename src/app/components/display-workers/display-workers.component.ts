@@ -26,7 +26,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
   }
   connectSocket(): void {
     this.socket = io(this.api.urlBasisSocket, {
-      transports: ["polling"]
+      transports: ["websocket"]
     });    this.socket.on("workers-updated", () => {
       this.general();
     });

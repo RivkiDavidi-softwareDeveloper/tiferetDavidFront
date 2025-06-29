@@ -64,7 +64,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
   connectSocket(): void {
     this.socket = io(this.api.urlBasisSocket, {
-      transports: ["polling"]
+      transports: ["websocket"]
     });    this.socket.on("activities-updated", () => {
       this.generalActivities();
       this.generalCategories();

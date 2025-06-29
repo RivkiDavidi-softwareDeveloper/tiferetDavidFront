@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
   connectSocket(): void {
     this.socket = io(this.api.urlBasisSocket, {
-      transports: ["polling"]
+      transports: ["websocket"]
     });    this.socket.on("projects-updated", () => {
         this.general();
     });
