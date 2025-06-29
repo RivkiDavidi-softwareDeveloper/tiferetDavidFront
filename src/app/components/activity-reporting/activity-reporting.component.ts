@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit , EventEmitter, Input, Output} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 
 import { CommonModule, Time } from '@angular/common';
@@ -31,27 +31,32 @@ import { response } from 'express';
     imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent]
 })
 
-export class ActivityReportingComponent implements OnInit,OnDestroy {
-//סינכרון נתונים בין לקוחות
-  socket: Socket | undefined;
-  ngOnDestroy(): void {
-    if (this.socket)
-      this.socket.disconnect();
-  }
-  connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
-      transports: ["polling"]
-    });    this.socket.on("activities-updated", () => {
-      this.generalActivities();
-      this.generalCategories();
-    });
-    this.socket.on("students-updated", async () => {
-        await new Promise<void>((resolve, reject) => {
-            this.generalStudents(1);
-            resolve(); // מסמן שהפעולה הושלמה
+export class ActivityReportingComponent implements OnInit, OnDestroy {
+    //סינכרון נתונים בין לקוחות
+    socket: Socket | undefined;
+    ngOnDestroy(): void {
+        if (this.socket)
+            this.socket.disconnect();
+    }
+    connectSocket(): void {
+ /*        this.socket = io(this.api.urlBasisSocket, {
+            transports: ["polling"]
+        }); */
+        this.socket = io(this.api.urlBasisSocket, {
+            transports: ["websocket"]
         });
-    });
-  }
+
+        this.socket.on("activities-updated", () => {
+            this.generalActivities();
+            this.generalCategories();
+        });
+        this.socket.on("students-updated", async () => {
+            await new Promise<void>((resolve, reject) => {
+                this.generalStudents(1);
+                resolve(); // מסמן שהפעולה הושלמה
+            });
+        });
+    }
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
 
@@ -86,7 +91,7 @@ export class ActivityReportingComponent implements OnInit,OnDestroy {
 
     statusF = 1;
     //החניך שנבחר
-    addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"");
+    addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "");
 
     listSelectedStudents: Array<StudentForActivity> = [];
     listTypesForActivity: Array<CategoriesForActivity> = [];
@@ -205,25 +210,25 @@ export class ActivityReportingComponent implements OnInit,OnDestroy {
 
     }
     async ngOnInit(): Promise<void> {
-/* this.api.DeleteActi().subscribe(
-          (response) => {
-            this.snackBar.open('!הפעילויות נמחק בהצלחה', 'x', { duration: 3000 });
-          },
-          (error) => {
-            this.snackBar.open('תהליך המחיקה נכשל', 'x', { duration: 3000 });
-
-          }
-        ) */
+        /* this.api.DeleteActi().subscribe(
+                  (response) => {
+                    this.snackBar.open('!הפעילויות נמחק בהצלחה', 'x', { duration: 3000 });
+                  },
+                  (error) => {
+                    this.snackBar.open('תהליך המחיקה נכשל', 'x', { duration: 3000 });
+        
+                  }
+                ) */
         this.generalSubCategoryGift()
         this.generalSubCategoryOut();
         await new Promise<void>((resolve, reject) => {
             this.generalStudents(1);
             resolve(); // מסמן שהפעולה הושלמה
         });
-          this.connectSocket()
+        this.connectSocket()
         //this.generalStudents2()
- // קוד לביצוע מחיקה
-        
+        // קוד לביצוע מחיקה
+
     }
     //מעבר לעריכת חניך
     updateStudent() {
@@ -285,7 +290,7 @@ export class ActivityReportingComponent implements OnInit,OnDestroy {
                     this.generalSubCategoryGift();
                     this.displaySubCategoryGift = false;
                     this.codeSubCategoryGift = (response as SubcategoryForTypeActivity).SFTA_code
-                    
+
                 }
 
             }
@@ -1017,7 +1022,7 @@ export class ActivityReportingComponent implements OnInit,OnDestroy {
 
                     });
             });
-            this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1,"");
+            this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "");
 
 
         }
