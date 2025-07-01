@@ -79,6 +79,8 @@
                                 l2>{{TypeDiffi(d.DS_diffculty_code)+","}}</label></label>
 
                 <label>תאור מצב קליטה:<label l2>{{student.St_description_reception_status}}</label> </label>
+                <label>תאריך קליטה:<label l2>{{convertDateBack(student.St_reception_date)}}</label> </label>
+
                 <label *ngIf="student.St_gender==1">פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+"
                                 "+Worker.Wo_Fname}}</label></label>
                 <label *ngIf="student.St_gender==2">פעילה/חונכת ישירה: <label l2>{{Worker.Wo_name+"
@@ -183,6 +185,9 @@
 
                                 <label>תאור מצב קליטה:<label l2>{{student.St_description_reception_status}}</label>
                                 </label>
+                                <label>תאריך קליטה:<label l2>{{convertDateBack(student.St_reception_date)}}</label>
+                                </label>
+
                                 <label>פעיל/חונך ישיר: <label l2>{{Worker.Wo_name+" "+Worker.Wo_Fname}}</label></label>
                                 <label>הפנייה התקבלה ע"י: <label l2>{{student.St_requester}}</label></label>
                                 <label>נוסח התפילה: <label l2>{{student.St_nusah_tfila}}</label></label>

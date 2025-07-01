@@ -63,7 +63,7 @@ amountSharersAndStudents:number=0
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
   //העברת משתתף לחניך
-  studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  studentNew: Student = new Student(111, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
   ParentNew: Parentt = new Parentt(-1, "", "", "", "")
   Parent1New: Parentt = new Parentt(-1, "", "", "", "")
   DifficultyStudentNew: Array<DifficultyStudent> = []
@@ -74,7 +74,7 @@ amountSharersAndStudents:number=0
   sharer: Sharer = new Sharer(-1, "", 1, "", "", "", 1, 1, 1, "", "", "", "")
 
   //הצגת חניך
-  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  studentDisplay: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
   ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
   Parent1Display: Parentt = new Parentt(111, "", "", "", "")
   DifficultyStudentDisplay: Array<DifficultyStudent> = []
@@ -101,7 +101,7 @@ amountSharersAndStudents:number=0
   sUpdateSharer = false
   sharerForProjectUpdate: SharerForProject = new SharerForProject(-1, 1, 1, 1, "", "", this.sharerUpdate)
   //עדכון פרטי חניך בפרויקט
-  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
 

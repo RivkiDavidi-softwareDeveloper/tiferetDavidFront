@@ -92,13 +92,22 @@
                 <label eror *ngIf="validId">הכנס ת.ז תקינה</label>
             </div>
             <div ca>
-                <label>תאריך לידה</label>
+                <label>תאריך לידה לועזי</label>
                 <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
                     [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
                 <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(studentUpdate.St_birthday)"
                     (input)="onInputChangeBirthday($event)"
                     [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
                 <label eror *ngIf="validBirthday">הכנס תאריך תקין</label>
+            </div>
+              <div ca>
+                <label>תאריך לידה עברי</label>
+      <!--           <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
+                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
+                <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(studentUpdate.St_hebrew_date)"
+                    (input)="onInputChangeBirthday($event)"
+                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
+                <label eror *ngIf="validBirthday">הכנס תאריך תקין</label> -->
             </div>
         </div>
         <h3 title2>כתובת</h3>

@@ -28,7 +28,7 @@ export class DisplayStudentComponent implements OnInit {
 
   @Input() selectedImage: string = "";
 
-  @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  @Input() student: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   @Input() popupDisplayIn: boolean = false;
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()

@@ -27,7 +27,7 @@
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeName($event)">
                 <input type="text" *ngIf="status === 'update'" value="{{projectUpdate.Pr_name}}"
                     (input)="onInputChangeName($event)">
-                <label eror *ngIf="validPr_name">מוגבל ל-40 תוים</label>
+                <label eror *ngIf="validPr_name">מוגבל ל-70 תוים</label>
 
             </div>
             <div ca>
@@ -36,7 +36,7 @@
                 <textarea *ngIf="status === 'update'" value="{{projectUpdate.Pr_description}}"
                     (input)="onInputChangeDescription($event)"></textarea>
 
-                <label eror *ngIf="validPr_description">מוגבל ל-500 תוים</label>
+                <label eror *ngIf="validPr_description">מוגבל ל-2000 תוים</label>
 
             </div>
             <div ca>
@@ -45,7 +45,7 @@
                 <textarea *ngIf="status === 'update'" value="{{projectUpdate.Pr_content}}"
                     (input)="onInputChangeContent($event)"></textarea>
 
-                <label eror *ngIf="validPr_content">מוגבל ל-1000 תוים</label>
+                <label eror *ngIf="validPr_content">מוגבל ל-2000 תוים</label>
 
             </div>
             <div ca>
@@ -54,7 +54,7 @@
                 <input type="text" *ngIf="status === 'update'" value="{{projectUpdate.Pr_Place}}"
                     (input)="onInputChangePlace($event)">
 
-                <label eror *ngIf="validPr_Place">מוגבל ל-50 תוים</label>
+                <label eror *ngIf="validPr_Place">מוגבל ל-100 תוים</label>
 
             </div>
             <div ca>

@@ -66,13 +66,13 @@ export class AddStudentForProjectComponent implements OnDestroy {
   validVeshinantem = false
 
   //לעדכון
-  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  studentUpdate: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   @Input() studentForProjectUpdate: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
-  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   listOfStudents: Array<Student> = []
   @Input() listOfGuides: Array<GuideWithRelations> = []
@@ -221,7 +221,7 @@ export class AddStudentForProjectComponent implements OnDestroy {
   }
   empty() {
     this.selectedGuideCode = -1
-    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+    this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
     this.searchText = ""
     this.SFP_name_school_bein_hazmanim = ""
     this.St_nusah_tfila = ""
@@ -245,7 +245,7 @@ export class AddStudentForProjectComponent implements OnDestroy {
   //בחירת חניך
   Select(student: Student) {
     if (this.selectedStudent.St_code == student.St_code) {
-      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "")
+      this.selectedStudent = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
     }
     else
       this.selectedStudent = student;

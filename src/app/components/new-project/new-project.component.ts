@@ -53,7 +53,7 @@ export class NewProjectComponent {
   //שם
   onInputChangeName(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 40) {
+    if (name.length <= 70) {
       this.Pr_name = name;
       this.validPr_name = false;
     }
@@ -64,7 +64,7 @@ export class NewProjectComponent {
   //תוכן
   onInputChangeContent(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 1000) {
+    if (name.length <= 2000) {
       this.Pr_content = name;
       this.validPr_content = false;
     }
@@ -75,7 +75,7 @@ export class NewProjectComponent {
   //תאור
   onInputChangeDescription(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 500) {
+    if (name.length <= 2000) {
       this.Pr_description = name;
       this.validPr_description = false;
     }
@@ -86,7 +86,7 @@ export class NewProjectComponent {
   //מקום
   onInputChangePlace(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 50) {
+    if (name.length <= 100) {
       this.Pr_Place = name;
       this.validPr_Place = false;
     }

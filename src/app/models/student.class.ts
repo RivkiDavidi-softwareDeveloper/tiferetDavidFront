@@ -28,10 +28,11 @@ export class Student {
         public St_code_synagogue: number,
         public St_code_frequency: number,
         public St_amount_frequency: number,
-/*         public St_name_school_bein_hazmanim: string,
- */        public St_nusah_tfila: string,
-/*         public St_veshinantem: string,
- */    ) { }
+        public St_nusah_tfila: string,
+        public St_hebrew_date: string,
+        public St_reception_date: string,
+
+    ) { }
 
 
 }
