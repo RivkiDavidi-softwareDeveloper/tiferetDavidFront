@@ -64,7 +64,7 @@ export class NewProjectComponent {
   //תוכן
   onInputChangeContent(event: Event) {
     const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 100) {
+    if (name.length <= 1000) {
       this.Pr_content = name;
       this.validPr_content = false;
     }
