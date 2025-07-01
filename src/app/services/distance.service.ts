@@ -7,9 +7,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class DistanceService {
 
-/*   private apiUrl = 'http://localhost:3000/api/distance';
- */ private apiUrl = 'https://myserver-production-c24f.up.railway.app/api';
-
+  private apiUrl = 'http://localhost:3000/api/distance';
+ /* private apiUrl = 'https://myserver-production-c24f.up.railway.app/api';
+ */
   constructor(private http: HttpClient) {}
 
   getDistance(origin: GeolocationCoordinates, destination: GeolocationCoordinates) {

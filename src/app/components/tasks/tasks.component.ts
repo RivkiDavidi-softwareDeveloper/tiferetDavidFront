@@ -23,12 +23,12 @@ export class TasksComponent implements OnInit, OnDestroy  {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
+   /*  this.socket = io(this.api.urlBasisSocket, {
       transports: ["websocket"]
     });    this.socket.on("tasks-updated", () => {
     this.generalTasks();
     });
-   
+    */
   }
 
   @Output() amountTask: EventEmitter<boolean> = new EventEmitter()

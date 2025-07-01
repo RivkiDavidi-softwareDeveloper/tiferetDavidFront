@@ -44,12 +44,12 @@ export class AddStudentForProjectComponent implements OnDestroy {
  /*    this.socket = io(this.api.urlBasisSocket, {
       transports: ["polling"]
     }); */
-    this.socket = io(this.api.urlBasisSocket, {
+/*     this.socket = io(this.api.urlBasisSocket, {
             transports: ["websocket"]
         });
     this.socket.on("students-updated", async () => {
       this.generalStudent();
-    });
+    }); */
   }
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() popupDisplayIn: boolean = false;

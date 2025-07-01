@@ -11,6 +11,7 @@
 
         <!--         <label for="file-upload" class="upload-label">בחר קובץ</label> -->
         <button *ngIf="file" upload (click)="uploadFile()">העלה קובץ</button>
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
 
     </div>

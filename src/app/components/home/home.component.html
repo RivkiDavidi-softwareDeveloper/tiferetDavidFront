@@ -4,8 +4,8 @@
         <br>
 
 
-        <input type="text" placeholder="שם משתמש" (input)="onInputChangeName($event)" t>
-        <input type="password" placeholder="סיסמא" (input)="onInputChangePassword($event)">
+        <input type="text" placeholder="שם משתמש" (input)="onInputChangeName($event)"  value="{{name}}" t>
+        <input type="password" placeholder="סיסמא" (input)="onInputChangePassword($event)" value="{{password}}">
         <button (click)="Login()">כניסה</button>
 
     </div>

@@ -23,7 +23,7 @@ export class DeshbordComponent implements OnInit, OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-
+/* 
     this.socket = io(this.api.urlBasisSocket, {
       transports: ["websocket"]
     });
@@ -38,7 +38,7 @@ export class DeshbordComponent implements OnInit, OnDestroy {
     this.socket.on("activities-updated", async () => {
       this.generalDashboard()
     });
-
+ */
   }
 
 

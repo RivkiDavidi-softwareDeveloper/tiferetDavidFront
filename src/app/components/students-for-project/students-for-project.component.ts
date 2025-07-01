@@ -42,22 +42,24 @@ export class StudentsForProjectComponent implements OnInit, OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
-      transports: ["websocket"]
-    });    this.socket.on("guides-updated", () => {
-      this.general();
-    });
-    this.socket.on("sharers-updated", async () => {
-      this.general();
-
-    });
-    this.socket.on("studentsForProjects-updated", async () => {
-      this.general();
-
-    });
+    /*  this.socket = io(this.api.urlBasisSocket, {
+       transports: ["websocket"]
+     });    this.socket.on("guides-updated", () => {
+       this.general();
+     });
+     this.socket.on("sharers-updated", async () => {
+       this.general();
+ 
+     });
+     this.socket.on("studentsForProjects-updated", async () => {
+       this.general();
+ 
+     }); */
   }
 
 
+
+amountSharersAndStudents:number=0
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() project: Project = new Project(1, "", "", "", "", "", 1)
   //העברת משתתף לחניך
@@ -115,13 +117,15 @@ export class StudentsForProjectComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService, private cdRef: ChangeDetectorRef, private snackBar: MatSnackBar, public dialog: MatDialog) { }
   ngOnInit() {
     this.general();
-    this.connectSocket()
   }
   general() {
 
     this.api.getGuidesForProjectsWithSudentsAndSharers(this.project.Pr_code).subscribe(Date => {
       this.listAll = []
       this.listAll.push(...Date);
+      this.listAll.forEach(e => {
+        this.amountSharersAndStudents+=e.sharers.length+e.students.length
+      });
       this.cdRef.detectChanges();
     })
 

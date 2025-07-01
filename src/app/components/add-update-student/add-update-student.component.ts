@@ -36,11 +36,11 @@ export class AddUpdateStudentComponent implements OnInit,OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
+  /*   this.socket = io(this.api.urlBasisSocket, {
       transports: ["polling"]
     });    this.socket.on("workers-updated", () => {
     this.generalWorkers();
-    });
+    }); */
    
   }
   @Input() codeWorkerLogin = 0;

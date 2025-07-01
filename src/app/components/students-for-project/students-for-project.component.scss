@@ -38,12 +38,19 @@ $color-orange: rgb(255, 140, 0);
     }
 
     [name] {
-      margin-bottom: 20px;
+      margin-bottom: 7px;
       color: $color-turqis;
       font-size: 28px;
       font-weight: bolder;
     }
+[amount]{
+          font-weight: bold;
+        color: #222;
+        margin-top: 0;
+        display: block;
+              margin-bottom: 17px;
 
+}
     //כפתור
     button {
       font-family: Assistant-Regular;

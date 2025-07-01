@@ -36,7 +36,7 @@ export class DisplayStudentsComponent implements OnInit, OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
+  /*   this.socket = io(this.api.urlBasisSocket, {
       transports: ["websocket"]
     });    this.socket.on("workers-updated", () => {
       this.generalWorkers();
@@ -44,7 +44,7 @@ export class DisplayStudentsComponent implements OnInit, OnDestroy {
     this.socket.on("students-updated", async () => {
       this.generalStudents();
 
-    });
+    }); */
   }
   listOfStudents: Array<Student> = []
   listOfWorkers: Array<Worker> = []

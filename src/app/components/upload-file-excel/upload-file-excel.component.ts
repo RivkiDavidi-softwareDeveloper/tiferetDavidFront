@@ -6,19 +6,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { error } from 'console';
 import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
+import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-upload-file-excel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinnerComponent],
   templateUrl: './upload-file-excel.component.html',
   styleUrl: './upload-file-excel.component.scss'
 })
 export class UploadFileExcelComponent {
+  //אנימציה
+  loading = false
   @Input() popupDisplayIn: boolean = false;
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() status: string = "חניכים";
-@Input() codeProject:number=1;
+  @Input() codeProject: number = 1;
   constructor(private api: ApiService, private snackBar: MatSnackBar) { }
 
   file: File | null = null;
@@ -43,32 +46,42 @@ export class UploadFileExcelComponent {
       return;
     }
     else {
-
+      this.loading = true;
       const formData = new FormData();
       formData.append('file', this.file, "fileuPLOWE");
-      if(this.status=="חניכים"){
- this.api.uploadExcelFileStudents(formData).subscribe({
-        next: res => {
-          this.snackBar.open('קובץ החניכים הועלה בהצלחה', 'x', { duration: 1500 });
-          this.close();
-        },
-        error: err => {
-          this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
-        }
-      });
+      if (this.status == "חניכים") {
+        this.api.uploadExcelFileStudents(formData).subscribe({
+          next: res => {
+            this.loading = false;
+
+            this.snackBar.open('קובץ החניכים הועלה בהצלחה', 'x', { duration: 1500 });
+
+            this.close();
+          },
+          error: err => {
+            this.loading = false;
+
+            this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
+
+          }
+        });
       }
-      else{
-         this.api.uploadExcelFileSharersForProject(formData,this.codeProject).subscribe({
-        next: res => {
-          this.snackBar.open('קובץ המשתתפים לפרויקט הועלה בהצלחה', 'x', { duration: 1500 });
-          this.close();
-        },
-        error: err => {
-          this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
-        }
-      });
+      else {
+        this.api.uploadExcelFileSharersForProject(formData, this.codeProject).subscribe({
+          next: res => {
+                        this.loading=false;
+
+            this.snackBar.open('קובץ המשתתפים לפרויקט הועלה בהצלחה', 'x', { duration: 1500 });
+            this.close();
+          },
+          error: err => {
+                        this.loading=false;
+
+            this.snackBar.open('העלאה נכשלה', 'x', { duration: 1500 });
+          }
+        });
       }
-     
+
     }
   }
   downloadFile(): void {

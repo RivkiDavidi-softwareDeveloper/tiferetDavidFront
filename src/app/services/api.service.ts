@@ -36,13 +36,13 @@ export class ApiService {
 
 
   constructor(private httpp: HttpClient) { }
-/*   public urlBasisSocket = 'http://localhost:3000';
+  public urlBasisSocket = 'http://localhost:3000';
 
-  private urlBasis = 'http://localhost:3000/api'; */
-  
+  private urlBasis = 'http://localhost:3000/api';
+/*   
     public urlBasisSocket = 'https://myserver-production-c24f.up.railway.app';
 
-  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
+  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api'; */
 
   //כניסה
   getLogin(name: string, password: string): Observable<any> {

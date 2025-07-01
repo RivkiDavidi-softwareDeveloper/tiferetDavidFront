@@ -153,17 +153,7 @@
                 <label eror *ngIf="validIDFather">הכנס ת.ז תקינה</label>
 
             </div>
-            <div ca>
-                <label>עיסוק </label>
-                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkFather($event)"
-                    [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
-                <input type="text" *ngIf="status === 'update'" value="{{Parent.Pa_work}}"
-                    (input)="onInputChangeWorkFather($event)"
-                    [ngClass]="{'borderInputGreen':Pa_work_F.length>0 && !validWorkFather,'borderInputRed':validWorkFather}">
-
-                <label eror *ngIf="validWorkFather">טקסט ארוך מהנדרש</label>
-
-            </div>
+          
             <div ca>
                 <label>*פלאפון </label>
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneFather($event)"
@@ -199,17 +189,7 @@
                 <label eror *ngIf="validIDMother">הכנס ת.ז תקינה</label>
 
             </div>
-            <div ca>
-                <label>עיסוק </label>
-                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeWorkMother($event)"
-                    [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
-                <input type="text" *ngIf="status === 'update'" value="{{Parent1.Pa_work}}"
-                    (input)="onInputChangeWorkMother($event)"
-                    [ngClass]="{'borderInputGreen':Pa_work_M.length>0 && !validWorkMother,'borderInputRed':validWorkMother}">
-
-                <label eror *ngIf="validWorkMother">טקסט ארוך מהנדרש</label>
-
-            </div>
+          
             <div ca>
                 <label>*פלאפון </label>
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneMother($event)"

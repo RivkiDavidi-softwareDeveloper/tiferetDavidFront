@@ -22,11 +22,11 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
+ /*    this.socket = io(this.api.urlBasisSocket, {
       transports: ["websocket"]
     });    this.socket.on("projects-updated", () => {
         this.general();
-    });
+    }); */
   }
     listProject: Array<Project> = []
     displayAddProject=false

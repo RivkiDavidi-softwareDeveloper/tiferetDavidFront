@@ -25,11 +25,11 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-    this.socket = io(this.api.urlBasisSocket, {
+ /*    this.socket = io(this.api.urlBasisSocket, {
       transports: ["websocket"]
     });    this.socket.on("workers-updated", () => {
       this.general();
-    });
+    }); */
    
   }
   click1: boolean = true; click2: boolean = false; click3: boolean = false;

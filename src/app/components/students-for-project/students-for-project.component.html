@@ -3,7 +3,9 @@
     <div popup1 Yesprint>
         <button nonePrint close (click)="close();">x</button>
 
-        <p name Yesprint><label inName>פרויקט | </label>{{ project.Pr_name }}</p>
+        <p name Yesprint><label inName>פרויקט | </label>{{ project.Pr_name }}    </p>
+        <label amount> {{amountSharersAndStudents}} משתתפים</label>
+
         <button buttonTop addStudent (click)="enterListOfStudents();sAddStudentForProject=true; ">שייך חניכים
             ממאגר</button>
         <button buttonTop exelSharers (click)="sUploadExcel = true">הוסף משתתפים מקובץ אקסל</button>
@@ -46,7 +48,7 @@
                                 <div class="icon"></div>
                             </div>
                         </td>
-                        <td class="bold" (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_name +" "+s.Sharer.Sh_Fname}}
+                        <td class="bold" (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_Fname+" "+s.Sharer.Sh_name}}
                         </td>
                         <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_ID}}</td>
                         <td (click)="displaySharer(s.Sharer);">{{s.Sharer.Sh_cell_phone}}</td>
@@ -69,8 +71,8 @@
                                 <div class="icon"></div>
                             </div>
                         </td>
-                        <td class="bold" (click)="displayStudent(s.Student);">{{s.Student.St_name +"
-                            "+s.Student.St_Fname}}</td>
+                        <td class="bold" (click)="displayStudent(s.Student);">{{s.Student.St_Fname +"
+                            "+s.Student.St_name}}</td>
                         <td (click)="displayStudent(s.Student);">{{s.Student.St_ID}}</td>
                         <td (click)="displayStudent(s.Student);">{{s.Student.St_cell_phone}}</td>
                         <td (click)="displayStudent(s.Student);">{{s.SFP_name_school_bein_hazmanim}}</td>

@@ -41,7 +41,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     connectSocket(): void {
  /*        this.socket = io(this.api.urlBasisSocket, {
             transports: ["polling"]
-        }); */
+        });
         this.socket = io(this.api.urlBasisSocket, {
             transports: ["websocket"]
         });
@@ -56,6 +56,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
                 resolve(); // מסמן שהפעולה הושלמה
             });
         });
+         */
     }
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
