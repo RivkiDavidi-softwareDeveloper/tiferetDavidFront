@@ -3,9 +3,12 @@
         <div logoBig> </div>
         <br>
 
+        <input type="text" placeholder="שם משתמש" (input)="onInputChangeName($event)" (keydown.enter)="Login()"
+            [value]="name" />
 
-        <input type="text" placeholder="שם משתמש" (input)="onInputChangeName($event)"  value="{{name}}" t>
-        <input type="password" placeholder="סיסמא" (input)="onInputChangePassword($event)" value="{{password}}">
+        <input type="password" placeholder="סיסמא" (input)="onInputChangePassword($event)" (keydown.enter)="Login()"
+            [value]="password" />
+
         <button (click)="Login()">כניסה</button>
 
     </div>
@@ -22,16 +25,16 @@
         <div cButtom *ngIf="counter1Show">
             <br>
             <p timer>{{ stringTimer(hours) }}:{{ stringTimer(minutes) }}:{{ stringTimer(seconds) }}</p>
-            <button bStart (click)="startTimer()" >התחל</button>
-            <button bStop (click)="stopTimer()" [disabled]="!timerInterval" *ngIf="timerRunning">עצור</button>
+            <button bStart (click)="startTimer()">התחל</button>
+            <button bStop (click)="stopTimer()" [disabled]="!timerInterval" *ngIf="timerRunning">השהה</button>
             <button bStop (click)="stopTimer()" *ngIf="!timerRunning" [disabled]="!timerInterval">המשך</button>
             <button bSave (click)="saveTimer(arrarySimple)" [disabled]="!timerInterval">שמור</button>
 
         </div>
         <div cButtom *ngIf="counter2Show">
             <p timer>{{ stringTimer(hours) }}:{{ stringTimer(minutes) }}:{{ stringTimer(seconds) }}</p>
-            <app-distance-tracker (start)="startTimer()" (stop)="stopTimer()"
-                (save)="saveTimer($event)" [ifDisplayStopAndSaveTime]="timerInterval"></app-distance-tracker>
+            <app-distance-tracker (start)="startTimer()" (stop)="stopTimer()" (save)="saveTimer($event)"
+                [ifDisplayStopAndSaveTime]="timerInterval"></app-distance-tracker>
         </div>
     </div>
 
@@ -43,8 +46,8 @@
 </div>
 
 <app-system-login *ngIf="systemLoginShow" [system]="system" (popupDisplayOut)="closeP($event)"></app-system-login>
-<app-workers-login *ngIf="workersLoginShow" [worker]="worker" [minutes]="minutesToSend" [kilomet]="kilomet" [exit]="exit" [target]="target"
-    (popupDisplayOut)="closeP($event)"></app-workers-login>
+<app-workers-login *ngIf="workersLoginShow" [worker]="worker" [minutes]="minutesToSend" [kilomet]="kilomet"
+    [exit]="exit" [target]="target" (popupDisplayOut)="closeP($event)"></app-workers-login>
 
 
 
