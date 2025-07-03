@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 
 
@@ -11,17 +11,27 @@ import { StudentForActivity } from '../../models/studentForActivity.class';
 import { Student } from '../../models/student.class';
 import { CategoriesForActivity } from '../../models/categoriesForActivity.class';
 import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
+import { UpdateActivityComponent } from "../update-activity/update-activity.component";
 
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, UpdateActivityComponent],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss'
 })
 
 
 export class ReportsComponent implements OnInit, OnDestroy {
+  //עדכון
+  sUpdateActivity = false;
+  @Input() updateActivity: Activity = new Activity(-1, 1, "", 1, "", "", "", 1, "", "", 1, "", [], [])
+  displayGroupActivities = false;
+  @Input() selectedDate: Date = new Date();
+  displayToday = false          //היום
+  displayYesterday = false      //אתמול
+  displayBeforeYesterday = false    //שלשום
+  time: Date = new Date()
 
 
   listOfAcitivities: Array<Activity> = [];
@@ -56,20 +66,20 @@ export class ReportsComponent implements OnInit, OnDestroy {
     this.connectSocket();
 
   }
-//סינכרון נתונים בין לקוחות
+  //סינכרון נתונים בין לקוחות
   socket: Socket | undefined;
   ngOnDestroy(): void {
     if (this.socket)
       this.socket.disconnect();
   }
   connectSocket(): void {
-  /*   this.socket = io(this.api.urlBasisSocket, {
-      transports: ["websocket"]
-    });    this.socket.on("activities-updated", () => {
-      this.generalActivities();
-      this.generalCategories();
-
-    }); */
+    /*   this.socket = io(this.api.urlBasisSocket, {
+        transports: ["websocket"]
+      });    this.socket.on("activities-updated", () => {
+        this.generalActivities();
+        this.generalCategories();
+  
+      }); */
   }
 
   //רשימת הפעילויות
@@ -460,137 +470,44 @@ export class ReportsComponent implements OnInit, OnDestroy {
   onSelectedYearF(event: Event) {
     this.yearF = Number((event.target as HTMLInputElement).value);
   }
+  //ערוך פעילות
+  async edit(activity: Activity) {
+    await new Promise<void>((resolve, reject) => {
 
+      this.updateActivity = activity;
+      activity.CategoriesForActivities.forEach(cat => {
+        if (cat.CFA_code_type_activity == 8) {
+          this.displayGroupActivities = true
+        }
+      });
+      this.selectedDate = new Date(activity.AFS_date);
 
+      let hours = (Math.floor(activity.AFS_activity_time / 60));
+      let minutes = (activity.AFS_activity_time % 60);
+      this.time.setHours(hours);
+      this.time.setMinutes(minutes);
+      resolve()
+    });
+    const today = new Date();
+    const yesterday = new Date(today);
+    const beforeyesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    beforeyesterday.setDate(today.getDate() - 2);
+    this.displayToday = this.selectedDate.getFullYear() == today.getFullYear() && this.selectedDate.getMonth() == today.getMonth() && this.selectedDate.getDate() == today.getDate();
+    this.displayYesterday = this.selectedDate.getFullYear() == yesterday.getFullYear() && this.selectedDate.getMonth() == yesterday.getMonth() && this.selectedDate.getDate() == yesterday.getDate();
+    this.displayBeforeYesterday = this.selectedDate.getFullYear() == beforeyesterday.getFullYear() && this.selectedDate.getMonth() == beforeyesterday.getMonth() && this.selectedDate.getDate() == beforeyesterday.getDate();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* 
-  getHebrewDateInWords(dateString: string): string {
-
-    var hebrewDate = require("hebrew-date");
-
-    // When not providing a date object, the months are one-indexed
-    console.log(hebrewDate(2016, 10, 2));
-    // { year: 5776, month: 13, date: 29, month_name: 'Elul' }
-
-    var october = 9;
-    console.log(hebrewDate(new Date(2016, october, 3)));
-    // { year: 5777, month: 1, date: 1, month_name: 'Tishri' }
-    const parts = dateString.split('-'); // פיצול התאריך לתתי חלקים על פי המחלקים ביניהם קווים מפרידים
-    const year = parseInt(parts[0], 10); // המרת החלק הראשון למספר שלם
-    const month = parseInt(parts[1], 10); // המרת החלק השני למספר שלם
-    const day = parseInt(parts[2], 10); // המרת החלק השלישי למספר שלם
-    const date = new hebrewDate(year, month, day); // יצירת אובייקט תאריך עברי
-    return date.toString(); // החזרת התאריך העברי במילים
+    this.sUpdateActivity = true;
   }
-  convertToHebrewNumerals(year: number): string {
-    const hebrewUnits = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ז׳', 'ח׳', 'ט׳', 'י׳'];
-    const hebrewTens = ['יא׳', 'יב׳', 'יג׳', 'יד׳', 'ט״ו', 'ט״ז', 'יז׳', 'יח׳', 'יט׳', 'כ׳'];
-    const hebrewHundreds = ['ק׳', 'ר׳', 'ש״א', 'ש״ב', 'ת״ג', 'ת״ד', 'ת״ה', 'ת״ו', 'ת״ז', 'ת״ח'];
-  
-    const units = year % 10;
-    const tens = Math.floor((year % 100) / 10) - 1;
-    const hundreds = Math.floor((year % 1000) / 100);
-  
-    let hebrewYear = '';
-  
-    if (hundreds > 0) {
-      hebrewYear += hebrewHundreds[hundreds - 1];
-    }
-    if (tens >= 0) {
-      hebrewYear += hebrewTens[tens];
-    }
-    if (units > 0 || year === 0) {
-      hebrewYear += hebrewUnits[units - 1];
-    }
-  
-    return hebrewYear;
+  //סגירת הפופפ
+  closePUpdate(display: boolean) {
+    this.sUpdateActivity = display;
+    this.displayToday = false
+    this.displayYesterday = false
+    this.displayBeforeYesterday = false
+    this.displayGroupActivities = false
+
+    /*     this.time.setHours(0);
+        this.time.setMinutes(0); */
   }
-   getHebrewDateInWords2(dateString: string): string {
-  const hebrewMonths = [
-    'טבת', 'שבט', 'אדר','ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול',
-    'תשרי', 'חשון', 'כסלו', 
-  ];
-
-  const parts = dateString.split('-');
-  const year  = parseInt(parts[0], 10);
-  const month = parseInt(parts[1], 10);
-  const day = parseInt(parts[2], 10);
-
-  const hebrewMonth = hebrewMonths[month - 1];
-  const hebrewYear = this.convertToHebrewNumerals(year);
-
-
-  console.log(new Intl.DateTimeFormat('he-IL-u-ca-hebrew').format(new Date(year,month,day)));
-
-  return `${day} ${hebrewMonth} ${hebrewYear}`;
-}
- convertForeignDateToHebrewDate(foreignDate: string): string {
-    const date = new Date(foreignDate);
-    const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
-    const month = date.getMonth() + 1;
-    
-    let hebrewDate = "";
-
-    if (month === 1) {
-        hebrewDate = `${dayOfWeek} in the tribe of the Shapad`;
-    } else {
-        const century = Math.ceil(date.getFullYear() / 100);
-        hebrewDate = `${date.getDate()} in the end of the ${century}th century`;
-    }
-
-    return hebrewDate;
-}
-getHebrewDate(foreignDate: string): string{
-  const [year, month, day] = foreignDate.split('-').map(Number);
-  
-  const hebrewDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const hebrewMonths = ['Tishrei', 'Cheshvan', 'Kislev', 'Tevet', 'Shevat', 'Adar', 'Nisan', 'Iyar', 'Sivan', 'Tammuz', 'Av', 'Elul'];
-
-  const hebrewDay = hebrewDays[new Date(year, month - 1, day).getDay()];
-  const hebrewMonth = hebrewMonths[month - 1];
-  
-  const tribe = ['Reuven', 'Shimon', 'Levi', 'Yehuda', 'Yissachar', 'Zevulun', 'Dan', 'Naftali', 'Gad', 'Asher', 'Yosef', 'Binyamin'];
-  const tribeIndex = (year + Math.floor(year / 4) - Math.floor(year / 100) + Math.floor(year / 400) + [0, 3, 5, 1][month - 1] + day) % 12;
-  const tribeName = tribe[tribeIndex];
-  
-  return `${hebrewDay} in the tribe of the ${tribeName}`;
-} 
- 
-// Example usage
-console.log(getHebrewDate('2024-01-15')); // Thursday in the tribe of the Shapad
-console.log(getHebrewDate('2023-12-03')); // 20 in the end of the 20th century
- 
-console.log(convertForeignDateToHebrewDate('2024-01-15')); // Output: Thursday in the tribe of the Shapad
-console.log(convertForeignDateToHebrewDate('2023-12-03')); // Output: 20 in the end of the 20th century
-
-// דוגמה לשימוש:
-const dateString = '31-03-2024';
-const hebrewDate = getHebrewDateInWords(dateString);
-console.log('Hebrew Date:', hebrewDate);  // דוגמה לשימוש:
-  const dateString = '31-03-2024'; // תאריך לדוגמה בפורמט "dd-mm-yyyy"
-  const hebrewDate = getHebrewDateInWords(dateString); // קריאה לפונקציה ושליחת המחרוזת כארגומנט
-  console.log('Hebrew Date:', hebrewDate); // הדפסת התאריך העברי במילים
- 
-    // דוגמה לשימוש:
-    const dateString = '31-03-2024'; // תאריך לדוגמה בפורמט "dd-mm-yyyy"
-    const dayOfWeek = getDayFromDate(dateString); // קריאה לפונקציה ושליחת המחרוזת כארגומנט
-  console.log('Day of week:', dayOfWeek); // הדפסת היום בשבוע של התאריך */
-
 }

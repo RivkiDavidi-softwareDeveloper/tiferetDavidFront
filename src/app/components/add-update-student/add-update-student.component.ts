@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef ,OnDestroy} from '@angular/core';
+import { Component, EventEmitter, Input, Output, AfterViewInit, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { CommonModule } from '@angular/common';
 import { Worker } from '../../models/worker.class';
@@ -28,20 +28,20 @@ import { isBuffer } from 'util';
   templateUrl: './add-update-student.component.html',
   styleUrl: './add-update-student.component.scss'
 })
-export class AddUpdateStudentComponent implements OnInit,OnDestroy {
-//סינכרון נתונים בין לקוחות
+export class AddUpdateStudentComponent implements OnInit, OnDestroy {
+  //סינכרון נתונים בין לקוחות
   socket: Socket | undefined;
   ngOnDestroy(): void {
     if (this.socket)
       this.socket.disconnect();
   }
   connectSocket(): void {
-  /*   this.socket = io(this.api.urlBasisSocket, {
-      transports: ["polling"]
-    });    this.socket.on("workers-updated", () => {
-    this.generalWorkers();
-    }); */
-   
+    /*   this.socket = io(this.api.urlBasisSocket, {
+        transports: ["polling"]
+      });    this.socket.on("workers-updated", () => {
+      this.generalWorkers();
+      }); */
+
   }
   @Input() codeWorkerLogin = 0;
   @Input() status: string = 'add';
@@ -182,7 +182,7 @@ export class AddUpdateStudentComponent implements OnInit,OnDestroy {
     this.generalWorkers();
     this.generalCommunities()
     this.generalSynagogueis()
-this.connectSocket()
+    this.connectSocket()
   }
   //רשימת עובדים
   public generalWorkers(): void {
@@ -1152,7 +1152,7 @@ this.connectSocket()
       && !this.validWorkMother && !this.validCellPhoneMother && !this.validStatusSocio && !this.validCurrentSchoolName
       && !this.validReceptionClass && !this.validCurrentClass && !this.validPreviousInstitutions && !this.validPreviousSchool
       && !this.validContact && !this.validContactPhone && !this.validDescriptionReceptionStatus && !this.validRequester &&
-      this.St_city_code != -1 && this.St_code_synagogue != -1 && this.St_worker_code != -1 && this.St_risk_code != -1 && this.St_code_frequency != -1;
+      this.St_city_code != -1 && this.St_code_synagogue != -1 && (this.St_worker_code != -1 || this.codeWorkerLogin != 0) && this.St_risk_code != -1 && this.St_code_frequency != -1;
   }
   //בודקת אם כל הדגלים תקינים
   public validationUpdate(): boolean {

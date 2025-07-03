@@ -326,6 +326,12 @@ table {
     word-wrap: break-word;
   }
 
+  th:nth-child(9),
+  td:nth-child(9) {
+    width: 80px;
+    text-align: center;
+  }
+
   th {
     background-color: rgb(229, 235, 235);
   }
@@ -362,6 +368,37 @@ table {
       margin: 0px;
       padding: 0px;
     }
+  }
+
+  [delete] {
+    background-image: url('../icons/delete2.png');
+  }
+
+  [edit] {
+    background-image: url('../icons/reqest2.png');
+    background-position: 95%;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    padding-left: 8px;
+    text-align: left;
+    font-size: 2.1vh;
+    width: 60px;
+    height: 25px;
+    background-color: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); // צל עבור ה-Snackbar
+
+  }
+
+  [edit]:hover {
+    font-family: Assistant-Bold;
+    padding-left: 6px;
+
+  }
+
+  [edit]:active {
+    font-family: Assistant-Bold;
+    padding-left: 6px;
+    top: 2px;
   }
 }
 
@@ -521,10 +558,12 @@ header {
     margin: auto;
     margin-bottom: 10px;
   }
-[allP2]{
-  justify-content: space-around; //רווחים בצדדים
-  select {
-    width: 25vw;
+
+  [allP2] {
+    justify-content: space-around; //רווחים בצדדים
+
+    select {
+      width: 25vw;
 
     }
   }
