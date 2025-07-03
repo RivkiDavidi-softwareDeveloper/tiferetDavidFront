@@ -123,6 +123,7 @@ amountSharersAndStudents:number=0
     this.api.getGuidesForProjectsWithSudentsAndSharers(this.project.Pr_code).subscribe(Date => {
       this.listAll = []
       this.listAll.push(...Date);
+      this.amountSharersAndStudents=0
       this.listAll.forEach(e => {
         this.amountSharersAndStudents+=e.sharers.length+e.students.length
       });
