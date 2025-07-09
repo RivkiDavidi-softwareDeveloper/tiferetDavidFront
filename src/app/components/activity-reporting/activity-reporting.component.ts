@@ -1,7 +1,5 @@
-
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-
 import { CommonModule, Time } from '@angular/common';
 import { StudentComponent } from "../student/student.component";
 import { Student } from '../../models/student.class';
@@ -22,13 +20,14 @@ import { AddActivityRequest } from '../../models/AddActivityRequest.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { TaskComponent } from "../task/task.component";
 import { response } from 'express';
+import { ReportsComponent } from "../reports/reports.component";
 
 @Component({
     selector: 'app-activity-reporting',
     standalone: true,
     templateUrl: './activity-reporting.component.html',
     styleUrls: ['./activity-reporting.component.scss'],
-    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent]
+    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent, ReportsComponent]
 })
 
 export class ActivityReportingComponent implements OnInit, OnDestroy {
@@ -311,7 +310,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             }
         }
     }
-    //רשימת הפעילויות
+/*     //רשימת הפעילויות
     generalActivities() {
         if (!this.displayGroupActivities) {
             this.api.FindActivities("", "", 1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
@@ -321,15 +320,14 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             });
         }
 
-    }
-    // רשימת קטגוריות לפעילות
+    }      // רשימת קטגוריות לפעילות
     generalCategories() {
         this.api.getCategories().subscribe(Date => {
             this.listOfCategoriesForActivity = [];
             this.listOfCategoriesForActivity.push(...Date);
             this.cdRef.detectChanges();
         });
-    }
+    } 
     //שמות הקטגוריות
     namesCategories(codeActivity: number) {
         var listOfCategories2: Array<CategoriesForActivity> = []
@@ -354,6 +352,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         }
         return name;
     }
+        */
     //רשימת חניכים
     async generalStudents(ifFrequency: number): Promise<void> {
         await new Promise<void>((resolve, reject) => {
@@ -542,8 +541,8 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
-            this.generalActivities()
-            this.generalCategories()
+         /*    this.generalActivities()
+            this.generalCategories() */
         }
 
     }
@@ -554,8 +553,8 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
             }
         });
-        this.generalActivities()
-        this.generalCategories()
+/*         this.generalActivities()
+        this.generalCategories() */
         this.cdRef.detectChanges();
     }
     convertToStudent(student: StudentForActivity) {
@@ -1038,7 +1037,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
         //this.sec1 = ""
         this.statusF = 1;
-        this.listSelectedStudents = [];
+     //   this.listSelectedStudents = [];
         this.listTypesForActivity = [];
         this.selectedStudent2 = undefined
         //תאריך וטטימר
@@ -1059,10 +1058,10 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         this.displayActivityGroupDetails = false
 
         this.displayGroupActivities = false;       //פעילות קבוצתית
-        this.displayallList = false        //כל החנכים  
-        this.displaystudentActive = true  //רק פעילים    
-        this.displaystudentFinish = false     //רק שסיימו
-        this.displaystudentSuspended = false  //רק מושהים
+      //  this.displayallList = false        //כל החנכים  
+      //  this.displaystudentActive = true  //רק פעילים    
+      //  this.displaystudentFinish = false     //רק שסיימו
+      //  this.displaystudentSuspended = false  //רק מושהים
 
         this.displayToday = true          //היום
         this.displayYesterday = false      //אתמול

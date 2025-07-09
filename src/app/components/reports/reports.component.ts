@@ -23,6 +23,9 @@ import { UpdateActivityComponent } from "../update-activity/update-activity.comp
 
 
 export class ReportsComponent implements OnInit, OnDestroy {
+  //מכנית פעילים
+  @Input() status="system"
+  @Input() worker=new Worker(-1,"",1,1,"","","","","")
   //עדכון
   sUpdateActivity = false;
   @Input() updateActivity: Activity = new Activity(-1, 1, "", 1, "", "", "", 1, "", "", 1, "", [], [])
@@ -42,8 +45,8 @@ export class ReportsComponent implements OnInit, OnDestroy {
   monthes: Array<string> = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
   order = 1
   genderF = 0
-  workerF = -1
-  studentF = -1
+ @Input() workerF = -1
+@Input()  studentF = -1
   monthF = 0
   yearF = 0
   categoryF = 0

@@ -1,4 +1,4 @@
-<h1>דוחות פעילות</h1>
+<h1 *ngIf="status!='student'">דוחות פעילות</h1>
 <div ppp>
     <p> דוח לחודש:</p>
     <p class="bold"> {{nameMonth(monthF)}}</p>
@@ -16,9 +16,9 @@
     <br>
 </div>
 
-<div allP nonePrint>
+<div allP nonePrint *ngIf="status!='student'">
     <div p1>
-        <div class="find">
+        <div class="find" *ngIf="status=='system'">
             <input type="search" role="combobox" placeholder="חפש פעיל/חונך"
                 (input)="onInputChangeSearchWorker($event)">
         </div>
@@ -36,13 +36,13 @@
 </div>
 <div nonePrint allP2>
 
-    <div orders>
+    <div orders >
         <div lible>מיין לפי</div>
         <div pos>
             <select [ngClass]="{'slectSelected':true}" (change)="onOrderSelected($event)">
-                <option [value]="0">פעיל/חונך</option>
+                <option *ngIf="status=='system'" [value]="0">פעיל/חונך</option>
                 <option selected [value]="1">תאריך </option>
-                <option [value]="2">חניך </option>
+                <option [value]="2" *ngIf="status!='student'">חניך </option>
 
             </select>
 
@@ -51,7 +51,7 @@
     <div filters>
         <div lible>סנן לפי</div>
         <div f2>
-            <div pos2>
+            <div pos2 *ngIf="status=='system'">
                 <select [ngClass]="{'slectSelected':genderF!=0}" (change)="onSelectedGenderF($event)">
                     <option selected [value]="0">כל המגדרים </option>
                     <option [value]="1">בנים </option>
@@ -59,15 +59,19 @@
                 </select>
 
             </div>
-            <div pos2>
+            <div pos2 *ngIf="status=='system'">
                 <select [ngClass]="{'slectSelected':workerF!=-1}" (change)="onSelectedWorkerF($event)">
                     <option selected [value]="-1">כל הפעילים/חונכים </option>
                     <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{w.Wo_name+" "+w.Wo_Fname}} </option>
                 </select>
             </div>
-            <div pos2>
+            <div pos2 *ngIf="status!='student'">
                 <select [ngClass]="{'slectSelected':studentF!=-1}" (change)="onSelectedStudentF($event)">
-                    <option selected [value]="-1">כל החניכים/ות </option>
+                    <option selected [value]="-1" *ngIf="status=='system' ">כל החניכים/ות </option>
+                    <option selected [value]="-1" *ngIf="status=='worker' && worker.Wo_gender==1">כל החניכים </option>
+                    <option selected [value]="-1" *ngIf="status=='worker' && worker.Wo_gender==2">כל החניכות </option>
+
+
                     <option *ngFor="let s of listOfStudent" [value]="s.St_code">{{s.St_name+" "+s.St_Fname}} </option>
                 </select>
             </div>
@@ -147,7 +151,7 @@
 
             <th>תאור</th>
             <th>פרטים נוספים</th>
-            <th nonePrint> </th>
+            <th nonePrint tdEdit> </th>
 
         </tr>
     </thead>
@@ -221,7 +225,7 @@
                     <p> מחיר:{{i.AFS_price}} </p>
                 </label>
             </td>
-            <td nonePrint>
+            <td nonePrint tdEdit>
                 <button edit title="ערוך" (click)="edit(i);">ערוך</button>
             </td>
             <!--     <button iconn2 delete title="מחק" class="button"
@@ -234,5 +238,7 @@
 </table>
 
 
-<app-update-activity   [popupDisplayIn]="sUpdateActivity" (popupDisplayOut)="closePUpdate($event)" [updateActivity]="updateActivity" [displayGroupActivities]="displayGroupActivities" [selectedDate]="selectedDate"
-[displayToday]="displayToday" [displayYesterday]="displayYesterday" [displayBeforeYesterday]="displayBeforeYesterday" [time]="time"/>
+<app-update-activity [popupDisplayIn]="sUpdateActivity" (popupDisplayOut)="closePUpdate($event)"
+    [updateActivity]="updateActivity" [displayGroupActivities]="displayGroupActivities" [selectedDate]="selectedDate"
+    [displayToday]="displayToday" [displayYesterday]="displayYesterday"
+    [displayBeforeYesterday]="displayBeforeYesterday" [time]="time" />

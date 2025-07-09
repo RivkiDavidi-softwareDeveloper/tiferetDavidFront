@@ -12,13 +12,14 @@ import { Parentt } from '../../models/parent.class';
 import { StudiesForStudent } from '../../models/studiesForStudent.class';
 import { DifficultyStudent } from '../../models/difficultyStudent.class';
 import { DeshbordComponent } from "../deshbord/deshbord.component";
+import { ReportsComponent } from "../reports/reports.component";
 
 @Component({
   selector: 'app-workers-login',
   standalone: true,
   templateUrl: './workers-login.component.html',
   styleUrls: ['./workers-login.component.scss'],
-  imports: [CommonModule, ActivityReportingComponent, DisplayStudentsComponent, TasksComponent, WorkerInquiriesComponent, ContactToProjectComponent, DeshbordComponent]
+  imports: [CommonModule, ActivityReportingComponent, DisplayStudentsComponent, TasksComponent, WorkerInquiriesComponent, ContactToProjectComponent, DeshbordComponent, ReportsComponent]
 })
 
 
@@ -29,6 +30,7 @@ export class WorkersLoginComponent implements OnInit {
   task: boolean = false;
   projects: boolean = false;
   pz: boolean = false;
+  reports=false
   Astudents: Array<Student> = []
   amountMessagesND = 0
   amountTasksND = 0
@@ -80,6 +82,7 @@ export class WorkersLoginComponent implements OnInit {
     this.task = false;
     this.projects = false;
     this.pz = false;
+    this.reports=false
     const value = Number((event.target as HTMLInputElement).value);
     switch (value) {
       case 1: this.deshbord = true; break;

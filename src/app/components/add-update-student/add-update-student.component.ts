@@ -853,6 +853,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
       }
       const parentFAdd = new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F);
       const parentMAdd = new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M);
+      console.log(parentFAdd.Pa_name)
       const listOfDiffSelectedAdd = this.listOfDiffSelected;
       const studiesAdd = new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
         this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school);

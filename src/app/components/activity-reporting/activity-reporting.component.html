@@ -371,7 +371,7 @@
         <label *ngIf="validAFS_description" eror>מוגבל ל-350 תוים</label>
     </div>
     <br>
-   <!--  <h2 uploadFiles>העלאת קבצים</h2>
+    <!--  <h2 uploadFiles>העלאת קבצים</h2>
     <br>
     <div class="file-upload-container">
         <label for="file-upload" class="custom-file-upload">
@@ -414,8 +414,11 @@
     <br>
     <h2 history *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1">הסטוריית פעילויות</h2>
     <br>
+    <app-reports *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1" [status]="'student'"
+        [studentF]="this.listSelectedStudents[0].SFA_code_student" [workerF]="worker.Wo_code"
+        [worker]="worker"></app-reports>
 
-    <div boxxx *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1 ">
+<!--     <div boxxx *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1 ">
         <table>
             <thead>
                 <tr>
@@ -430,8 +433,7 @@
                 <tr *ngFor="let i of listOfAcitivities let y=index">
 
                     <td dateTable>{{i.AFS_date}}</td>
-                    <!--                     <td date>{{getDayFromDate2(y-1,y) +" "+displayDate2(y-1,y)}}</td>
- -->
+               
                     <td>
                         <label *ngFor="let s of namesCategories(i.AFS_code)">
                             <div>
@@ -446,7 +448,7 @@
 
             </tbody>
         </table>
-    </div>
+    </div> -->
 </div>
 <app-past-frequency [listStudent]="listOfStudents2" *ngIf="displayPopap" [codeWorker]="worker.Wo_code"
     (popupDisplayOut)="closeP($event)"></app-past-frequency>

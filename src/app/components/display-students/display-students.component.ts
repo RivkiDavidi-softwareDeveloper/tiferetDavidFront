@@ -18,9 +18,10 @@ import { DifficultyStudent } from '../../models/difficultyStudent.class';
 import { UploadFileExcelComponent } from "../upload-file-excel/upload-file-excel.component";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+// @ts-ignore – עקיפת שגיאת טיפוס
+import * as html2pdf from 'html2pdf.js';
 import { response } from 'express';
 import { error } from 'node:console';
-
 @Component({
   selector: 'app-display-students',
   standalone: true,
@@ -29,6 +30,7 @@ import { error } from 'node:console';
   imports: [CommonModule, AddUpdateStudentComponent, DisplayStudentComponent, UploadFileExcelComponent]
 })
 export class DisplayStudentsComponent implements OnInit, OnDestroy {
+
   //סינכרון נתונים בין לקוחות
   socket: Socket | undefined;
   ngOnDestroy(): void {
@@ -36,15 +38,15 @@ export class DisplayStudentsComponent implements OnInit, OnDestroy {
       this.socket.disconnect();
   }
   connectSocket(): void {
-  /*   this.socket = io(this.api.urlBasisSocket, {
-      transports: ["websocket"]
-    });    this.socket.on("workers-updated", () => {
-      this.generalWorkers();
-    });
-    this.socket.on("students-updated", async () => {
-      this.generalStudents();
-
-    }); */
+    /*   this.socket = io(this.api.urlBasisSocket, {
+        transports: ["websocket"]
+      });    this.socket.on("workers-updated", () => {
+        this.generalWorkers();
+      });
+      this.socket.on("students-updated", async () => {
+        this.generalStudents();
+  
+      }); */
   }
   listOfStudents: Array<Student> = []
   listOfWorkers: Array<Worker> = []
@@ -340,7 +342,10 @@ export class DisplayStudentsComponent implements OnInit, OnDestroy {
   }
   //ערוך חניך
   async edit(student: Student) {
-    this.studentUpdate = student
+    await new Promise<void>((resolve, reject) => {
+
+      this.studentUpdate = student; resolve();
+    });
     //שליפת הורים
     await new Promise<void>((resolve, reject) => {
 
@@ -427,6 +432,34 @@ export class DisplayStudentsComponent implements OnInit, OnDestroy {
     window.print();
 
   }
+  //מוריד 
+  @ViewChild('pdfContent', { static: false }) content!: ElementRef;
+
+
+  downloadAsPDF(): void {
+    // הסתרת כל האלמנטים עם no-pdf
+    const elements = document.querySelectorAll('.no-pdf');
+    elements.forEach(el => (el as HTMLElement).style.display = 'none');
+
+    const options = {
+      margin: 0.5,
+      filename: 'students.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf.default()
+      .set(options)
+      .from(this.content.nativeElement)
+      .save()
+      .then(() => {
+        // החזרת ההצגה של האלמנטים לאחר יצירת PDF
+        elements.forEach(el => (el as HTMLElement).style.display = '');
+      });
+  }
+
+
   //מוחק חניך
   delete(code: number, name: string): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

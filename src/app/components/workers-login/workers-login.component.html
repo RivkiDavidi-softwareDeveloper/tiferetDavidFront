@@ -2,28 +2,31 @@
     <div class="tab">
         <div [ngClass]="{'homeOtef':true}">
             <button [ngClass]="{'home':true}"
-                (click)="active=false;students=false;task=false;projects=false;pz=false;close()">
+                (click)="active=false;students=false;task=false;projects=false;pz=false;reports=false;close()">
                 <div class="inHome"></div>
             </button>
         </div>
 
         <button [ngClass]="{'button1':true,'button2':deshbord}"
-            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true">דשבורד</button>
+            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=true;reports=false">דשבורד</button>
         <button [ngClass]="{'button1':true,'button2':active}"
-            (click)="active=true;students=false;task=false;projects=false;pz=false;deshbord=false">דיווח על
+            (click)="active=true;students=false;task=false;projects=false;pz=false;deshbord=false;reports=false">דיווח על
+            פעילות</button>
+                    <button [ngClass]="{'button1':true,'button2':!!reports}"
+            (click)="active=false;students=false;task=false;projects=false;pz=false;deshbord=false;reports=true;">היסטוריית
             פעילות</button>
         <button *ngIf="worker.Wo_gender==1" [ngClass]="{'button1':true,'button2':students}"
-            (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false">אזור חניכים</button>
+            (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false;reports=false">אזור חניכים</button>
         <button *ngIf="worker.Wo_gender==2" [ngClass]="{'button1':true,'button2':students}"
-            (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false">אזור חניכות</button>
+            (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false;reports=false">אזור חניכות</button>
         <button [ngClass]="{'button1':true,'button2':task}"
-            (click)="students=false;task=true;projects=false;pz=false;active=false;deshbord=false">משימות ותזכורות
+            (click)="students=false;task=true;projects=false;pz=false;active=false;deshbord=false;reports=false">משימות ותזכורות
             <label>{{amountTasksND}}</label></button>
         <!--         <button [ngClass]="{'button1':true,'button2':pz}"
             (click)="students=false;task=false;projects=false;pz=true;active=false;deshbord=false">פניות צוות
             <label>{{amountMessagesND}}</label></button>-->
         <button [ngClass]="{'button1':true,'button2':projects}"
-            (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false">שיוך
+            (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false;reports=false">שיוך
             לפרויקטים</button>
     </div>
     <div class="tab2">
@@ -72,6 +75,7 @@
     <app-contact-to-project *ngIf="projects" [worker]="worker"></app-contact-to-project>
 
 
+    <app-reports *ngIf="reports" [status]="'worker'" [workerF]="worker.Wo_code" [worker]="worker"></app-reports>
 
 
 </div>

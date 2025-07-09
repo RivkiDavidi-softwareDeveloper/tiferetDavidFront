@@ -326,8 +326,8 @@ table {
     word-wrap: break-word;
   }
 
-  th:nth-child(9),
-  td:nth-child(9) {
+
+  [tdEdit] {
     width: 80px;
     text-align: center;
   }

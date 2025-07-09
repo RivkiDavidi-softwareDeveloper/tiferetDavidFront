@@ -9,7 +9,7 @@
         <button [ngClass]="{'button1':true,'button2':!!deshbord}"
             (click)="deshbord=true;workers=false;students=false;reports=false;projects=false;settings=false;requests=false">דשבורד</button>
         <button [ngClass]="{'button1':true,'button2':!!reports}"
-            (click)="deshbord=false;students=false;reports=true;workers=false;projects=false;settings=false;requests=false">דוחות
+            (click)="deshbord=false;students=false;reports=true;workers=false;projects=false;settings=false;requests=false">היסטוריית
             פעילות</button>
         <!--             <button [ngClass]="{'button1':true,'button2':!!requests}"
             (click)="deshbord=false;students=false;reports=false;workers=false;projects=false;settings=false;requests=true">פניות צוות</button> -->
@@ -36,7 +36,7 @@
             
  --> <select (change)="onListSelected($event)">
             <option selected [value]="0">דשבורד</option>
-            <option [value]="3">דוחות פעילות</option>
+            <option [value]="3">היסטוריית פעילות</option>
             <!--             <option [value]="5">פניות צוות</option>
  -->
             <option [value]="1">פעילים</option>
