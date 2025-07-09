@@ -1,6 +1,6 @@
 <div #pdfContent class="pdf-section">
-    <h1 DT titleA >חניכים</h1>
-    <div ppp >
+    <h1 DT titleA pppT>חניכים</h1>
+    <div ppp>
 
         <p> מגדר: </p>
         <p class="bold">{{nameFilterGender()}}</p>
@@ -11,8 +11,9 @@
         <p> מיון לפי:</p>
         <p class="bold"> {{nameOrder()}}</p>
 
-        <br>
     </div>
+    <br>
+
     <div allP nonePrint class="no-pdf">
         <div p1>
             <div class="find">
@@ -87,7 +88,7 @@
 
     </div>
 
-    <table >
+    <table>
         <thead>
             <tr>
                 <th></th>
@@ -98,7 +99,7 @@
                 <th>פל' איש קשר</th>
                 <th>פל' חניך</th>
                 <th *ngIf="statusF == 0">מצב פעילות</th>
-                <th nonePrint> </th>
+                <th nonePrint tdB> </th>
             </tr>
         </thead>
         <tbody>
@@ -115,8 +116,9 @@
                 <td (click)="display(i);">{{i.St_contact_phone}}</td>
                 <td (click)="display(i);">{{i.St_cell_phone}}</td>
                 <td (click)="display(i);" *ngIf="statusF == 0">{{nameStatus(i.St_activity_status)}}</td>
-                <td nonePrint>
+                <td nonePrint tdB>
                     <button edit title="ערוך" (click)="edit(i);">ערוך</button>
+                    <button *ngIf="codeWorkerSelected!=0" edit project title="שייך לפרויקט" (click)="addProjectForStudent(i)">שייך לפרויקט</button>
 
                     <button iconn2 delete title="מחק" class="button"
                         (click)="delete(i.St_code,i.St_name+' '+i.St_Fname)"></button>
@@ -151,3 +153,7 @@
 
 <app-upload-file-excel [popupDisplayIn]="sUploadExcel" [status]="'חניכים'"
     (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>
+
+<app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [status]="'add'" [status2]="'worker'"
+[selectedStudent]="selectedStudent"    
+    (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>

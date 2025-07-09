@@ -38,24 +38,24 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             this.socket.disconnect();
     }
     connectSocket(): void {
- /*        this.socket = io(this.api.urlBasisSocket, {
-            transports: ["polling"]
-        });
-        this.socket = io(this.api.urlBasisSocket, {
-            transports: ["websocket"]
-        });
-
-        this.socket.on("activities-updated", () => {
-            this.generalActivities();
-            this.generalCategories();
-        });
-        this.socket.on("students-updated", async () => {
-            await new Promise<void>((resolve, reject) => {
-                this.generalStudents(1);
-                resolve(); // מסמן שהפעולה הושלמה
-            });
-        });
-         */
+        /*        this.socket = io(this.api.urlBasisSocket, {
+                   transports: ["polling"]
+               });
+               this.socket = io(this.api.urlBasisSocket, {
+                   transports: ["websocket"]
+               });
+       
+               this.socket.on("activities-updated", () => {
+                   this.generalActivities();
+                   this.generalCategories();
+               });
+               this.socket.on("students-updated", async () => {
+                   await new Promise<void>((resolve, reject) => {
+                       this.generalStudents(1);
+                       resolve(); // מסמן שהפעולה הושלמה
+                   });
+               });
+                */
     }
     //עריכת חניך מדיווח על פעילות
     @Output() editStudent: EventEmitter<Student> = new EventEmitter()
@@ -310,49 +310,49 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             }
         }
     }
-/*     //רשימת הפעילויות
-    generalActivities() {
-        if (!this.displayGroupActivities) {
-            this.api.FindActivities("", "", 1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
-                this.listOfAcitivities = [];
-                this.listOfAcitivities.push(...Date);
+    /*     //רשימת הפעילויות
+        generalActivities() {
+            if (!this.displayGroupActivities) {
+                this.api.FindActivities("", "", 1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
+                    this.listOfAcitivities = [];
+                    this.listOfAcitivities.push(...Date);
+                    this.cdRef.detectChanges();
+                });
+            }
+    
+        }      // רשימת קטגוריות לפעילות
+        generalCategories() {
+            this.api.getCategories().subscribe(Date => {
+                this.listOfCategoriesForActivity = [];
+                this.listOfCategoriesForActivity.push(...Date);
                 this.cdRef.detectChanges();
             });
+        } 
+        //שמות הקטגוריות
+        namesCategories(codeActivity: number) {
+            var listOfCategories2: Array<CategoriesForActivity> = []
+    
+            this.listOfCategoriesForActivity.forEach(c => {
+                if (c.CFA_code_activity == codeActivity) {
+                    listOfCategories2.push(c);
+                }
+            })
+            return listOfCategories2;
         }
-
-    }      // רשימת קטגוריות לפעילות
-    generalCategories() {
-        this.api.getCategories().subscribe(Date => {
-            this.listOfCategoriesForActivity = [];
-            this.listOfCategoriesForActivity.push(...Date);
-            this.cdRef.detectChanges();
-        });
-    } 
-    //שמות הקטגוריות
-    namesCategories(codeActivity: number) {
-        var listOfCategories2: Array<CategoriesForActivity> = []
-
-        this.listOfCategoriesForActivity.forEach(c => {
-            if (c.CFA_code_activity == codeActivity) {
-                listOfCategories2.push(c);
+        //שם קטגוריה
+        nameCategory(codeCategory: number) {
+            if (codeCategory == 0) {
+                return "---"
             }
-        })
-        return listOfCategories2;
-    }
-    //שם קטגוריה
-    nameCategory(codeCategory: number) {
-        if (codeCategory == 0) {
-            return "---"
-        }
-        var name = "";
-        for (var i = 1; i <= 8; i++) {
-            if (codeCategory == i) {
-                name = TypeOfActivity[i];
+            var name = "";
+            for (var i = 1; i <= 8; i++) {
+                if (codeCategory == i) {
+                    name = TypeOfActivity[i];
+                }
             }
+            return name;
         }
-        return name;
-    }
-        */
+            */
     //רשימת חניכים
     async generalStudents(ifFrequency: number): Promise<void> {
         await new Promise<void>((resolve, reject) => {
@@ -541,8 +541,8 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
-         /*    this.generalActivities()
-            this.generalCategories() */
+            /*    this.generalActivities()
+               this.generalCategories() */
         }
 
     }
@@ -553,8 +553,8 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
             }
         });
-/*         this.generalActivities()
-        this.generalCategories() */
+        /*         this.generalActivities()
+                this.generalCategories() */
         this.cdRef.detectChanges();
     }
     convertToStudent(student: StudentForActivity) {
@@ -1005,21 +1005,20 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             //הוספת חניך
             await new Promise<void>((resolve, reject) => {
 
-                this.api.AddStudent(this.addStudent).subscribe(
+                this.api.AddStudent(dataStudentAdd).subscribe(
                     (response) => {
                         this.addStudent.St_code = response
-                        this.loading = false
                         this.generalStudents(2);
                         this.selectStudentBoxAdd(this.addStudent.St_code)
                         this.snackBar.open('!נוסף בהצלחה', '', { duration: 3000 });
+                        this.loading = false
                         resolve();
 
                     },
                     (error) => {
+                        this.snackBar.open('שגיאה בהוספת חניך', '', { duration: 3000 });
                         this.loading = false
                         resolve();
-
-
                     });
             });
             this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "");
@@ -1037,7 +1036,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
         //this.sec1 = ""
         this.statusF = 1;
-     //   this.listSelectedStudents = [];
+        //   this.listSelectedStudents = [];
         this.listTypesForActivity = [];
         this.selectedStudent2 = undefined
         //תאריך וטטימר
@@ -1058,10 +1057,10 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         this.displayActivityGroupDetails = false
 
         this.displayGroupActivities = false;       //פעילות קבוצתית
-      //  this.displayallList = false        //כל החנכים  
-      //  this.displaystudentActive = true  //רק פעילים    
-      //  this.displaystudentFinish = false     //רק שסיימו
-      //  this.displaystudentSuspended = false  //רק מושהים
+        //  this.displayallList = false        //כל החנכים  
+        //  this.displaystudentActive = true  //רק פעילים    
+        //  this.displaystudentFinish = false     //רק שסיימו
+        //  this.displaystudentSuspended = false  //רק מושהים
 
         this.displayToday = true          //היום
         this.displayYesterday = false      //אתמול

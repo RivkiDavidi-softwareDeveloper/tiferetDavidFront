@@ -56,6 +56,8 @@ export class AddStudentForProjectComponent implements OnDestroy {
   @Input() status = "add"
   //שיוך מכניסת פעילים
   @Input() codeWorker = -1
+    @Input() status2 = "system"
+
 
   @Input() listStudentsForProject: Array<StudentForProject> = []
   SFP_name_school_bein_hazmanim = ""
@@ -72,7 +74,7 @@ export class AddStudentForProjectComponent implements OnDestroy {
 
   @Input() project: Project = new Project(-1, "", "", "", "", "", 1)
   selectedGuideCode: number = -1
-  selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
+ @Input() selectedStudent: Student = new Student(-1, "4444444444", 1, "", "", "", "", 1, 1, 1, "", "", "", "", -1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
 
   listOfStudents: Array<Student> = []
   @Input() listOfGuides: Array<GuideWithRelations> = []

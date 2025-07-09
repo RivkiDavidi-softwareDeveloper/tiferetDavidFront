@@ -1,4 +1,4 @@
-<h1 *ngIf="status!='student'">דוחות פעילות</h1>
+<h1 *ngIf="status!='student'" pppT>דוחות פעילות</h1>
 <div ppp>
     <p> דוח לחודש:</p>
     <p class="bold"> {{nameMonth(monthF)}}</p>
@@ -13,8 +13,8 @@
     <p> לפי:</p>
     <p class="bold"> {{nameOrder(order) }}</p>
 
-    <br>
 </div>
+    <br>
 
 <div allP nonePrint *ngIf="status!='student'">
     <div p1>

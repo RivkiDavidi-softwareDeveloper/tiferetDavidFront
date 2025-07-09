@@ -420,7 +420,9 @@ table {
     font-size: medium;
   }
 }
-
+[pppT]{
+  display: none;
+}
 @media print {
   [nonePrint] {
     display: none;
@@ -468,7 +470,9 @@ table {
   [ppp] {
     display: block;
   }
-
+[pppT]{
+  display: block;
+}
 }
 
 

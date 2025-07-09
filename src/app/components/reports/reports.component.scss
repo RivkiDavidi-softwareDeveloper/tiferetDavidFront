@@ -432,7 +432,9 @@ tbody {
     font-size: medium;
   }
 }
-
+[pppT]{
+  display: none;
+}
 header {
   display: none;
 }
@@ -461,7 +463,9 @@ header {
   [ppp] {
     display: block
   }
-
+[pppT]{
+  display: block;
+}
   table {
     font-size: 1.7vh;
     border: 1.5px solid rgb(207, 207, 207);

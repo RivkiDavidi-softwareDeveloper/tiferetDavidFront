@@ -2,14 +2,16 @@
 
     <div popup>
         <button close (click)="close();">x</button>
-        <h1 *ngIf="status === 'add'">שייך חניך ממאגר</h1>
+        <h1 *ngIf="status === 'add' && status2==='system'">שייך חניך ממאגר</h1>
         <h1 *ngIf="status === 'update'">עדכן פרטי חניך לפרויקט </h1>
+        <h1 *ngIf="status === 'add' && status2==='worker'">שייך חניך {{selectedStudent.St_name+" "+selectedStudent.St_Fname}}</h1>
+        <h1 *ngIf="status === 'add' && status2==='worker'">עדיין בבניה</h1>
 
 
-        <label *ngIf="status === 'add'">בחר חניך</label>
+        <label *ngIf="status === 'add' && status2==='system'">בחר חניך</label>
         <label *ngIf="status === 'update'"> חניך</label>
 
-        <div class="guide-section">
+        <div class="guide-section" *ngIf="status2==='system'">
             <div *ngIf="status === 'add'" class="find">
                 <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
             </div>
