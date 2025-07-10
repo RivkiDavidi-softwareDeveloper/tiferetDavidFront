@@ -36,7 +36,7 @@ export class ApiService {
 
 
   constructor(private httpp: HttpClient) { }
- /*  public urlBasisSocket = 'http://localhost:3000';
+/*   public urlBasisSocket = 'http://localhost:3000';
 
   private urlBasis = 'http://localhost:3000/api'; */
   

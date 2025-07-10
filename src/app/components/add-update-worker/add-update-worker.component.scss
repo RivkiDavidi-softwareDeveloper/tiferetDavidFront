@@ -106,7 +106,7 @@ button:active {
     display: flex;
 }
 [chose] {
-    width: 130px;
+    width: 140px;
     display: inline-block;
     margin-left: 10px;
     margin-bottom: 20px;
@@ -114,11 +114,12 @@ button:active {
 
 [choseButton] {
     display: inline-block;
-    width: 65px;
+    width: 70px;
     height: 41px;
     border: none;
     background-color: rgb(190, 190, 190);
     border-right: 1px solid white;
+    font-size: 14px;
 }
 
 [cb1] {
@@ -139,14 +140,25 @@ button:active {
     border-bottom-right-radius: 50px;
  
 }
-.cb3{    background-color: $color-green-light;
+.cb3{    background-color: $color-turqis ;
 }
 [cb4] {
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
 .cb4{      background-color:$color-orange;}
-
+[cb5] {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+ 
+}
+.cb5{    background-color: $color-green-light;
+}
+[cb6] {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.cb6{      background-color:$color-red;}
 //תויות
 label {
     display: block;
@@ -206,5 +218,10 @@ padding: 0px;
         overflow: scroll;
         scroll-behavior: auto;
     }
+    [allChose]{
+    display: flex;
+    flex-direction: column;
+}
+ 
 }
 

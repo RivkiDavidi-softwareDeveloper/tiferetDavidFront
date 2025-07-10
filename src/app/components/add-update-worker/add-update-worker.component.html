@@ -20,6 +20,13 @@
                 <button choseButton *ngIf="status === 'update'" cb3 [ngClass]="{cb3:workerUpdate.Wo_type_worker==1}" (click)="cb3=true;cb4=false;workerUpdate.Wo_type_worker=1">פעיל</button>
                 <button choseButton *ngIf="status === 'update'" cb4 [ngClass]="{cb4:workerUpdate.Wo_type_worker==2}" (click)="cb4=true;cb3=false;workerUpdate.Wo_type_worker=2">חונך</button>
             </div>
+             <div chose>
+                <button choseButton *ngIf="status === 'add'" cb5 [ngClass]="{cb5:cb5}" (click)="cb5=true;cb6=false">פעיל כיום</button>
+                <button choseButton *ngIf="status === 'add'" cb6 [ngClass]="{cb6:cb6}" (click)="cb6=true;cb5=false">פעיל בעבר</button>
+        
+                <button choseButton *ngIf="status === 'update'" cb5 [ngClass]="{cb5:workerUpdate.Wo_status_code==1}" (click)="cb5=true;cb6=false;workerUpdate.Wo_status_code=1">פעיל כיום</button>
+                <button choseButton *ngIf="status === 'update'" cb6 [ngClass]="{cb6:workerUpdate.Wo_status_code==2}" (click)="cb6=true;cb5=false;workerUpdate.Wo_status_code=2">פעיל בעבר</button>
+            </div>
         </div>
         <label gray>השדות המסומנים ב* הם שדות חובה</label>
 
