@@ -14,7 +14,7 @@ import { Worker } from '../../models/worker.class';
 })
 export class TaskComponent {
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
-  @Input() worker:Worker=new Worker(1,"",1,1,"","","","","")
+  @Input() worker:Worker=new Worker(1,"",1,1,"","","","","",1)
 
   Ta_description = ""
   Ta_date = ""

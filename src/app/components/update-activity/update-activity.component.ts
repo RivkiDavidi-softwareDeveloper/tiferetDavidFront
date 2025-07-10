@@ -73,7 +73,7 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   showList: boolean = false;
   timerr: boolean = false;
   //עובד
-  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "")
+  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "", 1)
 
   //רשימת חניכים
   listOfStudents: Array<Student> = [];
@@ -431,15 +431,18 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     var amount = 1
     //בימים
     if (student.St_code_frequency == 1) {
-      amount = student.St_amount_frequency;
+      if (student.St_amount_frequency)
+        amount = student.St_amount_frequency;
     }
     //בשבועות 
     if (student.St_code_frequency == 2) {
-      amount = student.St_amount_frequency * 7;
+      if (student.St_amount_frequency)
+        amount = student.St_amount_frequency * 7;
     }
     //בחודשים
     if (student.St_code_frequency == 3) {
-      amount = student.St_amount_frequency * 30;
+      if (student.St_amount_frequency)
+        amount = student.St_amount_frequency * 30;
     }
     let today = new Date(); // תאריך היום הנוכחי
     let pastDate = new Date(today.getTime() - (amount * 24 * 60 * 60 * 1000)); // חישוב התאריך שנמצא amount ימים אחורה

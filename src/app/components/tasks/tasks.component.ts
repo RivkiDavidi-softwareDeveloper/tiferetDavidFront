@@ -35,7 +35,7 @@ export class TasksComponent implements OnInit, OnDestroy  {
   amountDisplay = 50;
   amountDisplayNow = 0
   listTaskss: Array<Taskk> = []
-  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "")
+  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "",1)
   displayAddTask = false
   /*  @Input()  displayAddTask = false
    */

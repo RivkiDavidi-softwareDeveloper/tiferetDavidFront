@@ -39,7 +39,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
 
   sAddWorker: boolean = false;
   sUpdateWorker: boolean = false;
-  updateWorker: Worker = new Worker(57, "", 1, 1, "", "", "", "", "");
+  updateWorker: Worker = new Worker(57, "", 1, 1, "", "", "", "", "",1);
 
   comboBox1: boolean = false
   comboBox2: boolean = false

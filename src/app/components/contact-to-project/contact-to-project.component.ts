@@ -16,7 +16,7 @@ import { StudentForProject } from '../../models/studentForProject.class';
   styleUrl: './contact-to-project.component.scss'
 })
 export class ContactToProjectComponent {
-  @Input() worker: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "")
+  @Input() worker: Worker = new Worker(-1, "", 1, 1, "", "", "", "", "",1)
   listProject: Array<Project> = []
   codeProject = -1;
   //שיוך חניך נבחר

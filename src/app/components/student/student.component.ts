@@ -93,15 +93,18 @@ export class StudentComponent {
       var amount = 1
       //בימים
       if (this.student?.St_code_frequency == 1) {
-        amount = this.student.St_amount_frequency;
+        if (this.student.St_amount_frequency)
+          amount = this.student.St_amount_frequency;
       }
       //בשבועות 
       if (this.student?.St_code_frequency == 2) {
-        amount = this.student.St_amount_frequency * 7;
+        if (this.student.St_amount_frequency)
+          amount = this.student.St_amount_frequency * 7;
       }
       //בחודשים
       if (this.student?.St_code_frequency == 3) {
-        amount = this.student.St_amount_frequency * 30;
+        if (this.student.St_amount_frequency)
+          amount = this.student.St_amount_frequency * 30;
       }
       let today = new Date(); // תאריך היום הנוכחי
       let pastDate = new Date(today.getTime() - (amount * 24 * 60 * 60 * 1000)); // חישוב התאריך שנמצא amount ימים אחורה

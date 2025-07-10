@@ -10,6 +10,7 @@ export class Worker {
         public Wo_password: string,
         public Wo_cell_phone: string,
         public Wo_email: string,
+        public Wo_status_code:number
     ) {}
  
 }

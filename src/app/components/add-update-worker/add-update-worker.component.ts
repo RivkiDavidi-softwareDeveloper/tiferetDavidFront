@@ -16,7 +16,7 @@ export class AddUpdateWorkerComponent {
   @Input() status: string = 'add';
   @Input() popupDisplayIn: boolean = false;
   @Input() amountWorkers: number = 200;
-  @Input() workerUpdate: Worker = new Worker(57, "", 1, 1, "", "", "", "", "");
+  @Input() workerUpdate: Worker = new Worker(57, "", 1, 1, "", "", "", "", "",1);
 
 
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
@@ -163,7 +163,7 @@ export class AddUpdateWorkerComponent {
         this.Wo_type_worker = 2
       }
       const workerAdd: Worker = new Worker(this.amountWorkers + 1, this.Wo_ID, this.Wo_gender, this.Wo_type_worker,
-        this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email);
+        this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email,1);
       console.log(workerAdd)
       await new Promise<void>((resolve, reject) => {
 
@@ -211,7 +211,7 @@ export class AddUpdateWorkerComponent {
         this.Wo_email = this.workerUpdate.Wo_email
       }
       const workerUpdate: Worker = new Worker(this.workerUpdate.Wo_code, this.Wo_ID, this.workerUpdate.Wo_gender, this.workerUpdate.Wo_type_worker,
-        this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email);
+        this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email,1);
       await new Promise<void>((resolve, reject) => {
 
         this.api.UpdateWorker(workerUpdate).subscribe(

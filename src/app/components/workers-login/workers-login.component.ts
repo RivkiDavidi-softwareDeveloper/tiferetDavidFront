@@ -40,12 +40,12 @@ export class WorkersLoginComponent implements OnInit {
   ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   Parent1Update: Parentt = new Parentt(111, "", "", "", "")
   DifficultyStudentUpdate: Array<DifficultyStudent> = []
-  WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "",1)
   StudiesForStudentUpdate: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   imageBlobURL: string = ""
 
 
-  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "");
+  @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "",1);
   @Output() popupDisplayOut: EventEmitter<boolean> = new EventEmitter()
   @Input() minutes = 0;
   @Input() kilomet = 0;

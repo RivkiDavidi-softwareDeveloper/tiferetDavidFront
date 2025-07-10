@@ -61,14 +61,14 @@ sAddStudentForProject=false
   ParentDisplay: Parentt = new Parentt(111, "", "", "", "")
   Parent1Display: Parentt = new Parentt(111, "", "", "", "")
   DifficultyStudentDisplay: Array<DifficultyStudent> = []
-  WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  WorkerDisplay: Worker = new Worker(111, "", 1, 1, "", "", "", "", "",1)
   StudiesForStudentDisplay: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
 
   @Input() studentUpdate: Student = new Student(111, "", 1, "", "", "", "", 1, 1, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "")
   @Input() ParentUpdate: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1Update: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudentUpdate: Array<DifficultyStudent> = []
-  @Input() WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() WorkerUpdate: Worker = new Worker(111, "", 1, 1, "", "", "", "", "",1)
   @Input() StudiesForStudentUpdate: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   @Input() codeWorkerSelected = 0;
   //הגדרות סינונים של חניכים

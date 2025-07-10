@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   public name: string = ""
   public password: string = ""
 
-  public worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "")
+  public worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "",1)
   public system: SystemLogin | undefined
 
   //חישוב מרחק

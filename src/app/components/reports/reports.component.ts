@@ -25,7 +25,7 @@ import { UpdateActivityComponent } from "../update-activity/update-activity.comp
 export class ReportsComponent implements OnInit, OnDestroy {
   //מכנית פעילים
   @Input() status="system"
-  @Input() worker=new Worker(-1,"",1,1,"","","","","")
+  @Input() worker=new Worker(-1,"",1,1,"","","","","",1)
   //עדכון
   sUpdateActivity = false;
   @Input() updateActivity: Activity = new Activity(-1, 1, "", 1, "", "", "", 1, "", "", 1, "", [], [])

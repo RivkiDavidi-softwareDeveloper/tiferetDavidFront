@@ -36,12 +36,12 @@ export class DisplayStudentComponent implements OnInit {
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
-  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "", 1)
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   print() {
     const style = document.createElement('style');
-style.innerHTML = '@media print { @page { size: portrait; } }';
-document.head.appendChild(style);
+    style.innerHTML = '@media print { @page { size: portrait; } }';
+    document.head.appendChild(style);
 
     window.print();
   }
@@ -89,13 +89,16 @@ document.head.appendChild(style);
     })
   }
   //שם קהילה
-  CommunityName(codeSynagogue: number) {
-
-    return this.listOfCommunities.find(c => this.listOfsynagogueis.find(s => s.Sy_code == codeSynagogue)?.Sy_code_Community == c.Com_code)?.Com_name
+  CommunityName(codeSynagogue: number | undefined) {
+    if (codeSynagogue)
+      return this.listOfCommunities.find(c => this.listOfsynagogueis.find(s => s.Sy_code == codeSynagogue)?.Sy_code_Community == c.Com_code)?.Com_name
+    return ""
   }
   //שם בית כנסת
-  SynagogueName(codeSynagogue: number) {
-    return this.listOfsynagogueis.find(s => s.Sy_code == codeSynagogue)?.Sy_name
+  SynagogueName(codeSynagogue: number | undefined) {
+    if (codeSynagogue)
+      return this.listOfsynagogueis.find(s => s.Sy_code == codeSynagogue)?.Sy_name
+    return ""
   }
   //ערים
   public generalCities() {
@@ -106,8 +109,10 @@ document.head.appendChild(style);
 
   }
   //שם עיר
-  public city(codeCity: number) {
+  public city(codeCity: number | undefined) {
+    if(codeCity)
     return this.lisOfCities.find(c => c.Ci_code == codeCity)?.Ci_name
+  return ""
   }
   //פרויקטים
   generalProjects() {
@@ -197,16 +202,20 @@ document.head.appendChild(style);
     return TypeActivityState[num]
   }
   //שם מצב סיכון
-  public typeRisk(num: number): string {
+  public typeRisk(num: number |undefined): string {
+    if(num)
     return TypeRisk[num]
+  return ""
   }
   //שם קושי
   public TypeDiffi(num: number): string {
     return TypeDifficulty[num];
   }
   //שם תדירות
-  Frequency(num: number): string {
-    return Frequency[num]
+  Frequency(num: number | undefined): string {
+    if (num)
+      return Frequency[num]
+    return ""
   }
   convertDateBack(dateStr: string) {
     if (dateStr.length > 0) {

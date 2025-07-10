@@ -23,7 +23,7 @@ export class WorkerInquiriesComponent {
     listOfMessages: Array<MessageForCall> = []
 
     call: Calll | undefined
-    @Input() worker: Worker =new Worker(1,"",1,1,"","","","","")
+    @Input() worker: Worker =new Worker(1,"",1,1,"","","","","",1)
 
     displayOpen = false
     mailEnterOrSend: number = 0

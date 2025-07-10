@@ -64,7 +64,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
-  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "")
+  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "",1)
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   //לרישום מששתף כחניך
   @Input() studentForProject: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
@@ -227,7 +227,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     })
   }
   //בחירת קהילה
-  selectedCommunity(St_code_synagogue: number, Com_code: number) {
+  selectedCommunity(St_code_synagogue: number |undefined, Com_code: number) {
 
     return this.listOfsynagogueis.find(s => s.Sy_code == St_code_synagogue)?.Sy_code_Community == Com_code
   }
