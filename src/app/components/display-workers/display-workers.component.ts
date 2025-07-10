@@ -150,6 +150,7 @@ document.head.appendChild(style);
     this.updateWorker.Wo_password = w.Wo_password
     this.updateWorker.Wo_cell_phone = w.Wo_cell_phone
     this.updateWorker.Wo_email = w.Wo_email
+    this.updateWorker.Wo_status_code=w.Wo_status_code
     this.sUpdateWorker = true
   }
   //חסימת פעיל
