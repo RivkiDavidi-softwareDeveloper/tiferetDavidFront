@@ -1,7 +1,8 @@
 <div class="background" *ngIf="popupDisplayIn">
     <div class="popup">
         <button close (click)="close();cb1=true;cb2=false;cb3=true;cb4=false;cb5=false">x</button>
-        <button close *ngIf="status2 === 'addFromSharer'" (click)="closeAddFromSharer();cb1=true;cb2=false;cb3=true;cb4=false;cb5=false">x</button>
+        <button close *ngIf="status2 === 'addFromSharer'"
+            (click)="closeAddFromSharer();cb1=true;cb2=false;cb3=true;cb4=false;cb5=false">x</button>
 
         <h2 *ngIf="status === 'add'">הוספת חניך</h2>
         <h2 *ngIf="status === 'update' && status2 != 'addFromSharer'">עדכון חניך</h2>
@@ -100,9 +101,9 @@
                     [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
                 <label eror *ngIf="validBirthday">הכנס תאריך תקין</label>
             </div>
-              <div ca>
+            <div ca>
                 <label>תאריך לידה עברי</label>
-      <!--           <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
+                <!--           <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
                     [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
                 <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(studentUpdate.St_hebrew_date)"
                     (input)="onInputChangeBirthday($event)"
@@ -113,7 +114,8 @@
         <h3 title2>כתובת</h3>
         <div contectAll>
             <div ca>
-                <label>עיר*</label>
+                <!--                 <label>עיר*</label>
+ --> <label>עיר</label>
 
                 <select *ngIf="status === 'add'" (change)="onCitySelected($event)"
                     [ngClass]="{'borderInputGreen':St_city_code!=-1&&St_city_code!=-2 ,'borderInputRed':false}">
@@ -154,7 +156,9 @@
         <h3 title3>פרטי יצירת קשר</h3>
         <div contectAll>
             <div ca>
-                <label>*פלאפון פרטי</label>
+                <!--                 <label>*פלאפון פרטי</label>
+ --> <label>פלאפון פרטי</label>
+
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneStudent($event)"
                     [ngClass]="{'borderInputGreen':St_cell_phone.length>0 && !validCellPhoneStudent,'borderInputRed':validCellPhoneStudent}">
                 <input type="tel" *ngIf="status === 'update'" value="{{studentUpdate.St_cell_phone}}"
@@ -197,7 +201,9 @@
         <div contectAll>
 
             <div ca>
-                <label>*קהילה</label>
+                <label>קהילה</label>
+                <!--                                 <label>*קהילה</label>
+ -->
                 <select *ngIf="status === 'add'" (change)="onCommunitySelected($event)"
                     [ngClass]="{'borderInputGreen':codeCommonity!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
@@ -224,8 +230,10 @@
                 <button (click)="addCommunity()">הוסף קהילה</button>
             </div>
             <div ca>
-                <label>*בית כנסת (יש לבחור קודם קהילה)</label>
-                <select [disabled]="codeCommonity==-1" *ngIf="status === 'add'" (change)="onSynagogueSelected($event)"
+                <label>בית כנסת (יש לבחור קודם קהילה)</label>
+
+                <!--                 <label>*בית כנסת (יש לבחור קודם קהילה)</label>
+ --> <select [disabled]="codeCommonity==-1" *ngIf="status === 'add'" (change)="onSynagogueSelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_synagogue!=-1 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
                     <option *ngFor="let s of listOfsynagogueis" [value]="s.Sy_code"
@@ -254,7 +262,9 @@
         <h4 parent>אבא:</h4>
         <div contectAll>
             <div ca>
-                <label>*שם </label>
+                <!--                 <label>*שם </label>
+ --> <label>שם </label>
+
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_F.length>0 && !validNameFather,'borderInputRed':validNameFather}">
                 <input type="text" *ngIf="status === 'update'" value="{{Parent.Pa_name}}"
@@ -287,7 +297,9 @@
 
             </div>
             <div ca>
-                <label>*פלאפון </label>
+                <label>פלאפון </label>
+                <!--                                 <label>*פלאפון </label>
+ -->
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneFather($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_F.length>0 && !validCellPhoneFather,'borderInputRed':validCellPhoneFather}">
                 <input type="tel" *ngIf="status === 'update'" value="{{Parent.Pa_cell_phone}}"
@@ -300,7 +312,9 @@
         <h4 parent>אמא:</h4>
         <div contectAll>
             <div ca>
-                <label>*שם </label>
+                <!--                 <label>*שם </label>
+ --> <label>שם </label>
+
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNameMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_name_M.length>0 && !validNameMother,'borderInputRed':validNameMother}">
                 <input type="text" *ngIf="status === 'update'" value="{{Parent1.Pa_name}}"
@@ -333,7 +347,9 @@
 
             </div>
             <div ca>
-                <label>*פלאפון </label>
+                <label>פלאפון </label>
+                <!--                                 <label>*פלאפון </label>
+ -->
                 <input type="tel" *ngIf="status === 'add'" (input)="onInputChangeCellPhoneMother($event)"
                     [ngClass]="{'borderInputGreen':Pa_cell_phone_M.length>0 && !validCellPhoneMother,'borderInputRed':validCellPhoneMother}">
                 <input type="email" *ngIf="status === 'update'" value="{{Parent1.Pa_cell_phone}}"
@@ -463,7 +479,8 @@
         <h3 title6>תדירות הפעילות</h3>
         <div contectAll>
             <div ca>
-                <label>*סוג</label>
+                <!--                 <label>*סוג</label>
+ --> <label>סוג</label>
 
                 <select *ngIf="status === 'add'" (change)="onCodeFrequencySelected($event)"
                     [ngClass]="{'borderInputGreen':St_code_frequency!=-1 ,'borderInputRed':false}">
@@ -481,7 +498,9 @@
                 </select>
             </div>
             <div ca>
-                <label>*בחר כמות</label>
+                <label>בחר כמות</label>
+                <!--                                 <label>*בחר כמות</label>
+ -->
                 <input type="number" min="1" [min]="1" [max]="5" *ngIf="status === 'add'"
                     (input)="onInputAmountFrequency($event)"
                     [ngClass]="{'borderInputGreen':St_amount_frequency>0 ,'borderInputRed':false}">
@@ -494,7 +513,9 @@
         <div contectAll>
 
             <div ca>
-                <label>*מצב סיכון</label>
+                <!--                 <label>*מצב סיכון</label>
+ --> <label>מצב סיכון</label>
+
                 <select *ngIf="status === 'add'" (change)="onRiskSelected($event)"
                     [ngClass]="{'borderInputGreen':St_risk_code!= -1 ,'borderInputRed':false}">
                     <option selected hidden>בחר </option>

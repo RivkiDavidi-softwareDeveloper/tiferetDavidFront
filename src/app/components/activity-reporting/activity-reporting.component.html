@@ -1,13 +1,15 @@
 <div class="all">
-<!--     <h1 titleA>דיווח על פעילות</h1>
- -->    <h2 chooseStudent *ngIf="worker.Wo_gender==1">בחירת חניך</h2>
-    <h2 chooseStudent *ngIf="worker.Wo_gender==2">בחירת חניכה</h2>
+    <!--     <h1 titleA>דיווח על פעילות</h1>
+ -->
 
     <br>
-
+    <button (click)="displayGroupActivities=!displayGroupActivities;group()"
+        [ngClass]="{displayGroupActivities:displayGroupActivities}">דיווח פרטני</button>
+    <button (click)="displayGroupActivities=!displayGroupActivities;group()"
+        [ngClass]="{displayGroupActivities:displayGroupActivities}">דיווח קבוצתי</button>
+    <h2 chooseStudent *ngIf="worker.Wo_gender==1">בחירת חניך</h2>
+    <h2 chooseStudent *ngIf="worker.Wo_gender==2">בחירת חניכה</h2>
     <div boxxx>
-        <button (click)="displayGroupActivities=!displayGroupActivities;group()"
-            [ngClass]="{displayGroupActivities:displayGroupActivities}">פעילות קבוצתית</button>
         <br>
         <div details [ngClass]="{detailsDisplay:displayGroupActivities}">
             <div titleOfDetails *ngIf="worker.Wo_gender==1">משתתף חד פעמי</div>
@@ -168,8 +170,8 @@
         <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose4}"
             (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=true;displayNesuChoose5=false;AFS_with_who='עם צוות';">עם
             צוות</button>
-        <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose1}"
-            (click)="displayNesuChoose1=true;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='קבוצתית';">קבוצתית</button>
+<!--         <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose1}"
+            (click)="displayNesuChoose1=true;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='קבוצתית';">קבוצתית</button> -->
         <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose5}"
             (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=true;AFS_with_who='';">אחר</button>
         <input type="text" placeholder="אחר" *ngIf="displayNesuChoose5" [value]="AFS_with_who"
@@ -183,30 +185,6 @@
     <h2 topic>מהות הפעילות</h2>
     <br>
     <div boxxx>
-        <!--         <button (click)="displayProductPurchaseDetails=!displayProductPurchaseDetails;selectCategory5()"
-            [ngClass]="{buttonTopic:true,gift:true,giftB:displayProductPurchaseDetails}">רכישת
-            מוצר</button>
-        <button (click)="displayMeetingDetails=!displayMeetingDetails;selectCategory3()"
-            [ngClass]="{buttonTopic:true,meeting:true,meetingB:displayMeetingDetails}">פגישה
-            אישית</button>
-        <button (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
-            [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
-            בישיבה</button>
-        <button (click)="displayTravelDetails=!displayTravelDetails;selectCategory4()"
-            [ngClass]="{buttonTopic:true,car:true,carB:displayTravelDetails}">נסיעה
-        </button>
-        <button (click)="displayForeignActivityDetails=!displayForeignActivityDetails;selectCategory6()"
-            [ngClass]="{buttonTopic:true,tree:true,treeB:displayForeignActivityDetails}">פעילות
-            חוץ</button>
-        <button (click)="displayActivityGroupDetails=!displayActivityGroupDetails;selectCategory8()"
-            [ngClass]="{buttonTopic:true,group:true,groupB:displayActivityGroupDetails}">פעילות
-            קבוצתית</button>
-        <button (click)="displayFhoneDetails=!displayFhoneDetails;selectCategory2()"
-            [ngClass]="{buttonTopic:true,phone:true,phoneB:displayFhoneDetails}">שיחה
-            טלפונית</button>
-        <button (click)="displayLearningDetails=!displayLearningDetails;selectCategory1()"
-            [ngClass]="{buttonTopic:true,book:true,bookB:displayLearningDetails}">לימוד
-            חברותא</button> -->
         <button (click)="displayMeetingDetails=!displayMeetingDetails;selectCategory3()"
             [ngClass]="{buttonTopic:true,meeting:true,meetingB:displayMeetingDetails}">פגישה
             אישית</button>
@@ -219,8 +197,6 @@
         <button (click)="displayForeignActivityDetails=!displayForeignActivityDetails;selectCategory6()"
             [ngClass]="{buttonTopic:true,tree:true,treeB:displayForeignActivityDetails}">פעילות
             חוץ</button>
-
-
         <button *ngIf="worker.Wo_gender==1"
             (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
             [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
@@ -236,9 +212,9 @@
             (click)="displayLearningDetails=!displayLearningDetails;selectCategory1()"
             [ngClass]="{buttonTopic:true,book:true,bookB:displayLearningDetails}">לימוד
             חברותא</button>
-        <button (click)="displayActivityGroupDetails=!displayActivityGroupDetails;selectCategory8()"
+<!--         <button (click)="displayActivityGroupDetails=!displayActivityGroupDetails;selectCategory8()"
             [ngClass]="{buttonTopic:true,group:true,groupB:displayActivityGroupDetails}">פעילות
-            קבוצתית</button>
+            קבוצתית</button> -->
 
         <div details [ngClass]="{detailsDisplay:displayTravelDetails}">
             <div titleOfDetails>פרטי נסיעה</div>
@@ -418,7 +394,7 @@
         [studentF]="this.listSelectedStudents[0].SFA_code_student" [workerF]="worker.Wo_code"
         [worker]="worker"></app-reports>
 
-<!--     <div boxxx *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1 ">
+    <!--     <div boxxx *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1 ">
         <table>
             <thead>
                 <tr>

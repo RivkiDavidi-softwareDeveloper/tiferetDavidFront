@@ -1147,6 +1147,21 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
 
   //בודקת אם כל הדגלים תקינים
   public validationAdd(): boolean {
+//ביטול שדות חובה לבדיקת הרצה בלבד!!!!!
+if(this.St_city_code == -1){
+this.St_city_code=undefined
+}
+if(this.St_code_synagogue == -1){
+this.St_code_synagogue=undefined
+}
+if(this.St_risk_code == -1){
+this.St_risk_code=undefined
+}
+if(this.St_code_frequency == -1){
+this.St_code_frequency=undefined
+}
+
+
     return !this.validNane && !this.validNameF && !this.validId && !this.validCellPhoneStudent && !this.validCellPhoneStudent
       && !this.validBirthday && !this.validAddress && !this.validPhoneHome && !this.validEmail && !this.validNameFather
       && !this.validIDFather && !this.validWorkFather && !this.validCellPhoneFather && !this.validNameMother && !this.validIDMother
