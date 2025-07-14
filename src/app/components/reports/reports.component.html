@@ -14,9 +14,15 @@
     <p class="bold"> {{nameOrder(order) }}</p>
 
 </div>
-    <br>
+<br>
 
 <div allP nonePrint *ngIf="status!='student'">
+    <div p2>
+
+        <div iconnOtef (click)="print()">
+            <button print title="הדפס"></button>
+        </div>
+    </div>
     <div p1>
         <div class="find" *ngIf="status=='system'">
             <input type="search" role="combobox" placeholder="חפש פעיל/חונך"
@@ -26,17 +32,12 @@
             <input type="search" role="combobox" placeholder="חפש חניך" (input)="onInputChangeSearchStudent($event)">
         </div>
     </div>
-    <div p2>
 
-        <div iconnOtef (click)="print()">
-            <button print title="הדפס"></button>
-        </div>
-    </div>
 
 </div>
 <div nonePrint allP2>
 
-    <div orders >
+    <div orders>
         <div lible>מיין לפי</div>
         <div pos>
             <select [ngClass]="{'slectSelected':true}" (change)="onOrderSelected($event)">
@@ -60,11 +61,20 @@
 
             </div>
             <div pos2 *ngIf="status=='system'">
+                <select [ngClass]="{'slectSelected':workerStatusF!=0}" (change)="onSelectedWorkerStatusF($event)">
+                    <option [value]="0">כל הפעילים</option>
+                    <option selected [value]="1">פעילים כיום </option>
+                    <option [value]="2">פעילים בעבר</option>
+
+                </select>
+            </div>
+            <div pos2 *ngIf="status=='system'">
                 <select [ngClass]="{'slectSelected':workerF!=-1}" (change)="onSelectedWorkerF($event)">
                     <option selected [value]="-1">כל הפעילים/חונכים </option>
                     <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{w.Wo_name+" "+w.Wo_Fname}} </option>
                 </select>
             </div>
+
             <div pos2 *ngIf="status!='student'">
                 <select [ngClass]="{'slectSelected':studentF!=-1}" (change)="onSelectedStudentF($event)">
                     <option selected [value]="-1" *ngIf="status=='system' ">כל החניכים/ות </option>

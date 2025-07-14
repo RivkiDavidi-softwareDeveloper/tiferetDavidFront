@@ -51,12 +51,13 @@ button:active {
   font-size: 2.2vh;
   display: flex;
   width: 95vw;
-  height: 7vh;
   margin: auto 2.5vw 1vh 2.5vw;
+  direction: ltr;
 
   [p1] {
     display: inline-block;
     width: 50%;
+    direction: rtl;
 
     //חיפוש
     .find {
@@ -124,24 +125,19 @@ button:active {
 
 [allP2] {
   font-size: 2.1vh;
-
   display: flex;
   width: 95vw;
-  height: 7vh;
   margin: auto 2.5vw 1.5vh 2.5vw;
 
   [orders],
   [filters] {
-    height: 40px;
     display: flex;
     border: 0.5px solid gray;
     position: relative;
-    // z-index: -1;
 
     [lible] {
       position: absolute;
       top: -10px;
-      //  z-index: 0;
       background-color: rgb(255, 255, 255);
       margin-right: 5px;
       padding-right: 2px;
@@ -174,24 +170,30 @@ button:active {
 
     [pos1],
     [pos2] {
-      display: inline-block;
-      margin: 2px;
+
+      margin: 2px 5px;
       position: relative;
+      display: inline-block;
     }
   }
 
   //סלקטיםם
+
   select {
     display: block;
     text-align: right;
     font-family: Assistant-Regular;
-    width: 10vw;
-    height: 30px;
-    z-index: 997;
+    width: 7.5vw;
+    font-size: 2.1vh;
+    height: 25px;
     outline: none;
     background-color: rgb(255, 255, 183);
-    font-size: 2.3vh;
+    background-color: rgb(255, 255, 234);
 
+    option {
+      background-color: white;
+      font-size: 2.1vh;
+    }
   }
 
   .slectSelected {
@@ -260,8 +262,8 @@ table {
 
   thead {
     height: 0.3cm;
-  font-family: Assistant-Bold;
-  font-weight: normal;
+    font-family: Assistant-Bold;
+    font-weight: normal;
   }
 
   //תמונה של הקוביה של המגדר
@@ -421,9 +423,11 @@ table {
     font-size: medium;
   }
 }
-[pppT]{
+
+[pppT] {
   display: none;
 }
+
 @media print {
   [nonePrint] {
     display: none;
@@ -471,9 +475,10 @@ table {
   [ppp] {
     display: block;
   }
-[pppT]{
-  display: block;
-}
+
+  [pppT] {
+    display: block;
+  }
 }
 
 
@@ -487,9 +492,78 @@ table {
     display: none;
   }
 
+  [allP] {
+    width: 95%;
+  }
+
+  [allP2] {
+    width: 95%;
+  }
+
+  table {
+    width: 95%;
+  }
 }
 
 @media only screen and (max-width: 767px) {
+  [allP] {
+    display: block;
+    width: 95%;
+    margin: auto 0 1vh 0;
+    margin: auto;
+
+    [p1] {
+      display: block;
+      width: 100%;
+
+      //חיפוש
+      .find {
+        width: 92%;
+        display: block;
+        margin-left: 0px;
+        margin-bottom: 2vh;
+      }
+
+      .find>input {
+        width: auto;
+        width: 100%;
+      }
+    }
+
+    [p2] {
+      display: flex;
+      direction: ltr;
+      width: 100%;
+      margin-bottom: 2vh;
+
+      [iconnOtef] {
+        margin-left: 0px;
+      }
+    }
+  }
+
+  [allP2] {
+    display: block;
+    width: 95%;
+    justify-content: space-around; //רווחים בצדדים
+
+    [orders] {
+      margin-left: auto;
+    }
+
+    [orders],
+    [filters],
+    [workers] {
+      margin: 0px;
+      margin-bottom: 12px;
+      width: auto;
+    }
+
+    select {
+      width: 25vw;
+    }
+  }
+
   table {
     width: 20cm;
     overflow: scroll;

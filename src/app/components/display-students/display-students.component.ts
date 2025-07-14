@@ -149,7 +149,7 @@ sAddStudentForProject=false
     }
     this.wtypeWO = 0;
     //getworkers
-    this.api.FindWorker("", this.wgenderO, this.genderF, this.wtypeWO, this.wtypeWF).subscribe(Date => {
+    this.api.FindWorker("", this.wgenderO, this.genderF, 0,this.wtypeWO, this.wtypeWF).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();

@@ -46,6 +46,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   order = 1
   genderF = 0
  @Input() workerF = -1
+ @Input() workerStatusF=1
 @Input()  studentF = -1
   monthF = 0
   yearF = 0
@@ -87,7 +88,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
   //רשימת הפעילויות
   generalActivities() {
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF,this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -97,7 +98,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
   //רשימה של פעילים
   generalWorkers() {
-    this.api.FindWorker("", 0, this.genderF, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, this.genderF,this.workerStatusF, 0, 0).subscribe(Date => {
 
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
@@ -345,15 +346,23 @@ export class ReportsComponent implements OnInit, OnDestroy {
     this.genderF = code;
     this.generalActivities();
     this.generalWorkers();
-/*     this.generalStudent();
- */  }
+    this.generalStudent();
+  }
   //סינון פעיל
   onSelectedWorkerF(event: Event) {
     const code = Number((event.target as HTMLInputElement).value);
     this.workerF = code;
     this.generalActivities();
-/*     this.generalStudent();
- */  }
+    this.generalStudent();
+  }
+    //סינון סטטוס פעיל
+  onSelectedWorkerStatusF(event: Event) {
+    const code = Number((event.target as HTMLInputElement).value);
+    this.workerStatusF = code;
+    this.generalActivities();
+    this.generalWorkers()
+    this.generalStudent();
+  }
   //סינון חניך
   onSelectedStudentF(event: Event) {
     const code = Number((event.target as HTMLInputElement).value);
@@ -430,7 +439,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   //חיפוש עובד
   onInputChangeSearchWorker(event: Event) {
     this.searchTextWorker = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.workerStatusF,this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -444,7 +453,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   //חיפוש חניך
   onInputChangeSearchStudent(event: Event) {
     this.searchTextStudent = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF,this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();

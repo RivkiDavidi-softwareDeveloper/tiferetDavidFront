@@ -27,6 +27,7 @@ import { ReportsComponent } from "../reports/reports.component";
     standalone: true,
     templateUrl: './activity-reporting.component.html',
     styleUrls: ['./activity-reporting.component.scss'],
+
     imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent, ReportsComponent]
 })
 
@@ -119,7 +120,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     displaySchoolPlacementDetails = false  //שיבוץ בישיבה
     displayLearningDetails = false
     displayActivityGroupDetails = false
-
+    displayTimeTimer = 0
     displayGroupActivities = false;       //פעילות קבוצתית
     displayallList = false        //כל החנכים  
     displaystudentActive = true  //רק פעילים    
@@ -231,11 +232,9 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
     }
     //מעבר לעריכת חניך
-    updateStudent() {
-
-        var student = this.listOfStudents.find(s => s.St_code == this.listSelectedStudents[0].SFA_code_student)
-        this.editStudent.emit(student);
-
+    updateStudent(s: Student | undefined) {
+        if (s)
+            this.editStudent.emit(s);
     }
     //רשימת תת קטגורית רכישת מוצר
     generalSubCategoryGift() {
@@ -594,8 +593,9 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     }
 
     //בחירת מונה
-    onTimerSelected(event: Event) {
-        const codeTimer = Number((event.target as HTMLInputElement).value);
+    onTimerSelected(num: number) {
+        const codeTimer = num
+        this.displayTimeTimer = codeTimer;
         //מונה זמן או מונה דרך
         if (codeTimer == 1 || codeTimer == 2) {
             this.time = new Date();
@@ -609,7 +609,9 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         }
         //מונה דרך
         if (codeTimer == 2) {
-
+            this.AFS_kilometer = this.kilomet;
+            this.AFS_exit = this.exit;
+            this.AFS_target = this.target
         }
 
 
@@ -1048,8 +1050,12 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         this.minutes = 0;
 
         this.time = new Date();;
+        this.kilomet = 0
+        this.exit = ""
+        this.target = ""
         //inputValue = 'משתתף חד פעמי';
         //דגלים להצגת פרטי פעילות
+        this.displayTimeTimer = 0
         this.displayFhoneDetails = false
         this.displayMeetingDetails = false
         this.displayTravelDetails = false        //נסיעה

@@ -90,7 +90,7 @@ export class DeshbordComponent implements OnInit, OnDestroy {
 
   //רשימת פעילים
   getAllWorkers() {
-    this.api.FindWorker("", 0, 0, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, 0,1, 0, 0).subscribe(Date => {
       this.listWorkers = []
       this.listWorkers.push(...Date)
       this.cdRef.detectChanges();

@@ -97,15 +97,21 @@ button:focus {
                 justify-content: center;
                 align-items: center;
 
-                .inHome {
-                    background-color: rgb(242, 244, 244, 0.0);
-                    background-image: url('../icons/exit2.png');
+                 .inHome {
+                    background-image: url('../icons/exit-white.png');
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
-                    filter: invert(100%);
                     width: 6.5vh;
                     height: 6.5vh;
+                }
+            }
+            .home:hover {
+                background-color: $color-white-dark;
+
+                .inHome {
+                background-image: url('../icons/exit-turqis.png');
+                   
                 }
             }
         }

@@ -106,16 +106,10 @@ button {
     margin: 0px;
 }
 
-button:hover {
-    /*     background-color: $color-turqis;
-    color: rgb(255, 255, 255); */
-}
-
 button:active {
     position: relative;
     top: 2px;
-    /*     background-color: $color-turqis;
-    color: rgb(255, 255, 255); */
+
 }
 
 button:disabled,
@@ -126,6 +120,64 @@ button:disabled:hover {
     background-color: white;
 }
 
+[buttonSelect] {
+    width: 14vw;
+    height: 6vh;
+    margin: 5px;
+    font-size: 3vh;
+}
+
+[reportPublic] {
+    border: 2px solid rgb(255, 217, 25);
+    color: rgb(255, 217, 25);
+}
+
+[reportPrivate] {
+    border: 2px solid $color-orange;
+    color: $color-orange;
+}
+
+.reportPublic {
+    background-color: rgb(255, 217, 25);
+    color: rgb(255, 255, 255);
+}
+
+.reportPrivate {
+    background-color: $color-orange;
+    color: rgb(255, 255, 255);
+}
+
+[timer0] {
+    border: 2px solid orange;
+    color: orange;
+}
+
+.timer0 {
+    background-color: orange;
+    color: rgb(255, 255, 255);
+}
+
+[timer1] {
+    border: 2px solid rgb(2, 165, 2);
+    color: rgb(2, 165, 2);
+}
+
+.timer1 {
+    background-color: rgb(2, 165, 2);
+    color: rgb(255, 255, 255);
+}
+
+[timer2] {
+    border: 2px solid rgb(3, 186, 164);
+    color: rgb(3, 186, 164);
+}
+
+.timer2 {
+    background-color: rgb(3, 186, 164);
+    color: rgb(255, 255, 255);
+}
+
+
 [buttonAddActivity] {
     width: 420px;
 
@@ -134,7 +186,6 @@ button:disabled:hover {
 [buttonOrange] {
     border: 2px solid rgb(255, 127, 39);
     color: rgb(255, 127, 39);
-    /*     width: 22vw; */
     margin: 10px 10px 0px 10px;
 
 
@@ -180,13 +231,11 @@ button:disabled:hover {
 }
 
 //כפתור פעילות קבוצתית
-.displayGroupActivities,
 .displayDayChoose,
 .displayMinutesHours,
 .displayNesuChoose {
     background-color: $color-turqis;
     color: rgb(255, 255, 255);
-
 }
 
 //מכיל בתוכו את כל התמונות של החניכים
@@ -613,7 +662,7 @@ input {
 
             //ינפוט של כסף
             [money] {
-             display: inline-block;
+                display: inline-block;
             }
 
             [shach] {
@@ -764,6 +813,17 @@ label {
     color: rgb(255, 255, 255);
 }
 
+.otefContinueReport {
+    border: 1px solid rgb(6, 123, 104);
+    margin: 2vh 20vw 4vh 20vw;
+    padding: 5px;
+    background-color: rgb(245, 255, 253);
+
+    label {
+        color: rgb(6, 123, 104);
+        font-size: large;
+    }
+}
 
 
 @media only screen and (max-width: 960px) {
@@ -794,6 +854,11 @@ label {
     /*     [details] {
         width: 88%;
     } */
+    .otefContinueReport {
+        margin: 2vh 2vw 4vh 2vw;
+        padding: 5px 0px;
+
+    }
 
     select,
     input {
@@ -806,6 +871,23 @@ label {
     [buttonAddActivity] {
         width: 200px;
 
+    }
+
+    [buttonSelect] {
+        width: 40vw;
+        font-size: 3vh;
+    }
+
+    [timer0],
+    [timer1],
+    [timer2] {
+        width: 36vw;
+        font-size: 2.4vh;
+    }
+
+    .otefContinueReport {
+        margin: 2vh 0vw 4vh 0vw;
+        padding: 5px 0px;
     }
 
     /*     .bigbox {

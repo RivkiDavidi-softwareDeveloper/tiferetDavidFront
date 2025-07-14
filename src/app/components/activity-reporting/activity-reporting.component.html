@@ -1,16 +1,11 @@
 <div class="all">
-    <!--     <h1 titleA>דיווח על פעילות</h1>
- -->
-
     <br>
-    <button (click)="displayGroupActivities=!displayGroupActivities;group()"
-        [ngClass]="{displayGroupActivities:displayGroupActivities}">דיווח פרטני</button>
-    <button (click)="displayGroupActivities=!displayGroupActivities;group()"
-        [ngClass]="{displayGroupActivities:displayGroupActivities}">דיווח קבוצתי</button>
-    <h2 chooseStudent *ngIf="worker.Wo_gender==1">בחירת חניך</h2>
-    <h2 chooseStudent *ngIf="worker.Wo_gender==2">בחירת חניכה</h2>
+    <button buttonSelect reportPrivate (click)="displayGroupActivities=false;group()"
+        [ngClass]="{reportPrivate:!displayGroupActivities}">דיווח פרטני</button>
+
+    <button buttonSelect reportPublic (click)="displayGroupActivities=true;group()"
+        [ngClass]="{reportPublic:displayGroupActivities}">דיווח קבוצתי</button>
     <div boxxx>
-        <br>
         <div details [ngClass]="{detailsDisplay:displayGroupActivities}">
             <div titleOfDetails *ngIf="worker.Wo_gender==1">משתתף חד פעמי</div>
             <div titleOfDetails *ngIf="worker.Wo_gender==2">משתתפת חד פעמי</div>
@@ -24,8 +19,6 @@
 
             <button buttomAddStudent *ngIf="worker.Wo_gender==1" (click)="addStudentF()">הוסף</button>
             <button buttomAddStudent *ngIf="worker.Wo_gender==2" (click)="addStudentF()">הוסיפי</button>
-
-
         </div>
         <br>
 
@@ -89,23 +82,21 @@
                 (addSelectedCodeStudent)="selectStudentBoxAdd($event)"
                 (deleteSelectedCodeStudent)="selectStudentBoxDelete($event)"></app-student>
         </div>
-        <!--
-            <app-student [student]="SelectedStudent" [codeStudent]="SelectedStudent.St_code"
-                (selectedCodeStudent)="selectStudentBox($event)"></app-student> -->
+
     </div>
     <br>
-    <h2 date>מועד הפעילות</h2>
+
+    <button buttonSelect timer1 (click)="onTimerSelected(1)" [ngClass]="{timer1:displayTimeTimer==1}">מונה
+        זמן</button>
+    <button buttonSelect timer2 (click)="onTimerSelected(2)" [ngClass]="{timer2:displayTimeTimer==2}">מונה זמן +
+        דרך</button>
+    <button buttonSelect timer0 (click)="onTimerSelected(0)" [ngClass]="{timer0:displayTimeTimer==0}">בחירה
+        ידנית</button>
     <br>
-    <div boxxx>
-        <select (change)="onTimerSelected($event)">
-            <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר מונה</option>
-            <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי מונה</option>
-
-            <option [value]="1">מונה זמן</option>
-            <option [value]="2">מונה דרך</option>
-        </select>
-        <br>
-
+    <br>
+    <h2 date *ngIf="displayTimeTimer==0">מועד הפעילות</h2>
+    <br>
+    <div boxxx *ngIf="displayTimeTimer==0">
         <div filters>
             <button (click)="today()" [ngClass]="{buttonFilter:true,displayDayChoose:displayToday}">היום</button>
             <button (click)="yesterday()"
@@ -114,18 +105,17 @@
                 [ngClass]="{buttonFilter:true,displayDayChoose:displayBeforeYesterday}">שלשום</button>
             <input type="date" [valueAsDate]="selectedDate" (input)="onInputChangeDate($event)">
         </div>
-
+        <br>
+        <br>
     </div>
-    <br>
-    <h2 time>משך הפעילות</h2>
-    <br>
-    <div boxxx>
+    <h2 time *ngIf="displayTimeTimer==0">משך הפעילות</h2>
+    <div boxxx *ngIf="displayTimeTimer==0">
+        <br>
 
         <input type="time" [value]="formatTime(time)" (input)="onInputChangeTime($event)">
         <br>
         <label>בשעות</label>
         <br>
-
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH1}"
             (click)="displayH1=true;displayH2=false;displayH3=false;displayH4=false;hoursSelected(1)">1</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH2}"
@@ -134,8 +124,6 @@
             (click)="displayH1=false;displayH2=false;displayH3=true;displayH4=false;hoursSelected(3)">3</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH4}"
             (click)="displayH1=false;displayH2=false;displayH3=false;displayH4=true;hoursSelected(4)">4</button>
-
-        <!--         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH1}">+</button> -->
         <br>
         <label>בדקות</label>
         <br>
@@ -150,204 +138,202 @@
             (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=true;displayM50=false;minutesSelected(40)">40</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM50}"
             (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=false;displayM50=true;minutesSelected(50)">50</button>
-        <!--         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM10}"> +</button> -->
         <br>
 
     </div>
     <br>
-    <h2 nesu>נשוא הפעילות</h2>
-    <br>
-    <div boxxx>
-        <button *ngIf="worker.Wo_gender==1" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
-            (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחור';">עם
-            הבחור</button>
-        <button *ngIf="worker.Wo_gender==2" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
-            (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחורה';">עם
-            הבחורה</button>
-        <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose3}"
-            (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=true;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הורה';">עם
-            הורה</button>
-        <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose4}"
-            (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=true;displayNesuChoose5=false;AFS_with_who='עם צוות';">עם
-            צוות</button>
-<!--         <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose1}"
-            (click)="displayNesuChoose1=true;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='קבוצתית';">קבוצתית</button> -->
-        <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose5}"
-            (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=true;AFS_with_who='';">אחר</button>
-        <input type="text" placeholder="אחר" *ngIf="displayNesuChoose5" [value]="AFS_with_who"
-            (input)="onInputChangeNesu($event)">
+    <div *ngFor="let i of listSelectedStudents" [ngClass]="{otefContinueReport:listSelectedStudents.length>1}">
+        <label *ngIf="listSelectedStudents.length>1">המשך דיווח עבור חניך {{convertToStudent(i)?.St_name+"
+            "+convertToStudent(i)?.St_Fname}}</label>
+        <h2 nesu>נשוא הפעילות</h2>
+        <br>
+        <div boxxx>
+            <button *ngIf="worker.Wo_gender==1" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
+                (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחור';">עם
+                הבחור</button>
+            <button *ngIf="worker.Wo_gender==2" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
+                (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחורה';">עם
+                הבחורה</button>
+            <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose3}"
+                (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=true;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הורה';">עם
+                הורה</button>
+            <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose4}"
+                (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=true;displayNesuChoose5=false;AFS_with_who='עם צוות';">עם
+                צוות</button>
+            <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose5}"
+                (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=true;AFS_with_who='';">אחר</button>
+            <input type="text" placeholder="אחר" *ngIf="displayNesuChoose5" [value]="AFS_with_who"
+                (input)="onInputChangeNesu($event)">
 
-        <label *ngIf="validAFS_with_who" eror>מוגבל ל- 40 תוים</label>
+            <label *ngIf="validAFS_with_who" eror>מוגבל ל- 40 תוים</label>
 
 
-    </div>
-    <br>
-    <h2 topic>מהות הפעילות</h2>
-    <br>
-    <div boxxx>
-        <button (click)="displayMeetingDetails=!displayMeetingDetails;selectCategory3()"
-            [ngClass]="{buttonTopic:true,meeting:true,meetingB:displayMeetingDetails}">פגישה
-            אישית</button>
-        <button (click)="displayFhoneDetails=!displayFhoneDetails;selectCategory2()"
-            [ngClass]="{buttonTopic:true,phone:true,phoneB:displayFhoneDetails}">שיחה
-            טלפונית</button>
-        <button (click)="displayTravelDetails=!displayTravelDetails;selectCategory4()"
-            [ngClass]="{buttonTopic:true,car:true,carB:displayTravelDetails}">נסיעה
-        </button>
-        <button (click)="displayForeignActivityDetails=!displayForeignActivityDetails;selectCategory6()"
-            [ngClass]="{buttonTopic:true,tree:true,treeB:displayForeignActivityDetails}">פעילות
-            חוץ</button>
-        <button *ngIf="worker.Wo_gender==1"
-            (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
-            [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
-            בישיבה</button>
-        <button *ngIf="worker.Wo_gender==2"
-            (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
-            [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
-            בסמינר</button>
-        <button (click)="displayProductPurchaseDetails=!displayProductPurchaseDetails;selectCategory5()"
-            [ngClass]="{buttonTopic:true,gift:true,giftB:displayProductPurchaseDetails}">רכישת
-            מוצר</button>
-        <button *ngIf="worker.Wo_type_worker==2"
-            (click)="displayLearningDetails=!displayLearningDetails;selectCategory1()"
-            [ngClass]="{buttonTopic:true,book:true,bookB:displayLearningDetails}">לימוד
-            חברותא</button>
-<!--         <button (click)="displayActivityGroupDetails=!displayActivityGroupDetails;selectCategory8()"
-            [ngClass]="{buttonTopic:true,group:true,groupB:displayActivityGroupDetails}">פעילות
-            קבוצתית</button> -->
+        </div>
+        <br>
+        <h2 topic>מהות הפעילות</h2>
+        <br>
+        <div boxxx>
+            <button (click)="displayMeetingDetails=!displayMeetingDetails;selectCategory3()"
+                [ngClass]="{buttonTopic:true,meeting:true,meetingB:displayMeetingDetails}">פגישה
+                אישית</button>
+            <button (click)="displayFhoneDetails=!displayFhoneDetails;selectCategory2()"
+                [ngClass]="{buttonTopic:true,phone:true,phoneB:displayFhoneDetails}">שיחה
+                טלפונית</button>
+            <button (click)="displayTravelDetails=!displayTravelDetails;selectCategory4()"
+                [ngClass]="{buttonTopic:true,car:true,carB:displayTravelDetails}">נסיעה
+            </button>
+            <button (click)="displayForeignActivityDetails=!displayForeignActivityDetails;selectCategory6()"
+                [ngClass]="{buttonTopic:true,tree:true,treeB:displayForeignActivityDetails}">פעילות
+                חוץ</button>
+            <button *ngIf="worker.Wo_gender==1"
+                (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
+                [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
+                בישיבה</button>
+            <button *ngIf="worker.Wo_gender==2"
+                (click)="displaySchoolPlacementDetails=!displaySchoolPlacementDetails;selectCategory7()"
+                [ngClass]="{buttonTopic:true,school:true,schoolB:displaySchoolPlacementDetails}">שיבוץ
+                בסמינר</button>
+            <button (click)="displayProductPurchaseDetails=!displayProductPurchaseDetails;selectCategory5()"
+                [ngClass]="{buttonTopic:true,gift:true,giftB:displayProductPurchaseDetails}">רכישת
+                מוצר</button>
+            <button *ngIf="worker.Wo_type_worker==2"
+                (click)="displayLearningDetails=!displayLearningDetails;selectCategory1()"
+                [ngClass]="{buttonTopic:true,book:true,bookB:displayLearningDetails}">לימוד
+                חברותא</button>
+            <div details [ngClass]="{detailsDisplay:displayTravelDetails}">
+                <div titleOfDetails>פרטי נסיעה</div>
+                <div contectAll>
+                    <div>
+                        <label>מוצא:</label>
+                        <input type="text" (input)="onInputChangeExit($event)" [value]="AFS_exit">
+                        <label *ngIf="validAFS_exit" eror>מוגבל ל-100 תוים</label>
+                    </div>
 
-        <div details [ngClass]="{detailsDisplay:displayTravelDetails}">
-            <div titleOfDetails>פרטי נסיעה</div>
-            <div contectAll>
-                <div>
-                    <label>מוצא:</label>
-                    <input type="text" (input)="onInputChangeExit($event)" [value]="AFS_exit">
-                    <label *ngIf="validAFS_exit" eror>מוגבל ל-100 תוים</label>
-                </div>
-
-                <!--                 <br>
+                    <!--                 <br>
                     <button>הוסף נקודת עצירה</button>
                     <br> -->
-                <div>
-                    <label>יעד:</label>
-                    <input type="text" (input)="onInputChangeTarget($event)" [value]="AFS_target">
-                    <label *ngIf="validAFS_target" eror>מוגבל ל-100 תוים</label>
-                </div>
-                <div>
-                    <label>מס ק"מ:</label>
-                    <input type="number" (input)="onInputChangeKM($event)" [value]="AFS_kilometer">
-                </div>
-                <div>
-                    <label *ngIf="!displayGroupActivities && worker.Wo_gender==1">נסיעה משותפת? אם כן בחר חניך
-                        נוסף (שים 💓 לסמן קבוצתית):</label>
-                    <label *ngIf="!displayGroupActivities && worker.Wo_gender==2">נסיעה משותפת? אם כן בחרי חניכה
-                        נוספת (שימי 💓 לסמן קבוצתית):</label>
+                    <div>
+                        <label>יעד:</label>
+                        <input type="text" (input)="onInputChangeTarget($event)" [value]="AFS_target">
+                        <label *ngIf="validAFS_target" eror>מוגבל ל-100 תוים</label>
+                    </div>
+                    <div>
+                        <label>מס ק"מ:</label>
+                        <input type="number" (input)="onInputChangeKM($event)" [value]="AFS_kilometer">
 
-                    <select *ngIf="!displayGroupActivities" (change)="onStudentSelected2($event)">
-                        <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר מרשימה</option>
-                        <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי מרשימה</option>
+                    </div>
+                    <div>
+                        <label *ngIf="!displayGroupActivities && worker.Wo_gender==1">נסיעה משותפת? אם כן בחר חניך
+                            נוסף (שים 💓 לסמן קבוצתית):</label>
+                        <label *ngIf="!displayGroupActivities && worker.Wo_gender==2">נסיעה משותפת? אם כן בחרי חניכה
+                            נוספת (שימי 💓 לסמן קבוצתית):</label>
 
-                        <option *ngFor="let s of listOfStudents" [value]="s.St_code">{{s.St_name+ " "+s.St_Fname}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div details [ngClass]="{detailsDisplay:displayForeignActivityDetails}">
-            <div titleOfDetails>פרטי פעילות חוץ</div>
-            <div contectAll>
-                <div>
-                    <label>פירוט:</label>
-                    <select (change)="selectSubCategoryOut($event)">
-                        <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
-                        <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
-                        <option *ngFor="let s of listSubCategoryOut" [selected]="s.SFTA_code==codeSubCategoryOut"
-                            [value]="s.SFTA_name">{{s.SFTA_name}}</option>
-                        <option [value]="-1">אחר</option>
-                    </select>
-                    <label *ngIf="displaySubCategoryOut">
-                        <input type="text" placeholder="אחר" (input)="onInputChangeSearchOut($event)" [value]="out">
-                        <button buttomAddStudent (click)="addSubCategory(6,out)">הוסף</button>
-                    </label>
-                </div>
-                <div>
-                    <label>מחיר</label>
-                    <input type="number" money (input)="onInputChangePrice($event)">
-                    <label shach> ₪ </label>
+                        <select *ngIf="!displayGroupActivities" (change)="onStudentSelected2($event)">
+                            <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר מרשימה</option>
+                            <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי מרשימה</option>
+
+                            <option *ngFor="let s of listOfStudents" [value]="s.St_code">{{s.St_name+ " "+s.St_Fname}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div details [ngClass]="{detailsDisplay:displaySchoolPlacementDetails}">
-            <div titleOfDetails *ngIf="worker.Wo_gender==1">פרטי שיבוץ בישיבה</div>
-            <div titleOfDetails *ngIf="worker.Wo_gender==2">פרטי שיבוץ בסמינר</div>
-
-            <div contectAll>
-                <div>
-                    <label>פירוט:</label>
-
-                    <select *ngIf="worker.Wo_gender==1" (change)="onSchoolNew($event)">
-                        <option selected hidden [value]="0">בחר </option>
-                        <option [value]="1">סידור בישיבה חדשה </option>
-                        <option [value]="2">החזרה לישיבה קודמת </option>
-                    </select>
-                    <select *ngIf="worker.Wo_gender==2" (change)="onSchoolNew($event)">
-                        <option selected hidden [value]="0">בחרי </option>
-                        <option [value]="1">סידור בתיכון / סמינר חדש </option>
-                        <option [value]="2">החזרה לתיכון / סמינר קודם </option>
-                    </select>
+            <div details [ngClass]="{detailsDisplay:displayForeignActivityDetails}">
+                <div titleOfDetails>פרטי פעילות חוץ</div>
+                <div contectAll>
+                    <div>
+                        <label>פירוט:</label>
+                        <select (change)="selectSubCategoryOut($event)">
+                            <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
+                            <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
+                            <option *ngFor="let s of listSubCategoryOut" [selected]="s.SFTA_code==codeSubCategoryOut"
+                                [value]="s.SFTA_name">{{s.SFTA_name}}</option>
+                            <option [value]="-1">אחר</option>
+                        </select>
+                        <label *ngIf="displaySubCategoryOut">
+                            <input type="text" placeholder="אחר" (input)="onInputChangeSearchOut($event)" [value]="out">
+                            <button buttomAddStudent (click)="addSubCategory(6,out)">הוסף</button>
+                        </label>
+                    </div>
+                    <div>
+                        <label>מחיר</label>
+                        <input type="number" money (input)="onInputChangePrice($event)">
+                        <label shach> ₪ </label>
+                    </div>
                 </div>
-                <div>
-                    <label *ngIf="worker.Wo_gender==1">שם ישיבה</label>
-                    <label *ngIf="worker.Wo_gender==2">שם תיכון / סמינר</label>
+            </div>
+            <div details [ngClass]="{detailsDisplay:displaySchoolPlacementDetails}">
+                <div titleOfDetails *ngIf="worker.Wo_gender==1">פרטי שיבוץ בישיבה</div>
+                <div titleOfDetails *ngIf="worker.Wo_gender==2">פרטי שיבוץ בסמינר</div>
 
-                    <input type="text" (input)="onInputChangeNSchool($event)">
-                    <label *ngIf="validAFS_target" eror>מוגבל ל-100 תוים</label>
+                <div contectAll>
+                    <div>
+                        <label>פירוט:</label>
+
+                        <select *ngIf="worker.Wo_gender==1" (change)="onSchoolNew($event)">
+                            <option selected hidden [value]="0">בחר </option>
+                            <option [value]="1">סידור בישיבה חדשה </option>
+                            <option [value]="2">החזרה לישיבה קודמת </option>
+                        </select>
+                        <select *ngIf="worker.Wo_gender==2" (change)="onSchoolNew($event)">
+                            <option selected hidden [value]="0">בחרי </option>
+                            <option [value]="1">סידור בתיכון / סמינר חדש </option>
+                            <option [value]="2">החזרה לתיכון / סמינר קודם </option>
+                        </select>
+                    </div>
+                    <div>
+                        <label *ngIf="worker.Wo_gender==1">שם ישיבה</label>
+                        <label *ngIf="worker.Wo_gender==2">שם תיכון / סמינר</label>
+
+                        <input type="text" (input)="onInputChangeNSchool($event)">
+                        <label *ngIf="validAFS_target" eror>מוגבל ל-100 תוים</label>
+                    </div>
+
+                </div>
+            </div>
+            <div details [ngClass]="{detailsDisplay:displayProductPurchaseDetails}">
+                <div titleOfDetails>פרטי רכישת מוצר</div>
+                <div contectAll>
+                    <div>
+
+                        <label>פירוט:</label>
+
+                        <select (change)="selectSubCategoryGift($event)">
+                            <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
+                            <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
+                            <option *ngFor="let s of listSubCategoryGift" [selected]="s.SFTA_code==codeSubCategoryGift"
+                                [value]="s.SFTA_name">{{s.SFTA_name}}</option>
+                            <option [value]="-1">אחר</option>
+                        </select>
+
+                        <label *ngIf="displaySubCategoryGift">
+                            <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)"
+                                [value]="gift">
+                            <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
+                        </label>
+                    </div>
+                    <div>
+                        <label>{{" מחיר:"}}</label>
+                        <input type="number" money (input)="onInputChangePrice($event)">
+                        <label shach> ₪ </label>
+                    </div>
                 </div>
 
             </div>
-        </div>
-        <div details [ngClass]="{detailsDisplay:displayProductPurchaseDetails}">
-            <div titleOfDetails>פרטי רכישת מוצר</div>
-            <div contectAll>
-                <div>
 
-                    <label>פירוט:</label>
 
-                    <select (change)="selectSubCategoryGift($event)">
-                        <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
-                        <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
-                        <option *ngFor="let s of listSubCategoryGift" [selected]="s.SFTA_code==codeSubCategoryGift"
-                            [value]="s.SFTA_name">{{s.SFTA_name}}</option>
-                        <option [value]="-1">אחר</option>
-                    </select>
-
-                    <label *ngIf="displaySubCategoryGift">
-                        <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)" [value]="gift">
-                        <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
-                    </label>
-                </div>
-                <div>
-                    <label>{{" מחיר:"}}</label>
-                    <input type="number" money (input)="onInputChangePrice($event)">
-                    <label shach> ₪ </label>
-                </div>
-            </div>
 
         </div>
-
-
-
-    </div>
-    <br>
-    <h2 describe>תיאור פעילות בקצרה</h2>
-    <br>
-    <div boxxx>
-        <label *ngIf="!displayLearningDetails && AFS_description.length<10">מינימום 10 תוים</label>
-        <textarea (input)="onInputChangeDescription($event)" [value]="AFS_description"></textarea>
-        <label *ngIf="validAFS_description" eror>מוגבל ל-350 תוים</label>
-    </div>
-    <br>
-    <!--  <h2 uploadFiles>העלאת קבצים</h2>
+        <br>
+        <h2 describe>תיאור פעילות בקצרה</h2>
+        <br>
+        <div boxxx>
+            <label *ngIf="!displayLearningDetails && AFS_description.length<10">מינימום 10 תוים</label>
+            <textarea (input)="onInputChangeDescription($event)" [value]="AFS_description"></textarea>
+            <label *ngIf="validAFS_description" eror>מוגבל ל-350 תוים</label>
+        </div>
+        <br>
+        <!--  <h2 uploadFiles>העלאת קבצים</h2>
     <br>
     <div class="file-upload-container">
         <label for="file-upload" class="custom-file-upload">
@@ -361,30 +347,30 @@
             </div>
         </div>
     </div> -->
-    <br>
-    <br>
-    <br>
-    <button buttonTurqis buttonAddActivity *ngIf="worker.Wo_gender==1" [disabled]="!ifNotEmpty() || !validation()"
-        (click)="addActivity()">שלח
-        פעילות</button>
-    <button buttonTurqis buttonAddActivity *ngIf="worker.Wo_gender==2" [disabled]="!ifNotEmpty() || !validation()"
-        (click)="addActivity()">שלחי
-        פעילות</button>
-    <br>
-    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-    <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0  && worker.Wo_gender==1">שיתוף פעיל
-        נוסף</button>
-    <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0  && worker.Wo_gender==2">שיתוף פעילה
-        נוספת</button>
+        <br>
+        <br>
+        <br>
+        <button buttonTurqis buttonAddActivity *ngIf="worker.Wo_gender==1" [disabled]="!ifNotEmpty() || !validation()"
+            (click)="addActivity()">שלח
+            פעילות</button>
+        <button buttonTurqis buttonAddActivity *ngIf="worker.Wo_gender==2" [disabled]="!ifNotEmpty() || !validation()"
+            (click)="addActivity()">שלחי
+            פעילות</button>
+        <br>
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+        <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0  && worker.Wo_gender==1">שיתוף פעיל
+            נוסף</button>
+        <button buttonOrange [disabled]="true" *ngIf="listSelectedStudents.length>0  && worker.Wo_gender==2">שיתוף פעילה
+            נוספת</button>
+        <button *ngIf="convertToStudent(i)?.St_gender==1" buttonOrange (click)="updateStudent(convertToStudent(i))">עדכון
+            פרטים וסטטוס
+            החניך</button>
+        <button *ngIf="convertToStudent(i)?.St_gender==2" buttonOrange (click)="updateStudent(convertToStudent(i))">עדכון
+            פרטים וסטטוס
+            החניכה</button>
+        <button buttonOrange (click)="addTask()">הוספת משימת המשך</button>
 
-    <button buttonOrange *ngIf="listSelectedStudents.length==1 && worker.Wo_gender==1" (click)="updateStudent()">עדכון
-        פרטים וסטטוס
-        החניך</button>
-    <button buttonOrange *ngIf="listSelectedStudents.length==1 && worker.Wo_gender==2" (click)="updateStudent()">עדכון
-        פרטים וסטטוס
-        החניכה</button>
-    <button buttonOrange (click)="addTask()">הוספת משימת המשך</button>
-
+    </div>
     <br>
     <br>
     <br>
@@ -394,37 +380,6 @@
         [studentF]="this.listSelectedStudents[0].SFA_code_student" [workerF]="worker.Wo_code"
         [worker]="worker"></app-reports>
 
-    <!--     <div boxxx *ngIf="!this.displayGroupActivities && listSelectedStudents.length==1 ">
-        <table>
-            <thead>
-                <tr>
-                    <th>תאריך</th>
-                    <th>מהות</th>
-                    <th>תאור</th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr *ngFor="let i of listOfAcitivities let y=index">
-
-                    <td dateTable>{{i.AFS_date}}</td>
-               
-                    <td>
-                        <label *ngFor="let s of namesCategories(i.AFS_code)">
-                            <div>
-                                <label imageCategory [id]="s.CFA_code_type_activity"></label>
-                                {{nameCategory(s.CFA_code_type_activity)}}
-                            </div>
-                        </label>
-                    </td>
-
-                    <td>{{i.AFS_description}}</td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div> -->
 </div>
 <app-past-frequency [listStudent]="listOfStudents2" *ngIf="displayPopap" [codeWorker]="worker.Wo_code"
     (popupDisplayOut)="closeP($event)"></app-past-frequency>

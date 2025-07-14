@@ -15,11 +15,6 @@
     <br>
 
     <div allP nonePrint class="no-pdf">
-        <div p1>
-            <div class="find">
-                <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
-            </div>
-        </div>
         <div p2>
 
             <div iconnOtef (click)="print()" title="הדפס">
@@ -35,6 +30,12 @@
                 <button iconn upload></button>
             </div>
         </div>
+        <div p1>
+            <div class="find">
+                <input type="search" role="combobox" placeholder="חפש" (input)="onInputChange($event)">
+            </div>
+        </div>
+
     </div>
 
     <div allP2 nonePrint class="no-pdf">
@@ -118,7 +119,8 @@
                 <td (click)="display(i);" *ngIf="statusF == 0">{{nameStatus(i.St_activity_status)}}</td>
                 <td nonePrint tdB>
                     <button edit title="ערוך" (click)="edit(i);">ערוך</button>
-                    <button *ngIf="codeWorkerSelected!=0" edit project title="שייך לפרויקט" (click)="addProjectForStudent(i)">שייך לפרויקט</button>
+                    <button *ngIf="codeWorkerSelected!=0" edit project title="שייך לפרויקט"
+                        (click)="addProjectForStudent(i)">שייך לפרויקט</button>
 
                     <button iconn2 delete title="מחק" class="button"
                         (click)="delete(i.St_code,i.St_name+' '+i.St_Fname)"></button>
@@ -155,5 +157,5 @@
     (popupDisplayOut)="closePUploadExcel($event)"></app-upload-file-excel>
 
 <app-add-student-for-project [popupDisplayIn]="sAddStudentForProject" [status]="'add'" [status2]="'worker'"
-[selectedStudent]="selectedStudent"    
+    [selectedStudent]="selectedStudent"
     (popupDisplayOut)="closePAddStudentForProject($event)"></app-add-student-for-project>

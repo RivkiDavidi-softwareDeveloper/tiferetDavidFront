@@ -39,10 +39,10 @@ export class ApiService {
 /*   public urlBasisSocket = 'http://localhost:3000';
 
   private urlBasis = 'http://localhost:3000/api'; */
-  
-    public urlBasisSocket = 'https://myserver-production-c24f.up.railway.app';
 
-  private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
+      public urlBasisSocket = 'https://myserver-production-c24f.up.railway.app';
+  
+    private urlBasis = 'https://myserver-production-c24f.up.railway.app/api';
 
   //כניסה
   getLogin(name: string, password: string): Observable<any> {
@@ -72,11 +72,12 @@ export class ApiService {
   }
   //+מחזירה רשימה של כל העובדים
   //חיפוש עובד
-  public FindWorker(value: string, genderO: number, genderF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
+  public FindWorker(value: string, genderO: number, genderF: number, statusF: number, typeWO: number, typeWF: number): Observable<Array<Worker>> {
     const params = new HttpParams()
       .set('value', value.toString())
       .set('genderO', genderO.toString())
       .set('genderF', genderF.toString())
+      .set('statusF', statusF.toString())
       .set('typeWO', typeWO.toString())
       .set('typeWF', typeWF.toString());
     return this.httpp.get<Array<Worker>>(this.urlBasis + "/workers", { params });
@@ -142,13 +143,14 @@ export class ApiService {
     return this.httpp.get<Array<DifficultyStudent>>(this.urlBasis + "/difficultyStudents/OfCodeStudent", { params });
   }
   //הצגת פעילויות + חיפוש
-  public FindActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
+  public FindActivities(nameWorker: string, nameStudent: string, order: number, genderF: number, workerF: number, workerStatusF: number, studentF: number, monthF: number, yearF: number, categoryF: number): Observable<Array<Activity>> {
     const params = new HttpParams()
       .set('nameWorker', nameWorker.toString())
       .set('nameStudent', nameStudent.toString())
       .set('order', order.toString())
       .set('genderF', genderF.toString())
       .set('workerF', workerF.toString())
+      .set('workerStatusF', workerStatusF.toString())
       .set('studentF', studentF.toString())
       .set('monthF', monthF.toString())
       .set('yearF', yearF.toString())

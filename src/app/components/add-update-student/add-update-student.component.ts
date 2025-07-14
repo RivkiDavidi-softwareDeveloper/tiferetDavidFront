@@ -195,7 +195,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     }
     // this.api.getWorkers(1, this.genderF, 0, 0).subscribe(Date => {
 
-    this.api.FindWorker("", 1, this.genderF, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 1, this.genderF,0, 0, 0).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();

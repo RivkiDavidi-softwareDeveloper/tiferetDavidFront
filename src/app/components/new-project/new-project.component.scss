@@ -218,6 +218,11 @@ padding: 0px;
         width:100%;
         overflow: scroll;
         scroll-behavior: auto;
+        textarea{
+    width: 256px;
+    height: 200px;
+
+        }
     }
 }
 

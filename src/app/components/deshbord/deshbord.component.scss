@@ -105,17 +105,14 @@ $color-turqis-light: rgb(86, 191, 166);
 }
 
 [amounts1] {
-    width: 85vw;
+    width: 90vw;
     margin: auto;
-    display: flex;
+    text-align: center;
 
     [box] {
         width: 20vw;
         height: 7.5vh;
-      //  flex: 1;
-       // margin: 1.4vh 1vw 0.8vh 1vw;
-                margin: 1.4vh auto 0.8vh auto;
-
+        margin: 1.4vh 1vw 0.8vh 1vw;
         display: inline-block;
         box-shadow: 4px 7px 10px 4px rgba(186, 186, 186, 0.6);
         text-align: center;

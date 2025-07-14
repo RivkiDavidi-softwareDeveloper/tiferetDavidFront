@@ -47,6 +47,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
 
   genderO: number = 1
   genderF: number = 0
+  statusF=0
   typeWO: number = 0
   typeWF: number = 0
   order = 'מגדר'
@@ -69,7 +70,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
   onInputChange(event: Event) {
     this.searchText = (event.target as HTMLInputElement).value;
 
-    this.api.FindWorker(this.searchText, this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
+    this.api.FindWorker(this.searchText, this.genderO, this.genderF,this.statusF, this.typeWO, this.typeWF).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date)
       this.amount = this.listOfWorkers.length
@@ -95,7 +96,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
   //רשימה של עובדים
   public general(): void {
     // this.api.getWorkers(this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
-    this.api.FindWorker(this.searchText, this.genderO, this.genderF, this.typeWO, this.typeWF).subscribe(Date => {
+    this.api.FindWorker(this.searchText, this.genderO, this.genderF,this.statusF, this.typeWO, this.typeWF).subscribe(Date => {
 
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
@@ -187,9 +188,14 @@ document.head.appendChild(style);
     }
     return false;
   }
-  //סינון מצב פעילות
-  onActivityStatusSelected(event: Event) {
+  //סינון סוג עובד
+  onTypeWorkerSelected(event: Event) {
     this.typeWF = Number((event.target as HTMLInputElement).value);
+    this.general()
+  }
+    //סינון סטטוס עובד
+  onStatusWorkerSelected(event: Event) {
+    this.statusF = Number((event.target as HTMLInputElement).value);
     this.general()
   }
   //סינון מגדר
