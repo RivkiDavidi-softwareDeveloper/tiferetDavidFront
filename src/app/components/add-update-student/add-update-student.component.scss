@@ -109,7 +109,13 @@ button:active {
     position: relative;
     top: 2px;
 }
-
+button:disabled,
+button:disabled:hover {
+    color: #bbbbbb;
+    border: 2px solid #bbbbbb;
+    cursor: not-allowed;
+    background-color: white;
+}
 //כפתור סגירה
 [close] {
     width: 30px;

@@ -120,63 +120,6 @@ button:disabled:hover {
     background-color: white;
 }
 
-[buttonSelect] {
-    width: 14vw;
-    height: 6vh;
-    margin: 5px;
-    font-size: 3vh;
-}
-
-[reportPublic] {
-    border: 2px solid rgb(255, 217, 25);
-    color: rgb(255, 217, 25);
-}
-
-[reportPrivate] {
-    border: 2px solid $color-orange;
-    color: $color-orange;
-}
-
-.reportPublic {
-    background-color: rgb(255, 217, 25);
-    color: rgb(255, 255, 255);
-}
-
-.reportPrivate {
-    background-color: $color-orange;
-    color: rgb(255, 255, 255);
-}
-
-[timer0] {
-    border: 2px solid orange;
-    color: orange;
-}
-
-.timer0 {
-    background-color: orange;
-    color: rgb(255, 255, 255);
-}
-
-[timer1] {
-    border: 2px solid rgb(2, 165, 2);
-    color: rgb(2, 165, 2);
-}
-
-.timer1 {
-    background-color: rgb(2, 165, 2);
-    color: rgb(255, 255, 255);
-}
-
-[timer2] {
-    border: 2px solid rgb(3, 186, 164);
-    color: rgb(3, 186, 164);
-}
-
-.timer2 {
-    background-color: rgb(3, 186, 164);
-    color: rgb(255, 255, 255);
-}
-
 
 [buttonAddActivity] {
     width: 420px;
@@ -311,18 +254,6 @@ button:disabled:hover {
 
 .displaystudentFinish {
     background-color: rgb(0, 102, 255);
-    color: white;
-}
-
-[displayAddStudent] {
-    width: 150px;
-    background-color: white;
-    border: 2px solid rgb(1, 180, 150);
-    color: rgb(1, 180, 150)
-}
-
-.displayAddStudent {
-    background-color: rgb(1, 180, 150);
     color: white;
 }
 
@@ -630,8 +561,8 @@ input {
     margin: 30px auto;
     padding: 20px;
     flex-wrap: wrap;
-    width: 75vw;
-    max-width: 75vw;
+    width: 75%;
+    max-width: 75%;
 
     [contectAll] {
         display: flex;
@@ -883,18 +814,6 @@ label {
     [buttonAddActivity] {
         width: 200px;
 
-    }
-
-    [buttonSelect] {
-        width: 40vw;
-        font-size: 3vh;
-    }
-
-    [timer0],
-    [timer1],
-    [timer2] {
-        width: 36vw;
-        font-size: 2.4vh;
     }
 
     .otefContinueReport {

@@ -47,7 +47,7 @@ export class DisplayWorkersComponent implements OnInit,OnDestroy {
 
   genderO: number = 1
   genderF: number = 0
-  statusF=0
+  statusF=1
   typeWO: number = 0
   typeWF: number = 0
   order = 'מגדר'

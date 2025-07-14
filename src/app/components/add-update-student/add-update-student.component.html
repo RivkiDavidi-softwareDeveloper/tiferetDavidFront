@@ -84,7 +84,9 @@
                 <label eror *ngIf="validNameF">מוגבל ל-20 תוים</label>
             </div>
             <div ca>
-                <label>*ת.ז</label>
+                <label>ת.ז</label>
+<!--                                 <label>*ת.ז</label>
+ -->
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeID($event)"
                     [ngClass]="{'borderInputGreen':St_ID.length>0 && !validId,'borderInputRed':validId}">
                 <input type="text" *ngIf="status === 'update'" value="{{studentUpdate.St_ID}}"
@@ -613,9 +615,9 @@
             </div>
         </div>
         <br>
-        <button *ngIf="status === 'add'" save (click)="add()">שמור</button>
+        <button *ngIf="status === 'add'" save [disabled]="!validationAdd()"  (click)="add()">שמור</button>
 
-        <button *ngIf="status === 'update' && status2 != 'addFromSharer'" save (click)="update()">עדכן</button>
+        <button *ngIf="status === 'update' && status2 != 'addFromSharer'" [disabled]="!validationUpdate()"  save (click)="update()">עדכן</button>
         <button *ngIf="status2 === 'addFromSharer'" save (click)="update()">שמור</button>
 
         <app-loading-spinner *ngIf="loading"></app-loading-spinner>

@@ -111,7 +111,9 @@
                     </div>
                 </td>
                 <td class="bold" (click)="display(i);">{{i.St_Fname+" "+i.St_name}}</td>
-                <td (click)="display(i);">{{i.St_ID}}</td>
+                <td (click)="display(i);" *ngIf="i.St_ID.length>0">{{i.St_ID}}</td>
+                <td red (click)="display(i);"*ngIf="i.St_ID==null || i.St_ID.length==0">חובה להשלים פרטים</td>
+
                 <td (click)="display(i);" *ngIf="workerF == -1">{{worker(i.St_worker_code)}}</td>
                 <td (click)="display(i);">{{i.St_contact}}</td>
                 <td (click)="display(i);">{{i.St_contact_phone}}</td>

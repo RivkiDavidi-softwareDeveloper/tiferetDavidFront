@@ -3,29 +3,41 @@
         <button class="close" (click)="close();cb1=true;cb2=false;cb3=true;cb4=false">x</button>
         <h2 *ngIf="status === 'add'">הוספת עובד</h2>
         <h2 *ngIf="status === 'update'">עדכון עובד</h2>
-        
+
 
         <div allChose>
             <div chose>
-                <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}" (click)="cb1=true;cb2=false">בן</button>
-                <button choseButton *ngIf="status === 'add'" cb2 [ngClass]="{cb2:cb2}" (click)="cb2=true;cb1=false">בת</button>
+                <button choseButton *ngIf="status === 'add'" cb1 [ngClass]="{cb1:cb1}"
+                    (click)="cb1=true;cb2=false">בן</button>
+                <button choseButton *ngIf="status === 'add'" cb2 [ngClass]="{cb2:cb2}"
+                    (click)="cb2=true;cb1=false">בת</button>
 
-                <button choseButton *ngIf="status === 'update'" cb1 [ngClass]="{cb1:workerUpdate.Wo_gender==1}" (click)="cb1=true;cb2=false;workerUpdate.Wo_gender=1;">בן</button>
-                <button choseButton *ngIf="status === 'update'" cb2 [ngClass]="{cb2:workerUpdate.Wo_gender==2}" (click)="cb2=true;cb1=false;workerUpdate.Wo_gender=2;">בת</button>
+                <button choseButton *ngIf="status === 'update'" cb1 [ngClass]="{cb1:workerUpdate.Wo_gender==1}"
+                    (click)="cb1=true;cb2=false;workerUpdate.Wo_gender=1;">בן</button>
+                <button choseButton *ngIf="status === 'update'" cb2 [ngClass]="{cb2:workerUpdate.Wo_gender==2}"
+                    (click)="cb2=true;cb1=false;workerUpdate.Wo_gender=2;">בת</button>
             </div>
             <div chose>
-                <button choseButton *ngIf="status === 'add'" cb3 [ngClass]="{cb3:cb3}" (click)="cb3=true;cb4=false">פעיל</button>
-                <button choseButton *ngIf="status === 'add'" cb4 [ngClass]="{cb4:cb4}" (click)="cb4=true;cb3=false">חונך</button>
-        
-                <button choseButton *ngIf="status === 'update'" cb3 [ngClass]="{cb3:workerUpdate.Wo_type_worker==1}" (click)="cb3=true;cb4=false;workerUpdate.Wo_type_worker=1">פעיל</button>
-                <button choseButton *ngIf="status === 'update'" cb4 [ngClass]="{cb4:workerUpdate.Wo_type_worker==2}" (click)="cb4=true;cb3=false;workerUpdate.Wo_type_worker=2">חונך</button>
+                <button choseButton *ngIf="status === 'add'" cb3 [ngClass]="{cb3:cb3}"
+                    (click)="cb3=true;cb4=false">פעיל</button>
+                <button choseButton *ngIf="status === 'add'" cb4 [ngClass]="{cb4:cb4}"
+                    (click)="cb4=true;cb3=false">חונך</button>
+
+                <button choseButton *ngIf="status === 'update'" cb3 [ngClass]="{cb3:workerUpdate.Wo_type_worker==1}"
+                    (click)="cb3=true;cb4=false;workerUpdate.Wo_type_worker=1">פעיל</button>
+                <button choseButton *ngIf="status === 'update'" cb4 [ngClass]="{cb4:workerUpdate.Wo_type_worker==2}"
+                    (click)="cb4=true;cb3=false;workerUpdate.Wo_type_worker=2">חונך</button>
             </div>
-             <div chose>
-                <button choseButton *ngIf="status === 'add'" cb5 [ngClass]="{cb5:cb5}" (click)="cb5=true;cb6=false">פעיל כיום</button>
-                <button choseButton *ngIf="status === 'add'" cb6 [ngClass]="{cb6:cb6}" (click)="cb6=true;cb5=false">פעיל בעבר</button>
-        
-                <button choseButton *ngIf="status === 'update'" cb5 [ngClass]="{cb5:workerUpdate.Wo_status_code==1}" (click)="cb5=true;cb6=false;workerUpdate.Wo_status_code=1">פעיל כיום</button>
-                <button choseButton *ngIf="status === 'update'" cb6 [ngClass]="{cb6:workerUpdate.Wo_status_code==2}" (click)="cb6=true;cb5=false;workerUpdate.Wo_status_code=2">פעיל בעבר</button>
+            <div chose>
+                <button choseButton *ngIf="status === 'add'" cb5 [ngClass]="{cb5:cb5}" (click)="cb5=true;cb6=false">פעיל
+                    כיום</button>
+                <button choseButton *ngIf="status === 'add'" cb6 [ngClass]="{cb6:cb6}" (click)="cb6=true;cb5=false">פעיל
+                    בעבר</button>
+
+                <button choseButton *ngIf="status === 'update'" cb5 [ngClass]="{cb5:workerUpdate.Wo_status_code==1}"
+                    (click)="cb5=true;cb6=false;workerUpdate.Wo_status_code=1">פעיל כיום</button>
+                <button choseButton *ngIf="status === 'update'" cb6 [ngClass]="{cb6:workerUpdate.Wo_status_code==2}"
+                    (click)="cb6=true;cb5=false;workerUpdate.Wo_status_code=2">פעיל בעבר</button>
             </div>
         </div>
         <label gray>השדות המסומנים ב* הם שדות חובה</label>
@@ -33,23 +45,28 @@
         <div contectAll>
             <div ca>
                 <label>*שם פרטי</label>
-                <input type="text" *ngIf="status === 'add'"  (input)="onInputChangeN($event)">
-                <input type="text" *ngIf="status === 'update'"  value="{{workerUpdate.Wo_name}}" (input)="onInputChangeN($event)">
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeN($event)">
+                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_name}}"
+                    (input)="onInputChangeN($event)">
                 <label eror *ngIf="validNane">מוגבל ל-20 תוים</label>
 
             </div>
             <div ca>
                 <label>*שם משפחה</label>
-                <input type="text" *ngIf="status === 'add'"  (input)="onInputChangeNF($event)">
-                <input type="text" *ngIf="status === 'update'"   value="{{workerUpdate.Wo_Fname}}" (input)="onInputChangeNF($event)">
+                <input type="text" *ngIf="status === 'add'" (input)="onInputChangeNF($event)">
+                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_Fname}}"
+                    (input)="onInputChangeNF($event)">
 
                 <label eror *ngIf="validNameF">מוגבל ל-20 תוים</label>
 
             </div>
             <div ca>
-                <label>*ת.ז</label>
+                <label>ת.ז</label>
+<!--                 <label>*ת.ז</label>
+ -->
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeID($event)">
-                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_ID}}" (input)="onInputChangeID($event)">
+                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_ID}}"
+                    (input)="onInputChangeID($event)">
 
                 <label eror *ngIf="validId">הכנס ת.ז תקינה</label>
 
@@ -57,29 +74,35 @@
             <div ca>
                 <label>*סיסמא</label>
                 <input type="text" *ngIf="status === 'add'" value="{{password}}" (input)="onInputChangePS($event)">
-                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_password}}" (input)="onInputChangePS($event)">
+                <input type="text" *ngIf="status === 'update'" value="{{workerUpdate.Wo_password}}"
+                    (input)="onInputChangePS($event)">
                 <label eror *ngIf="validPassword">הסיסמא צריכה להכיל 4 תוים</label>
 
             </div>
 
             <div ca>
-                <label>*מס פלאפון</label>
-                <input type="tel" *ngIf="status === 'add'"  (input)="onInputChangePL($event)">
-                <input type="tel" *ngIf="status === 'update'"  value="{{workerUpdate.Wo_cell_phone}}" (input)="onInputChangePL($event)">
+<!--                 <label>*מס פלאפון</label>
+ -->                                <label>מס פלאפון</label>
+
+                <input type="tel" *ngIf="status === 'add'" (input)="onInputChangePL($event)">
+                <input type="tel" *ngIf="status === 'update'" value="{{workerUpdate.Wo_cell_phone}}"
+                    (input)="onInputChangePL($event)">
                 <label eror *ngIf="validTel">הכנס מס' תקין</label>
             </div>
             <div ca>
                 <label>אימייל</label>
-                <input type="email"*ngIf="status === 'add'"  (input)="onInputChangeEM($event)">
-                <input type="email" *ngIf="status === 'update'"  value="{{workerUpdate.Wo_email}}" (input)="onInputChangeEM($event)">
+                <input type="email" *ngIf="status === 'add'" (input)="onInputChangeEM($event)">
+                <input type="email" *ngIf="status === 'update'" value="{{workerUpdate.Wo_email}}"
+                    (input)="onInputChangeEM($event)">
                 <label eror *ngIf="validEmail">הכנס מייל תקין</label>
 
             </div>
         </div>
         <br>
-        <button *ngIf="status === 'add'" save (click)="add()">שמור</button>
-        <button *ngIf="status === 'update'"  save (click)="update()">עדכן</button>
+        <button *ngIf="status === 'add'" save [disabled]="!validation()" (click)="add()">שמור</button>
+        <button *ngIf="status === 'update'" save [disabled]="!validation2()"  (click)="update()">עדכן</button>
 
-<!--         <div>{{sec}}</div>
- -->    </div>
+        <!--         <div>{{sec}}</div>
+ -->
+    </div>
 </div>

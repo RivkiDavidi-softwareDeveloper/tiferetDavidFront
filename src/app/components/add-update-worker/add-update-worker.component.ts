@@ -143,8 +143,11 @@ export class AddUpdateWorkerComponent {
   }
   //בודקת את תקינות כל הינפוטים
   validation(): boolean {
-    return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail && this.Wo_ID.length > 0
-      && this.Wo_name.length > 0 && this.Wo_Fname.length > 0 && this.Wo_password.length > 0 && this.Wo_cell_phone.length > 0;
+    return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail 
+      && this.Wo_name.length > 0 && this.Wo_Fname.length > 0 && this.Wo_password.length > 0 ;
+   /*שינוי שדות חובה לצורך הרצה
+     return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail && this.Wo_ID.length > 0
+      && this.Wo_name.length > 0 && this.Wo_Fname.length > 0 && this.Wo_password.length > 0 && this.Wo_cell_phone.length > 0; */
   }
   validation2(): boolean {
     return !this.validPassword && !this.validNane && !this.validNameF && !this.validId && !this.validTel && !this.validEmail;
@@ -218,7 +221,7 @@ export class AddUpdateWorkerComponent {
       if (this.Wo_email.length == 0) {
         this.Wo_email = this.workerUpdate.Wo_email
       }
-    
+
       const workerUpdate: Worker = new Worker(this.workerUpdate.Wo_code, this.Wo_ID, this.workerUpdate.Wo_gender, this.workerUpdate.Wo_type_worker,
         this.Wo_name, this.Wo_Fname, this.Wo_password, this.Wo_cell_phone, this.Wo_email, this.workerUpdate.Wo_status_code);
       await new Promise<void>((resolve, reject) => {
