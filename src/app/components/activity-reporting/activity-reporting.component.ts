@@ -99,7 +99,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     //inputValue = 'משתתף חד פעמי';
 
 
-    displayTimeTimer = 0
+    displayTimeTimer = 1
     displayGroupActivities = false;       //פעילות קבוצתית
     displayallList = false        //כל החנכים  
     displaystudentActive = true  //רק פעילים    
@@ -111,6 +111,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     displayBeforeYesterday = false    //שלשום
 
     displayFileUpload = false //האם להציג אפשרות להוספת קבצים
+    displayM5 = false;
     displayM10 = false
     displayM20 = false
     displayM30 = false
@@ -172,7 +173,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        /* this.api.DeleteActi().subscribe(
+  /*       this.api.DeleteActi().subscribe(
                   (response) => {
                     this.snackBar.open('!הפעילויות נמחק בהצלחה', 'x', { duration: 3000 });
                   },
@@ -185,6 +186,8 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
             this.generalStudents(1);
             resolve(); // מסמן שהפעולה הושלמה
         });
+        this.onTimerSelected(1)
+
         this.connectSocket()
         //this.generalStudents2()
         // קוד לביצוע מחיקה
@@ -392,29 +395,29 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
     onStudentSelected(event: Event) {
         const codeStuent = Number((event.target as HTMLInputElement).value);
         if (this.displayGroupActivities) {
-            const studentForActivity: StudentForActivity = new StudentForActivity(0,0, codeStuent)
+            const studentForActivity: StudentForActivity = new StudentForActivity(0, 0, codeStuent,undefined)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
         }
         else {
             this.listSelectedStudents = [];
-            const studentForActivity: StudentForActivity = new StudentForActivity(0,0, codeStuent)
+            const studentForActivity: StudentForActivity = new StudentForActivity(0, 0, codeStuent,undefined)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
         }
     }
     //בחירת חניך מהתמונות
     selectStudentBoxAdd(codeStuent: number) {
-        console.log("חניך"+codeStuent)
+        console.log("חניך" + codeStuent)
         if (this.displayGroupActivities) {
-            const studentForActivity: StudentForActivity = new StudentForActivity(0,0, codeStuent)
+            const studentForActivity: StudentForActivity = new StudentForActivity(0, 0, codeStuent,undefined)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
 
         }
         else {
-            this.listSelectedStudents = [];
-            const studentForActivity: StudentForActivity = new StudentForActivity(0,0, codeStuent)
+            this.listSelectedStudents = []
+            const studentForActivity: StudentForActivity = new StudentForActivity(0, 0, codeStuent,undefined)
             this.listSelectedStudents.push(studentForActivity)
             this.cdRef.detectChanges();
             /*    this.generalActivities()
@@ -439,8 +442,7 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
 
     //בחירת מונה
-    onTimerSelected(num: number) {
-        const codeTimer = num
+    onTimerSelected(codeTimer: number) {
         this.displayTimeTimer = codeTimer;
         //מונה זמן או מונה דרך
         if (codeTimer == 1 || codeTimer == 2) {

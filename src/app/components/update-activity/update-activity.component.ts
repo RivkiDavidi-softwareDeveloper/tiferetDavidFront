@@ -6,18 +6,15 @@ import { StudentComponent } from "../student/student.component";
 import { Student } from '../../models/student.class';
 import { Worker } from '../../models/worker.class';
 import { ApiService } from '../../services/api.service';
-import { Parentt } from '../../models/parent.class';
 import { Activity } from '../../models/activity.class';
 import { StudentForActivity } from '../../models/studentForActivity.class';
 import { CategoriesForActivity } from '../../models/categoriesForActivity.class';
-import { StudiesForStudent } from '../../models/studiesForStudent.class';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PastFrequencyComponent } from "../past-frequency/past-frequency.component";
 import { SubcategoryForTypeActivity } from '../../models/subcategoryForTypeActivity.class';
 import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
 import { FileUploadComponent } from "../file-upload/file-upload.component";
-import { AddActivityRequest } from '../../models/AddActivityRequest.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
 import { TaskComponent } from "../task/task.component";
 import { response } from 'express';
@@ -89,14 +86,15 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   selectedStudent2: StudentForActivity | undefined
   //תאריך וטטימר
   @Input() selectedDate: Date = new Date(); // התאריך הנוכחי כברירת מחדל
-  @Input() minutes = 0;
-  @Input() kilomet = 0
-  @Input() exit = ""
-  @Input() target = ""
+  /*   @Input() minutes = 0;
+    @Input() kilomet = 0
+    @Input() exit = ""
+    @Input() target = ""
+     */
   minutesCC = 0;
 
-  @Input() time: Date = new Date();
-
+  /*   @Input() time: Date = new Date();
+   */
   codeSubCategoryOut = 0;
   codeSubCategoryGift = 0;
 
@@ -122,22 +120,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   @Input() displayBeforeYesterday = false    //שלשום
 
   displayFileUpload = false //האם להציג אפשרות להוספת קבצים
-  displayM10 = false
-  displayM20 = false
-  displayM30 = false
-  displayM40 = false
-  displayM50 = false
-
-  displayH1 = false
-  displayH2 = false
-  displayH3 = false
-  displayH4 = false
-
-  displayNesuChoose1 = false
-  displayNesuChoose2 = true
-  displayNesuChoose3 = false
-  displayNesuChoose4 = false
-  displayNesuChoose5 = false
 
   //הוספת פעילות
   AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
@@ -463,78 +445,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     });
     return d;
   }
-  //בחירת חניך מהרשימה
-  onStudentSelected(event: Event) {
-    const codeStuent = Number((event.target as HTMLInputElement).value);
-    if (this.displayGroupActivities) {
-      const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
-      this.listSelectedStudents.push(studentForActivity)
-      this.cdRef.detectChanges();
-    }
-    else {
-      this.listSelectedStudents = [];
-      const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
-      this.listSelectedStudents.push(studentForActivity)
-      this.cdRef.detectChanges();
-    }
-  }
-  //בחירת חניך מהתמונות
-  selectStudentBoxAdd(codeStuent: number) {
-    if (this.displayGroupActivities) {
-      const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
-      this.listSelectedStudents.push(studentForActivity)
-      this.cdRef.detectChanges();
-
-    }
-    else {
-      this.listSelectedStudents = [];
-      const studentForActivity: StudentForActivity = new StudentForActivity(1, 1, codeStuent)
-      this.listSelectedStudents.push(studentForActivity)
-      this.cdRef.detectChanges();
-    }
-
-  }
-  selectStudentBoxDelete(codeStuent: number) {
-    this.listSelectedStudents.forEach((s, index) => {
-      if (s.SFA_code_student === codeStuent) {
-        this.listSelectedStudents.splice(index, 1);
-
-      }
-    });
-    this.cdRef.detectChanges();
-  }
-  convertToStudent(student: StudentForActivity) {
-    return this.listOfStudents.find(s => s.St_code == student.SFA_code_student)
-  }
-  group() {
-    if (this.displayGroupActivities) {
-      this.displayNesuChoose1 = true
-      this.displayNesuChoose2 = false
-      this.displayNesuChoose3 = false
-      this.displayNesuChoose4 = false
-      this.displayNesuChoose5 = false
-      this.AFS_with_who = "קבוצתית"
-      this.displayActivityGroupDetails = true
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 8)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.displayNesuChoose1 = false
-      this.displayNesuChoose2 = true
-      this.displayNesuChoose3 = false
-      this.displayNesuChoose4 = false
-      this.displayNesuChoose5 = false
-      this.AFS_with_who = "עם הבחור"
-      this.displayActivityGroupDetails = false
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 8) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-      this.listSelectedStudents = [];
-    }
-    this.cdRef.detectChanges();
-  }
 
 
   //בחירת תאריך
@@ -543,7 +453,7 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.displayToday = true
     this.displayYesterday = false
     this.displayBeforeYesterday = false
-    this.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
+    this.updateActivity.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
 
   }
   yesterday() {
@@ -554,7 +464,7 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.displayToday = false
     this.displayYesterday = true
     this.displayBeforeYesterday = false
-    this.AFS_date = `${yesterday.getFullYear()}-${(yesterday.getMonth() + 1).toString().padStart(2, '0')}-${yesterday.getDate().toString().padStart(2, '0')}`;
+    this.updateActivity.AFS_date = `${yesterday.getFullYear()}-${(yesterday.getMonth() + 1).toString().padStart(2, '0')}-${yesterday.getDate().toString().padStart(2, '0')}`;
   }
   beforeYesterday() {
     const today = new Date(); // תאריך היום
@@ -564,41 +474,41 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.displayToday = false
     this.displayYesterday = false
     this.displayBeforeYesterday = true
-    this.AFS_date = String(yesterday);
-    this.AFS_date = `${yesterday.getFullYear()}-${(yesterday.getMonth() + 1).toString().padStart(2, '0')}-${yesterday.getDate().toString().padStart(2, '0')}`;
+    this.updateActivity.AFS_date = String(yesterday);
+    this.updateActivity.AFS_date = `${yesterday.getFullYear()}-${(yesterday.getMonth() + 1).toString().padStart(2, '0')}-${yesterday.getDate().toString().padStart(2, '0')}`;
 
   }
   onInputChangeDate(event: Event) {
     const date: string = (event.target as HTMLInputElement).value
-    this.AFS_date = date;
+    this.updateActivity.AFS_date = date;
     this.displayToday = false
     this.displayYesterday = false
     this.displayBeforeYesterday = false
   }
 
   //יצוג שעה    
-  formatTime(selectedDate: Date | undefined): string {
-    if (selectedDate) {
-      const hours = selectedDate.getHours().toString().padStart(2, '0'); // מקבל את השעות וממלא ב-0 במידה ונדרש
-      const minutes2 = selectedDate.getMinutes().toString().padStart(2, '0'); // מקבל את הדקות וממלא ב-0 במידה ונדרש
+  formatTime(): string {
+    if (this.selectedDate) {
+      const hours = this.selectedDate.getHours().toString().padStart(2, '0'); // מקבל את השעות וממלא ב-0 במידה ונדרש
+      const minutes2 = this.selectedDate.getMinutes().toString().padStart(2, '0'); // מקבל את הדקות וממלא ב-0 במידה ונדרש
       return `${hours}:${minutes2}`;
     }
     return ""
-
   }
   //בחירת זמן דקות
   minutesSelected(m: number) {
-    this.time.setMinutes(m);
-    this.minutesCC = this.time.getHours() * 60 + this.time.getMinutes();
-    this.AFS_activity_time = this.minutesCC;
+    this.selectedDate.setMinutes(m);
+    this.minutesCC = this.selectedDate.getHours() * 60 + this.selectedDate.getMinutes();
+    this.updateActivity.AFS_activity_time = this.minutesCC;
 
   }
   //בחירת זמן שעות
   hoursSelected(h: number) {
-    this.time.setHours(h);
-    this.minutesCC = this.time.getHours() * 60 + this.time.getMinutes();
-    this.AFS_activity_time = this.minutesCC;
+    this.selectedDate.setHours(h);
+    this.minutesCC = this.selectedDate.getHours() * 60 + this.selectedDate.getMinutes();
+    this.updateActivity.AFS_activity_time = this.minutesCC;
   }
+
   //לחיצה על הינפוט של השעות
   onInputChangeTime(event: Event) {
     const timeValue: string = (event.target as HTMLInputElement).value;
@@ -606,17 +516,17 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     const hours: number = parseInt(timeParts[0], 10); // ממיר את מחרוזת השעות למספר שלם
     const minutes: number = parseInt(timeParts[1], 10); // ממיר את מחרוזת הדקות למספר שלם
     this.minutesCC = hours * 60 + minutes;
-    this.AFS_activity_time = this.minutesCC;
+    this.updateActivity.AFS_activity_time = this.minutesCC;
+    this.selectedDate.setHours(hours);
+    this.selectedDate.setMinutes(minutes);
 
-    this.displayM10 = false; this.displayM20 = false; this.displayM30 = false; this.displayM40 = false; this.displayM50 = false;
-    this.displayH1 = false; this.displayH2 = false; this.displayH3 = false; this.displayH4 = false;
   }
 
   //בחירת נשוא
   onInputChangeNesu(event: Event) {
     const nesu: string = (event.target as HTMLInputElement).value;
     if (nesu.length <= 40) {
-      this.AFS_with_who = nesu;
+      this.updateActivity.AFS_with_who = nesu;
       this.validAFS_with_who = false;
     }
     else {
@@ -771,11 +681,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     const km = Number((event.target as HTMLInputElement).value);
     this.updateActivity.AFS_kilometer = km;
   }
-  //מילוי חניך נוסף לנסיעה
-  onStudentSelected2(event: Event) {
-    const codeStuent = Number((event.target as HTMLInputElement).value);
-    this.selectedStudent2 = new StudentForActivity(1, 1, codeStuent)
-  }
   //מילוי שם ישיבה 
   onInputChangeNSchool(event: Event) {
     const name: string = (event.target as HTMLInputElement).value;
@@ -917,49 +822,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  //הוספת חניך חד פעמי
-  async addStudentF() {
-    this.loading = true
-
-    if (this.validation2()) {
-      this.addStudent.St_gender = this.worker.Wo_gender;
-      this.addStudent.St_worker_code = this.worker.Wo_code;
-      const parentFAdd = new Parentt(1, "", "", "", "");
-      const parentMAdd = new Parentt(1, "", "", "", "");;
-      const studiesAdd = new StudiesForStudent(1, 1, "", "", "", "", "", "");
-      const dataStudentAdd = { data: [this.addStudent, parentFAdd, parentMAdd, [], studiesAdd] }
-
-      //הוספת חניך
-      await new Promise<void>((resolve, reject) => {
-
-        this.api.AddStudent(this.addStudent).subscribe(
-          (response) => {
-            this.addStudent.St_code = response
-            this.loading = false
-            this.generalStudents(2);
-            this.selectStudentBoxAdd(this.addStudent.St_code)
-            this.snackBar.open('!נוסף בהצלחה', '', { duration: 3000 });
-            resolve();
-
-          },
-          (error) => {
-            this.loading = false
-            resolve();
-
-
-          });
-      });
-      this.addStudent = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "");
-
-
-    }
-    else {
-      this.snackBar.open('!הפרטים שגויים', '', { duration: 3000 });
-    }
-
-  }
-
   //אחרי השמירה ניקוי
   empty() {
 
@@ -971,9 +833,8 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     //תאריך וטטימר
     this.selectedDate = new Date(); // התאריך הנוכחי כברירת מחדל
     this.minutesCC = 0;
-    this.minutes = 0;
 
-    this.time = new Date();;
+    //this.time = new Date();;
     //inputValue = 'משתתף חד פעמי';
     //דגלים להצגת פרטי פעילות
     this.displayFhoneDetails = false
@@ -995,23 +856,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.displayYesterday = false      //אתמול
     this.displayBeforeYesterday = false    //שלשום
 
-    this.displayM10 = false
-    this.displayM20 = false
-    this.displayM30 = false
-    this.displayM40 = false
-    this.displayM50 = false
-
-    this.displayH1 = false
-    this.displayH2 = false
-    this.displayH3 = false
-    this.displayH4 = false
-
-    this.displayNesuChoose1 = false
-    this.displayNesuChoose2 = true
-    this.displayNesuChoose3 = false
-    this.displayNesuChoose4 = false
-    this.displayNesuChoose5 = false
-
     this.AFS_date = `${this.selectedDate.getFullYear()}-${(this.selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${this.selectedDate.getDate().toString().padStart(2, '0')}`;
     this.AFS_activity_time = 0
     this.AFS_with_who = "עם הבחור"
@@ -1029,8 +873,10 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.validAFS_target = false
     this.validAFS_name_school = false
 
-    this.time.setHours(0);
-    this.time.setMinutes(0);
+    /*     this.time.setHours(0);
+        this.time.setMinutes(0); */
+    this.selectedDate.setHours(0);
+    this.selectedDate.setMinutes(0);
     //תיאור פעילות
     this.AFS_description = ""
     //ריקון רשימת הקבצים להעלאה

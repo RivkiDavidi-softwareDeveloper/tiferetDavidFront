@@ -130,24 +130,25 @@
         <br>
         <label>בדקות</label>
         <br>
-
+        <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM5}"
+            (click)="displayM5=true;displayM10=false;displayM20=false;displayM30=false;displayM40=false;displayM50=false;minutesSelected(5)">5</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM10}"
-            (click)="displayM10=true;displayM20=false;displayM30=false;displayM40=false;displayM50=false;minutesSelected(10)">10</button>
+            (click)="displayM5=false;displayM10=true;displayM20=false;displayM30=false;displayM40=false;displayM50=false;minutesSelected(10)">10</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM20}"
-            (click)="displayM10=false;displayM20=true;displayM30=false;displayM40=false;displayM50=false;minutesSelected(20)">20</button>
+            (click)="displayM5=false;displayM10=false;displayM20=true;displayM30=false;displayM40=false;displayM50=false;minutesSelected(20)">20</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM30}"
-            (click)="displayM10=false;displayM20=false;displayM30=true;displayM40=false;displayM50=false;minutesSelected(30)">30</button>
+            (click)="displayM5=false;displayM10=false;displayM20=false;displayM30=true;displayM40=false;displayM50=false;minutesSelected(30)">30</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM40}"
-            (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=true;displayM50=false;minutesSelected(40)">40</button>
+            (click)="displayM5=false;displayM10=false;displayM20=false;displayM30=false;displayM40=true;displayM50=false;minutesSelected(40)">40</button>
         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM50}"
-            (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=false;displayM50=true;minutesSelected(50)">50</button>
+            (click)="displayM5=false;displayM10=false;displayM20=false;displayM30=false;displayM40=false;displayM50=true;minutesSelected(50)">50</button>
         <br>
 
     </div>
     <app-activity-reporting-for-student *ngFor="let s of listSelectedStudents" [studentSelected]="convertToStudent(s)"
         [worker]="worker" [AFS_activity_time]="AFS_activity_time" [AFS_date]="AFS_date" [AFS_exit]="AFS_exit"
         [AFS_kilometer]="AFS_kilometer" [AFS_target]="AFS_target" [selectedDate]="selectedDate"
-        [displayGroup]="displayGroupActivities"
+        [displayGroup]="displayGroupActivities" [amountGroup]="listSelectedStudents.length"
         (editStudent)="updateStudent($event)"></app-activity-reporting-for-student>
 
     <br>

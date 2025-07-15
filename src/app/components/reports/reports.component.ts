@@ -24,8 +24,8 @@ import { UpdateActivityComponent } from "../update-activity/update-activity.comp
 
 export class ReportsComponent implements OnInit, OnDestroy {
   //מכנית פעילים
-  @Input() status="system"
-  @Input() worker=new Worker(-1,"",1,1,"","","","","",1)
+  @Input() status = "system"
+  @Input() worker = new Worker(-1, "", 1, 1, "", "", "", "", "", 1)
   //עדכון
   sUpdateActivity = false;
   @Input() updateActivity: Activity = new Activity(-1, 1, "", 1, "", "", "", 1, "", "", 1, "", [], [])
@@ -45,9 +45,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
   monthes: Array<string> = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
   order = 1
   genderF = 0
- @Input() workerF = -1
- @Input() workerStatusF=1
-@Input()  studentF = -1
+  @Input() workerF = -1
+  @Input() workerStatusF = 1
+  @Input() studentF = -1
   monthF = 0
   yearF = 0
   categoryF = 0
@@ -88,7 +88,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
   //רשימת הפעילויות
   generalActivities() {
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF,this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -98,7 +98,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
   //רשימה של פעילים
   generalWorkers() {
-    this.api.FindWorker("", 0, this.genderF,this.workerStatusF, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 0, this.genderF, this.workerStatusF, 0, 0).subscribe(Date => {
 
       this.listOfWorkers = [];
       this.listOfWorkers.push(...Date);
@@ -134,7 +134,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     var name = "";
     this.listOfWorkers.forEach(w => {
       if (w.Wo_code == codeWorker) {
-        name = w.Wo_name + " " + w.Wo_Fname;
+        name = w.Wo_Fname + " " + w.Wo_name;
       }
     });
     return name;
@@ -181,7 +181,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     var name = "";
     this.listOfStudent.forEach(s => {
       if (s.St_code == codeStudent) {
-        name = s.St_name + " " + s.St_Fname;
+        name = s.St_Fname + " " + s.St_name;
       }
     });
     return name;
@@ -355,7 +355,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
     this.generalActivities();
     this.generalStudent();
   }
-    //סינון סטטוס פעיל
+  //סינון סטטוס פעיל
   onSelectedWorkerStatusF(event: Event) {
     const code = Number((event.target as HTMLInputElement).value);
     this.workerStatusF = code;
@@ -439,7 +439,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   //חיפוש עובד
   onInputChangeSearchWorker(event: Event) {
     this.searchTextWorker = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.workerStatusF,this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -453,7 +453,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   //חיפוש חניך
   onInputChangeSearchStudent(event: Event) {
     this.searchTextStudent = (event.target as HTMLInputElement).value;
-    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF,this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
+    this.api.FindActivities(this.searchTextWorker, this.searchTextStudent, this.order, this.genderF, this.workerF, this.workerStatusF, this.studentF, this.monthF, this.yearF, this.categoryF).subscribe(Date => {
       this.listOfAcitivities = [];
       this.listOfAcitivities.push(...Date);
       this.cdRef.detectChanges();
@@ -496,8 +496,10 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
       let hours = (Math.floor(activity.AFS_activity_time / 60));
       let minutes = (activity.AFS_activity_time % 60);
-      this.time.setHours(hours);
-      this.time.setMinutes(minutes);
+/*       this.time.setHours(hours);
+      this.time.setMinutes(minutes); */
+       this.selectedDate.setHours(hours);
+      this.selectedDate.setMinutes(minutes); 
       resolve()
     });
     const today = new Date();

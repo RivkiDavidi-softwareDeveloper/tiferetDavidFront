@@ -4,12 +4,6 @@
         <div class="all">
             <h1 titleB> עדכון פעילות</h1>
             <h1 titleB> האפשרות עדיין בבניה...</h1>
-
-            <!--         <h2 chooseStudent *ngIf="worker.Wo_gender==1">בחירת חניך</h2>
-            <h2 chooseStudent *ngIf="worker.Wo_gender==2">בחירת חניכה</h2>
- -->
-            <br>
-
             <div boxxx>
                 <!--
                 <button (click)="displayGroupActivities=!displayGroupActivities;group()"
@@ -82,26 +76,14 @@
                     </select> 
                 </div>-->
                 <br>
+                <label labelStudentSelected *ngIf=" worker.Wo_gender==1">חניך</label>
+                <label labelStudentSelected *ngIf=" worker.Wo_gender==2">חניכה</label>
 
-                <label labelStudentSelected *ngIf="displayGroupActivities && worker.Wo_gender==1">החניכים שנבחרו</label>
-                <label labelStudentSelected *ngIf="displayGroupActivities && worker.Wo_gender==2">החניכות שנבחרו</label>
-
-                <label labelStudentSelected *ngIf="!displayGroupActivities && worker.Wo_gender==1">החניך שנבחר</label>
-                <label labelStudentSelected *ngIf="!displayGroupActivities && worker.Wo_gender==2">החניכה שנבחרה</label>
-
-                <div [ngClass]="{boxChoose:!displayGroupActivities,bigbox:displayGroupActivities}">
-                    <!--    <app-student *ngFor="let i of listSelectedStudents" [student]="convertToStudent(i)"
-                        [listSelectedStudents]="listSelectedStudents" [select]="true"
-                        (addSelectedCodeStudent)="selectStudentBoxAdd($event)"
-                        (deleteSelectedCodeStudent)="selectStudentBoxDelete($event)"></app-student> -->
-                    <app-student *ngFor="let i of updateActivity.StudentForActivities" [student]="convertToStudent(i)"
-                        [listSelectedStudents]="updateActivity.StudentForActivities" [select]="true"
-                        (addSelectedCodeStudent)="selectStudentBoxAdd($event)"
-                        (deleteSelectedCodeStudent)="selectStudentBoxDelete($event)"></app-student>
+                <div [ngClass]="{boxChoose:true}">
+                    <app-student [student]="updateActivity.StudentForActivities[0].Student"
+                        [listSelectedStudents]="updateActivity.StudentForActivities" [select]="true"></app-student>
                 </div>
-                <!--
-            <app-student [student]="SelectedStudent" [codeStudent]="SelectedStudent.St_code"
-                (selectedCodeStudent)="selectStudentBox($event)"></app-student> -->
+
             </div>
             <br>
             <h2 date>מועד הפעילות</h2>
@@ -123,37 +105,34 @@
             <h2 time>משך הפעילות</h2>
             <br>
             <div boxxx>
-
-                <input type="time" [value]="formatTime(time)" (input)="onInputChangeTime($event)">
+                <input type="time" [value]="formatTime()" (input)="onInputChangeTime($event)">
                 <br>
                 <label>בשעות</label>
                 <br>
 
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH1}"
-                    (click)="displayH1=true;displayH2=false;displayH3=false;displayH4=false;hoursSelected(1)">1</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH2}"
-                    (click)="displayH1=false;displayH2=true;displayH3=false;displayH4=false;hoursSelected(2)">2</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH3}"
-                    (click)="displayH1=false;displayH2=false;displayH3=true;displayH4=false;hoursSelected(3)">3</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH4}"
-                    (click)="displayH1=false;displayH2=false;displayH3=false;displayH4=true;hoursSelected(4)">4</button>
-
-                <!--         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayH1}">+</button> -->
+                <button [ngClass]="{minutesHours:true,displayMinutesHours: selectedDate.getHours()==1}"
+                    (click)="hoursSelected(1)">1</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours: selectedDate.getHours()==2}"
+                    (click)="hoursSelected(2)">2</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours: selectedDate.getHours()==3}"
+                    (click)="hoursSelected(3)">3</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:selectedDate.getHours()==4}"
+                    (click)="hoursSelected(4)">4</button>
                 <br>
                 <label>בדקות</label>
                 <br>
-
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM10}"
-                    (click)="displayM10=true;displayM20=false;displayM30=false;displayM40=false;displayM50=false;minutesSelected(10)">10</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM20}"
-                    (click)="displayM10=false;displayM20=true;displayM30=false;displayM40=false;displayM50=false;minutesSelected(20)">20</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM30}"
-                    (click)="displayM10=false;displayM20=false;displayM30=true;displayM40=false;displayM50=false;minutesSelected(30)">30</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM40}"
-                    (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=true;displayM50=false;minutesSelected(40)">40</button>
-                <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM50}"
-                    (click)="displayM10=false;displayM20=false;displayM30=false;displayM40=false;displayM50=true;minutesSelected(50)">50</button>
-                <!--         <button [ngClass]="{minutesHours:true,displayMinutesHours:displayM10}"> +</button> -->
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==5}"
+                    (click)="minutesSelected(5)">5</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==10}"
+                    (click)="minutesSelected(10)">10</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==20}"
+                    (click)="minutesSelected(20)">20</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==30}"
+                    (click)="minutesSelected(30)">30</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==40}"
+                    (click)="minutesSelected(40)">40</button>
+                <button [ngClass]="{minutesHours:true,displayMinutesHours:this.selectedDate.getMinutes()==50}"
+                    (click)="minutesSelected(50)">50</button>
                 <br>
 
             </div>
@@ -161,23 +140,24 @@
             <h2 nesu>נשוא הפעילות</h2>
             <br>
             <div boxxx>
-                <button *ngIf="worker.Wo_gender==1" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
-                    (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחור';">עם
+                <button *ngIf="worker.Wo_gender==1"
+                    [ngClass]="{buttonFilter:true,displayNesuChoose: updateActivity.AFS_with_who=='עם הבחור'}"
+                    (click)="updateActivity.AFS_with_who='עם הבחור';">עם
                     הבחור</button>
-                <button *ngIf="worker.Wo_gender==2" [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose2}"
-                    (click)="displayNesuChoose1=false;displayNesuChoose2=true;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הבחורה';">עם
+                <button *ngIf="worker.Wo_gender==2"
+                    [ngClass]="{buttonFilter:true,displayNesuChoose: updateActivity.AFS_with_who=='עם הבחורה'}"
+                    (click)="updateActivity.AFS_with_who='עם הבחורה';">עם
                     הבחורה</button>
-                <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose3}"
-                    (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=true;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='עם הורה';">עם
+                <button [ngClass]="{buttonFilter:true,displayNesuChoose: updateActivity.AFS_with_who=='עם הורה'}"
+                    (click)="updateActivity.AFS_with_who='עם הורה';">עם
                     הורה</button>
-                <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose4}"
-                    (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=true;displayNesuChoose5=false;AFS_with_who='עם צוות';">עם
+                <button [ngClass]="{buttonFilter:true,displayNesuChoose: updateActivity.AFS_with_who=='עם צוות'}"
+                    (click)="updateActivity.AFS_with_who='עם צוות';">עם
                     צוות</button>
-                <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose1}"
-                    (click)="displayNesuChoose1=true;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=false;AFS_with_who='קבוצתית';">קבוצתית</button>
-                <button [ngClass]="{buttonFilter:true,displayNesuChoose:displayNesuChoose5}"
-                    (click)="displayNesuChoose1=false;displayNesuChoose2=false;displayNesuChoose3=false;displayNesuChoose4=false;displayNesuChoose5=true;AFS_with_who='';">אחר</button>
-                <input type="text" placeholder="אחר" *ngIf="displayNesuChoose5" [value]="AFS_with_who"
+                <button
+                    [ngClass]="{buttonFilter:true,displayNesuChoose: updateActivity.AFS_with_who!='עם הבחור'&&  updateActivity.AFS_with_who!='עם הבחורה' &&updateActivity.AFS_with_who!='עם צוות'&& updateActivity.AFS_with_who!='עם הורה'}"
+                    (click)="updateActivity.AFS_with_who='';">אחר</button>
+                <input type="text" placeholder="אחר" *ngIf="updateActivity.AFS_with_who!='עם הבחור'&&  updateActivity.AFS_with_who!='עם הבחורה' &&updateActivity.AFS_with_who!='עם צוות'&& updateActivity.AFS_with_who!='עם הורה'" [value]="updateActivity.AFS_with_who"
                     (input)="onInputChangeNesu($event)">
 
                 <label *ngIf="validAFS_with_who" eror>מוגבל ל- 40 תוים</label>
@@ -249,21 +229,7 @@
  --> <input type="number" (input)="onInputChangeKM($event)" [value]="updateActivity.AFS_kilometer">
 
                         </div>
-                        <div>
-                            <label *ngIf="!displayGroupActivities && worker.Wo_gender==1">נסיעה משותפת? אם כן בחר חניך
-                                נוסף (שים 💓 לסמן קבוצתית):</label>
-                            <label *ngIf="!displayGroupActivities && worker.Wo_gender==2">נסיעה משותפת? אם כן בחרי חניכה
-                                נוספת (שימי 💓 לסמן קבוצתית):</label>
 
-                            <select *ngIf="!displayGroupActivities" (change)="onStudentSelected2($event)">
-                                <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר מרשימה</option>
-                                <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי מרשימה</option>
-
-                                <option *ngFor="let s of listOfStudents" [value]="s.St_code">{{s.St_name+ "
-                                    "+s.St_Fname}}
-                                </option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div details [ngClass]="{detailsDisplay:displayForeignActivityDetails}">
@@ -350,8 +316,8 @@
                         </div>
                         <div>
                             <label>{{" מחיר:"}}</label>
-<!--                             <input type="number" money (input)="onInputChangePrice($event)">
- -->                            <input type="number" money (input)="onInputChangePrice($event)" [value]="updateActivity.AFS_price">
+                            <!--                             <input type="number" money (input)="onInputChangePrice($event)">
+ --> <input type="number" money (input)="onInputChangePrice($event)" [value]="updateActivity.AFS_price">
 
                             <label shach> ₪ </label>
                         </div>
@@ -367,7 +333,8 @@
             <br>
             <div boxxx>
                 <label *ngIf="!displayLearningDetails && AFS_description.length<10">מינימום 10 תוים</label>
-                <textarea (input)="onInputChangeDescription($event)" [value]="updateActivity.AFS_description"></textarea>
+                <textarea (input)="onInputChangeDescription($event)"
+                    [value]="updateActivity.AFS_description"></textarea>
                 <label *ngIf="validAFS_description" eror>מוגבל ל-350 תוים</label>
             </div>
             <br>
