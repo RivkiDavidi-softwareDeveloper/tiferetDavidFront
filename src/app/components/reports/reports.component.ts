@@ -34,8 +34,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
   displayToday = false          //היום
   displayYesterday = false      //אתמול
   displayBeforeYesterday = false    //שלשום
-  time: Date = new Date()
-
+  gift = ""
+  out = ""
+  school = ""
 
   listOfAcitivities: Array<Activity> = [];
   listOfWorkers: Array<Worker> = [];
@@ -482,9 +483,21 @@ export class ReportsComponent implements OnInit, OnDestroy {
   onSelectedYearF(event: Event) {
     this.yearF = Number((event.target as HTMLInputElement).value);
   }
+  //אם קוד קטגוריה קיים ברשימת הקטגוריות לפעילות
+  async ifExist(num: number, list: Array<CategoriesForActivity>) {
+    let d = false
+    await new Promise<void>((resolve, reject) => {
+      list.forEach(element => {
+        if (element.CFA_code_type_activity == num)
+          d = true
+        resolve()
+      });
+    });
+    return d;
+  }
   //ערוך פעילות
   async edit(activity: Activity) {
-    await new Promise<void>((resolve, reject) => {
+    await new Promise<void>(async (resolve, reject) => {
 
       this.updateActivity = activity;
       activity.CategoriesForActivities.forEach(cat => {
@@ -492,14 +505,29 @@ export class ReportsComponent implements OnInit, OnDestroy {
           this.displayGroupActivities = true
         }
       });
+      //תאריך
       this.selectedDate = new Date(activity.AFS_date);
-
+      //זמן
       let hours = (Math.floor(activity.AFS_activity_time / 60));
       let minutes = (activity.AFS_activity_time % 60);
-/*       this.time.setHours(hours);
-      this.time.setMinutes(minutes); */
-       this.selectedDate.setHours(hours);
-      this.selectedDate.setMinutes(minutes); 
+      this.selectedDate.setHours(hours);
+      this.selectedDate.setMinutes(minutes);
+
+      //הארות קצר
+      if (await this.ifExist(5, activity.CategoriesForActivities) && await this.ifExist(6, activity.CategoriesForActivities)) {
+        const parts = this.updateActivity.AFS_short_description.split(',');
+        this.gift = parts[0]?.trim() || '';
+        this.out = parts[1]?.trim() || '';
+      }
+      else {
+        if (await this.ifExist(5, activity.CategoriesForActivities))
+          this.gift = this.updateActivity.AFS_short_description
+        if (await this.ifExist(6, activity.CategoriesForActivities))
+          this.out = this.updateActivity.AFS_short_description
+        if (await this.ifExist(7, activity.CategoriesForActivities)) {
+          this.school = this.updateActivity.AFS_short_description;
+        }
+      }
       resolve()
     });
     const today = new Date();
@@ -520,7 +548,11 @@ export class ReportsComponent implements OnInit, OnDestroy {
     this.displayYesterday = false
     this.displayBeforeYesterday = false
     this.displayGroupActivities = false
-
+    this.gift=""
+    this.out=""
+    this.school=""
+    this.generalActivities();
+    this.generalCategories();
     /*     this.time.setHours(0);
         this.time.setMinutes(0); */
   }

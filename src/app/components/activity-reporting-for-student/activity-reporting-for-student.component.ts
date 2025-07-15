@@ -121,10 +121,19 @@ export class ActivityReportingForStudentComponent {
   onSchoolNew(event: Event) {
     var code = Number((event.target as HTMLInputElement).value.toString());
     if (code == 1) {
-      this.school = "שיבוץ בישיבה חדשה"
+      this.school = "סידור בישיבה חדשה"
     }
     if (code == 2) {
       this.school = "החזרה לישיבה קודמת"
+    }
+  }
+      onSchoolNew2(event: Event) {
+    var code = Number((event.target as HTMLInputElement).value.toString());
+    if (code == 1) {
+      this.school = 'סידור בתיכון / סמינר חדש'
+    }
+    if (code == 2) {
+      this.school = 'החזרה לתיכון / סמינר קודם'
     }
   }
   //עריכת חניך מדיווח על פעילות

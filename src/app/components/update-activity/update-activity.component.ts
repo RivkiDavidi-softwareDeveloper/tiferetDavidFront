@@ -61,9 +61,9 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   //תת קטגוריות
   listSubCategoryGift: Array<SubcategoryForTypeActivity> = []
   listSubCategoryOut: Array<SubcategoryForTypeActivity> = []
-  gift = ""
-  out = ""
-  school = ""
+  @Input()  gift = ""
+  @Input() out = ""
+  @Input() school = ""
   displaySubCategoryGift = false
   displaySubCategoryOut = false
   text = 'בחר מרשימה';
@@ -72,18 +72,13 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   //עובד
   @Input() worker: Worker = new Worker(1, "", 1, 1, "", "", "", "", "", 1)
 
-  //רשימת חניכים
+/*   //רשימת חניכים
   listOfStudents: Array<Student> = [];
   //רשימת חניכים תדירות
-  listOfStudents2: Array<Student> = [];
+  listOfStudents2: Array<Student> = []; */
 
   statusF = 1;
-  //החניך שנבחר
-  addStudent: Student = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "");
 
-  listSelectedStudents: Array<StudentForActivity> = [];
-  listTypesForActivity: Array<CategoriesForActivity> = [];
-  selectedStudent2: StudentForActivity | undefined
   //תאריך וטטימר
   @Input() selectedDate: Date = new Date(); // התאריך הנוכחי כברירת מחדל
   /*   @Input() minutes = 0;
@@ -99,15 +94,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   codeSubCategoryGift = 0;
 
   //inputValue = 'משתתף חד פעמי';
-  //דגלים להצגת פרטי פעילות
-  displayFhoneDetails = false
-  displayMeetingDetails = false
-  displayTravelDetails = false        //נסיעה
-  displayProductPurchaseDetails = false       //רכישת מוצר
-  displayForeignActivityDetails = false     //פעילות חוץ
-  displaySchoolPlacementDetails = false  //שיבוץ בישיבה
-  displayLearningDetails = false
-  displayActivityGroupDetails = false
 
   @Input() displayGroupActivities = false;       //פעילות קבוצתית
   displayallList = false        //כל החנכים  
@@ -187,10 +173,10 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
             ) */
     this.generalSubCategoryGift()
     this.generalSubCategoryOut();
-    await new Promise<void>((resolve, reject) => {
+/*     await new Promise<void>((resolve, reject) => {
       this.generalStudents(1);
       resolve(); // מסמן שהפעולה הושלמה
-    });
+    }); */
     this.connectSocket()
     //this.generalStudents2()
     // קוד לביצוע מחיקה
@@ -282,7 +268,7 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     }
     return name;
   }
-  //רשימת חניכים
+/*   //רשימת חניכים
   async generalStudents(ifFrequency: number): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       this.api.FindStudent("", 0, 0, this.statusF, this.worker.Wo_code).subscribe(Date => {
@@ -353,15 +339,24 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     }
 
   }
-
+ */
   //שיבוץ בישיבה
   onSchoolNew(event: Event) {
     var code = Number((event.target as HTMLInputElement).value.toString());
     if (code == 1) {
-      this.school = "שיבוץ בישיבה חדשה"
+      this.school = "סידור בישיבה חדשה"
     }
     if (code == 2) {
       this.school = "החזרה לישיבה קודמת"
+    }
+  }
+    onSchoolNew2(event: Event) {
+    var code = Number((event.target as HTMLInputElement).value.toString());
+    if (code == 1) {
+      this.school = 'סידור בתיכון / סמינר חדש'
+    }
+    if (code == 2) {
+      this.school = 'החזרה לתיכון / סמינר קודם'
     }
   }
   toggleInputType() {
@@ -378,28 +373,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
   }
   onTextInput(event: Event) {
     this.textInput = (event.target as HTMLInputElement).value
-  }
-  //שם
-  onInputChangeN(event: Event) {
-    const name: string = (event.target as HTMLInputElement).value
-    if (name.length <= 20) {
-      this.addStudent.St_name = name;
-      this.validNane = false;
-    }
-    else {
-      this.validNane = true;
-    }
-  }
-  //שם משפחה
-  onInputChangeNF(event: Event) {
-    const namef: string = (event.target as HTMLInputElement).value
-    if (namef.length <= 20) {
-      this.addStudent.St_Fname = namef
-      this.validNameF = false;
-    }
-    else {
-      this.validNameF = true;
-    }
   }
   //האם זמן התדירות עבר
   ifRedPoit(lastDate: string, student: Student): boolean {
@@ -435,17 +408,6 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
       return true;
     }
   }
-
-  ifSelected(code: number): boolean {
-    var d = false
-    this.listSelectedStudents.forEach(st => {
-      if (st.SFA_code_student == code) {
-        d = true;
-      }
-    });
-    return d;
-  }
-
 
   //בחירת תאריך
   today() {
@@ -534,121 +496,30 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     }
 
   }
+  ifExist(num: number) {
+    let d = false
+    this.updateActivity.CategoriesForActivities.forEach(element => {
+      if (element.CFA_code_type_activity == num)
+        d = true
+    });
+    return d;
+  }
   //בחירת קטגוריות לפעילות
-  selectCategory1() {
-    if (this.displayLearningDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 1)
-      this.listTypesForActivity.push(category);
+  selectCategory(num: number) {
+    if (!this.ifExist(num)) {
+      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, num)
+      this.updateActivity.CategoriesForActivities.push(category)
     }
     else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 1) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory2() {
-    if (this.displayFhoneDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 2)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 2) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory3() {
-    if (this.displayMeetingDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 3)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 3) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory4() {
-    if (this.displayTravelDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 4)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 4) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory5() {
-    if (this.displayProductPurchaseDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 5)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 5) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory6() {
-    if (this.displayForeignActivityDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 6)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 6) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory7() {
-    if (this.displaySchoolPlacementDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 7)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 7) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
-  selectCategory8() {
-    if (this.displayActivityGroupDetails) {
-      var category: CategoriesForActivity = new CategoriesForActivity(1, 1, 8)
-      this.listTypesForActivity.push(category)
-    }
-    else {
-      this.listTypesForActivity.forEach((s, index) => {
-        if (s.CFA_code_type_activity === 8) {
-          this.listTypesForActivity.splice(index, 1);
-        }
-      });
-    }
-    this.cdRef.detectChanges();
-  }
+      this.updateActivity.CategoriesForActivities.forEach((s, index) => {
+        if (s.CFA_code_type_activity === num) {
+          this.updateActivity.CategoriesForActivities.splice(index, 1);
 
-
+        }
+      });
+    }
+    this.cdRef.detectChanges();
+  }
   //מילוי מחיר
   onInputChangePrice(event: Event) {
     const price = Number((event.target as HTMLInputElement).value);
@@ -775,42 +646,36 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     return filename.split('.').pop()!.toLowerCase();
   }
   //הוספת פעילות
-  async addActivity() {
+  async updateActivityy() {
     this.loading = true;
     //בדיקה אם הנתונים מלאים
     if (this.ifNotEmpty()) {
       //בדיקה שהנתונים תקינים
       if (this.validation()) {
-        if (this.displayProductPurchaseDetails && this.displayForeignActivityDetails)
-          this.AFS_short_description = this.gift + " , " + this.out
+        if (this.ifExist(5) && this.ifExist(6))
+          this.updateActivity.AFS_short_description = this.gift + " , " + this.out
         else {
-          if (this.displayProductPurchaseDetails)
-            this.AFS_short_description = this.gift
-          if (this.displayForeignActivityDetails)
-            this.AFS_short_description = this.out
-          if (this.displaySchoolPlacementDetails) {
-            this.AFS_short_description = this.school;
+          if (this.ifExist(5))
+            this.updateActivity.AFS_short_description = this.gift
+          if (this.ifExist(6))
+            this.updateActivity.AFS_short_description = this.out
+          if (this.ifExist(7)) {
+            this.updateActivity.AFS_short_description = this.school;
           }
         }
-
-        const activityAdd: Activity = new Activity(1, this.worker.Wo_code, this.AFS_date, this.AFS_activity_time,
-          this.AFS_with_who, this.AFS_short_description, this.AFS_description, this.AFS_price, this.AFS_exit,
-          this.AFS_target, this.AFS_kilometer, this.AFS_name_school, this.listSelectedStudents, this.listTypesForActivity)
         await new Promise<void>((resolve, reject) => {
-          /*                     this.api.addActivity(activityAdd, this.selectedFiles).subscribe((response) => {
-           */
-          this.api.addActivity(activityAdd).subscribe((response) => {
-            this.snackBar.open('הפעילות נשמרה בהצלחה', 'x', { duration: 3000 });
+          this.api.updateActivity(this.updateActivity).subscribe((response) => {
+            this.snackBar.open('הפעילות עודכנה בהצלחה', 'x', { duration: 3000 });
             this.loading = false;
             resolve();
           }, (error) => {
-            this.snackBar.open('שמירת הפעילות נכשלה', 'x', { duration: 3000 });
+            this.snackBar.open('עדכון הפעילות נכשל', 'x', { duration: 3000 });
             this.loading = false;
             resolve();
           });
         });
         this.empty();
-        this.generalStudents(2);
+       this. close()
       }
       else {
         this.snackBar.open('פרטים אינם תקינים', 'x', { duration: 2000 });
@@ -818,6 +683,7 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     }
     else {
       this.snackBar.open('אופס! חסר פרטים...', 'x', { duration: 2000 });
+
 
     }
   }
@@ -827,24 +693,9 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
 
     //this.sec1 = ""
     this.statusF = 1;
-    this.listSelectedStudents = [];
-    this.listTypesForActivity = [];
-    this.selectedStudent2 = undefined
     //תאריך וטטימר
     this.selectedDate = new Date(); // התאריך הנוכחי כברירת מחדל
     this.minutesCC = 0;
-
-    //this.time = new Date();;
-    //inputValue = 'משתתף חד פעמי';
-    //דגלים להצגת פרטי פעילות
-    this.displayFhoneDetails = false
-    this.displayMeetingDetails = false
-    this.displayTravelDetails = false        //נסיעה
-    this.displayProductPurchaseDetails = false       //רכישת מוצר
-    this.displayForeignActivityDetails = false     //פעילות חוץ
-    this.displaySchoolPlacementDetails = false  //שיבוץ בישיבה
-    this.displayLearningDetails = false
-    this.displayActivityGroupDetails = false
 
     this.displayGroupActivities = false;       //פעילות קבוצתית
     this.displayallList = false        //כל החנכים  
@@ -881,6 +732,34 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     this.AFS_description = ""
     //ריקון רשימת הקבצים להעלאה
     this.selectedFiles = undefined
+
+
+
+  //עדכון
+  this.updateActivity = new Activity(-1, 1, "", 1, "", "", "", 1, "", "", 1, "", [], [])
+  //תת קטגוריות
+  this.gift = ""
+  this.out = ""
+  this.school = ""
+  this.displaySubCategoryGift = false
+  this.displaySubCategoryOut = false
+ this. text = 'בחר מרשימה';
+ this. showList = false;
+
+/*   //רשימת חניכים
+  listOfStudents: Array<Student> = [];
+  //רשימת חניכים תדירות
+  listOfStudents2: Array<Student> = []; */
+  this.codeSubCategoryOut = 0;
+  this.codeSubCategoryGift = 0;
+ this. displayFileUpload = false //האם להציג אפשרות להוספת קבצים
+ this. isSelect = false;
+ this. textInput = '';
+ this. selectedOption = 1;
+  //פופפ חניכים בתדירות מוגזמת:)
+ this. displayPopap = false;
+  //סטטוס האנימציה
+  this.loading = false;
   }
   validation() {
     return !this.validAFS_with_who && !this.validAFS_description && !this.validAFS_exit &&
@@ -890,9 +769,9 @@ export class UpdateActivityComponent implements OnInit, OnDestroy {
     return !this.validNameF && !this.validNane;
   }
   ifNotEmpty() {
-    if (this.displayLearningDetails)
-      return this.AFS_activity_time != 0 && this.listTypesForActivity.length > 0 && this.listSelectedStudents.length > 0
-    return this.AFS_activity_time != 0 && this.listTypesForActivity.length > 0 && this.listSelectedStudents.length > 0 && this.AFS_description.length >= 10;
+    if (this.ifExist(1))
+      return this.updateActivity.AFS_activity_time != 0 && this.updateActivity.CategoriesForActivities.length > 0 && this.updateActivity.StudentForActivities.length > 0
+    return this.updateActivity.AFS_activity_time != 0 && this.updateActivity.CategoriesForActivities.length > 0 && this.updateActivity.StudentForActivities.length > 0 && this.updateActivity.AFS_description.length >= 10;
 
   }
   //סגירת הפופפ

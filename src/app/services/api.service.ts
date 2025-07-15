@@ -36,7 +36,7 @@ export class ApiService {
 
 
   constructor(private httpp: HttpClient) { }
-/*   public urlBasisSocket = 'http://localhost:3000';
+ /*  public urlBasisSocket = 'http://localhost:3000';
 
   private urlBasis = 'http://localhost:3000/api'; */
 
@@ -280,6 +280,11 @@ export class ApiService {
   //הוספת פעילות לא כולל קבצים
   addActivity(activity: Activity): Observable<any> {
     return this.httpp.post(`${this.urlBasis}/activities/`, activity);
+  }
+      //עדכון משימה
+  updateActivity(activity: Activity): Observable<any> {
+    const id = activity.AFS_code;
+    return this.httpp.put(`${this.urlBasis + "/activities"}/${id}`, activity);
   }
   //שליחת קובץ אקסל חניכים
   uploadExcelFileStudents(formData: FormData) {
