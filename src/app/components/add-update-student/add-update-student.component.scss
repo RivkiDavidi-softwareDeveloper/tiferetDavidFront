@@ -67,24 +67,31 @@ h3 {
 [title1] {
     color: rgb(255, 119, 0);
 }
+
 [title2] {
     color: rgb(226, 10, 10);
 }
+
 [title3] {
     color: rgb(161, 80, 21);
 }
+
 [title4] {
     color: rgb(187, 0, 255);
 }
+
 [title5] {
     color: rgb(0, 166, 255);
 }
+
 [title6] {
     color: rgb(0, 116, 179);
 }
+
 [title7] {
     color: rgb(10, 142, 6);
 }
+
 //כפתור
 button {
     font-family: Assistant-Bold;
@@ -109,6 +116,7 @@ button:active {
     position: relative;
     top: 2px;
 }
+
 button:disabled,
 button:disabled:hover {
     color: #bbbbbb;
@@ -116,6 +124,7 @@ button:disabled:hover {
     cursor: not-allowed;
     background-color: white;
 }
+
 //כפתור סגירה
 [close] {
     width: 30px;
@@ -163,7 +172,7 @@ button:disabled:hover {
     border: none;
     background-color: rgb(190, 190, 190);
     border-right: 1px solid white;
-        font-size: 14px;
+    font-size: 14px;
 
 }
 
@@ -219,11 +228,12 @@ button:disabled:hover {
     display: inline;
 
 }
+
 //תויות
 label {
     display: block;
     margin-bottom: 5px;
-    font-family:Assistant-SemiBold;
+    font-family: Assistant-SemiBold;
 }
 
 //ינפוטים
@@ -274,6 +284,13 @@ select {
     font-family: Assistant-Regular;
     //padding: 10px;
     margin-bottom: 20px;
+
+    max-height: 100%;
+    /* לא יגלוש מהרוחב של ההורה */
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 option {

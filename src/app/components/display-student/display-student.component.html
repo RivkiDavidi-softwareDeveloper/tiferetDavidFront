@@ -8,8 +8,8 @@
                 <label>ת.ז: <label l2>{{student.St_ID}}</label></label>
                 <label>מגדר: <label l2>{{typeGender(student.St_gender)}}</label> </label>
                 <label>גיל: <label l2>{{calculateAgeInYearsAndMonths(student.St_birthday)}}</label></label>
-                <label>תאריך לידה: <label l2>{{convertDateBack(student.St_birthday)}}</label></label>
-
+                <label>תאריך לידה לועזי: <label l2>{{convertDateBack(student.St_birthday)}}</label></label>
+                <label>תאריך לידה עברי: <label l2>{{student.St_hebrew_date}}</label></label>
                 <h3 title2>כתובת</h3>
                 <label>עיר: <label l2>{{city(student.St_city_code)}}</label></label>
                 <label>כתובת:<label l2> {{student.St_address}}</label></label>
@@ -130,7 +130,9 @@
                                 <label>מגדר: <label l2>{{typeGender(student.St_gender)}}</label> </label>
                                 <label>גיל: <label
                                                 l2>{{calculateAgeInYearsAndMonths(student.St_birthday)}}</label></label>
-                                <label>תאריך לידה: <label l2>{{student.St_birthday}}</label></label>
+                                <label>תאריך לידה לועזי: <label
+                                                l2>{{convertDateBack(student.St_birthday)}}</label></label>
+                                <label>תאריך לידה עברי: <label l2>{{student.St_hebrew_date}}</label></label>
                                 <h3 title2>כתובת</h3>
                                 <label>עיר: <label l2>{{city(student.St_city_code)}}</label></label>
                                 <label>כתובת:<label l2> {{student.St_address}}</label></label>

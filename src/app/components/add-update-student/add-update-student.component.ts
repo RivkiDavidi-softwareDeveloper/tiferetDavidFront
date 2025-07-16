@@ -20,6 +20,7 @@ import { Sharer } from '../../models/sharer.class';
 import { SharerForProject } from '../../models/sharerForProject.class';
 import { StudentForProject } from '../../models/studentForProject.class';
 import { isBuffer } from 'util';
+import { HDate } from '@hebcal/core';
 
 @Component({
   selector: 'app-add-update-student',
@@ -64,7 +65,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
   @Input() Parent: Parentt = new Parentt(111, "", "", "", "")
   @Input() Parent1: Parentt = new Parentt(111, "", "", "", "")
   @Input() DifficultyStudent: Array<DifficultyStudent> = []
-  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "",1)
+  @Input() Worker: Worker = new Worker(111, "", 1, 1, "", "", "", "", "", 1)
   @Input() StudiesForStudent: StudiesForStudent = new StudiesForStudent(111, 1, "", "", "", "", "", "")
   //לרישום מששתף כחניך
   @Input() studentForProject: StudentForProject = new StudentForProject(-1, 1, 1, 1, "", "", this.studentUpdate)
@@ -116,6 +117,10 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
   requester = ""
   St_code_frequency: any = -1
   St_amount_frequency = 0
+  St_hebrew_date = ""
+  day = ""
+  mounth = ""
+  year = ""
   //לימודים
   // SFS_student_code: number=1
   SFS_current_school: string = ""
@@ -172,7 +177,8 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
   image: File | undefined
 
   imageBlobURL: string = "";
-
+  //שנים בעברי
+  hebrewYears: number[] = [];
   //קונסטרקטור
   constructor(private api: ApiService, private snackBar: MatSnackBar, private cdRef: ChangeDetectorRef) { }
 
@@ -183,7 +189,87 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     this.generalCommunities()
     this.generalSynagogueis()
     this.connectSocket()
+    //טיפול בשנים עבריות
+    const currentHebrewYear = new HDate(new Date()).getFullYear(); // שנת תשפ"ה לדוג'
+    const startYear = currentHebrewYear - 59;
+
+    for (let year = startYear; year <= currentHebrewYear; year++) {
+      this.hebrewYears.push(year);
+    }
   }
+  //תאריך עברי
+  //יום
+  onHebrewDay(event: Event) {
+    const name = (event.target as HTMLInputElement).value
+    this.day = name;
+  }
+  //חודש
+  onHebrewMounth(event: Event) {
+    const name = (event.target as HTMLInputElement).value
+    this.mounth = name;
+  }
+  //שנה
+  onYearChange(event: any) {
+    const name = Number((event.target as HTMLInputElement).value)
+    this.year = this.convertToHebrewYearString(name);
+  }
+  convertToHebrewYearString(year: number): string {
+    const gematriaMap: { [key: number]: string } = {
+      400: 'ת', 300: 'ש', 200: 'ר', 100: 'ק',
+      90: 'צ', 80: 'פ', 70: 'ע', 60: 'ס', 50: 'נ',
+      40: 'מ', 30: 'ל', 20: 'כ', 10: 'י',
+      9: 'ט', 8: 'ח', 7: 'ז', 6: 'ו', 5: 'ה',
+      4: 'ד', 3: 'ג', 2: 'ב', 1: 'א'
+    };
+    // תוריד אלפים מהשנה (למשל 5785 => 785)
+    const yearStripped = year % 1000;
+
+    let result = '';
+    let remaining = yearStripped;
+    // טיפול במאות מעל 400 (לדוג׳ 700 => ת + ש)
+    while (remaining >= 400) {
+      result += gematriaMap[400];
+      remaining -= 400;
+    }
+    // מאות
+    const hundreds = Math.floor(remaining / 100) * 100;
+    if (hundreds) {
+      result += gematriaMap[hundreds];
+      remaining -= hundreds;
+    }
+
+    // טיפול מיוחד ב-15 ו-16
+    if (remaining === 15) {
+      result += 'טו';
+    } else if (remaining === 16) {
+      result += 'טז';
+    } else {
+      // עשרות
+      const tens = Math.floor(remaining / 10) * 10;
+      if (tens) {
+        result += gematriaMap[tens];
+        remaining -= tens;
+      }
+
+      // יחידות
+      if (remaining) {
+        result += gematriaMap[remaining];
+      }
+    }
+
+    // ✅ הוספת גרשיים לפני האות האחרונה
+    if (result.length >= 2) {
+      result = result.slice(0, -1) + '״' + result.slice(-1);
+    } else if (result.length === 1) {
+      result = '׳' + result;
+    }
+    // הוספת התחילית ה'
+    // return "ה'" + result;
+    return result;
+  }
+
+
+
   //רשימת עובדים
   public generalWorkers(): void {
     if (this.cb1) {
@@ -195,7 +281,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     }
     // this.api.getWorkers(1, this.genderF, 0, 0).subscribe(Date => {
 
-    this.api.FindWorker("", 1, this.genderF,0, 0, 0).subscribe(Date => {
+    this.api.FindWorker("", 1, this.genderF, 0, 0, 0).subscribe(Date => {
       this.listOfWorkers = []
       this.listOfWorkers.push(...Date);
       this.cdRef.detectChanges();
@@ -227,7 +313,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     })
   }
   //בחירת קהילה
-  selectedCommunity(St_code_synagogue: number |undefined, Com_code: number) {
+  selectedCommunity(St_code_synagogue: number | undefined, Com_code: number) {
 
     return this.listOfsynagogueis.find(s => s.Sy_code == St_code_synagogue)?.Sy_code_Community == Com_code
   }
@@ -830,6 +916,12 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
           this.St_activity_status = 3
         }
       }
+
+      if (this.day != "" && this.mounth != "" && this.year != "") {
+        this.St_hebrew_date = this.day + " " + this.mounth + " " + this.year
+        console.log(this.St_hebrew_date)
+      }
+
       if (this.St_city_code == -1) {
         this.St_city_code = null;
       }
@@ -853,7 +945,6 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
       }
       const parentFAdd = new Parentt(1, this.Pa_ID_F, this.Pa_name_F, this.Pa_cell_phone_F, this.Pa_work_F);
       const parentMAdd = new Parentt(1, this.Pa_ID_M, this.Pa_name_M, this.Pa_cell_phone_M, this.Pa_work_M);
-      console.log(parentFAdd.Pa_name)
       const listOfDiffSelectedAdd = this.listOfDiffSelected;
       const studiesAdd = new StudiesForStudent(1, 1, this.SFS_current_school, this.SFS_current_school_ame, this.SFS_reception_class,
         this.SFS_current_class, this.SFS_previous_institutions, this.SFS_previous_school);
@@ -861,7 +952,7 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
         this.St_birthday, this.Pa_code_F, this.Pa_code_M, this.St_city_code, this.St_address, this.St_cell_phone, this.St_phone,
         this.St_email, this.St_worker_code, this.St_activity_status, this.St_risk_code, this.St_description_reception_status,
         this.St_contact, this.St_contact_phone, this.St_socioeconomic_status, this.St_requester, this.St_code_synagogue,
-        this.St_code_frequency, this.St_amount_frequency, "", "", "");
+        this.St_code_frequency, this.St_amount_frequency, "", this.St_hebrew_date, "");
       const dataStudentAdd = { data: [studentAdd, parentFAdd, parentMAdd, listOfDiffSelectedAdd, studiesAdd] }
 
       //הוספת חניך
@@ -1147,19 +1238,19 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
 
   //בודקת אם כל הדגלים תקינים
   public validationAdd(): boolean {
-//ביטול שדות חובה לבדיקת הרצה בלבד!!!!!
-if(this.St_city_code == -1){
-this.St_city_code=undefined
-}
-if(this.St_code_synagogue == -1){
-this.St_code_synagogue=undefined
-}
-if(this.St_risk_code == -1){
-this.St_risk_code=undefined
-}
-if(this.St_code_frequency == -1){
-this.St_code_frequency=undefined
-}
+    //ביטול שדות חובה לבדיקת הרצה בלבד!!!!!
+    if (this.St_city_code == -1) {
+      this.St_city_code = undefined
+    }
+    if (this.St_code_synagogue == -1) {
+      this.St_code_synagogue = undefined
+    }
+    if (this.St_risk_code == -1) {
+      this.St_risk_code = undefined
+    }
+    if (this.St_code_frequency == -1) {
+      this.St_code_frequency = undefined
+    }
 
 
     return !this.validNane && !this.validNameF && !this.validId && !this.validCellPhoneStudent && !this.validCellPhoneStudent

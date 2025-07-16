@@ -85,7 +85,7 @@
             </div>
             <div ca>
                 <label>ת.ז</label>
-<!--                                 <label>*ת.ז</label>
+                <!--                                 <label>*ת.ז</label>
  -->
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeID($event)"
                     [ngClass]="{'borderInputGreen':St_ID.length>0 && !validId,'borderInputRed':validId}">
@@ -105,12 +105,72 @@
             </div>
             <div ca>
                 <label>תאריך לידה עברי</label>
-                <!--           <input type="date" *ngIf="status === 'add'" (input)="onInputChangeBirthday($event)"
-                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
-                <input type="date" *ngIf="status === 'update'" [valueAsDate]="date(studentUpdate.St_hebrew_date)"
-                    (input)="onInputChangeBirthday($event)"
-                    [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
-                <label eror *ngIf="validBirthday">הכנס תאריך תקין</label> -->
+                <label>יום</label>
+                <select *ngIf="status === 'add'" (change)="onHebrewDay($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option>א</option>
+                    <option>ב</option>
+                    <option>ג</option>
+                    <option>ד</option>
+                    <option>ה</option>
+                    <option>ו</option>
+                    <option>ז</option>
+                    <option>ח</option>
+                    <option>ט</option>
+                    <option>י</option>
+                    <option>יא</option>
+                    <option>יב</option>
+                    <option>יג</option>
+                    <option>יד</option>
+                    <option>טו</option>
+                    <option>טז</option>
+                    <option>יז</option>
+                    <option>יח</option>
+                    <option>יט</option>
+                    <option>כ</option>
+                    <option>כא</option>
+                    <option>כב</option>
+                    <option>כג</option>
+                    <option>כד</option>
+                    <option>כה</option>
+                    <option>כו</option>
+                    <option>כז</option>
+                    <option>כח</option>
+                    <option>כט</option>
+                    <option>ל</option>
+                </select>
+                <label>חודש</label>
+                <select *ngIf=" status === 'add'" (change)="onHebrewMounth($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option>תשרי</option>
+                    <option>חשוון</option>
+                    <option>כסליו</option>
+                    <option>טבת</option>
+                    <option>שבט</option>
+                    <option>אדר</option>
+                    <option>ניסן</option>
+                    <option>אייר</option>
+                    <option>סיון</option>
+                    <option>תמוז</option>
+                    <option>אב</option>
+                    <option>אלול</option>
+                </select>
+                <label>שנה</label>
+                <select *ngIf=" status === 'add'" (change)="onYearChange($event)">
+                    <option *ngFor="let year of hebrewYears" [value]="year">
+                        {{ convertToHebrewYearString(year) }}
+
+                    </option>
+                </select>
+                <!--                 <select *ngIf="cb1 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
+                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    <option hidden>בחר </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה גדולה'">ישיבה גדולה </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה קטנה'">ישיבה קטנה </option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='תלמוד תורה'">תלמוד תורה </option>
+                </select> -->
             </div>
         </div>
         <h3 title2>כתובת</h3>
@@ -615,9 +675,10 @@
             </div>
         </div>
         <br>
-        <button *ngIf="status === 'add'" save [disabled]="!validationAdd()"  (click)="add()">שמור</button>
+        <button *ngIf="status === 'add'" save [disabled]="!validationAdd()" (click)="add()">שמור</button>
 
-        <button *ngIf="status === 'update' && status2 != 'addFromSharer'" [disabled]="!validationUpdate()"  save (click)="update()">עדכן</button>
+        <button *ngIf="status === 'update' && status2 != 'addFromSharer'" [disabled]="!validationUpdate()" save
+            (click)="update()">עדכן</button>
         <button *ngIf="status2 === 'addFromSharer'" save (click)="update()">שמור</button>
 
         <app-loading-spinner *ngIf="loading"></app-loading-spinner>
