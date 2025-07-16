@@ -16,7 +16,7 @@ import { Community } from '../../models/community.class';
 import { Synagogue } from '../../models/synagogue.class';
 import { Project } from '../../models/project.class';
 import { GuideForProject } from '../../models/guideForProject.class';
-import { StudentForProject } from '../../models/studentForProject.class';
+import { StudentForProject } from '../../models/studentForProject.class'; import { HDate } from '@hebcal/core';
 @Component({
   selector: 'app-display-student',
   standalone: true,
@@ -110,9 +110,9 @@ export class DisplayStudentComponent implements OnInit {
   }
   //שם עיר
   public city(codeCity: number | undefined) {
-    if(codeCity)
-    return this.lisOfCities.find(c => c.Ci_code == codeCity)?.Ci_name
-  return ""
+    if (codeCity)
+      return this.lisOfCities.find(c => c.Ci_code == codeCity)?.Ci_name
+    return ""
   }
   //פרויקטים
   generalProjects() {
@@ -179,33 +179,110 @@ export class DisplayStudentComponent implements OnInit {
   }
   //חישוב גיל
   calculateAgeInYearsAndMonths(dateString: string): string {
-
-    const birthDate = new Date(dateString);
-    const today = new Date();
-
-    let ageInMonths = (today.getFullYear() - birthDate.getFullYear()) * 12;
-    ageInMonths -= birthDate.getMonth() + 1;
-    ageInMonths += today.getMonth();
-
-    let ageInYears = Math.floor(ageInMonths / 12);
-    let remainderMonths = ageInMonths % 12;
-
-
-    let age = ageInYears + remainderMonths / 12;
-    if (!parseFloat(age.toFixed(1))) {
-      return ""
+    let dddd = this.calculateHebrewAge(this.student.St_hebrew_date)
+    if (dddd! != 0) {
+      return dddd.toString()
     }
-    return parseFloat(age.toFixed(1)).toString();
+    else {
+      const birthDate = new Date(dateString);
+      const today = new Date();
+
+      let ageInMonths = (today.getFullYear() - birthDate.getFullYear()) * 12;
+      ageInMonths -= birthDate.getMonth() + 1;
+      ageInMonths += today.getMonth();
+
+      let ageInYears = Math.floor(ageInMonths / 12);
+      let remainderMonths = ageInMonths % 12;
+
+
+      let age = ageInYears + remainderMonths / 12;
+      if (!parseFloat(age.toFixed(1))) {
+        return ""
+      }
+      return parseFloat(age.toFixed(1)).toString();
+    }
+
   }
+//חישוב גיל עברי
+  calculateHebrewAge(hebrewDateStr: string): number {
+    try {
+      const parts = hebrewDateStr.trim().split(' ');
+      if (parts.length !== 3) return 0;;
+
+      const [dayHeb, monthHeb, yearHeb] = parts;
+
+      // המרת יום ל-מספר
+      const hebrewDays = {
+        'א': 1, 'ב': 2, 'ג': 3, 'ד': 4, 'ה': 5, 'ו': 6, 'ז': 7, 'ח': 8, 'ט': 9,
+        'י': 10, 'יא': 11, 'יב': 12, 'יג': 13, 'יד': 14, 'טו': 15, 'טז': 16,
+        'יז': 17, 'יח': 18, 'יט': 19, 'כ': 20, 'כא': 21, 'כב': 22, 'כג': 23,
+        'כד': 24, 'כה': 25, 'כו': 26, 'כז': 27, 'כח': 28, 'כט': 29, 'ל': 30
+      };
+
+      const months = {
+        'תשרי': 1, 'חשוון': 2, 'כסלו': 3, 'טבת': 4, 'שבט': 5, 'אדר': 6, 'אדר א': 6, 'אדר ב': 7,
+        'ניסן': 8, 'אייר': 9, 'סיון': 10, 'תמוז': 11, 'אב': 12, 'אלול': 13
+      };
+      const day = hebrewDays[dayHeb as keyof typeof hebrewDays];
+      const month = months[monthHeb as keyof typeof months];
+
+      const year = this.hebrewYearToNumber(yearHeb);
+
+      if (!day || !month || !year) return 0;
+
+      const hDate = new HDate(day, month, year);
+      const gregorianDate = hDate.greg();
+
+      const today = new Date();
+      let age = today.getFullYear() - gregorianDate.getFullYear();
+
+      // תיקון אם עוד לא הגיע יום ההולדת השנה
+      const m1 = today.getMonth();
+      const d1 = today.getDate();
+      const m2 = gregorianDate.getMonth();
+      const d2 = gregorianDate.getDate();
+
+      if (m1 < m2 || (m1 === m2 && d1 < d2)) {
+        age--;
+      }
+
+      return age-400;
+    } catch {
+      return 0;
+    }
+  }
+
+  // המרה משנה עברית (לדוג' "תשס"ד") לשנה מספרית
+  hebrewYearToNumber(yearStr: string): number | null {
+    const gematriaMap: Record<string, number> = {
+      'א': 1, 'ב': 2, 'ג': 3, 'ד': 4, 'ה': 5, 'ו': 6, 'ז': 7, 'ח': 8, 'ט': 9,
+      'י': 10, 'כ': 20, 'ל': 30, 'מ': 40, 'נ': 50, 'ס': 60, 'ע': 70,
+      'פ': 80, 'צ': 90, 'ק': 100, 'ר': 200, 'ש': 300, 'ת': 400
+    };
+
+    const sanitized = yearStr.replace(/["״׳"]/g, '').replace('תש', 'ש'); // מאפשר גם קלט כמו תש"פ
+    let year = 5000; // המאה ה-6 (תשס"ד זה 5764)
+
+    for (const letter of sanitized) {
+      if (gematriaMap[letter]) {
+        year += gematriaMap[letter];
+      } else {
+        return null;
+      }
+    }
+
+    return year;
+  }
+
   //שם מצב פעילות
   public typeSA(num: number): string {
     return TypeActivityState[num]
   }
   //שם מצב סיכון
-  public typeRisk(num: number |undefined): string {
-    if(num)
-    return TypeRisk[num]
-  return ""
+  public typeRisk(num: number | undefined): string {
+    if (num)
+      return TypeRisk[num]
+    return ""
   }
   //שם קושי
   public TypeDiffi(num: number): string {

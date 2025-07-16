@@ -217,23 +217,26 @@
  -->
             <td>{{i.AFS_description}}</td>
 
-            <td details><label *ngIf="ifDisplay(i.AFS_code,5)">
+            <td details>
+                <label *ngIf="ifDisplay(i.AFS_code,5) && ifDisplay(i.AFS_code,6)">
                     <p>פירוט:{{i.AFS_short_description}} </p>
                     <p> מחיר:{{i.AFS_price}}</p>
                 </label>
+                <label *ngIf="(ifDisplay(i.AFS_code,5)&& !ifDisplay(i.AFS_code,6)) ||(!ifDisplay(i.AFS_code,5)&& ifDisplay(i.AFS_code,6)) ">
+                    <p>פירוט:{{i.AFS_short_description}} </p>
+                    <p> מחיר:{{i.AFS_price}}</p>
+                </label>
+                
                 <label *ngIf="ifDisplay(i.AFS_code,7)">
                     <p>פירוט:{{i.AFS_short_description}} </p>
                     <p>שם ישיבה: {{i.AFS_name_school}} </p>
                 </label>
                 <label *ngIf="ifDisplay(i.AFS_code,4)">
-                    <p>מוצא:{{i.AFS_exit}} </p>
-                    <p> יעד: {{i.AFS_target}} </p>
+                    <!--           <p>מוצא:{{i.AFS_exit}} </p>
+                    <p> יעד: {{i.AFS_target}} </p> -->
                     <p> מס' ק"מ:{{i.AFS_kilometer}} </p>
                 </label>
-                <label *ngIf="ifDisplay(i.AFS_code,6)">
-                    <p>פירוט:{{i.AFS_short_description}} </p>
-                    <p> מחיר:{{i.AFS_price}} </p>
-                </label>
+
             </td>
             <td nonePrint tdEdit>
                 <button edit title="ערוך" (click)="edit(i);">ערוך</button>
@@ -250,6 +253,6 @@
 
 <app-update-activity [popupDisplayIn]="sUpdateActivity" (popupDisplayOut)="closePUpdate($event)"
     [updateActivity]="updateActivity" [displayGroupActivities]="displayGroupActivities" [selectedDate]="selectedDate"
-    [displayToday]="displayToday" [displayYesterday]="displayYesterday"[gift]="gift" [out]="out" [school]="school"
+    [displayToday]="displayToday" [displayYesterday]="displayYesterday" [gift]="gift" [out]="out" [school]="school"
     [displayBeforeYesterday]="displayBeforeYesterday" />
 <!--      [time]="time" -->
