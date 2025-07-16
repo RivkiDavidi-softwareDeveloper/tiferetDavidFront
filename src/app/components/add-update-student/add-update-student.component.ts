@@ -190,12 +190,12 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     this.generalSynagogueis()
     this.connectSocket()
     //טיפול בשנים עבריות
-    const currentHebrewYear = new HDate(new Date()).getFullYear(); // שנת תשפ"ה לדוג'
-    const startYear = currentHebrewYear - 59;
-
-    for (let year = startYear; year <= currentHebrewYear; year++) {
+    const currentHebrewYear = new HDate(new Date()).getFullYear() - 7;
+    const startYear = currentHebrewYear - 40;
+    for (let year = currentHebrewYear; year >= startYear; year--) {
       this.hebrewYears.push(year);
     }
+
   }
   //תאריך עברי
   //יום
@@ -267,6 +267,20 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     // return "ה'" + result;
     return result;
   }
+  splitDayHebrew(dateStr: string): string {
+    const parts = dateStr.trim().split(' ');
+    return parts[0] || '';
+  }
+  splitMonthHebrew(dateStr: string): string {
+    const parts = dateStr.trim().split(' ');
+    return parts[1] || '';
+  }
+  splitYearHebrew(dateStr: string): string {
+    const parts = dateStr.trim().split(' ');
+    return parts[2] || '';
+  }
+
+
 
 
 
@@ -917,10 +931,8 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
         }
       }
 
-      if (this.day != "" && this.mounth != "" && this.year != "") {
-        this.St_hebrew_date = this.day + " " + this.mounth + " " + this.year
-        console.log(this.St_hebrew_date)
-      }
+      this.St_hebrew_date = this.day + " " + this.mounth + " " + this.year
+
 
       if (this.St_city_code == -1) {
         this.St_city_code = null;
@@ -1023,6 +1035,18 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     if (this.St_birthday.length != 0) {
       this.studentUpdate.St_birthday = this.St_birthday;
     }
+    //תאריך לידה עברי
+    if (this.day == "") {
+      this.day = this.splitDayHebrew(this.studentUpdate.St_hebrew_date)
+    }
+    if (this.mounth == "") {
+      this.mounth = this.splitMonthHebrew(this.studentUpdate.St_hebrew_date)
+    }
+    if (this.year == "") {
+      this.year = this.splitYearHebrew(this.studentUpdate.St_hebrew_date)
+    }
+    this.studentUpdate.St_hebrew_date = this.day + " " + this.mounth + " " + this.year
+
     //כתובת
     if (this.St_address.length != 0) {
       this.studentUpdate.St_address = this.St_address;
@@ -1190,6 +1214,10 @@ export class AddUpdateStudentComponent implements OnInit, OnDestroy {
     this.St_Fname = ""
     this.St_image = ""
     this.St_birthday = ""
+    this.day=""
+    this.mounth=""
+    this.year=""
+    this.St_hebrew_date=""
     //הורים
     this.Pa_code_F = 1
     this.Pa_ID_F = ""

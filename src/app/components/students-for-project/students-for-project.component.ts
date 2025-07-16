@@ -235,6 +235,7 @@ amountSharersAndStudents:number=0
     this.studentNew.St_cell_phone = sharerForProject.Sharer.Sh_cell_phone
     this.studentNew.St_phone = sharerForProject.Sharer.Sh_phone
     this.studentNew.St_nusah_tfila = sharerForProject.Sharer.Sh_nusah_tfila
+    this.studentNew.St_hebrew_date=""
     this.studentNew.St_worker_code = -1;
     this.studentNew.St_code_synagogue = -1
     this.studentNew.St_activity_status = 1

@@ -103,11 +103,13 @@
                     [ngClass]="{'borderInputGreen':St_birthday.length>0 && !validBirthday,'borderInputRed':validBirthday}">
                 <label eror *ngIf="validBirthday">הכנס תאריך תקין</label>
             </div>
-            <div ca>
-                <label>תאריך לידה עברי</label>
+        </div>
+            <label labelHebrew>תאריך לידה עברי</label>
+        <div contectAll>
+            <div caDateHebrew>
                 <label>יום</label>
                 <select *ngIf="status === 'add'" (change)="onHebrewDay($event)"
-                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    [ngClass]="{'borderInputGreen':day.length>0 ,'borderInputRed':false}">
                     <option selected hidden> בחר</option>
                     <option>א</option>
                     <option>ב</option>
@@ -140,9 +142,46 @@
                     <option>כט</option>
                     <option>ל</option>
                 </select>
+                <select *ngIf="status === 'update'" (change)="onHebrewDay($event)"
+                    [ngClass]="{'borderInputGreen':day.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='א'">א</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ב'">ב</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ג'">ג</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ד'">ד</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ה'">ה</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ו'">ו</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ז'">ז</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ח'">ח</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ט'">ט</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='י'">י</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יא'">יא</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יב'">יב</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יג'">יג</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יד'">יד</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='טו'">טו</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='טז'">טז</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יז'">יז</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יח'">יח</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='יט'">יט</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כ'">כ</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כא'">כא</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כב'">כב</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כג'">כג</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כד'">כד</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כה'">כה</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כו'">כו</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כז'">כז</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כח'">כח</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='כט'">כט</option>
+                    <option [selected]="splitDayHebrew(studentUpdate.St_hebrew_date)=='ל'">ל</option>
+
+                </select>
+            </div>
+            <div caDateHebrew>
                 <label>חודש</label>
                 <select *ngIf=" status === 'add'" (change)="onHebrewMounth($event)"
-                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
+                    [ngClass]="{'borderInputGreen':mounth.length>0 ,'borderInputRed':false}">
                     <option selected hidden> בחר</option>
                     <option>תשרי</option>
                     <option>חשוון</option>
@@ -157,21 +196,42 @@
                     <option>אב</option>
                     <option>אלול</option>
                 </select>
+                <select *ngIf=" status === 'update'" (change)="onHebrewMounth($event)"
+                    [ngClass]="{'borderInputGreen':mounth.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='תשרי'">תשרי</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='חשוון'">חשוון</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='כסליו'">כסליו</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='טבת'">טבת</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='שבט'">שבט</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='אדר'">אדר</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='ניסן'">ניסן</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='אייר'">אייר</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='סיון'">סיון</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='תמוז'">תמוז</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='אב'">אב</option>
+                    <option [selected]="splitMonthHebrew(studentUpdate.St_hebrew_date)=='אלול'">אלול</option>
+                </select>
+            </div>
+            <div caDateHebrew>
                 <label>שנה</label>
-                <select *ngIf=" status === 'add'" (change)="onYearChange($event)">
+                <select *ngIf=" status === 'add'" (change)="onYearChange($event)"
+                    [ngClass]="{'borderInputGreen':year.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
                     <option *ngFor="let year of hebrewYears" [value]="year">
                         {{ convertToHebrewYearString(year) }}
-
                     </option>
                 </select>
-                <!--                 <select *ngIf="cb1 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
-                    [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
-                    <option hidden>בחר </option>
-                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה גדולה'">ישיבה גדולה </option>
-                    <option [selected]="StudiesForStudent.SFS_current_school==='ישיבה קטנה'">ישיבה קטנה </option>
-                    <option [selected]="StudiesForStudent.SFS_current_school==='תלמוד תורה'">תלמוד תורה </option>
-                </select> -->
+                <select *ngIf=" status === 'update'" (change)="onYearChange($event)"
+                    [ngClass]="{'borderInputGreen':year.length>0 ,'borderInputRed':false}">
+                    <option selected hidden> בחר</option>
+                    <option *ngFor="let year of hebrewYears" [value]="year"
+                        [selected]="splitYearHebrew(studentUpdate.St_hebrew_date)==convertToHebrewYearString(year)">
+                        {{ convertToHebrewYearString(year) }}
+                    </option>
+                </select>
             </div>
+
         </div>
         <h3 title2>כתובת</h3>
         <div contectAll>
@@ -182,7 +242,8 @@
                 <select *ngIf="status === 'add'" (change)="onCitySelected($event)"
                     [ngClass]="{'borderInputGreen':St_city_code!=-1&&St_city_code!=-2 ,'borderInputRed':false}">
                     <option selected hidden>בחר</option>
-                    <option *ngFor="let c of lisOfCities" [selected]="St_city_code==c.Ci_code" [value]="c.Ci_code">{{
+                    <option *ngFor="let c of lisOfCities" [selected]="St_city_code==c.Ci_code" [value]="c.Ci_code">
+                        {{
                         c.Ci_name }}</option>
                     <option [value]="-2">הוסף עיר </option>
 
@@ -454,9 +515,11 @@
                 <select *ngIf="cb2 && status === 'update'" (change)="onSFS_current_schoolSelected($event)"
                     [ngClass]="{'borderInputGreen':SFS_current_school.length>0 ,'borderInputRed':false}">
                     <option hidden> בחר</option>
-                    <option [selected]="StudiesForStudent.SFS_current_school==='סמינר (יג יד)'">סמינר (יג יד)</option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='סמינר (יג יד)'">סמינר (יג יד)
+                    </option>
                     <option [selected]="StudiesForStudent.SFS_current_school==='תיכון'">תיכון</option>
-                    <option [selected]="StudiesForStudent.SFS_current_school==='בית ספר יסודי'">בית ספר יסודי</option>
+                    <option [selected]="StudiesForStudent.SFS_current_school==='בית ספר יסודי'">בית ספר יסודי
+                    </option>
                 </select>
 
             </div>
@@ -483,7 +546,8 @@
                 <label eror *ngIf="validReceptionClass">טקסט ארוך מהנדרש</label>
             </div>
             <div ca>
-                <label *ngIf="cb1">שיעור/כיתה נוכחי (יש להכניס במבנה לדוג': כיתה ח / שיעור א/ שיעור א י.גדולה)</label>
+                <label *ngIf="cb1">שיעור/כיתה נוכחי (יש להכניס במבנה לדוג': כיתה ח / שיעור א/ שיעור א
+                    י.גדולה)</label>
                 <label *ngIf="cb2">כיתה נוכחית (יש להכניס במבנה לדוג': כיתה יא)</label>
 
                 <input type="text" *ngIf="status === 'add'" (input)="onInputChangeCurrentClass($event)"
@@ -635,7 +699,8 @@
                 <select *ngIf="status === 'add'" (change)="onWorkerSelected($event)"
                     [ngClass]="{'borderInputGreen':St_worker_code!=-1 ,'borderInputRed':false}">
                     <option selected hidden> בחר</option>
-                    <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{ w.Wo_name+" "+w.Wo_Fname }}</option>
+                    <option *ngFor="let w of listOfWorkers" [value]="w.Wo_code">{{ w.Wo_name+" "+w.Wo_Fname }}
+                    </option>
                 </select>
 
                 <select *ngIf="status === 'update'" (change)="onWorkerSelected($event)"

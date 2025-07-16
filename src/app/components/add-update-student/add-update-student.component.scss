@@ -205,10 +205,10 @@ button:disabled:hover {
     background-color: $color-yellow-dark;
 }
 
-[cb4] {
-    /* border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px; */
-}
+/* [cb4] {
+     border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px; 
+} */
 
 .cb4 {
     background-color: $color-orange;
@@ -323,6 +323,18 @@ option {
 
 [ca] {
     display: inline-block;
+    margin-left: 5px;
+}
+
+[caDateHebrew] {
+    display: inline-block;
+    margin-left: 5px;
+    select {
+            width: 183.1px;
+    }
+}
+[labelHebrew] {
+    display: block;
     margin-left: 5px;
 }
 
@@ -480,7 +492,14 @@ input[type="checkbox"] {
         width: 233px;
 
     }
-
+[caDateHebrew] {
+    width: 30%;
+    display: inline-block;
+    margin-left: 5px;
+    select {
+        width: 100%;
+    }
+}
     textarea {
         width: 210px;
         height: 160px;

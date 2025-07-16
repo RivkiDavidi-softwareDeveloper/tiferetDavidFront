@@ -147,7 +147,7 @@
     </div>
     <app-activity-reporting-for-student *ngFor="let s of listSelectedStudents" [studentSelected]="convertToStudent(s)"
         [worker]="worker" [AFS_activity_time]="AFS_activity_time" [AFS_date]="AFS_date" [AFS_exit]="AFS_exit"
-        [AFS_kilometer]="AFS_kilometer" [AFS_target]="AFS_target" [selectedDate]="selectedDate"
+        [AFS_kilometer]="AFS_kilometer" [AFS_target]="AFS_target" [selectedDate]="selectedDate" [ifTimer]="kilomet>0"
         [displayGroup]="displayGroupActivities" [amountGroup]="listSelectedStudents.length"
         (editStudent)="updateStudent($event)"></app-activity-reporting-for-student>
 

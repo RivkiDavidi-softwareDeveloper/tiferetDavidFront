@@ -31,7 +31,8 @@ import { ReportsComponent } from "../reports/reports.component";
 export class ActivityReportingForStudentComponent {
   @Input() studentSelected: Student | undefined = new Student(0, "", 1, "", "", "", "", undefined, undefined, 1, "", "", "", "", 1, 1, 1, "", "", "", 1, "", 1, 1, 1, "", "", "");
   @Input() displayGroup = true;
-  @Input() amountGroup=1
+  @Input() amountGroup = 1
+  @Input() ifTimer = false
   //סטטוס האנימציה
   loading = false;
 
@@ -127,7 +128,7 @@ export class ActivityReportingForStudentComponent {
       this.school = "החזרה לישיבה קודמת"
     }
   }
-      onSchoolNew2(event: Event) {
+  onSchoolNew2(event: Event) {
     var code = Number((event.target as HTMLInputElement).value.toString());
     if (code == 1) {
       this.school = 'סידור בתיכון / סמינר חדש'
@@ -250,7 +251,7 @@ export class ActivityReportingForStudentComponent {
   //מילוי חניך נוסף לנסיעה
   onStudentSelected2(event: Event) {
     const codeStuent = Number((event.target as HTMLInputElement).value);
-    this.selectedStudent2 = new StudentForActivity(1, 1, codeStuent,undefined)
+    this.selectedStudent2 = new StudentForActivity(1, 1, codeStuent, undefined)
   }
   //מילוי שם ישיבה 
   onInputChangeNSchool(event: Event) {
@@ -305,13 +306,15 @@ export class ActivityReportingForStudentComponent {
 
         let listSelectedStudents: Array<StudentForActivity> = []
         if (this.studentSelected) {
-          let studentForActivity = new StudentForActivity(0, 0, this.studentSelected.St_code,undefined)
+          let studentForActivity = new StudentForActivity(0, 0, this.studentSelected.St_code, undefined)
           listSelectedStudents.push(studentForActivity)
         }
-
-        const activityAdd: Activity = new Activity(1, this.worker.Wo_code, this.AFS_date, (this.AFS_activity_time/this.amountGroup),
+        if (this.ifTimer) {
+          this.AFS_kilometer = this.AFS_kilometer / this.amountGroup
+        }
+        const activityAdd: Activity = new Activity(1, this.worker.Wo_code, this.AFS_date, (this.AFS_activity_time / this.amountGroup),
           this.AFS_with_who, this.AFS_short_description, this.AFS_description, this.AFS_price, this.AFS_exit,
-          this.AFS_target, (this.AFS_kilometer/this.amountGroup), this.AFS_name_school, listSelectedStudents, this.listTypesForActivity)
+          this.AFS_target, this.AFS_kilometer, this.AFS_name_school, listSelectedStudents, this.listTypesForActivity)
         await new Promise<void>((resolve, reject) => {
           this.api.addActivity(activityAdd).subscribe((response) => {
             this.snackBar.open('הפעילות נשמרה בהצלחה', 'x', { duration: 3000 });
