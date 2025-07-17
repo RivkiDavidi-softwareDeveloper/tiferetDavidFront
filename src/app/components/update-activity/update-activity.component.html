@@ -224,10 +224,8 @@
                         <div>
                             <label>מוצא:</label>
                             <input type="text" (input)="onInputChangeExit($event)" [value]="updateActivity.AFS_exit">
-
                             <label *ngIf="validAFS_exit" eror>מוגבל ל-100 תוים</label>
                         </div>
-
                         <!--                 <br>
                     <button>הוסף נקודת עצירה</button>
                     <br> -->
@@ -247,7 +245,8 @@
 
                     </div>
                 </div>
-                <div details [ngClass]="{detailsDisplay:ifExist(6)}">
+
+                <div details [ngClass]="{detailsDisplay:ifExist(6) &&!ifExist(5)}">
                     <div titleOfDetails>פרטי פעילות חוץ</div>
                     <div contectAll>
                         <div>
@@ -256,23 +255,92 @@
                                 <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
                                 <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
                                 <option *ngFor="let s of listSubCategoryOut"
-                                    [selected]="s.SFTA_code==codeSubCategoryOut || out==s.SFTA_name" [value]="s.SFTA_name">{{s.SFTA_name}}
+                                    [selected]="s.SFTA_code==codeSubCategoryOut || out==s.SFTA_name"
+                                    [value]="s.SFTA_name">{{s.SFTA_name}}
                                 </option>
-                                <option [value]="-1">אחר</option>
                             </select>
                             <label *ngIf="displaySubCategoryOut">
                                 <input type="text" placeholder="אחר" (input)="onInputChangeSearchOut($event)"
                                     [value]="out">
-
                                 <button buttomAddStudent (click)="addSubCategory(6,out)">הוסף</button>
                             </label>
                         </div>
                         <div>
                             <label>מחיר</label>
                             <input type="number" money (input)="onInputChangePrice($event)"
-                                [value]="updateActivity.AFS_price">
+                                [value]="updateActivity.AFS_price"> <label shach> ₪ </label>
+                        </div>
+                    </div>
+                </div>
+                <div details [ngClass]="{detailsDisplay:ifExist(5)&& !ifExist(6)}">
+                    <div titleOfDetails>פרטי רכישת מוצר</div>
+                    <div contectAll>
+                        <div>
+                            <label>פירוט:</label>
+                            <select (change)="selectSubCategoryGift($event)">
+                                <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
+                                <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
+                                <option *ngFor="let s of listSubCategoryGift"
+                                    [selected]="s.SFTA_code==codeSubCategoryGift || gift==s.SFTA_name"
+                                    [value]="s.SFTA_name">{{s.SFTA_name}}
+                                </option>
+                            </select>
 
-                            <label shach> ₪ </label>
+                            <label *ngIf="displaySubCategoryGift">
+                                <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)"
+                                    [value]="gift">
+                                <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
+                                <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)"
+                                    [value]="gift">
+                                <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
+                            </label>
+                        </div>
+                        <div>
+                            <label>{{" מחיר:"}}</label>
+                            <input type="number" money (input)="onInputChangePrice($event)"
+                                [value]="updateActivity.AFS_price">                            <label shach> ₪ </label>
+                        </div>
+                    </div>
+                </div>
+                <div details [ngClass]="{detailsDisplay:ifExist(6)&&ifExist(5)}">
+                    <div titleOfDetails>פרטי פעילות חוץ ורכישת מוצר</div>
+                    <div contectAll>
+                        <div>
+                            <label>פירוט פעילות חוץ:</label>
+                            <select (change)="selectSubCategoryOut($event)">
+                                <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
+                                <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
+                                <option *ngFor="let s of listSubCategoryOut"
+                                    [selected]="s.SFTA_code==codeSubCategoryOut || out==s.SFTA_name"
+                                    [value]="s.SFTA_name">{{s.SFTA_name}}
+                                </option>
+                            </select>
+                            <label *ngIf="displaySubCategoryOut">
+                                <input type="text" placeholder="אחר" (input)="onInputChangeSearchOut($event)"
+                                    [value]="out">
+                                <button buttomAddStudent (click)="addSubCategory(6,out)">הוסף</button>
+                            </label>
+                        </div>
+                        <div>
+                            <label>פירוט מוצר:</label>
+                            <select (change)="selectSubCategoryGift($event)">
+                                <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
+                                <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
+                                <option *ngFor="let s of listSubCategoryGift"
+                                    [selected]="s.SFTA_code==codeSubCategoryGift || gift==s.SFTA_name"
+                                    [value]="s.SFTA_name">{{s.SFTA_name}}
+                                </option>
+                            </select>
+                            <label *ngIf="displaySubCategoryGift">
+                                <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)"
+                                    [value]="gift">
+                                <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
+                            </label>
+                        </div>
+                        <div>
+                            <label>{{" מחיר:"}}</label>
+                            <input type="number" money (input)="onInputChangePrice($event)"
+                                [value]="updateActivity.AFS_price">                            <label shach> ₪ </label>
                         </div>
                     </div>
                 </div>
@@ -287,12 +355,15 @@
                             <select *ngIf="worker.Wo_gender==1" (change)="onSchoolNew($event)">
                                 <option selected hidden [value]="0">בחר </option>
                                 <option [selected]="school=='סידור בישיבה חדשה'" [value]="1">סידור בישיבה חדשה </option>
-                                <option [selected]="school=='החזרה לישיבה קודמת'" [value]="2">החזרה לישיבה קודמת </option>
+                                <option [selected]="school=='החזרה לישיבה קודמת'" [value]="2">החזרה לישיבה קודמת
+                                </option>
                             </select>
                             <select *ngIf="worker.Wo_gender==2" (change)="onSchoolNew2($event)">
                                 <option selected hidden [value]="0">בחרי </option>
-                                <option [selected]="school=='סידור בתיכון / סמינר חדש'" [value]="1">סידור בתיכון / סמינר חדש </option>
-                                <option [selected]="school=='החזרה לתיכון / סמינר קודם'" [value]="2">החזרה לתיכון / סמינר קודם </option>
+                                <option [selected]="school=='סידור בתיכון / סמינר חדש'" [value]="1">סידור בתיכון / סמינר
+                                    חדש </option>
+                                <option [selected]="school=='החזרה לתיכון / סמינר קודם'" [value]="2">החזרה לתיכון /
+                                    סמינר קודם </option>
                             </select>
                         </div>
                         <div>
@@ -307,38 +378,7 @@
 
                     </div>
                 </div>
-                <div details [ngClass]="{detailsDisplay:ifExist(5)}">
-                    <div titleOfDetails>פרטי רכישת מוצר</div>
-                    <div contectAll>
-                        <div>
 
-                            <label>פירוט:</label>
-
-                            <select (change)="selectSubCategoryGift($event)">
-                                <option *ngIf=" worker.Wo_gender==1" selected hidden [value]="0">בחר </option>
-                                <option *ngIf=" worker.Wo_gender==2" selected hidden [value]="0">בחרי </option>
-                                <option *ngFor="let s of listSubCategoryGift"
-                                    [selected]="s.SFTA_code==codeSubCategoryGift || gift==s.SFTA_name" [value]="s.SFTA_name">{{s.SFTA_name}}
-                                </option>
-                                <option [value]="-1">אחר</option>
-                            </select>
-
-                            <label *ngIf="displaySubCategoryGift">
-                                <input type="text" placeholder="אחר" (input)="onInputChangeSearchGift($event)"
-                                    [value]="gift">
-                                <button buttomAddStudent (click)="addSubCategory(5,gift)">הוסף</button>
-                            </label>
-                        </div>
-                        <div>
-                            <label>{{" מחיר:"}}</label>
-                            <input type="number" money (input)="onInputChangePrice($event)"
-                                [value]="updateActivity.AFS_price">
-
-                            <label shach> ₪ </label>
-                        </div>
-                    </div>
-
-                </div>
 
 
 
@@ -368,7 +408,7 @@
         </div>
     </div> -->
             <br>
-            
+
             <br>
             <button buttonTurqis buttonAddActivity [disabled]="!ifNotEmpty() || !validation()"
                 (click)="updateActivityy()">עדכן
@@ -376,10 +416,12 @@
 
             <br>
             <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-            <button buttonOrange [disabled]="true" *ngIf="updateActivity.StudentForActivities.length>0  && worker.Wo_gender==1">שיתוף
+            <button buttonOrange [disabled]="true"
+                *ngIf="updateActivity.StudentForActivities.length>0  && worker.Wo_gender==1">שיתוף
                 פעיל
                 נוסף</button>
-            <button buttonOrange [disabled]="true" *ngIf="updateActivity.StudentForActivities.length>0  && worker.Wo_gender==2">שיתוף
+            <button buttonOrange [disabled]="true"
+                *ngIf="updateActivity.StudentForActivities.length>0  && worker.Wo_gender==2">שיתוף
                 פעילה
                 נוספת</button>
 

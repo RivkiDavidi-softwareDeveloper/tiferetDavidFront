@@ -18,7 +18,6 @@ import { TypeOfActivity } from '../../models/TypeOfActivity.enum';
 import { FileUploadComponent } from "../file-upload/file-upload.component";
 import { AddActivityRequest } from '../../models/AddActivityRequest.class';
 import { LoadingSpinnerComponent } from "../loading-spinner/loading-spinner.component";
-import { TaskComponent } from "../task/task.component";
 import { response } from 'express';
 import { ReportsComponent } from "../reports/reports.component";
 import { ActivityReportingForStudentComponent } from "../activity-reporting-for-student/activity-reporting-for-student.component";
@@ -29,7 +28,7 @@ import { ActivityReportingForStudentComponent } from "../activity-reporting-for-
     templateUrl: './activity-reporting.component.html',
     styleUrls: ['./activity-reporting.component.scss'],
 
-    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, TaskComponent, ReportsComponent, ActivityReportingForStudentComponent]
+    imports: [CommonModule, StudentComponent, NgSelectModule, PastFrequencyComponent, FileUploadComponent, LoadingSpinnerComponent, ReportsComponent, ActivityReportingForStudentComponent]
 })
 
 export class ActivityReportingComponent implements OnInit, OnDestroy {
@@ -194,49 +193,6 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
 
     }
 
-    /*     //רשימת הפעילויות
-        generalActivities() {
-            if (!this.displayGroupActivities) {
-                this.api.FindActivities("", "", 1, this.worker.Wo_gender, this.worker.Wo_code, this.listSelectedStudents[0].SFA_code_student, 0, new Date().getFullYear(), 0).subscribe(Date => {
-                    this.listOfAcitivities = [];
-                    this.listOfAcitivities.push(...Date);
-                    this.cdRef.detectChanges();
-                });
-            }
-    
-        }      // רשימת קטגוריות לפעילות
-        generalCategories() {
-            this.api.getCategories().subscribe(Date => {
-                this.listOfCategoriesForActivity = [];
-                this.listOfCategoriesForActivity.push(...Date);
-                this.cdRef.detectChanges();
-            });
-        } 
-        //שמות הקטגוריות
-        namesCategories(codeActivity: number) {
-            var listOfCategories2: Array<CategoriesForActivity> = []
-    
-            this.listOfCategoriesForActivity.forEach(c => {
-                if (c.CFA_code_activity == codeActivity) {
-                    listOfCategories2.push(c);
-                }
-            })
-            return listOfCategories2;
-        }
-        //שם קטגוריה
-        nameCategory(codeCategory: number) {
-            if (codeCategory == 0) {
-                return "---"
-            }
-            var name = "";
-            for (var i = 1; i <= 8; i++) {
-                if (codeCategory == i) {
-                    name = TypeOfActivity[i];
-                }
-            }
-            return name;
-        }
-            */
     //רשימת חניכים
     async generalStudents(ifFrequency: number): Promise<void> {
         await new Promise<void>((resolve, reject) => {
@@ -638,49 +594,3 @@ export class ActivityReportingComponent implements OnInit, OnDestroy {
         this.editStudent.emit(student);
     }
 }
-/*
-        //עם חיפוש
-
-    //רשימת תת קטגטרית רכישת מוצר
-    generalSubCategoryGift() {
-        this.api.getSubCategoryForCategory(5, "xxx").subscribe(Date => {
-            this.listSubCategoryGift = []
-            this.listSubCategoryGift.push(...Date);
-            this.cdRef.detectChanges();
-        });
-    }
-    onInputChangeSearchGift(event: Event) {
-        var str: string = (event.target as HTMLInputElement).value
-        if (str === "") {
-            this.api.getSubCategoryForCategory(5, "xxx").subscribe(Date => {
-                this.listSubCategoryGift = []
-                this.listSubCategoryGift.push(...Date);
-                this.cdRef.detectChanges();
-                if (this.listSubCategoryGift.length > 0) {
-                    this.displaySubCategoryGift = true
-                }
-                else
-                    this.displaySubCategoryGift = false
-            })
-        }
-        else {
-            this.searchGift = str;
-            this.api.getSubCategoryForCategory(5, this.searchGift).subscribe(Date => {
-                this.listSubCategoryGift = []
-                this.listSubCategoryGift.push(...Date);
-                this.cdRef.detectChanges();
-                if (this.listSubCategoryGift.length > 0) {
-                    this.displaySubCategoryGift = true
-                }
-                else
-                    this.displaySubCategoryGift = false
-            })
-        }
-
-
-    }
-    selectSubCategoryGift(nameSubCategoryGift: string) {
-        this.AFS_short_description = nameSubCategoryGift;
-        this.searchGift=nameSubCategoryGift;
-        this.displaySubCategoryGift=false;
-    }*/
