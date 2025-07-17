@@ -473,9 +473,12 @@ export class ReportsComponent implements OnInit, OnDestroy {
 
   generateYears(): number[] {
     const currentYear = new Date().getFullYear();
-    const startYear = 2024;
-    const endYear = currentYear;
-    return Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+    /*     const startYear = 2024;
+        const endYear = currentYear; */
+    const startYear = currentYear;
+    const endYear = 2020;
+    return Array.from({ length:startYear- endYear + 1 }, (_, i) => startYear - i);
+
   }
 
 
@@ -548,9 +551,9 @@ export class ReportsComponent implements OnInit, OnDestroy {
     this.displayYesterday = false
     this.displayBeforeYesterday = false
     this.displayGroupActivities = false
-    this.gift=""
-    this.out=""
-    this.school=""
+    this.gift = ""
+    this.out = ""
+    this.school = ""
     this.generalActivities();
     this.generalCategories();
     /*     this.time.setHours(0);

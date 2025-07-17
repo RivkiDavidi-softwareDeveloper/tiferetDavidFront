@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class GeocodingService {
+
+  
   private apiKey = 'AIzaSyBRgtU-NLaO8pb3AlUnJlLrUwO7qhifAbc'; // הכנס את ה-API Key שלך כאן
   private apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
 
