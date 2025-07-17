@@ -202,7 +202,7 @@ export class HomeComponent implements OnInit {
           }else if (error.status === 404) {
             this.snackBar.open('השרת אינו פעיל', 'סגור', { duration: 3000 });
           } else {
-            this.snackBar.open('אירעה שגיאה לא צפויה', 'סגור', { duration: 3000 });
+            this.snackBar.open('אירעה שגיאה', 'סגור', { duration: 3000 });
           }
         })
     }
