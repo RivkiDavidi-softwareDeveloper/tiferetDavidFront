@@ -135,6 +135,8 @@
     <div *ngIf="hours2(amounts[1])==='0' && minutes2(amounts[1]) !=='0' " amount time>{{minutes2(amounts[1])}} דקות
     </div>
     <div *ngIf="hours2(amounts[1])!=='0' && minutes2(amounts[1]) ==='0' " amount time>{{hours2(amounts[1])}} שעות</div>
+        <div *ngIf="hours2(amounts[1])==='0' && minutes2(amounts[1]) ==='0' " amount time> 0 </div>
+
     <div amount money>{{addCommasToNumber(amounts[2])}} ש"ח </div>
     <div amount amountLeft kilometer>{{addCommasToNumber(amounts[3])}} ק"מ </div>
 </div>
@@ -212,6 +214,8 @@
                 {{minutes2(i.AFS_activity_time) }} דקות</td>
             <td *ngIf="hours2(i.AFS_activity_time)!=='0' && minutes2(i.AFS_activity_time) ==='0' ">
                 {{hours2(i.AFS_activity_time)}} שעות </td>
+                      <td *ngIf="hours2(i.AFS_activity_time)==='0' && minutes2(i.AFS_activity_time) ==='0' ">
+                </td>
 
             <!--             hours(i.AFS_activity_time)}}:{{minutes(i.AFS_activity_time)
  -->

@@ -19,10 +19,10 @@
             (click)="students=true;task=false;projects=false;pz=false;active=false;deshbord=false;reports=false">חניכות</button>
         <button [ngClass]="{'button1':true,'button2':task}"
             (click)="students=false;task=true;projects=false;pz=false;active=false;deshbord=false;reports=false">משימות
-            <label>{{amountTasksND}}</label></button>
+            <label *ngIf="amountTasksND>0">{{amountTasksND}}</label></button>
         <button [ngClass]="{'button1':true,'button2':pz}"
             (click)="students=false;task=false;projects=false;pz=true;active=false;deshbord=false">מייל פנימי
-            <label>{{amountMessagesND}}</label></button>
+            <label *ngIf="amountMessagesND>0">{{amountMessagesND}}</label></button>
         <!--      <button [ngClass]="{'button1':true,'button2':projects}"
             (click)="students=false;task=false;projects=true;pz=false;active=false;deshbord=false;reports=false">שיוך
             לפרויקטים</button> -->
